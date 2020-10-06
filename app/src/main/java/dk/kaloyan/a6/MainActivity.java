@@ -49,7 +49,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listView.setAdapter(new MyEventsAdapter(this, events));
         */
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter( new ArrayList<Integer>(){{add(R.drawable.ic_launcher_background); add(R.drawable.ic_launcher_foreground);}} );
+        ViewPagerAdapter adapter = new ViewPagerAdapter(
+                new ArrayList<Integer>(){{add(R.drawable.ic_launcher_background); add(R.drawable.ic_launcher_foreground);}},
+                this);
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
 

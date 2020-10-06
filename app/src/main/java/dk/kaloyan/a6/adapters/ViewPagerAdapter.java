@@ -1,9 +1,11 @@
 package dk.kaloyan.a6.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,11 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.kaloyan.a6.R;
+import dk.kaloyan.a6.models.MyEventViewModel;
 
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>{
     List<Integer> tab1AndTab2 = new ArrayList<>();
-    public ViewPagerAdapter(List<Integer> tab1AndTab2){
+    private Context context;
+
+    public ViewPagerAdapter(List<Integer> tab1AndTab2, Context context){
         this.tab1AndTab2 = tab1AndTab2;
+        this.context = context;
     }
 
     @NonNull
@@ -28,8 +34,22 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewPagerViewHolder holder, int position) {
-        ImageView imageView = holder.itemView.findViewById(R.id.ivImage);
-        imageView.setImageResource(this.tab1AndTab2.get(position));
+
+        ListView listView = holder.itemView.findViewById(R.id.my_event_list);
+        List<MyEventViewModel> events = new ArrayList<>();
+        for(int i=0;i<30;i++) {
+            events.add(MyEventViewModel.Builder.newInstance()
+                    .withImageDrawableId(R.drawable.ic_launcher_background)
+                    .withTitle("Title " + i)
+                    .withDescription("Description " + i)
+                    .build());
+        }
+        listView.setAdapter(new MyEventsAdapter(context, events));
+
+
+
+        //ImageView imageView = holder.itemView.findViewById(R.id.ivImage);
+        //imageView.setImageResource(this.tab1AndTab2.get(position));
     }
 
     @Override
