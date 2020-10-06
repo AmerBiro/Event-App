@@ -1,5 +1,6 @@
 package dk.kaloyan.a6;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
@@ -10,6 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TableLayout;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +52,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ViewPagerAdapter adapter = new ViewPagerAdapter( new ArrayList<Integer>(){{add(R.drawable.ic_launcher_background); add(R.drawable.ic_launcher_foreground);}} );
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager, true, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText("Tab " + position);
+            }
+        });
+        mediator.attach();
     }
 
     @Override
