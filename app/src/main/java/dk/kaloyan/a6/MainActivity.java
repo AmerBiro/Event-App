@@ -27,22 +27,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*
-        listView = findViewById(R.id.my_event_list);
-        listView.setOnItemClickListener(this);
-
-        List<MyEventViewModel> events = new ArrayList<>();
-        for(int i=0;i<30;i++) {
-            events.add(MyEventViewModel.Builder.newInstance()
-                    .withImageDrawableId(R.drawable.ic_launcher_background)
-                    .withTitle("Title " + i)
-                    .withDescription("Description " + i)
-                    .build());
-        }
-
-        //listView.setAdapter(new ArrayAdapter(this, R.layout.myevents_list_element, R.id.event_title, titleEvents));
-        listView.setAdapter(new MyEventsAdapter(this, events));
-        */
 
         ViewPagerAdapter adapter = new ViewPagerAdapter( generateTabVMs(),this);
         ViewPager2 viewPager = findViewById(R.id.viewPager);
@@ -52,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager, true, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText("TAB " + position);
+                tab.setIcon(position == 0 ? R.drawable.ic_baseline_chat_24 : R.drawable.ic_baseline_favorite_24);
+                //tab.setText("TAB " + position);
             }
         });
         mediator.attach();
