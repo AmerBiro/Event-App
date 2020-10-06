@@ -2,6 +2,7 @@ package dk.kaloyan.a6;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.kaloyan.a6.adapters.MyEventsAdapter;
+import dk.kaloyan.a6.adapters.ViewPagerAdapter;
 import dk.kaloyan.a6.models.MyEventViewModel;
 
 import static androidx.fragment.app.FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         listView = findViewById(R.id.my_event_list);
         listView.setOnItemClickListener(this);
 
@@ -41,7 +43,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //listView.setAdapter(new ArrayAdapter(this, R.layout.myevents_list_element, R.id.event_title, titleEvents));
         listView.setAdapter(new MyEventsAdapter(this, events));
+        */
 
+        ViewPagerAdapter adapter = new ViewPagerAdapter( new ArrayList<Integer>(){{add(R.drawable.ic_launcher_background); add(R.drawable.ic_launcher_foreground);}} );
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(adapter);
     }
 
     @Override

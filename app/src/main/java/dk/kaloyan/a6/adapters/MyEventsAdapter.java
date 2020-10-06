@@ -18,7 +18,7 @@ import java.util.List;
 
 import dk.kaloyan.a6.R;
 import dk.kaloyan.a6.models.MyEventViewModel;
-
+//https://medium.com/mindorks/custom-array-adapters-made-easy-b6c4930560dd
 public class MyEventsAdapter extends ArrayAdapter<MyEventViewModel> {
     private Context context;
     private List<MyEventViewModel> eventVMs = new ArrayList<>();
