@@ -14,10 +14,11 @@ public class CreateEventInputPortImpl implements CreateEventInputPort {
     }
 
     @Override
-    public void createEvent(String title) {
+    public void createEvent(String title, String description) {
         Event event = new Event();
         event.setTitle(title);
         event.setId(UUID.randomUUID().toString());
+        event.setDescription(description);
         useCase.createEvent(event);
     }
 }

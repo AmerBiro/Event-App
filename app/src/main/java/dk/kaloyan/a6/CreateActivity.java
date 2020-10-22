@@ -21,7 +21,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     private EditText editTextTitle;
     private CreateEventViewModel vm;
     private CreateEventUseCase useCase;
-
+    private EditText editTextDescription;
 
 
     @Override
@@ -32,6 +32,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         vm.title = editTextTitle.getText().toString();
+        vm.description = editTextDescription.getText().toString();
 
         useCase = new CreateEventUseCase();
         EventGateway gateway = new EventGatewayInMemory();
@@ -40,13 +41,10 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         useCase.setEventGateway(gateway);
         useCase.setOutputPort(this);
 
-
         CreateEventInputPort inputPort = new CreateEventInputPortImpl(useCase);
 
 
-        inputPort.createEvent(vm.title);
-
-
+        inputPort.createEvent(vm.title, vm.description);
 
     }
 
@@ -67,6 +65,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     private void initialize() {
         buttonCreateEvent = findViewById(R.id.buttonCreateEvent);
         editTextTitle = findViewById(R.id.editTextTitle);
+        editTextDescription = findViewById(R.id.editTextDescription);
     }
 
 
