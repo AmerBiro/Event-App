@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -19,14 +21,24 @@ import dk.kaloyan.a6.adapters.ViewPagerAdapter;
 import dk.kaloyan.a6.models.MyEventViewModel;
 import dk.kaloyan.a6.models.TabViewModel;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private ListView listView;
+    private Button buttonCreateEvent;
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(MainActivity.this, CreateActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        buttonCreateEvent = findViewById(R.id.buttonCreateEvent);
+        buttonCreateEvent.setOnClickListener(this);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter( generateTabVMs(),this);
         ViewPager2 viewPager = findViewById(R.id.viewPager);
@@ -66,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
     }
-
 
 
 }
