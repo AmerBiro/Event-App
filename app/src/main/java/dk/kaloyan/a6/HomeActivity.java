@@ -21,21 +21,21 @@ import dk.kaloyan.a6.adapters.ViewPagerAdapter;
 import dk.kaloyan.a6.models.MyEventViewModel;
 import dk.kaloyan.a6.models.TabViewModel;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private ListView listView;
     private Button buttonCreateEvent;
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(MainActivity.this, CreateActivity.class);
+        Intent intent = new Intent(HomeActivity.this, CreateActivity.class);
         startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
         buttonCreateEvent = findViewById(R.id.buttonCreateEvent);
         buttonCreateEvent.setOnClickListener(this);
