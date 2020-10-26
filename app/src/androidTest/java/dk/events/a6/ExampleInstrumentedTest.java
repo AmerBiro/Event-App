@@ -1,4 +1,4 @@
-package dk.kaloyan.a6;
+package dk.events.a6;
 
 import android.content.Context;
 
