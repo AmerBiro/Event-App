@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
         <activity android:name=".CreateActivity"></activity>
+        <activity android:name=".Event_Content"></activity>
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".MyFilter"></activity>
+        <activity android:name=".MyAccount"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

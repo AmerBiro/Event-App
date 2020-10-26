@@ -1,4 +1,4 @@
-package com.example.eventsapp;
+package dk.kaloyan.a6;
 
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +32,7 @@ public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.Events
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EventsViewHolder holder, final int position) {
         MyEvents myEvents = myEventsList.get(position);
         holder.event_background.setImageResource(myEvents.getEvent_background());
         holder.event_avatar.setImageResource(myEvents.getEvent_avatar());

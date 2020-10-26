@@ -1,4 +1,4 @@
-package com.example.eventsapp;
+package dk.kaloyan.a6;
 
 import androidx.appcompat.app.AppCompatActivity;
 
