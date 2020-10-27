@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,13 +12,19 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:tabBackground="@color/colorPrimaryDark" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_width="412dp"
+        android:layout_height="635dp"
+        android:layout_below="@+id/tabLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
     </androidx.viewpager2.widget.ViewPager2>
 
@@ -26,9 +32,14 @@
         android:id="@+id/buttonCreateEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create Event">
+        android:layout_marginBottom="16dp"
+        android:text="Create Event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager"
+        app:layout_constraintVertical_bias="0.45" />
 
-    </Button>
     <!--    <ListView
             android:id="@+id/my_event_list"
             android:layout_width="wrap_content"
@@ -63,4 +74,4 @@
 
     </androidx.viewpager.widget.ViewPager>-->
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
