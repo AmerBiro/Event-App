@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.models;
 
 public class MyEvents {
 

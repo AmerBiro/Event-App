@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import dk.events.a6.models.MyEvents;
+
 public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.EventsViewHolder> {
 
     Context context;

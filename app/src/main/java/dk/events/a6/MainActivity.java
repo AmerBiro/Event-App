@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
 
 public class MainActivity extends AppCompatActivity {

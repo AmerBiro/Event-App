@@ -1,4 +1,4 @@
-package dk.events.a6.adapters;
+package dk.events.a6.controller;
 
 import android.content.Context;
 import android.view.LayoutInflater;

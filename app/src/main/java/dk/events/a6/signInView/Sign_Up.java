@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.signInView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+
+import dk.events.a6.R;
 
 public class Sign_Up extends AppCompatActivity {
 

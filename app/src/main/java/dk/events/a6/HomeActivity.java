@@ -17,7 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.events.a6.adapters.ViewPagerAdapter;
+import dk.events.a6.controller.ViewPagerAdapter;
 import dk.events.a6.models.MyEventViewModel;
 import dk.events.a6.models.TabViewModel;
 
