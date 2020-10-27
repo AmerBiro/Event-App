@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#1E1E3C"
+    android:background="#9A9AD1"
+    android:id="@+id/relativelayout"
     tools:context=".HomeActivity">
 
     <com.google.android.material.tabs.TabLayout
@@ -15,30 +16,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabBackground="@color/colorPrimaryDark" />
+        android:background="#496DA1" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        android:layout_width="412dp"
-        android:layout_height="635dp"
-        android:layout_below="@+id/tabLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/tabLayout">
 
     </androidx.viewpager2.widget.ViewPager2>
 
     <Button
         android:id="@+id/buttonCreateEvent"
         android:layout_width="match_parent"
+        android:background="#B8ACAC"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Create Event"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager"
-        app:layout_constraintVertical_bias="0.45" />
+        android:layout_alignParentBottom="true"
+        android:text="Create Event" />
 
     <!--    <ListView
             android:id="@+id/my_event_list"
@@ -74,4 +69,4 @@
 
     </androidx.viewpager.widget.ViewPager>-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

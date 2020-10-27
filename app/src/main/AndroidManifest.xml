@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".profileView.ViewProfileActivity"></activity>
+        <activity android:name=".profileView.ViewProfileActivity" />
         <activity android:name=".signInView.Sign_Up" />
         <activity android:name=".signInView.Registeration">
             <intent-filter>
