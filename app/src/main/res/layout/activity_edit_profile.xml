@@ -66,6 +66,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/edit_text"
         style="@style/sign_up"
+        android:padding="5dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:ems="10"

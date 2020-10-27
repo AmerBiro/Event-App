@@ -1,12 +1,17 @@
 package dk.events.a6;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.Toast;
 
 public class Event_Content extends AppCompatActivity {
@@ -14,11 +19,21 @@ public class Event_Content extends AppCompatActivity {
     private ImageView event_background_ImageView;
     private int event_background_int;
     private ImageButton id_button_share;
+    ImageView event_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event__content);
+        event_content = findViewById(R.id.id_event_background_content);
+
+        event_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Event_Content.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         event_background_ImageView = findViewById(R.id.id_event_background_content);
         getData();
