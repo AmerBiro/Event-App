@@ -111,7 +111,7 @@
         android:backgroundTint="#ffffff"
         android:ems="14"
         android:hint="Email address:"
-        android:inputType="textEmailAddress"
+        android:inputType="textWebEmailAddress"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="12sp"
