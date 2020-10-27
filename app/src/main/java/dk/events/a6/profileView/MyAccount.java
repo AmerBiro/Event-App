@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.profileView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import dk.events.a6.MainActivity;
+import dk.events.a6.R;
 
 public class MyAccount extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,9 +53,13 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.rediger:
                 Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();
+                intent=new Intent(MyAccount.this,EditProfileActivity.class);
+                startActivity(intent);
                 break;
             case R.id.indstillinger:
                 Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
+                intent=new Intent(MyAccount.this,ProfileSettingsActivity.class);
+                startActivity(intent);
                 break;
         }
     }

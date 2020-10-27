@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.events.a6.profileView.MyAccount;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 viewpager2_events_view;
