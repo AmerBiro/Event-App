@@ -50,6 +50,8 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
         switch (view.getId()){
             case R.id.vis_profile_layout:
                 Toast.makeText(getApplicationContext(),"View profile",Toast.LENGTH_SHORT).show();
+                intent=new Intent(MyAccount.this,ViewProfileActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rediger:
                 Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();

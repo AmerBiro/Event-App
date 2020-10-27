@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,14 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import dk.events.a6.Event_Content;
+import dk.events.a6.R;
 import dk.events.a6.models.MyEvents;
 
-public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.EventsViewHolder> {
+public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder> {
 
     Context context;
     List<MyEvents> myEventsList;
 
-    public MyEventsAdapter(Context context, List<MyEvents> myEvents) {
+    public EventsAdapter(Context context, List<MyEvents> myEvents) {
         this.context = context;
         this.myEventsList = myEvents;
     }

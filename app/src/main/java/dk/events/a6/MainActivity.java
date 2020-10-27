@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.events.a6.controller.EventsAdapter;
 import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 viewpager2_events_view;
     private List<MyEvents> myEventsList;
-    private MyEventsAdapter myEventsAdapter;
+    private EventsAdapter eventsAdapter;
 
     private ImageButton button_account, button_chat, button_filter, id_button_share;
 
@@ -83,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
         myEventsList.add(new MyEvents(R.drawable.event_background_04, R.drawable.event_avatar_04, "christmas night", "Anonce, indenfor 14 km"));
         myEventsList.add(new MyEvents(R.drawable.event_background_05, R.drawable.event_avatar_05, "valentine day", "Anonce, indenfor 6 km"));
 
-        myEventsAdapter = new MyEventsAdapter(this, myEventsList);
-        viewpager2_events_view.setAdapter(myEventsAdapter);
+        eventsAdapter = new EventsAdapter(this, myEventsList);
+        viewpager2_events_view.setAdapter(eventsAdapter);
 
 
     }
