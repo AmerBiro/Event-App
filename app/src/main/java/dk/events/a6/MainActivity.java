@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private MyEventsAdapter myEventsAdapter;
 
     private ImageButton button_account, button_chat, button_filter, id_button_share;
-
 
 
     @Override
@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
 
         myEventsList = new  ArrayList<>();
