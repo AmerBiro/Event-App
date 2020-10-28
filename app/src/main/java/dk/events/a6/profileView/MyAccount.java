@@ -14,7 +14,7 @@ import dk.events.a6.R;
 
 public class MyAccount extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton back_arrow_account;
+
     LinearLayout vis_profil,rediger,indstillinger;
 
 
@@ -31,15 +31,6 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
         rediger.setOnClickListener(this);
         indstillinger.setOnClickListener(this);
 
-        back_arrow_account = findViewById(R.id.back_arrow_account);
-        back_arrow_account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyAccount.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
 
