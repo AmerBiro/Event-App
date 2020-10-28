@@ -5,13 +5,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.events.a6.MainActivity;
 import dk.events.a6.R;
 import dk.events.a6.models.MyEvents;
 
@@ -21,6 +25,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     private ProfilePhotoAdapter profilePhotoAdapter;
     private ViewPager2 viewPager2_profile_view;
     private TextView number_of_image_text;
+    ImageButton back_arrow_account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,15 @@ public class ViewProfileActivity extends AppCompatActivity {
         profileImageList.add(new ProfileImage(R.drawable.profile3));
         profileImageList.add(new ProfileImage(R.drawable.profile4));
 
+        back_arrow_account = findViewById(R.id.back_arrow_account);
+        back_arrow_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Intent intent = new Intent(ViewProfileActivity.this, MyAccount.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
 
