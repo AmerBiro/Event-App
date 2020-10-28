@@ -13,7 +13,7 @@ import dk.events.a6.R;
 public class MyAccount extends AppCompatActivity implements View.OnClickListener {
 
 
-    LinearLayout vis_profil,rediger,indstillinger;
+    LinearLayout view_profile_layout,edit_profile_layout,settings_layout;
 
 
     @Override
@@ -21,13 +21,13 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_account);
 
-        vis_profil=findViewById(R.id.vis_profile_layout);
-        rediger=findViewById(R.id.rediger);
-        indstillinger=findViewById(R.id.indstillinger);
+        view_profile_layout=findViewById(R.id.view_profile_layout);
+        edit_profile_layout=findViewById(R.id.edit_profile_layout);
+        settings_layout=findViewById(R.id.settings_layout);
 
-        vis_profil.setOnClickListener(this);
-        rediger.setOnClickListener(this);
-        indstillinger.setOnClickListener(this);
+        view_profile_layout.setOnClickListener(this);
+        edit_profile_layout.setOnClickListener(this);
+        settings_layout.setOnClickListener(this);
 
     }
 
@@ -37,17 +37,17 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
         Intent intent;
 
         switch (view.getId()){
-            case R.id.vis_profile_layout:
+            case R.id.view_profile_layout:
                 Toast.makeText(getApplicationContext(),"View profile",Toast.LENGTH_SHORT).show();
                 intent=new Intent(MyAccount.this,ViewProfileActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.rediger:
+            case R.id.edit_profile_layout:
                 Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();
                 intent=new Intent(MyAccount.this,EditProfileActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.indstillinger:
+            case R.id.settings_layout:
                 Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
                 intent=new Intent(MyAccount.this,ProfileSettingsActivity.class);
                 startActivity(intent);

@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Rediger profil"
+        android:text="Edit Profile"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="4dp"
                         android:layout_weight="1"
-                        android:text="Beskeder"
+                        android:text="Message"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -116,7 +116,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="4dp"
                         android:layout_weight="1"
-                        android:text="Anmodninger om deltagelse"
+                        android:text="Requests to participate"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -164,7 +164,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="4dp"
                         android:layout_weight="1"
-                        android:text="Hjælp og support"
+                        android:text="Help and support"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -205,7 +205,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="4dp"
                         android:layout_weight="1"
-                        android:text="Kontakt"
+                        android:text="Contact"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -228,7 +228,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="60dp"
-                android:text="NOTIFIKATIONER" />
+                android:text="NOTIFICATIONS" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -253,7 +253,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="4dp"
                         android:layout_weight="1"
-                        android:text="Privatlivspolitik"
+                        android:text="Privacy Policy"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -295,7 +295,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="4dp"
                         android:layout_weight="1"
-                        android:text="Vilkår"
+                        android:text="Terms"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -317,7 +317,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Log ud" />
+                android:text="Log out" />
 
             <Button
                 android:id="@+id/button2"
