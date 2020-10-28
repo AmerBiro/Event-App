@@ -86,17 +86,36 @@
         app:layout_constraintVertical_bias="0.523" />
 
     <EditText
-        android:id="@+id/id_edit_text_sign_up_age"
+        style="@style/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="14"
+        android:hint=""
+        android:enabled="false"
+        android:inputType="none"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.416" />
+
+    <TextView
+        android:id="@+id/id_date_picker"
         style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#ffffff"
         android:ems="14"
         android:hint="Age:"
-        android:inputType="number"
+        android:inputType="date"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="12sp"
+        android:paddingLeft="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
