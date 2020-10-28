@@ -1,6 +1,7 @@
 package dk.events.a6.usecases;
 
-public interface CreateEventInputPort {
+import dk.events.a6.CreateEventViewModel;
 
-    void createEvent(String title, String description);
+public interface CreateEventInputPort {
+    void createEvent(CreateEventViewModel vm);
 }

@@ -35,6 +35,8 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         vm.title = editTextTitle.getText().toString();
         vm.description = editTextDescription.getText().toString();
+        vm.ownerFirstName = "Jon";
+        vm.ownerLastName = "Travolta";
 
         useCase = new CreateEventUseCase();
         EventGateway gateway = new EventGatewayInMemory();
@@ -46,7 +48,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         CreateEventInputPort inputPort = new CreateEventInputPortImpl(useCase);
 
 
-        inputPort.createEvent(vm.title, vm.description);
+        inputPort.createEvent(vm);
 
     }
 

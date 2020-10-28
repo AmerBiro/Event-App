@@ -18,19 +18,21 @@ public class CreateEventUseCaseTest {
         EventGateway eventGateway = new FakeEventGateway();
         CreateEventUseCase useCase = new CreateEventUseCase();
         useCase.setEventGateway(eventGateway);
-        Event event = new Event();
+        useCase.setOutputPort(new FakeOutputPort());
+
         String id = UUID.randomUUID().toString();
-        event.setId(id);
         String title = "Is med Mia";
-        event.setTitle(title);
+        Event event = Event.newBuilder()
+                .withId(id)
+                .withTitle(title)
+                .build();
 
         //act
         useCase.createEvent(event);
 
         //assert
         Event returnedEvent = useCase.getEvent(id);
-        assertEquals(id, returnedEvent.getId());
-        assertEquals(title, returnedEvent.getTitle());
+        assertEquals(event.toString(), returnedEvent.toString());
     }
 
     static class FakeEventGateway implements EventGateway{
@@ -46,4 +48,11 @@ public class CreateEventUseCaseTest {
         }
     }
 
+    static class FakeOutputPort implements CreateEventOutputPort{
+        public String sendMsg = "not set";
+        @Override
+        public void show(String msg) {
+            sendMsg = msg;
+        }
+    }
 }

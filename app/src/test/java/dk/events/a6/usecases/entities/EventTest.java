@@ -11,9 +11,14 @@ public class EventTest {
     @Test
     public void given_return(){
         //setup
-        Event event = new Event();
         String title = "Is med Mia";
         String id = UUID.randomUUID().toString();
+
+        Event event = Event.newBuilder()
+                .withId(id)
+                .withTitle(title)
+                .withOwner(User.newBuilder().withId(UUID.randomUUID().toString()).withFirstName("Bob").withLastName("Marley").build())
+                .build();
 
         //act
         event.setId(id);

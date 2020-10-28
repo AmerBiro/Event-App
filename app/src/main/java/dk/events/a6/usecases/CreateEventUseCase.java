@@ -14,7 +14,10 @@ public class CreateEventUseCase{
 
     public void createEvent(Event event) {
         eventGateway.createEvent(event);
-        outputPort.show(String.format("Event with Id: %s and Title: %s was created!", event.getId(), event.getTitle()));
+        outputPort.show(
+                String.format(
+                        "Event with Id: %s, Title: %s, Owner: %s was created!",
+                        event.getId(), event.getTitle(), event.getOwner().toString()));
     }
 
     public EventGateway getEventGateway() {
