@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

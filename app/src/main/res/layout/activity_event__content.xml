@@ -22,6 +22,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="760dp">
+
                 <ImageView
                     android:id="@+id/id_event_background_content"
                     android:layout_width="fill_parent"

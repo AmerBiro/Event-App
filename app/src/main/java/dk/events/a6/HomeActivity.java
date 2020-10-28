@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         List<TabViewModel> tabVMs = new ArrayList<>();
         for(int k=0;k<2;k++) {
             List<MyEventViewModel> events = new ArrayList<>();
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 30; i++) {
                 events.add(MyEventViewModel.Builder.newInstance()
                         .withImageDrawableId(R.drawable.ic_launcher_background)
                         .withTitle("Title " + i)

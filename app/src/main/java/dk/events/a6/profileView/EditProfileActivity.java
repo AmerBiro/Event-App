@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.profileView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,26 +7,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class MyAccount extends AppCompatActivity {
+import dk.events.a6.MainActivity;
+import dk.events.a6.R;
 
+public class EditProfileActivity extends AppCompatActivity {
     ImageButton back_arrow_account;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_account);
+        setContentView(R.layout.activity_edit_profile);
 
         back_arrow_account = findViewById(R.id.back_arrow_account);
         back_arrow_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyAccount.this, MainActivity.class);
+                Intent intent = new Intent(EditProfileActivity.this,MyAccount.class);
                 startActivity(intent);
                 finish();
             }
         });
+
     }
-
-
 }
-

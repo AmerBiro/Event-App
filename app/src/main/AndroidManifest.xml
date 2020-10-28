@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dk.events.a6">
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,18 +8,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
+	    <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"> -->
+ 
         <activity android:name="dk.events.a6.activities.CreateActivity"></activity>
         <activity android:name="dk.events.a6.Event_Content"></activity>
         <activity android:name="dk.events.a6.HomeActivity"></activity>
         <activity android:name="dk.events.a6.MyFilter"></activity>
-        <activity android:name="dk.events.a6.MyAccount"></activity>
-        <activity android:name="dk.events.a6.MainActivity">
+        <activity android:name="dk.events.a6.MainActivity" />
+        <activity android:name="dk.events.a6.profileView.ViewProfileActivity" />
+        <activity android:name="dk.events.a6.signInView.Sign_Up" />
+        <activity android:name="dk.events.a6.profileView.ProfileSettingsActivity" />
+        <activity android:name="dk.events.a6.profileView.EditProfileActivity" />
+        <activity android:name="dk.events.a6.profileView.MyAccount" />
+
+        <activity android:name=".signInView.Registeration">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>
