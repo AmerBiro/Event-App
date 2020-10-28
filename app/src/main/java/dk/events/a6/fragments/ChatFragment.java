@@ -41,22 +41,15 @@ public class ChatFragment extends Fragment {
     private void getChatList(){
         chatLists.add(new ChatList("Kanotur ","Dig: så ses vi kl. 18","man",R.drawable.images));
         chatLists.add(new ChatList("Cykeltur ","Det er det vi gør!:)","fre",R.drawable.images2));
+
+
+      /*
         chatLists.add(new ChatList("Kanotur ","Dig: så ses vi kl. 18","man",R.drawable.images));
         chatLists.add(new ChatList("Cykeltur ","Det er det vi gør!:)","fre",R.drawable.images2));
         chatLists.add(new ChatList("Kanotur ","Dig: så ses vi kl. 18","man",R.drawable.images));
         chatLists.add(new ChatList("Cykeltur ","Det er det vi gør!:)","fre",R.drawable.images2));
-        chatLists.add(new ChatList("Kanotur ","Dig: så ses vi kl. 18","man",R.drawable.images));
-        chatLists.add(new ChatList("Cykeltur ","Det er det vi gør!:)","fre",R.drawable.images2));
-        chatLists.add(new ChatList("Kanotur ","Dig: så ses vi kl. 18","man",R.drawable.images));
-        chatLists.add(new ChatList("Cykeltur ","Det er det vi gør!:)","fre",R.drawable.images2));
-        chatLists.add(new ChatList("Kanotur ","Dig: så ses vi kl. 18","man",R.drawable.images));
-        chatLists.add(new ChatList("Cykeltur ","Det er det vi gør!:)","fre",R.drawable.images2));
-        chatLists.add(new ChatList("Kanotur ","Dig: så ses vi kl. 18","man",R.drawable.images));
-        chatLists.add(new ChatList("Cykeltur ","Det er det vi gør!:)","fre",R.drawable.images2));
-        chatLists.add(new ChatList("Kanotur ","Dig: så ses vi kl. 18","man",R.drawable.images));
-        chatLists.add(new ChatList("Cykeltur ","Det er det vi gør!:)","fre",R.drawable.images2));
-        chatLists.add(new ChatList("Kanotur ","Dig: så ses vi kl. 18","man",R.drawable.images));
-        chatLists.add(new ChatList("Cykeltur ","Det er det vi gør!:)","fre",R.drawable.images2));
+
+       */
         recyclerView.setAdapter(new ChatAdapter(chatLists,getContext()));
 
 
