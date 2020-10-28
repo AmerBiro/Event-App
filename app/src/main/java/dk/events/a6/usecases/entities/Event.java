@@ -9,6 +9,7 @@ public class Event {
     private String description = "";
     private User owner = User.newBuilder().build();
     private List<User> participants = new ArrayList<>();
+    private List<ImageDetails> images = new ArrayList<>();
 
     private Event(){
     }

@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        buttonCreateEvent = findViewById(R.id.buttonCreateEvent);
+        buttonCreateEvent = findViewById(R.id.buttonAddImageCreate);
         buttonCreateEvent.setOnClickListener(this);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter( generateTabVMs(),this);

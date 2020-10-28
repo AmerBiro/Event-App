@@ -28,7 +28,7 @@
     </androidx.viewpager2.widget.ViewPager2>
 
     <Button
-        android:id="@+id/buttonCreateEvent"
+        android:id="@+id/buttonAddImageCreate"
         android:layout_width="match_parent"
         android:background="#B8ACAC"
         android:layout_height="wrap_content"
