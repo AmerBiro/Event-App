@@ -1,6 +1,9 @@
 package dk.events.a6.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +23,7 @@ import java.nio.ByteBuffer;
 import dk.events.a6.CreateEventInputPortImpl;
 import dk.events.a6.CreateEventViewModel;
 import dk.events.a6.R;
+import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.usecases.CreateEventOutputPort;
 import dk.events.a6.usecases.CreateEventInputPort;
@@ -27,7 +31,7 @@ import dk.events.a6.usecases.CreateEventUseCase;
 import dk.events.a6.usecases.EventGateway;
 import dk.events.a6.usecases.entities.ImageDetails;
 
-public class CreateActivity extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort {
+public class CreateActivity extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
 
     private Button buttonCreateEvent;
     private EditText editTextTitle;
@@ -35,8 +39,10 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     private CreateEventUseCase useCase;
     private EditText editTextDescription;
     private Button buttonAddImageCreate;
-    private int RESULT_LOAD_IMG = 0;
+    public static final int RESULT_LOAD_IMG = 0;
     private ImageView imageViewEventImage;
+    private FragmentTransaction fragmentTransaction;
+    private ChooseImageDialogFragment dialogFragment;
 
 
     @Override
@@ -66,9 +72,26 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             inputPort.createEvent(vm);
 
         }else if(v.getId() == R.id.buttonAddImageCreate){
+            dialogFragment = new ChooseImageDialogFragment();
+
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("notAlertDialog", true);
+
+            dialogFragment.setArguments(bundle);
+
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                fragmentTransaction.remove(prev);
+            }
+            fragmentTransaction.addToBackStack(null);
+
+
+            dialogFragment.show(fragmentTransaction, "dialog");
+            /*
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
-            startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+            startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);*/
         }
 
 
@@ -145,4 +168,8 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    @Override
+    public void onFinishEditDialog(String inputText) {
+
+    }
 }

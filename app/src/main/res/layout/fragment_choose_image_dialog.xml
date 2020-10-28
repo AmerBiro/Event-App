@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/buttonChooseImageFromGallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Choose from gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonTakeAPicture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Take a picture"
+        app:layout_constraintEnd_toEndOf="@+id/buttonChooseImageFromGallery"
+        app:layout_constraintStart_toStartOf="@+id/buttonChooseImageFromGallery"
+        app:layout_constraintTop_toBottomOf="@+id/buttonChooseImageFromGallery" />
+
+    <Button
+        android:id="@+id/buttonAddPictureFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Add picture from"
+        app:layout_constraintEnd_toEndOf="@+id/buttonTakeAPicture"
+        app:layout_constraintStart_toStartOf="@+id/buttonTakeAPicture"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTakeAPicture" />
+
+    <Button
+        android:id="@+id/buttonUseOurGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Use our gallery"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAddPictureFrom"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/buttonAddPictureFrom"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddPictureFrom" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/buttonUseOurGallery"
+        app:layout_constraintStart_toStartOf="@+id/buttonUseOurGallery"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUseOurGallery" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
