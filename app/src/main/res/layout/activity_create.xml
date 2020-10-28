@@ -4,15 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_blue"
+    android:background="@color/cardview_shadow_start_color"
     tools:context=".activities.CreateActivity">
+
+    <ImageView
+        android:id="@+id/imageViewEventImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="400dp"
+        android:src="@drawable/ic_baseline_image_24"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddImageCreate"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAddImageCreate"
+        app:layout_constraintStart_toStartOf="@+id/buttonAddImageCreate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/buttonAddImageCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button"
+        android:text="Choose Image"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTitle"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTitle"
+        app:layout_constraintStart_toStartOf="@+id/editTextTitle" />
 
     <EditText
         android:id="@+id/editTextTitle"
         style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#ffffff"
         android:ems="14"
         android:hint="Event title"
@@ -20,60 +46,40 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDescription"
+        app:layout_constraintEnd_toEndOf="@+id/editTextDescription"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/editTextDescription" />
 
     <EditText
         android:id="@+id/editTextDescription"
+        style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:hint="Description"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTitle"
-        app:layout_constraintStart_toStartOf="@+id/editTextTitle"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitle"
-        style="@style/sign_up"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#ffffff"
         android:ems="14"
+        android:hint="Description"
+        android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/buttonCreateEvent"
+        app:layout_constraintEnd_toEndOf="@+id/buttonCreateEvent"
+        app:layout_constraintStart_toStartOf="@+id/buttonCreateEvent" />
 
-    <Button
-        android:id="@+id/buttonAddImageCreate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/button"
-        android:text="Add Image"
-        app:layout_constraintEnd_toEndOf="@+id/editTextDescription"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="@+id/editTextDescription"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
     <Button
         android:id="@+id/buttonCreateEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/button"
         android:text="Create Event"
-        app:layout_constraintEnd_toEndOf="@+id/editTextDescription"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/buttonAddImageCreate"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddImageCreate" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageViewEventImage"
-        android:layout_width="wrap_content"
 
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/buttonCreateEvent"
-        app:layout_constraintStart_toStartOf="@+id/buttonCreateEvent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCreateEvent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
