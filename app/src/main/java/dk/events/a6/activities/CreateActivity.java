@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import dk.events.a6.CreateEventInputPortImpl;
+import dk.events.a6.CreateEventViewModel;
+import dk.events.a6.R;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.usecases.CreateEventOutputPort;
 import dk.events.a6.usecases.CreateEventInputPort;
