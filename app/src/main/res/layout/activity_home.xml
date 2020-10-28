@@ -33,6 +33,7 @@
         android:background="#B8ACAC"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        
         android:text="Create Event" />
 
     <!--    <ListView
