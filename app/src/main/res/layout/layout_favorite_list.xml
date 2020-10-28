@@ -59,6 +59,7 @@
             android:id="@+id/event_image"
             android:layout_width="match_parent"
             android:layout_marginTop="70dp"
+            android:scaleType="centerCrop"
             android:layout_height="310dp"
             tools:srcCompat="@tools:sample/avatars" />
     </androidx.cardview.widget.CardView>
