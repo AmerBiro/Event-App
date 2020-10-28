@@ -25,7 +25,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     private ProfilePhotoAdapter profilePhotoAdapter;
     private ViewPager2 viewPager2_profile_view;
     private TextView number_of_image_text;
-    ImageButton back_arrow_account;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +39,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         profileImageList.add(new ProfileImage(R.drawable.profile3));
         profileImageList.add(new ProfileImage(R.drawable.profile4));
 
-        back_arrow_account = findViewById(R.id.back_arrow_account);
-        back_arrow_account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    Intent intent = new Intent(ViewProfileActivity.this, MyAccount.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
 
 
 
