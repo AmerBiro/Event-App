@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#CFD4F3"
+    android:background="#DEE0EC"
     android:layout_height="match_parent"
     tools:context=".profileView.MyAccount">
 
@@ -11,7 +11,7 @@
         android:id="@+id/toolbar2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#B5B1E8"
+        android:background="#0B0833"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +26,7 @@
         android:layout_marginTop="12dp"
         android:text="Profil"
         android:textSize="20dp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,15 +63,15 @@
         android:id="@+id/profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="276dp"
-        android:text="Sulaiman, 24 "
+        android:text="Mads, 22"
         android:textColor="@color/black"
         android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/image_profile"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
