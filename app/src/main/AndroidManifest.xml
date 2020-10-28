@@ -11,9 +11,9 @@
  
         <activity android:name="dk.events.a6.activities.CreateActivity"></activity>
         <activity android:name="dk.events.a6.Event_Content"></activity>
-        <activity android:name="dk.events.a6.HomeActivity"></activity>
-        <activity android:name="dk.events.a6.MyFilter"></activity>
-        <activity android:name="dk.events.a6.MainActivity" />
+        <activity android:name="dk.events.a6.activities.HomeActivity"></activity>
+        <activity android:name="dk.events.a6.activities.MyFilter"></activity>
+        <activity android:name="dk.events.a6.activities.MainActivity" />
         <activity android:name="dk.events.a6.profileView.ViewProfileActivity" />
         <activity android:name="dk.events.a6.signInView.Sign_Up" />
         <activity android:name="dk.events.a6.profileView.ProfileSettingsActivity" />

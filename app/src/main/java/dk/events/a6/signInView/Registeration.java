@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import dk.events.a6.MainActivity;
+import dk.events.a6.activities.MainActivity;
 import dk.events.a6.R;
 
 public class Registeration extends AppCompatActivity {

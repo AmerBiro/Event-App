@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.fragments;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.events.a6.R;
 import dk.events.a6.adapters.ChatAdapter;
 import dk.events.a6.models.ChatList;
 

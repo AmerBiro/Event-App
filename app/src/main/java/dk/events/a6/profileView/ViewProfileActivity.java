@@ -1,23 +1,15 @@
 package dk.events.a6.profileView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.events.a6.MainActivity;
 import dk.events.a6.R;
-import dk.events.a6.models.MyEvents;
 
 public class ViewProfileActivity extends AppCompatActivity {
 

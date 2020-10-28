@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.events.a6.R;
 import dk.events.a6.adapters.EventsAdapter;
 import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;

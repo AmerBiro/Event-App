@@ -1,4 +1,4 @@
-package dk.events.a6;
+package dk.events.a6.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -11,7 +11,9 @@ import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 
-import dk.events.a6.activities.CreateActivity;
+import dk.events.a6.fragments.ChatFragment;
+import dk.events.a6.fragments.FavoriteFragment;
+import dk.events.a6.R;
 import dk.events.a6.adapters.CustomPagerAdapter;
 
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
