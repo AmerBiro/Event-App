@@ -7,33 +7,41 @@
     android:orientation="vertical"
     android:background="#9A9AD1"
     android:id="@+id/relativelayout"
-    tools:context=".HomeActivity">
+    tools:context=".activities.HomeActivity">
+
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
+        android:background="#0D1932"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="#496DA1" />
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#BEC7F1"
+        app:tabIndicatorHeight="1.5dp"
+        app:tabMode="fixed" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+
+
+
+
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FAF6F6"
+        android:id="@+id/view_page"
         android:layout_marginBottom="50dp"
-        android:layout_below="@+id/tabLayout">
+        android:layout_below="@id/tab_layout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </androidx.viewpager2.widget.ViewPager2>
 
     <Button
         android:id="@+id/buttonAddImageCreate"
         android:layout_width="match_parent"
-        android:background="#B8ACAC"
+        android:background="#0D1932"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        
         android:text="Create Event" />
 
     <!--    <ListView

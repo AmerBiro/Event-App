@@ -1,18 +1,15 @@
 package dk.events.a6;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.Toast;
+
+import dk.events.a6.activities.MainActivity;
 
 public class Event_Content extends AppCompatActivity {
 
