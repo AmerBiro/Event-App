@@ -95,7 +95,6 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);*/
         }
 
-
     }
 
     @Override
@@ -120,7 +119,6 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             }finally {
                closeFragment();
             }
-
 
     }
 
@@ -162,7 +160,6 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,10 +181,6 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         imageViewEventImage = findViewById(R.id.imageViewEventImage);
 
     }
-
-
-
-
 
     @Override
     public void onChooseImageFromGalleryClicked() {
