@@ -7,7 +7,6 @@
     android:background="@drawable/background_blue"
     tools:context=".activities.CreateActivity">
 
-
     <ImageView
         android:id="@+id/imageViewEventImage"
         android:layout_width="140dp"
@@ -258,4 +257,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.945" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

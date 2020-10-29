@@ -31,7 +31,7 @@ public class Event_Content extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        event_content.setOnClickListener(new View.OnClickListener() {
+        binding.idEventBackgroundContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Event_Content.this, MainActivity.class);
