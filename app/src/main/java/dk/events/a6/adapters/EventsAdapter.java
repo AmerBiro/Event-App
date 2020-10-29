@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -50,6 +51,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
                 MyEvents myEvents = myEventsList.get(position);
                 intent.putExtra("event_background_data",myEvents.getEvent_background());
                 context.startActivity(intent);
+            }
+        });
+
+        holder.event_avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "There is no account owner", Toast.LENGTH_SHORT).show();
             }
         });
     }

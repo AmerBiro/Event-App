@@ -3,15 +3,23 @@ package dk.events.a6.profileView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import dk.events.a6.R;
+import dk.events.a6.databinding.ActivityMyAccountBinding;
 
 public class MyAccount extends AppCompatActivity implements View.OnClickListener {
-
+    private ActivityMyAccountBinding binding;
+    private static final int PICK_IMAGE = 1;
+    Uri imageUri;
 
     LinearLayout view_profile_layout,edit_profile_layout,settings_layout;
 
@@ -21,6 +29,20 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_account);
 
+        binding = ActivityMyAccountBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        binding.imageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gallery = new Intent();
+                gallery.setType("image/*");
+                gallery.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(gallery, "select picture"), PICK_IMAGE);
+            }
+        });
+
         view_profile_layout=findViewById(R.id.view_profile_layout);
         edit_profile_layout=findViewById(R.id.edit_profile_layout);
         settings_layout=findViewById(R.id.settings_layout);
@@ -29,6 +51,22 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
         edit_profile_layout.setOnClickListener(this);
         settings_layout.setOnClickListener(this);
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK ) {
+            imageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                binding.imageProfile.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

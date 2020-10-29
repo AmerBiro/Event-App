@@ -9,7 +9,7 @@
     tools:context=".signInView.Sign_Up">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/id_imageview_sign_up_account_image"
         android:layout_width="76dp"
         android:layout_height="76dp"
