@@ -72,6 +72,8 @@ public class ChooseImageDialogFragment extends DialogFragment implements View.On
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, CreateActivity.RESULT_LOAD_IMG);
+        }else if(v.getId() == buttonCancel.getId()){
+            getFragmentManager().popBackStack();
         }
     }
 
