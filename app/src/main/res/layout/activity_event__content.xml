@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:paddingBottom="25dp"
             android:layout_height="match_parent"
-
             android:orientation="vertical" >
 
 
@@ -106,7 +105,7 @@
                 android:textColor="@color/white"
                 android:textSize="14dp" />
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="35dp">
@@ -114,23 +113,36 @@
 
             <ImageButton
                 android:id="@+id/imageButton1"
-                android:layout_marginStart="100dp"
-                android:background="?android:attr/selectableItemBackground"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/repost_icon" />
-
-
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="69dp"
+                android:layout_marginBottom="16dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/repost_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageButto2"
+                app:layout_constraintHorizontal_bias="0.38"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/imageButto2"
-                android:layout_toRightOf="@+id/imageButton1"
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_marginLeft="100dp"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/wish_to_join_icon" />
-        </RelativeLayout>
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginBottom="16dp"
+                android:layout_toRightOf="@+id/imageButton1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/wish_to_join_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </LinearLayout>
