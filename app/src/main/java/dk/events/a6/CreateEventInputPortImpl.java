@@ -29,6 +29,8 @@ public class CreateEventInputPortImpl implements CreateEventInputPort {
                 .withOwner(owner)
                 .build();
 
+        event.setImages(vm.createEventImages);
+
         useCase.createEvent(event);
     }
 }

@@ -28,12 +28,22 @@ public class Event {
         return new EventBuilder();
     }
 
+    public void setImages(List<ImageDetails> images) {
+        this.images = images;
+    }
+
+    public List<ImageDetails> getImages() {
+        return images;
+    }
+
     public static class EventBuilder{
         private String title = "";
         private String id = "";
         private String description = "";
         private User owner = User.newBuilder().build();
         private List<User> participants = new ArrayList<>();
+        private List<ImageDetails> images = new ArrayList<>();
+
         private EventBuilder(){
         }
         public Event build(){
@@ -43,7 +53,12 @@ public class Event {
             event.setDescription(description);
             event.setOwner(owner);
             event.setParticipants(participants);
+            event.setImages(images);
             return event;
+        }
+
+        public void withImages(List<ImageDetails> images) {
+            this.images = images;
         }
 
         public EventBuilder withId(String id) {

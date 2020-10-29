@@ -1,6 +1,8 @@
 package dk.events.a6.gateways;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dk.events.a6.usecases.EventGateway;
@@ -16,5 +18,9 @@ public class EventGatewayInMemory implements EventGateway {
     @Override
     public Event getEvent(String id) {
         return db.get(id);
+    }
+
+    public List<Event> getEvents() {
+        return new ArrayList<>(db.values()) ;
     }
 }
