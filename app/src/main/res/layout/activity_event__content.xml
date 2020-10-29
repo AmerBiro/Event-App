@@ -18,14 +18,16 @@
         android:layout_toLeftOf="@+id/icon_favorite"
         android:background="@drawable/icon_share" />
 
-    <Button
+    <ToggleButton
+        android:textOff=""
+        android:textOn=""
         android:id="@+id/icon_favorite"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="10dp"
        android:layout_alignParentRight="true"
-        android:background="@drawable/icon_favorite" />
+        android:background="@drawable/favorite_button_onclick" />
 
 
     <ScrollView
