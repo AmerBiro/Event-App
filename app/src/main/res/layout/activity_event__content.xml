@@ -44,7 +44,7 @@
             <ImageView
                 android:id="@+id/id_event_background_content"
                 android:layout_width="match_parent"
-                android:layout_height="480dp"
+                android:layout_height="600dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/event_background_02"/>
 
