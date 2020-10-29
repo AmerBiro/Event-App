@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Take a picture"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="@+id/buttonChooseImageFromGallery"
         app:layout_constraintStart_toStartOf="@+id/buttonChooseImageFromGallery"
         app:layout_constraintTop_toBottomOf="@+id/buttonChooseImageFromGallery" />
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Add picture from"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="@+id/buttonTakeAPicture"
         app:layout_constraintStart_toStartOf="@+id/buttonTakeAPicture"
         app:layout_constraintTop_toBottomOf="@+id/buttonTakeAPicture" />
@@ -43,6 +45,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Use our gallery"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="@+id/buttonAddPictureFrom"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/buttonAddPictureFrom"
@@ -55,6 +58,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Cancel"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/buttonUseOurGallery"
         app:layout_constraintStart_toStartOf="@+id/buttonUseOurGallery"
