@@ -24,3 +24,4 @@ public class EventGatewayInMemory implements EventGateway {
         return new ArrayList<>(db.values()) ;
     }
 }
+
