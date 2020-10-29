@@ -50,6 +50,24 @@ public class Event_Content extends AppCompatActivity {
             }
         });
 
+
+        binding.wishToJoinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Dit ønske er sendt",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        binding.repostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"REPOST er på vej",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         event_background_ImageView = findViewById(R.id.id_event_background_content);
         getData();
         setData();

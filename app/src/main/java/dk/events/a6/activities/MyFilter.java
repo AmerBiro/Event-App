@@ -6,26 +6,72 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import dk.events.a6.R;
 
 public class MyFilter extends AppCompatActivity {
 
-    ImageButton back_arrow_filter;
 
+    private RangeSeekBar rangeSeekBar;
+    private SeekBar seek_bar;
+    private TextView textView, textView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_filter);
+        rangeSeekBar=findViewById(R.id.rangeseekbar);
+        textView=findViewById(R.id.range_text);
+        seek_bar=findViewById(R.id.seek_bar);
+        textView2=findViewById(R.id.textView4);
 
-        back_arrow_filter = findViewById(R.id.back_arrow_filter);
-        back_arrow_filter.setOnClickListener(new View.OnClickListener() {
+        seek_bar.setMax(100);
+        seek_bar.setMin(1);
+
+        seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyFilter.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+                textView2.setText("" +i + " Km");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
+
+
+
+
+        rangeSeekBar.setRangeValues(18,90);
+
+
+
+
+        rangeSeekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+                Number min_value = bar.getSelectedMinValue();
+                Number max_value = bar.getSelectedMaxValue();
+                int min = (int) min_value;
+                int max = (int) max_value;
+
+                textView.setText( min +"-"+max);
+
+            }
+        });
+
+
+
     }
 }

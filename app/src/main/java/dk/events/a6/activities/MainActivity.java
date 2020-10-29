@@ -13,12 +13,14 @@ import java.util.List;
 
 import dk.events.a6.R;
 import dk.events.a6.adapters.EventsAdapter;
+import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
 import dk.events.a6.usecases.entities.Event;
 
 public class MainActivity extends AppCompatActivity {
+    private ActivityMainBinding binding;
 
     private ViewPager2 viewpager2_events_view;
     private List<MyEvents> myEventsList;
@@ -31,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+
         viewpager2_events_view = findViewById(R.id.id_viewpager2_events_view);
 
         button_account = findViewById(R.id.id_button_account);
@@ -48,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
 
 
 
