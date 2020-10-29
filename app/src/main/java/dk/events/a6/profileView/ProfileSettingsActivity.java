@@ -35,6 +35,8 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         });
 
 
+
+
         binding.buttonDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

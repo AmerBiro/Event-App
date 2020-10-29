@@ -79,11 +79,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         myEventsList = new  ArrayList<>();
-        myEventsList.add(new MyEvents(R.drawable.event_background_01, R.drawable.event_avatar_01, "Drink with friends", "Anonce, indenfor 3 km"));
-        myEventsList.add(new MyEvents(R.drawable.event_background_02, R.drawable.event_avatar_02, "Concert evening", "Anonce, indenfor 7 km"));
-        myEventsList.add(new MyEvents(R.drawable.event_background_03, R.drawable.event_avatar_03, "Ice cream tour", "Anonce, indenfor 1 km"));
-        myEventsList.add(new MyEvents(R.drawable.event_background_04, R.drawable.event_avatar_04, "christmas night", "Anonce, indenfor 14 km"));
-        myEventsList.add(new MyEvents(R.drawable.event_background_05, R.drawable.event_avatar_05, "valentine day", "Anonce, indenfor 6 km"));
+        myEventsList.add(new MyEvents(R.drawable.event_background_01, R.drawable.event_avatar_01, "Tivoli", "Anonce, indenfor 3 km"));
+        myEventsList.add(new MyEvents(R.drawable.event_background_02, R.drawable.event_avatar_02, "Cykeltur", "Anonce, indenfor 7 km"));
+        myEventsList.add(new MyEvents(R.drawable.event_background_03, R.drawable.event_avatar_03, "Søndags-is :)", "Anonce, indenfor 1 km"));
+
 
         eventsAdapter = new EventsAdapter(this, myEventsList);
         viewpager2_events_view.setAdapter(eventsAdapter);

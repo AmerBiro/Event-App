@@ -15,7 +15,7 @@ public class Event_Content extends AppCompatActivity {
 
     private ImageView event_background_ImageView;
     private int event_background_int;
-    private ImageButton id_button_share;
+   // private ImageButton id_button_share;
     ImageView event_content;
 
     @Override
@@ -36,7 +36,7 @@ public class Event_Content extends AppCompatActivity {
         getData();
         setData();
 
-        id_button_share = findViewById(R.id.id_button_share);
+     /*   id_button_share = findViewById(R.id.id_button_share);
 
         id_button_share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +48,8 @@ public class Event_Content extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+      */
 
 
     }
