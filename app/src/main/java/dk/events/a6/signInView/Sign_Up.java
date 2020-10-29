@@ -5,11 +5,15 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
 
@@ -18,6 +22,8 @@ import dk.events.a6.databinding.ActivitySignUpBinding;
 
 public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private ActivitySignUpBinding binding;
+    private static final int PICK_IMAGE = 1;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,16 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                 finish();
             }
         });
+
+        binding.idImageviewSignUpAccountImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gallery = new Intent();
+                gallery.setType("image/*");
+                gallery.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(gallery, "select picture"), PICK_IMAGE);
+            }
+        });
     }
 
     @Override
@@ -56,5 +72,20 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         calendar.set(Calendar.DAY_OF_MONTH, i2);
         String birthDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         binding.idDatePicker.setText(birthDate);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK ) {
+            imageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                binding.idImageviewSignUpAccountImage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
