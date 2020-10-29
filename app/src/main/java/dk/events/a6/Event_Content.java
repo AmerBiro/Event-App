@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import dk.events.a6.activities.MainActivity;
+import dk.events.a6.databinding.ActivityEventContentBinding;
 
 public class Event_Content extends AppCompatActivity {
+    private ActivityEventContentBinding binding;
 
     private ImageView event_background_ImageView;
     private int event_background_int;
@@ -24,6 +26,11 @@ public class Event_Content extends AppCompatActivity {
         setContentView(R.layout.activity_event__content);
         event_content = findViewById(R.id.id_event_background_content);
 
+
+        binding = ActivityEventContentBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
         event_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,13 +39,7 @@ public class Event_Content extends AppCompatActivity {
             }
         });
 
-        event_background_ImageView = findViewById(R.id.id_event_background_content);
-        getData();
-        setData();
-
-     /*   id_button_share = findViewById(R.id.id_button_share);
-
-        id_button_share.setOnClickListener(new View.OnClickListener() {
+        binding.iconShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -49,8 +50,9 @@ public class Event_Content extends AppCompatActivity {
             }
         });
 
-      */
-
+        event_background_ImageView = findViewById(R.id.id_event_background_content);
+        getData();
+        setData();
 
     }
 
