@@ -249,7 +249,7 @@
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_button"
-        android:text="Choose event image"
+        android:text="Create event"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
