@@ -319,7 +319,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button_logout"
                 android:layout_width="200dp"
                 android:layout_gravity="center"
                 android:textAllCaps="false"
@@ -330,7 +330,7 @@
                 android:text="Log out" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/button_delete_account"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
