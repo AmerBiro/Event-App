@@ -40,6 +40,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     private EditText editTextDescription;
     private Button buttonAddImageCreate;
     public static final int RESULT_LOAD_IMG = 0;
+    public static final int RESULT_TAKE_A_PICTURE = 1;
     private ImageView imageViewEventImage;
     private FragmentTransaction fragmentTransaction;
     private ChooseImageDialogFragment dialogFragment;
@@ -47,7 +48,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void show(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        showMsg(msg, this);
     }
 
     @Override
@@ -101,46 +102,64 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
 
+        showMsg("resultCode="+ resultCode + ", reqCode=" + reqCode, CreateActivity.this);
 
-        if (resultCode == RESULT_OK) {
             try {
-                final Uri imageUri = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-
-
-
-                //https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
-                int size = selectedImage.getRowBytes() * selectedImage.getHeight();
-                ByteBuffer byteBuffer = ByteBuffer.allocate(size);
-                selectedImage.copyPixelsToBuffer(byteBuffer);
-                byte[] byteArray = byteBuffer.array();
-
-
-                ImageDetails imageDetails = new ImageDetails();
-                imageDetails.setHeight(selectedImage.getHeight());
-                imageDetails.setWidth(selectedImage.getWidth());
-                imageDetails.setConfigName(selectedImage.getConfig().name());
-                imageDetails.setPixels(byteArray);
-
-                vm.createEventImages.add(imageDetails);
-
-                //
-                //Bitmap.Config configBmp = Bitmap.Config.valueOf(bitmap.getConfig().name());
-                //Bitmap bitmap_tmp = Bitmap.createBitmap(width, height, configBmp);
-                //ByteBuffer buffer = ByteBuffer.wrap(byteArray);
-                //bitmap_tmp.copyPixelsFromBuffer(buffer);
-
-                imageViewEventImage.setImageBitmap(selectedImage);
+                if (resultCode == RESULT_OK && reqCode ==  RESULT_LOAD_IMG){
+                    handleEventPicture(data);
+                }else if(resultCode == RESULT_OK && reqCode ==  RESULT_TAKE_A_PICTURE){
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    imageViewEventImage.setImageBitmap(photo);
+                }else {
+                    showMsg("You haven't picked Image", CreateActivity.this);
+                }
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                Toast.makeText(CreateActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                showMsg("Something went wrong", CreateActivity.this);
+            }finally {
+               closeFragment();
             }
 
-        }else {
-            Toast.makeText(CreateActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
-        }
+
+    }
+
+    private void handleEventPicture(Intent data) throws FileNotFoundException {
+        final Uri imageUri = data.getData();
+        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+
+
+        //https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+        int size = selectedImage.getRowBytes() * selectedImage.getHeight();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+        selectedImage.copyPixelsToBuffer(byteBuffer);
+        byte[] byteArray = byteBuffer.array();
+
+
+        ImageDetails imageDetails = new ImageDetails();
+        imageDetails.setHeight(selectedImage.getHeight());
+        imageDetails.setWidth(selectedImage.getWidth());
+        imageDetails.setConfigName(selectedImage.getConfig().name());
+        imageDetails.setPixels(byteArray);
+
+        vm.createEventImages.add(imageDetails);
+
+        //
+        //Bitmap.Config configBmp = Bitmap.Config.valueOf(bitmap.getConfig().name());
+        //Bitmap bitmap_tmp = Bitmap.createBitmap(width, height, configBmp);
+        //ByteBuffer buffer = ByteBuffer.wrap(byteArray);
+        //bitmap_tmp.copyPixelsFromBuffer(buffer);
+
+        imageViewEventImage.setImageBitmap(selectedImage);
+    }
+
+    private void closeFragment() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    private void showMsg(String msg, CreateActivity context) {
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 
 
@@ -153,13 +172,12 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
 
         initialize();
 
-
-
         buttonCreateEvent.setOnClickListener(this);
+        buttonAddImageCreate.setOnClickListener(this);
     }
 
     private void initialize() {
-        buttonCreateEvent = findViewById(R.id.buttonAddImageCreate);
+        buttonCreateEvent = findViewById(R.id.buttonCreateEvent);
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextDescription = findViewById(R.id.editTextDescription);
         buttonAddImageCreate = findViewById(R.id.buttonAddImageCreate);
@@ -168,8 +186,24 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    @Override
-    public void onFinishEditDialog(String inputText) {
 
+
+
+    @Override
+    public void onChooseImageFromGalleryClicked() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+    }
+
+    @Override
+    public void onTakeAPictureClicked() {
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, RESULT_TAKE_A_PICTURE);
+    }
+
+    @Override
+    public void onCancelClicked() {
+        closeFragment();
     }
 }

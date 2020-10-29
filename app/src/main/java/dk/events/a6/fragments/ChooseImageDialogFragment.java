@@ -69,20 +69,15 @@ public class ChooseImageDialogFragment extends DialogFragment implements View.On
     @Override
     public void onClick(View v) {
         if(v.getId() == buttonChooseImageFromGallery.getId()){
-            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-            photoPickerIntent.setType("image/*");
-            startActivityForResult(photoPickerIntent, CreateActivity.RESULT_LOAD_IMG);
+            ((DialogListener)getActivity()).onChooseImageFromGalleryClicked();
+        }else if(v.getId() == buttonTakeAPicture.getId()){
+            ((DialogListener)getActivity()).onTakeAPictureClicked();
         }else if(v.getId() == buttonCancel.getId()){
-            getFragmentManager().popBackStack();
+            ((DialogListener)getActivity()).onCancelClicked();
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //Toast.makeText(getActivity(), "onActivityResult in fragment", Toast.LENGTH_LONG).show();
-        getFragmentManager().popBackStack();
-    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -128,7 +123,6 @@ public class ChooseImageDialogFragment extends DialogFragment implements View.On
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Log.d("API123", "onCreate");
 
         boolean setFullScreen = false;
         if (getArguments() != null) {
@@ -146,7 +140,10 @@ public class ChooseImageDialogFragment extends DialogFragment implements View.On
 
 
     public interface DialogListener {
-        void onFinishEditDialog(String inputText);
+        void onChooseImageFromGalleryClicked();
+        void onTakeAPictureClicked();
+        void onCancelClicked();
+
     }
 
 
