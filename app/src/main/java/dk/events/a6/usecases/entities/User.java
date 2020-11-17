@@ -6,16 +6,18 @@ public class User {
     private String id = "";
     private String firstName = "";
     private String lastName = "";
+    private String userName;
 
     private User(){
 
     }
     public String toString(){
         return String.format(
-                "User: id = %s, firstName = %s, lastName = %s",
+                "User: id = %s, firstName = %s, lastName = %s, userName = %s",
                 id,
                 firstName,
-                lastName);
+                lastName,
+                userName);
     }
     public static UserBuilder newBuilder(){
         return new UserBuilder();
@@ -25,6 +27,8 @@ public class User {
         private String id = "";
         private String firstName = "";
         private String lastName = "";
+        private String userName = "";
+
         private UserBuilder(){
 
         }
@@ -33,6 +37,7 @@ public class User {
             user.setId(id);
             user.setFirstName(firstName);
             user.setLastName(lastName);
+            user.setUserName(userName);
             return user;
         }
 
@@ -49,7 +54,13 @@ public class User {
             this.lastName = lastName;
             return this;
         }
+
+        public UserBuilder withUserName(String userName) {
+            this.userName = userName;
+            return this;
+        }
     }
+
 
     public String getId() {
         return id;
@@ -68,5 +79,11 @@ public class User {
     }
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    private void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getUserName() {
+        return userName;
     }
 }
