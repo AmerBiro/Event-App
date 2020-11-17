@@ -11,7 +11,12 @@ import dk.events.a6.usecases.entities.User;
 public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
     @Override
     public List<PresentableEvent> presentEvents(User loggedUser) {
-        return new ArrayList<>();
+        List<Event> allEvents = Context.eventGateway.findAllEvents();
+        List<PresentableEvent> presentableEvents = new ArrayList<>();
+        for (Event e: allEvents){
+            presentableEvents.add(new PresentableEvent());
+        }
+        return presentableEvents;
     }
 
     @Override

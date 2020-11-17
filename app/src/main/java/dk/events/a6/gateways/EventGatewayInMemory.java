@@ -77,7 +77,7 @@ public class EventGatewayInMemory implements EventGateway {
 
     @Override
     public List<Event> findAllEvents() {
-        return (List<Event>) eventsMap.values();
+        return new ArrayList<>(eventsMap.values());
     }
 
     @Override

@@ -3,6 +3,8 @@ package dk.events.a6.usecases.presentevents;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import dk.events.a6.Context;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.usecases.entities.Event;
@@ -45,4 +47,19 @@ public class PresentEventsUseCaseTest {
         assertEquals(false, useCase.isLicensedToParticipate(otherUser, event));
     }
 
+    @Test
+    public void givenNoEvents_returnPresentNoEvents(){
+        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+
+        assertEquals(0, presentableEvents.size());
+    }
+
+    @Test
+    public void givenOneEvent_returnPresentOneEvent(){
+        Context.eventGateway.createEvent(Event.newBuilder().build());
+
+        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+
+        assertEquals(1, presentableEvents.size());
+    }
 }
