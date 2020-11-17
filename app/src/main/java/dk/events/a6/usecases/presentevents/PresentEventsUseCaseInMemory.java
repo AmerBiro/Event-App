@@ -14,7 +14,12 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
         List<Event> allEvents = Context.eventGateway.findAllEvents();
         List<PresentableEvent> presentableEvents = new ArrayList<>();
         for (Event e: allEvents){
-            presentableEvents.add(new PresentableEvent());
+            PresentableEvent pEvent = new PresentableEvent();
+
+            pEvent.hasLicenseFor = isLicensedToParticipate(loggedUser,e);
+            pEvent.title = e.getTitle();
+            pEvent.startDate = e.getStartDate();
+            presentableEvents.add(pEvent);
         }
         return presentableEvents;
     }

@@ -15,6 +15,8 @@ import static org.junit.Assert.assertEquals;
 
 public class PresentEventsUseCaseTest {
 
+    public static final String TITLE = "event title";
+    public static final String START_DATE = "InTwoDays :)";
     private User user;
     private Event event;
     private PresentEventsUseCase useCase;
@@ -48,18 +50,33 @@ public class PresentEventsUseCaseTest {
     }
 
     @Test
-    public void givenNoEvents_returnPresentNoEvents(){
-        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+    public void givenOneEvent_returnPresentOneEvent(){
+        event.setTitle(TITLE);
+        event.setStartDate(START_DATE);
 
-        assertEquals(0, presentableEvents.size());
+        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        assertEquals(1, presentableEvents.size());
+
+        PresentableEvent presentableEvent = presentableEvents.get(0);
+        assertEquals(TITLE, presentableEvent.title);
+        assertEquals(START_DATE, presentableEvent.startDate);
     }
 
     @Test
-    public void givenOneEvent_returnPresentOneEvent(){
-        Context.eventGateway.createEvent(Event.newBuilder().build());
-
+    public void givenNoLicenseForEvent_returnEventCannotBeParticipated(){
         List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        PresentableEvent presentableEvent = presentableEvents.get(0);
 
-        assertEquals(1, presentableEvents.size());
+        assertEquals(false, presentableEvent.hasLicenseFor);
+    }
+
+    @Test
+    public void givenHasLicenseForEvent_returnUserHasLicenseFor(){
+        Context.eventGateway.createLicense(License.newBuilder().withUser(user).withEvent(event).build());
+        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        PresentableEvent presentableEvent = presentableEvents.get(0);
+
+        assertEquals(true, presentableEvent.hasLicenseFor);
+
     }
 }

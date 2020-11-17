@@ -8,4 +8,5 @@ public class Context {
     public static EventGateway eventGateway ;
     public static BruceAlmighty bruceAlmighty;
     public static PresentEventsUseCase presentEventsUseCase;
+
 }

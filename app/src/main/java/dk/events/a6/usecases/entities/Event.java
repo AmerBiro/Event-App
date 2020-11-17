@@ -9,16 +9,18 @@ public class Event extends Entity {
     private User owner = User.newUserBuilder().build();
     private List<User> participants = new ArrayList<>();
     private List<ImageDetails> images = new ArrayList<>();
+    private String startDate;
 
     private Event(){
     }
 
     public String toString(){
         return String.format(
-                "Event: id = %s, title = %s, description = %s, owner = %s, participants = %s",
+                "Event: id = %s, title = %s, description = %s, startDate = %s, owner = %s, participants = %s",
                 id,
                 title,
                 description,
+                startDate,
                 owner.toString(),
                 participants.stream().map(u -> u.toString()).reduce("", String::concat));
     }
@@ -35,6 +37,8 @@ public class Event extends Entity {
         return images;
     }
 
+
+
     public static class EventBuilder{
         private String title;
         private String id;
@@ -42,6 +46,7 @@ public class Event extends Entity {
         private User owner = User.newUserBuilder().build();
         private List<User> participants = new ArrayList<>();
         private List<ImageDetails> images = new ArrayList<>();
+        private String startDate;
 
         private EventBuilder(){
         }
@@ -53,6 +58,7 @@ public class Event extends Entity {
             event.setOwner(owner);
             event.setParticipants(participants);
             event.setImages(images);
+            event.setStartDate(startDate);
             return event;
         }
 
@@ -78,6 +84,10 @@ public class Event extends Entity {
         }
         public EventBuilder withParticipants(List<User> participants) {
             this.participants = participants;
+            return this;
+        }
+        public EventBuilder withStartDate(String startDate){
+            this.startDate = startDate;
             return this;
         }
     }
@@ -114,5 +124,13 @@ public class Event extends Entity {
 
     public void setParticipants(List<User> participants) {
         this.participants = participants;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getStartDate() {
+        return startDate;
     }
 }
