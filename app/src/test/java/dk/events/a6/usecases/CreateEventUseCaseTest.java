@@ -79,8 +79,9 @@ public class CreateEventUseCaseTest {
         }
 
         @Override
-        public void createEvent(Event event) {
+        public Event createEvent(Event event) {
             db.put(event.getId(), event);
+            return event;
         }
 
         @Override

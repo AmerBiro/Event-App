@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import dk.events.a6.usecases.EventGateway;
+import dk.events.a6.usecases.entities.Entity;
 import dk.events.a6.usecases.entities.Event;
 import dk.events.a6.usecases.entities.License;
 import dk.events.a6.usecases.entities.User;
@@ -37,14 +38,14 @@ public class EventGatewayInMemory implements EventGateway {
 
     @Override
     public User createUser(User user) {
-        usersMap.put(user.getId(), addId(user));
+        usersMap.put(user.getId(), (User) setWithId(user));
         return user;
     }
 
-    private User addId(User user) {
-        if(user.getId() == null)
-            user.setId(UUID.randomUUID().toString());
-        return user;
+    private Entity setWithId(Entity entity) {
+        if(entity.getId() == null)
+            entity.setId(UUID.randomUUID().toString());
+        return entity;
     }
 
     @Override
@@ -87,8 +88,9 @@ public class EventGatewayInMemory implements EventGateway {
 
 
     @Override
-    public void createEvent(Event event) {
-        eventsMap.put(event.getId(), event);
+    public Event createEvent(Event event) {
+        eventsMap.put(event.getId(), (Event) setWithId(event));
+        return event;
     }
 
     @Override

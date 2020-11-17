@@ -19,7 +19,7 @@ public interface EventGateway {
      Event findEventByTitle(String title);
      //end new
 
-     void createEvent(Event event);
+     Event createEvent(Event event);
 
      Event getEvent(String id);
 

@@ -3,10 +3,9 @@ package dk.events.a6.usecases.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Event {
-    private String id = "";
-    private String title = "";
-    private String description = "";
+public class Event extends Entity {
+    private String title;
+    private String description;
     private User owner = User.newUserBuilder().build();
     private List<User> participants = new ArrayList<>();
     private List<ImageDetails> images = new ArrayList<>();
@@ -36,14 +35,10 @@ public class Event {
         return images;
     }
 
-    public boolean isSame(Event event) {
-        return true;
-    }
-
     public static class EventBuilder{
-        private String title = "";
-        private String id = "";
-        private String description = "";
+        private String title;
+        private String id;
+        private String description;
         private User owner = User.newUserBuilder().build();
         private List<User> participants = new ArrayList<>();
         private List<ImageDetails> images = new ArrayList<>();
@@ -95,14 +90,6 @@ public class Event {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getDescription() {

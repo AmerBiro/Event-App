@@ -22,8 +22,8 @@ public class PresentEventsUseCaseTest {
         Context.eventGateway = new EventGatewayInMemory();
         useCase = new PresentEventsUseCaseInMemory();
 
-        user = Context.eventGateway.createUser( User.newUserBuilder().withUserName("userName1").build() );
-        event = Event.newBuilder().build();
+        user = Context.eventGateway.createUser( User.newUserBuilder().build() );
+        event = Context.eventGateway.createEvent( Event.newBuilder().build() );
     }
 
     @Test
