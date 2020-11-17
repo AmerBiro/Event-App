@@ -6,7 +6,7 @@ public class User {
     private String id = "";
     private String firstName = "";
     private String lastName = "";
-    private String userName;
+    private String userName = "";
 
     private User(){
 
@@ -24,7 +24,7 @@ public class User {
     }
 
     public boolean isSame(User user) {
-        return true;
+        return this.userName.equals(user.getUserName());
     }
 
     public static class UserBuilder{
