@@ -19,11 +19,11 @@ public class PresentEventsUseCaseTest {
 
     @Before
     public void beforeAll(){
-        user = User.newBuilder().withUserName("userName1").build();
-        event = Event.newBuilder().build();
-
         Context.eventGateway = new EventGatewayInMemory();
         useCase = new PresentEventsUseCaseInMemory();
+
+        user = Context.eventGateway.createUser( User.newBuilder().withUserName("userName1").build() );
+        event = Event.newBuilder().build();
     }
 
     @Test
@@ -31,21 +31,16 @@ public class PresentEventsUseCaseTest {
         assertEquals(false, useCase.isLicensedToParticipate(user, event));
     }
 
-
     @Test
     public void givenUserWithParticipationLicense_returnUserCanParticipateInTheEvent(){
-        License participationLicense = License.newBuilder().withUser(user).withEvent(event).build();
-        Context.eventGateway.createLicense(participationLicense);
-
+        Context.eventGateway.createLicense( License.newBuilder().withUser(user).withEvent(event).build() );
         assertEquals(true, useCase.isLicensedToParticipate(user, event));
     }
 
     @Test
     public void givenUserWithoutParticipationLicense_returnCannotParticipateInTheEventWhereOthersCan(){
-        User otherUser = User.newBuilder().withUserName("OtherUserName").build();
-
-        License participationLicense = License.newBuilder().withUser(user).withEvent(event).build();
-        Context.eventGateway.createLicense(participationLicense);
+        User otherUser = Context.eventGateway.createUser( User.newBuilder().withUserName("OtherUserName").build() );
+        Context.eventGateway.createLicense(License.newBuilder().withUser(user).withEvent(event).build());
 
         assertEquals(false, useCase.isLicensedToParticipate(otherUser, event));
     }

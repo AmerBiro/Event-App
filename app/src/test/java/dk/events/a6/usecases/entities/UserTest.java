@@ -18,7 +18,8 @@ public class UserTest {
 
     @Test
     public void givenTheSameUser_returnUsersIsTheSame(){
-        User user = User.newBuilder().withUserName("userName").build();
+        User user = User.newBuilder().withUserName("userName").withId("userId").build();
+
         assertEquals(true, user.isSame(user));
     }
 
@@ -32,5 +33,13 @@ public class UserTest {
 
 
         assertEquals(true, user.isSame(otherUser));
+    }
+
+    @Test
+    public void givenTwoUsersWithNullId_returnUsersAreNotTheSame(){
+        User user = User.newBuilder().build();
+        User otherUser = User.newBuilder().build();
+
+        assertEquals(false, user.isSame(otherUser));
     }
 }

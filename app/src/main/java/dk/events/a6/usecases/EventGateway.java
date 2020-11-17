@@ -8,10 +8,10 @@ import dk.events.a6.usecases.entities.User;
 
 public interface EventGateway {
      //new
-     void createLicense(License license);
+     License createLicense(License license);
      List<License> findLicensesForUserAndEvent(User user, Event event);
 
-     void createUser(User user);
+     User createUser(User user);
      User findUser(String userName);
 
      List<Event> findAllEvents();

@@ -25,24 +25,26 @@ public class EventGatewayInMemory implements EventGateway {
                 returnedLicenses.add(l);
             }
         }
-        return licenses;
+        return returnedLicenses;
     }
 
     @Override
-    public void createLicense(License license) {
+    public License createLicense(License license) {
         licenses.add(license);
+        return license;
     }
 
 
     @Override
-    public void createUser(User user) {
-        addId(user);
-        usersMap.put(user.getId(),user);
+    public User createUser(User user) {
+        usersMap.put(user.getId(), addId(user));
+        return user;
     }
 
-    private void addId(User user) {
+    private User addId(User user) {
         if(user.getId() == null)
             user.setId(UUID.randomUUID().toString());
+        return user;
     }
 
     @Override

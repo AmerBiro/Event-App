@@ -5,10 +5,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import java.util.Objects;
 
 public class User {
-    private String id = "";
-    private String firstName = "";
-    private String lastName = "";
-    private String userName = "";
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String userName;
 
     private User(){
 
@@ -26,14 +26,14 @@ public class User {
     }
 
     public boolean isSame(User user) {
-        return Objects.equals(id, user.id);
+        return id != null && Objects.equals(id, user.id);
     }
 
     public static class UserBuilder{
-        private String id = "";
-        private String firstName = "";
-        private String lastName = "";
-        private String userName = "";
+        private String id;
+        private String firstName;
+        private String lastName;
+        private String userName;
 
         private UserBuilder(){
 

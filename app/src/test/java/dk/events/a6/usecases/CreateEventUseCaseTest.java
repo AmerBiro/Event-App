@@ -42,8 +42,9 @@ public class CreateEventUseCaseTest {
         private static Map<String,Event> db = new HashMap<>();
 
         @Override
-        public void createLicense(License license) {
+        public License createLicense(License license) {
 
+            return license;
         }
 
         @Override
@@ -52,8 +53,9 @@ public class CreateEventUseCaseTest {
         }
 
         @Override
-        public void createUser(User user) {
+        public User createUser(User user) {
 
+            return user;
         }
 
         @Override
