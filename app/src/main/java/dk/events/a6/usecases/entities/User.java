@@ -23,6 +23,10 @@ public class User {
         return new UserBuilder();
     }
 
+    public boolean isSame(User user) {
+        return true;
+    }
+
     public static class UserBuilder{
         private String id = "";
         private String firstName = "";

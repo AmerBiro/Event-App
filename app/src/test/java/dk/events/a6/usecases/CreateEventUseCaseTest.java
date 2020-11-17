@@ -3,10 +3,13 @@ package dk.events.a6.usecases;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import dk.events.a6.usecases.entities.Event;
+import dk.events.a6.usecases.entities.License;
+import dk.events.a6.usecases.entities.User;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,6 +40,42 @@ public class CreateEventUseCaseTest {
 
     static class FakeEventGateway implements EventGateway{
         private static Map<String,Event> db = new HashMap<>();
+
+        @Override
+        public void createLicense(License license) {
+
+        }
+
+        @Override
+        public List<License> findLicensesForUserAndEvent(User user, Event event) {
+            return null;
+        }
+
+        @Override
+        public void createUser(User user) {
+
+        }
+
+        @Override
+        public User findUser(String userName) {
+            return null;
+        }
+
+        @Override
+        public List<Event> findAllEvents() {
+            return null;
+        }
+
+        @Override
+        public void delete(Event event) {
+
+        }
+
+        @Override
+        public Event findEventByTitle(String title) {
+            return null;
+        }
+
         @Override
         public void createEvent(Event event) {
             db.put(event.getId(), event);

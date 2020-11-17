@@ -36,6 +36,10 @@ public class Event {
         return images;
     }
 
+    public boolean isSame(Event event) {
+        return true;
+    }
+
     public static class EventBuilder{
         private String title = "";
         private String id = "";

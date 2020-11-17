@@ -5,7 +5,7 @@ import android.app.Application;
 import dk.events.a6.BruceAlmighty;
 import dk.events.a6.Context;
 import dk.events.a6.gateways.EventGatewayInMemory;
-import dk.events.a6.usecases.presentevent.PresentEventUseCaseInMemory;
+import dk.events.a6.usecases.presentevents.PresentEventsUseCaseInMemory;
 
 public class MainApplication extends Application {
 
@@ -18,6 +18,6 @@ public class MainApplication extends Application {
     private void initialize() {
         Context.eventGateway = new EventGatewayInMemory();
         Context.bruceAlmighty = new BruceAlmighty();
-        Context.presentEventUseCase = new PresentEventUseCaseInMemory();
+        Context.presentEventsUseCase = new PresentEventsUseCaseInMemory();
     }
 }
