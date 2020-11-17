@@ -4,8 +4,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 
 import java.util.Objects;
 
-public class User {
-    private String id;
+public class User extends Entity {
     private String firstName;
     private String lastName;
     private String userName;
@@ -23,10 +22,6 @@ public class User {
     }
     public static UserBuilder newBuilder(){
         return new UserBuilder();
-    }
-
-    public boolean isSame(User user) {
-        return id != null && Objects.equals(id, user.id);
     }
 
     public static class UserBuilder{
@@ -68,12 +63,6 @@ public class User {
     }
 
 
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
     public String getFirstName() {
         return firstName;
     }
