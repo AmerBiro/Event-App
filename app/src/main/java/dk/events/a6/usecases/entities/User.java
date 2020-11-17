@@ -2,6 +2,8 @@ package dk.events.a6.usecases.entities;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
 
+import java.util.Objects;
+
 public class User {
     private String id = "";
     private String firstName = "";
@@ -24,7 +26,7 @@ public class User {
     }
 
     public boolean isSame(User user) {
-        return this.userName.equals(user.getUserName());
+        return Objects.equals(id, user.id);
     }
 
     public static class UserBuilder{
