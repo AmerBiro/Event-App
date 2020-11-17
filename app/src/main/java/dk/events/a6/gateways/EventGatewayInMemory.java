@@ -36,6 +36,16 @@ public class EventGatewayInMemory implements EventGateway {
         //User user = User.newBuilder().withId(UUID.randomUUID().toString()).withUserName(userName).build();
         usersMap.put(user.getId(),user);
     }
+
+    @Override
+    public User findUser(String userName) {
+        for (User user : (List<User>) usersMap.values()) {
+            if(user.getUserName().equals(userName)){
+                return user;
+            }
+        }
+        return null;
+    }
     //end new
 
 
