@@ -19,7 +19,7 @@ public class License {
     }
 
     public static class Builder{
-        private User user = User.newBuilder().build();
+        private User user = User.newUserBuilder().build();
         private Event event = Event.newBuilder().build();
 
         private Builder(){}

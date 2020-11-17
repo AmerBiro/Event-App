@@ -20,7 +20,7 @@ public class User extends Entity {
                 lastName,
                 userName);
     }
-    public static UserBuilder newBuilder(){
+    public static UserBuilder newUserBuilder(){
         return new UserBuilder();
     }
 

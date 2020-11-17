@@ -17,7 +17,7 @@ public class EventTest {
         Event event = Event.newBuilder()
                 .withId(id)
                 .withTitle(title)
-                .withOwner(User.newBuilder().withId(UUID.randomUUID().toString()).withFirstName("Bob").withLastName("Marley").build())
+                .withOwner(User.newUserBuilder().withId(UUID.randomUUID().toString()).withFirstName("Bob").withLastName("Marley").build())
                 .build();
 
         //act

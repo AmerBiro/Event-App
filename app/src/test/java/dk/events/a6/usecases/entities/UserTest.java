@@ -8,8 +8,8 @@ public class UserTest {
 
     @Test
     public void givenTwoUsersDifferentUsers_returnUsersAreNotTheSame(){
-        User user = User.newBuilder().withUserName("userName").build();
-        User other = User.newBuilder().withUserName("OtherUserName").build();
+        User user = User.newUserBuilder().withUserName("userName").build();
+        User other = User.newUserBuilder().withUserName("OtherUserName").build();
         user.setId("user1_Id");
         other.setId("other_Id");
 
@@ -18,7 +18,7 @@ public class UserTest {
 
     @Test
     public void givenTheSameUser_returnUsersIsTheSame(){
-        User user = User.newBuilder().withUserName("userName").withId("userId").build();
+        User user = User.newUserBuilder().withUserName("userName").withId("userId").build();
 
         assertEquals(true, user.isSame(user));
     }
@@ -26,9 +26,9 @@ public class UserTest {
     @Test
     public void givenTwoUsersWithTheSameId_returnUsersAreTheSame(){
         final String userID = "userID";
-        User user = User.newBuilder().withUserName("userName")
+        User user = User.newUserBuilder().withUserName("userName")
                 .withId(userID).build();
-        User otherUser = User.newBuilder().withUserName("OtherUserName")
+        User otherUser = User.newUserBuilder().withUserName("OtherUserName")
                 .withId(userID).build();
 
 
@@ -37,8 +37,8 @@ public class UserTest {
 
     @Test
     public void givenTwoUsersWithNullId_returnUsersAreNotTheSame(){
-        User user = User.newBuilder().build();
-        User otherUser = User.newBuilder().build();
+        User user = User.newUserBuilder().build();
+        User otherUser = User.newUserBuilder().build();
 
         assertEquals(false, user.isSame(otherUser));
     }

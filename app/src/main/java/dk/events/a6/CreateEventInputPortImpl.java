@@ -16,7 +16,7 @@ public class CreateEventInputPortImpl implements CreateEventInputPort {
 
     @Override
     public void createEvent(CreateEventViewModel vm) {
-        User owner = User.newBuilder()
+        User owner = User.newUserBuilder()
                 .withId(UUID.randomUUID().toString())
                 .withFirstName(vm.ownerFirstName)
                 .withLastName(vm.ownerLastName)

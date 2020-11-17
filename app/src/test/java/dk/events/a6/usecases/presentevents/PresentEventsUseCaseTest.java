@@ -22,7 +22,7 @@ public class PresentEventsUseCaseTest {
         Context.eventGateway = new EventGatewayInMemory();
         useCase = new PresentEventsUseCaseInMemory();
 
-        user = Context.eventGateway.createUser( User.newBuilder().withUserName("userName1").build() );
+        user = Context.eventGateway.createUser( User.newUserBuilder().withUserName("userName1").build() );
         event = Event.newBuilder().build();
     }
 
@@ -39,7 +39,7 @@ public class PresentEventsUseCaseTest {
 
     @Test
     public void givenUserWithoutParticipationLicense_returnCannotParticipateInTheEventWhereOthersCan(){
-        User otherUser = Context.eventGateway.createUser( User.newBuilder().withUserName("OtherUserName").build() );
+        User otherUser = Context.eventGateway.createUser( User.newUserBuilder().withUserName("OtherUserName").build() );
         Context.eventGateway.createLicense(License.newBuilder().withUser(user).withEvent(event).build());
 
         assertEquals(false, useCase.isLicensedToParticipate(otherUser, event));

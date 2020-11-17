@@ -7,7 +7,7 @@ public class Event {
     private String id = "";
     private String title = "";
     private String description = "";
-    private User owner = User.newBuilder().build();
+    private User owner = User.newUserBuilder().build();
     private List<User> participants = new ArrayList<>();
     private List<ImageDetails> images = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public class Event {
         private String title = "";
         private String id = "";
         private String description = "";
-        private User owner = User.newBuilder().build();
+        private User owner = User.newUserBuilder().build();
         private List<User> participants = new ArrayList<>();
         private List<ImageDetails> images = new ArrayList<>();
 
