@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import dk.events.a6.usecases.EventGateway;
 import dk.events.a6.usecases.entities.Event;
@@ -35,8 +36,13 @@ public class EventGatewayInMemory implements EventGateway {
 
     @Override
     public void createUser(User user) {
-        //User user = User.newBuilder().withId(UUID.randomUUID().toString()).withUserName(userName).build();
+        addId(user);
         usersMap.put(user.getId(),user);
+    }
+
+    private void addId(User user) {
+        if(user.getId() == null)
+            user.setId(UUID.randomUUID().toString());
     }
 
     @Override
