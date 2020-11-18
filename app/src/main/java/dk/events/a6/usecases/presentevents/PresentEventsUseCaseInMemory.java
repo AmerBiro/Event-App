@@ -1,6 +1,5 @@
 package dk.events.a6.usecases.presentevents;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +7,9 @@ import java.util.List;
 import dk.events.a6.Context;
 import dk.events.a6.usecases.entities.Event;
 import dk.events.a6.usecases.entities.License;
+import dk.events.a6.usecases.entities.ParticipationLicense;
 import dk.events.a6.usecases.entities.User;
+import dk.events.a6.usecases.entities.ViewLicense;
 
 public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -19,7 +20,8 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
         for (Event e: allEvents){
             PresentableEvent pEvent = new PresentableEvent();
 
-            pEvent.hasLicenseFor = isLicensedToParticipate(loggedUser,e);
+            pEvent.isParticipable = hasParticipationLicense(loggedUser,e);
+            pEvent.isViewable = hasViewLicense(loggedUser, e);
             pEvent.title = e.getTitle();
             pEvent.startDate = simpleDateFormat.format( e.getStartDate() );
 
@@ -29,8 +31,24 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
     }
 
     @Override
-    public boolean isLicensedToParticipate(User user, Event event) {
+    public boolean hasParticipationLicense(User user, Event event) {
         List<License> licenses = Context.eventGateway.findLicensesForUserAndEvent(user, event);
-        return !licenses.isEmpty();
+        for (License l : licenses){
+            if(l instanceof ParticipationLicense){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean hasViewLicense(User user, Event event) {
+        List<License> licenses = Context.eventGateway.findLicensesForUserAndEvent(user, event);
+        for (License l : licenses){
+            if(l instanceof ViewLicense){
+                return true;
+            }
+        }
+        return false;
     }
 }

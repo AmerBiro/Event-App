@@ -14,15 +14,15 @@ public class License {
                 '}';
     }
 
-    public static Builder newBuilder(){
-        return new Builder();
+    public static LicenseBuilder newBuilder(){
+        return new LicenseBuilder();
     }
 
-    public static class Builder{
+    public static class LicenseBuilder {
         private User user = User.newUserBuilder().build();
         private Event event = Event.newBuilder().build();
 
-        private Builder(){}
+        private LicenseBuilder(){}
 
         public License build(){
             License license = new License();
@@ -30,11 +30,11 @@ public class License {
             license.setEvent(this.event);
             return license;
         }
-        public Builder withUser(User user){
+        public LicenseBuilder withUser(User user){
             this.user = user;
             return this;
         }
-        public Builder withEvent(Event event){
+        public LicenseBuilder withEvent(Event event){
             this.event = event;
             return this;
         }

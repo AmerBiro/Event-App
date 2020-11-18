@@ -11,9 +11,9 @@ import java.util.List;
 import dk.events.a6.Context;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.usecases.entities.Event;
-import dk.events.a6.usecases.entities.License;
 import dk.events.a6.usecases.entities.ParticipationLicense;
 import dk.events.a6.usecases.entities.User;
+import dk.events.a6.usecases.entities.ViewLicense;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,13 +36,13 @@ public class PresentEventsUseCaseTest {
 
     @Test
     public void givenUserWithoutParticipationLicense_returnUserCannotParticipateInTheEvent(){
-        assertEquals(false, useCase.isLicensedToParticipate(user, event));
+        assertEquals(false, useCase.hasParticipationLicense(user, event));
     }
 
     @Test
     public void givenUserWithParticipationLicense_returnUserCanParticipateInTheEvent(){
-        Context.eventGateway.createLicense(ParticipationLicense.newBuilder().withUser(user).withEvent(event).build() );
-        assertEquals(true, useCase.isLicensedToParticipate(user, event));
+        Context.eventGateway.createLicense(ParticipationLicense.newParticipationLicenseBuilder().withUser(user).withEvent(event).build() );
+        assertEquals(true, useCase.hasParticipationLicense(user, event));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class PresentEventsUseCaseTest {
         User otherUser = Context.eventGateway.createUser( User.newUserBuilder().withUserName("OtherUserName").build() );
         Context.eventGateway.createLicense(ParticipationLicense.newBuilder().withUser(user).withEvent(event).build());
 
-        assertEquals(false, useCase.isLicensedToParticipate(otherUser, event));
+        assertEquals(false, useCase.hasParticipationLicense(otherUser, event));
     }
 
     @Test
@@ -71,16 +71,25 @@ public class PresentEventsUseCaseTest {
         List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);
 
-        assertEquals(false, presentableEvent.hasLicenseFor);
+        assertEquals(false, presentableEvent.isParticipable);
     }
 
     @Test
-    public void givenHasLicenseForEvent_returnUserHasLicenseFor(){
-        Context.eventGateway.createLicense(ParticipationLicense.newBuilder().withUser(user).withEvent(event).build());
+    public void givenUserWithParticipationLicenseForEvent_returnUserCanParticipate(){
+        Context.eventGateway.createLicense(ParticipationLicense.newParticipationLicenseBuilder().withUser(user).withEvent(event).build());
         List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);
 
-        assertEquals(true, presentableEvent.hasLicenseFor);
+        assertEquals(true, presentableEvent.isParticipable);
+    }
 
+    @Test
+    public void givenUserWithViewLicenseForEvent_returnEventIsViewable(){
+        Context.eventGateway.createLicense( ViewLicense.newViewLicenseBuilder().withUser(user).withEvent(event).build() );
+        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        PresentableEvent presentableEvent = presentableEvents.get(0);
+
+        assertEquals(true, presentableEvent.isViewable);
+        assertEquals(false, presentableEvent.isParticipable);
     }
 }

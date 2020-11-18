@@ -8,5 +8,6 @@ import dk.events.a6.usecases.entities.User;
 public interface PresentEventsUseCase {
 
     List<PresentableEvent> presentEvents(User loggedUser);
-    boolean isLicensedToParticipate(User user, Event event);
+    boolean hasParticipationLicense(User user, Event event);
+    boolean hasViewLicense(User user, Event event);
 }
