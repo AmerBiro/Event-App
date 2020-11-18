@@ -1,16 +1,21 @@
 package dk.events.a6.usecases.entities;
 
 public class License {
+    public enum LicenseType {VIEWABLE, PARTICIPABLE}
     private User user;
     private Event event;
+    private LicenseType licenseType;
+
     protected License(){
 
     }
+
     @Override
     public String toString() {
         return "License{" +
                 "user=" + user +
                 ", event=" + event +
+                ", licenseType=" + licenseType +
                 '}';
     }
 
@@ -21,6 +26,7 @@ public class License {
     public static class LicenseBuilder {
         private User user = User.newUserBuilder().build();
         private Event event = Event.newBuilder().build();
+        private LicenseType licenseType;
 
         private LicenseBuilder(){}
 
@@ -28,6 +34,7 @@ public class License {
             License license = new License();
             license.setUser(this.user);
             license.setEvent(this.event);
+            license.setLicenseType(this.licenseType);
             return license;
         }
         public LicenseBuilder withUser(User user){
@@ -36,6 +43,10 @@ public class License {
         }
         public LicenseBuilder withEvent(Event event){
             this.event = event;
+            return this;
+        }
+        public LicenseBuilder withLicenseType(LicenseType licenseType){
+            this.licenseType = licenseType;
             return this;
         }
     }
@@ -54,5 +65,13 @@ public class License {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public LicenseType getLicenseType() {
+        return licenseType;
+    }
+
+    public void setLicenseType(LicenseType licenseType) {
+        this.licenseType = licenseType;
     }
 }

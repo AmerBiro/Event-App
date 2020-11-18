@@ -7,9 +7,10 @@ import java.util.List;
 import dk.events.a6.Context;
 import dk.events.a6.usecases.entities.Event;
 import dk.events.a6.usecases.entities.License;
-import dk.events.a6.usecases.entities.ParticipationLicense;
+import dk.events.a6.usecases.entities.License.LicenseType;
 import dk.events.a6.usecases.entities.User;
-import dk.events.a6.usecases.entities.ViewLicense;
+
+import static dk.events.a6.usecases.entities.License.LicenseType.*;
 
 public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -34,9 +35,8 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
     public boolean hasParticipationLicense(User user, Event event) {
         List<License> licenses = Context.eventGateway.findLicensesForUserAndEvent(user, event);
         for (License l : licenses){
-            if(l instanceof ParticipationLicense){
+            if (hasLicenseType(l, PARTICIPABLE))
                 return true;
-            }
         }
         return false;
     }
@@ -45,9 +45,16 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
     public boolean hasViewLicense(User user, Event event) {
         List<License> licenses = Context.eventGateway.findLicensesForUserAndEvent(user, event);
         for (License l : licenses){
-            if(l instanceof ViewLicense){
+            if (hasLicenseType(l, VIEWABLE))
                 return true;
-            }
+        }
+        return false;
+    }
+
+    private boolean hasLicenseType(License l, LicenseType viewable) {
+        LicenseType type = l.getLicenseType();
+        if (type == viewable) {
+            return true;
         }
         return false;
     }
