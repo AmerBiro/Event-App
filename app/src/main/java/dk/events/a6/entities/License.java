@@ -1,6 +1,6 @@
 package dk.events.a6.entities;
 
-public class License {
+public class License extends Entity {
     public enum LicenseType {VIEWING, PARTICIPATING}
 
     private User user;
@@ -25,6 +25,7 @@ public class License {
     }
 
     public static class LicenseBuilder {
+        private String id;
         private User user = User.newUserBuilder().build();
         private Event event = Event.newBuilder().build();
         private LicenseType licenseType;
@@ -33,10 +34,15 @@ public class License {
 
         public License build(){
             License license = new License();
+            license.setId(this.id);
             license.setUser(this.user);
             license.setEvent(this.event);
             license.setLicenseType(this.licenseType);
             return license;
+        }
+        public LicenseBuilder withId(String id){
+            this.id = id;
+            return this;
         }
         public LicenseBuilder withUser(User user){
             this.user = user;

@@ -6,8 +6,6 @@ import dk.events.a6.usecases.UserGateway;
 import dk.events.a6.entities.User;
 
 public class UserGatewayInMemory extends BaseGatewayInMemory implements UserGateway {
-
-
     @Override
     public User createUser(User user) {
         usersMap.put(user.getId(), (User) setWithId(user));

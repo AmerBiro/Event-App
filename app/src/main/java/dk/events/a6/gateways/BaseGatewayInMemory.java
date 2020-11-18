@@ -1,25 +1,18 @@
 package dk.events.a6.gateways;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import dk.events.a6.entities.Entity;
-import dk.events.a6.entities.Event;
-import dk.events.a6.entities.License;
-import dk.events.a6.entities.User;
 
-public class BaseGatewayInMemory {
-    protected Map<String, User> usersMap = new HashMap<>(); //static?
-    protected Map<String, Event> eventsMap = new HashMap<>(); //static?
-    protected List<License> licenses = new ArrayList<>(); //static?
+public class BaseGatewayInMemory <T extends Entity>{
+    protected Map<String, T> usersMap = new HashMap<>(); //static?
+    protected Map<String, T> eventsMap = new HashMap<>(); //static?
+    protected Map<String, T> licensesMap = new HashMap<>(); //static?
 
-    protected Entity setWithId(Entity entity) {
+    protected T setWithId(T entity) {
         if(entity.getId() == null)
             entity.setId(UUID.randomUUID().toString());
         return entity;
     }
-
 }
