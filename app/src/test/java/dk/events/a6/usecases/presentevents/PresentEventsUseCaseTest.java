@@ -36,14 +36,14 @@ public class PresentEventsUseCaseTest {
 
     @Test
     public void givenUserWithoutParticipationLicense_returnUserCannotParticipateInTheEvent(){
-        assertEquals(false, useCase.hasParticipationLicense(user, event));
+        assertEquals(false, useCase.hasLicenseFor(PARTICIPATING, user, event));
     }
 
     @Test
     public void givenUserWithParticipationLicense_returnUserCanParticipateInTheEvent(){
         Context.eventGateway.createLicense(
-                License.newBuilder().withLicenseType(PARTICIPABLE).withUser(user).withEvent(event).build() );
-        assertEquals(true, useCase.hasParticipationLicense(user, event));
+                License.newBuilder().withLicenseType(PARTICIPATING).withUser(user).withEvent(event).build() );
+        assertEquals(true, useCase.hasLicenseFor(PARTICIPATING, user, event));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class PresentEventsUseCaseTest {
         Context.eventGateway.createLicense(
                 License.newBuilder().withUser(user).withEvent(event).build());
 
-        assertEquals(false, useCase.hasParticipationLicense(otherUser, event));
+        assertEquals(false, useCase.hasLicenseFor(PARTICIPATING, otherUser, event));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class PresentEventsUseCaseTest {
     @Test
     public void givenUserWithParticipationLicenseForEvent_returnUserCanParticipate(){
         Context.eventGateway.createLicense(
-                License.newBuilder().withLicenseType(PARTICIPABLE).withUser(user).withEvent(event).build());
+                License.newBuilder().withLicenseType(PARTICIPATING).withUser(user).withEvent(event).build());
         List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);
 
@@ -89,7 +89,7 @@ public class PresentEventsUseCaseTest {
     @Test
     public void givenUserWithViewLicenseForEvent_returnEventIsViewable(){
         Context.eventGateway.createLicense(
-                License.newBuilder().withLicenseType(VIEWABLE).withUser(user).withEvent(event).build() );
+                License.newBuilder().withLicenseType(VIEWING).withUser(user).withEvent(event).build() );
         List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);
 

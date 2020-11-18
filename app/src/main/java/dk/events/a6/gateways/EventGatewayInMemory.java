@@ -35,7 +35,6 @@ public class EventGatewayInMemory implements EventGateway {
         return license;
     }
 
-
     @Override
     public User createUser(User user) {
         usersMap.put(user.getId(), (User) setWithId(user));

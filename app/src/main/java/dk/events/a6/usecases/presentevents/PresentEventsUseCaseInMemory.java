@@ -21,8 +21,8 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
         for (Event e: allEvents){
             PresentableEvent pEvent = new PresentableEvent();
 
-            pEvent.isParticipable = hasParticipationLicense(loggedUser,e);
-            pEvent.isViewable = hasViewLicense(loggedUser, e);
+            pEvent.isParticipable = hasLicenseFor(PARTICIPATING, loggedUser, e);
+            pEvent.isViewable = hasLicenseFor(VIEWING, loggedUser, e);
             pEvent.title = e.getTitle();
             pEvent.startDate = simpleDateFormat.format( e.getStartDate() );
 
@@ -32,30 +32,15 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
     }
 
     @Override
-    public boolean hasParticipationLicense(User user, Event event) {
+    public boolean hasLicenseFor(LicenseType licenseType, User user, Event event) {
         List<License> licenses = Context.eventGateway.findLicensesForUserAndEvent(user, event);
-        for (License l : licenses){
-            if (hasLicenseType(l, PARTICIPABLE))
+        for (License l : licenses) {
+            LicenseType type = l.getLicenseType();
+            if (type == licenseType) {
                 return true;
+            }
         }
         return false;
     }
 
-    @Override
-    public boolean hasViewLicense(User user, Event event) {
-        List<License> licenses = Context.eventGateway.findLicensesForUserAndEvent(user, event);
-        for (License l : licenses){
-            if (hasLicenseType(l, VIEWABLE))
-                return true;
-        }
-        return false;
-    }
-
-    private boolean hasLicenseType(License l, LicenseType viewable) {
-        LicenseType type = l.getLicenseType();
-        if (type == viewable) {
-            return true;
-        }
-        return false;
-    }
 }
