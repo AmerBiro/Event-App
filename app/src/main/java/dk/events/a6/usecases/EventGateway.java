@@ -11,8 +11,8 @@ public interface EventGateway {
      License createLicense(License license);
      List<License> findLicensesForUserAndEvent(User user, Event event);
 
-     User createUser(User user);
-     User findUser(String userName);
+     //User createUser(User user);
+     //User findUser(String userName);
 
      List<Event> findAllEvents();
      void delete(Event event);

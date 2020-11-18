@@ -28,7 +28,6 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
         return presentableEvents;
     }
 
-    @NotNull
     private PresentableEvent makeEventPresentable(User loggedUser, Event e) {
         PresentableEvent pEvent = new PresentableEvent();
 

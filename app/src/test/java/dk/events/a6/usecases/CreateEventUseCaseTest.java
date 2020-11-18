@@ -54,16 +54,6 @@ public class CreateEventUseCaseTest {
             return null;
         }
 
-        @Override
-        public User createUser(User user) {
-
-            return user;
-        }
-
-        @Override
-        public User findUser(String userName) {
-            return null;
-        }
 
         @Override
         public List<Event> findAllEvents() {

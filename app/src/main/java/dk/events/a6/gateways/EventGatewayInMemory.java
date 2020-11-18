@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import dk.events.a6.usecases.EventGateway;
-import dk.events.a6.usecases.entities.Entity;
 import dk.events.a6.usecases.entities.Event;
 import dk.events.a6.usecases.entities.License;
 import dk.events.a6.usecases.entities.User;
 
-public class EventGatewayInMemory implements EventGateway {
+public class EventGatewayInMemory extends BaseGatewayInMemory implements EventGateway {
     private  Map<String,Event> eventsMap = new HashMap<>(); //static?
-    private  Map<String,User> usersMap = new HashMap<>(); //static?
     private List<License> licenses = new ArrayList<>(); //static?
 
     //new
@@ -35,27 +32,10 @@ public class EventGatewayInMemory implements EventGateway {
         return license;
     }
 
-    @Override
-    public User createUser(User user) {
-        usersMap.put(user.getId(), (User) setWithId(user));
-        return user;
-    }
 
-    private Entity setWithId(Entity entity) {
-        if(entity.getId() == null)
-            entity.setId(UUID.randomUUID().toString());
-        return entity;
-    }
 
-    @Override
-    public User findUser(String userName) {
-        for (User user : (List<User>) usersMap.values()) {
-            if(user.getUserName().equals(userName)){
-                return user;
-            }
-        }
-        return null;
-    }
+
+
 
 
     @Override
