@@ -13,9 +13,9 @@ import dk.events.a6.usecases.entities.License;
 import dk.events.a6.usecases.entities.User;
 
 public class EventGatewayInMemory implements EventGateway {
-    private static Map<String,Event> eventsMap = new HashMap<>();
-    private static Map<String,User> usersMap = new HashMap<>();
-    private List<License> licenses = new ArrayList<>();
+    private  Map<String,Event> eventsMap = new HashMap<>(); //static?
+    private  Map<String,User> usersMap = new HashMap<>(); //static?
+    private List<License> licenses = new ArrayList<>(); //static?
 
     //new
     @Override
@@ -69,7 +69,7 @@ public class EventGatewayInMemory implements EventGateway {
         return null;
     }
 
-    public static void setEvents(List<Event> events) {
+    public  void setEvents(List<Event> events) { //static?
         eventsMap = new HashMap<>();
         for (Event e: events)
             eventsMap.put(e.getId(),e);

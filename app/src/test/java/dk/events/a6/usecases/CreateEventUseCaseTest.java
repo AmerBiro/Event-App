@@ -2,6 +2,7 @@ package dk.events.a6.usecases;
 
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ public class CreateEventUseCaseTest {
         Event event = Event.newBuilder()
                 .withId(id)
                 .withTitle(title)
+                .withStartDate(new Date())
                 .build();
 
         //act

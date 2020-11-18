@@ -3,6 +3,9 @@ package dk.events.a6.usecases.presentevents;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import dk.events.a6.Context;
@@ -16,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 public class PresentEventsUseCaseTest {
 
     public static final String TITLE = "event title";
-    public static final String START_DATE = "InTwoDays :)";
+    public static final Date START_DATE = new GregorianCalendar().getTime();
     private User user;
     private Event event;
     private PresentEventsUseCase useCase;
@@ -27,7 +30,7 @@ public class PresentEventsUseCaseTest {
         useCase = new PresentEventsUseCaseInMemory();
 
         user = Context.eventGateway.createUser( User.newUserBuilder().build() );
-        event = Context.eventGateway.createEvent( Event.newBuilder().build() );
+        event = Context.eventGateway.createEvent( Event.newBuilder().withStartDate(new Date()).build() );
     }
 
     @Test
@@ -59,7 +62,7 @@ public class PresentEventsUseCaseTest {
 
         PresentableEvent presentableEvent = presentableEvents.get(0);
         assertEquals(TITLE, presentableEvent.title);
-        assertEquals(START_DATE, presentableEvent.startDate);
+        assertEquals(new SimpleDateFormat("dd/MM/YYYY").format(START_DATE), presentableEvent.startDate);
     }
 
     @Test

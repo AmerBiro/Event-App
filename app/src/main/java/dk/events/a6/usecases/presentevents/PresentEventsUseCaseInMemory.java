@@ -1,5 +1,7 @@
 package dk.events.a6.usecases.presentevents;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import dk.events.a6.usecases.entities.License;
 import dk.events.a6.usecases.entities.User;
 
 public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY");
     @Override
     public List<PresentableEvent> presentEvents(User loggedUser) {
         List<Event> allEvents = Context.eventGateway.findAllEvents();
@@ -18,7 +21,8 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
 
             pEvent.hasLicenseFor = isLicensedToParticipate(loggedUser,e);
             pEvent.title = e.getTitle();
-            pEvent.startDate = e.getStartDate();
+            pEvent.startDate = simpleDateFormat.format( e.getStartDate() );
+
             presentableEvents.add(pEvent);
         }
         return presentableEvents;

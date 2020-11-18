@@ -1,6 +1,7 @@
 package dk.events.a6.usecases.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Event extends Entity {
@@ -9,7 +10,7 @@ public class Event extends Entity {
     private User owner = User.newUserBuilder().build();
     private List<User> participants = new ArrayList<>();
     private List<ImageDetails> images = new ArrayList<>();
-    private String startDate;
+    private Date startDate;
 
     private Event(){
     }
@@ -20,7 +21,7 @@ public class Event extends Entity {
                 id,
                 title,
                 description,
-                startDate,
+                startDate.toString(),
                 owner.toString(),
                 participants.stream().map(u -> u.toString()).reduce("", String::concat));
     }
@@ -46,7 +47,7 @@ public class Event extends Entity {
         private User owner = User.newUserBuilder().build();
         private List<User> participants = new ArrayList<>();
         private List<ImageDetails> images = new ArrayList<>();
-        private String startDate;
+        private Date startDate;
 
         private EventBuilder(){
         }
@@ -86,7 +87,7 @@ public class Event extends Entity {
             this.participants = participants;
             return this;
         }
-        public EventBuilder withStartDate(String startDate){
+        public EventBuilder withStartDate(Date startDate){
             this.startDate = startDate;
             return this;
         }
@@ -126,11 +127,11 @@ public class Event extends Entity {
         this.participants = participants;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 }
