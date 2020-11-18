@@ -1,5 +1,7 @@
 package dk.events.a6.usecases.presentevents;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +20,23 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
     public List<PresentableEvent> presentEvents(User loggedUser) {
         List<Event> allEvents = Context.eventGateway.findAllEvents();
         List<PresentableEvent> presentableEvents = new ArrayList<>();
+
         for (Event e: allEvents){
-            PresentableEvent pEvent = new PresentableEvent();
-
-            pEvent.isParticipable = hasLicenseFor(PARTICIPATING, loggedUser, e);
-            pEvent.isViewable = hasLicenseFor(VIEWING, loggedUser, e);
-            pEvent.title = e.getTitle();
-            pEvent.startDate = simpleDateFormat.format( e.getStartDate() );
-
-            presentableEvents.add(pEvent);
+            presentableEvents.add(makeEventPresentable(loggedUser, e));
         }
+
         return presentableEvents;
+    }
+
+    @NotNull
+    private PresentableEvent makeEventPresentable(User loggedUser, Event e) {
+        PresentableEvent pEvent = new PresentableEvent();
+
+        pEvent.isParticipable = hasLicenseFor(PARTICIPATING, loggedUser, e);
+        pEvent.isViewable = hasLicenseFor(VIEWING, loggedUser, e);
+        pEvent.title = e.getTitle();
+        pEvent.startDate = simpleDateFormat.format( e.getStartDate() );
+        return pEvent;
     }
 
     @Override
