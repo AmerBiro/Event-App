@@ -40,7 +40,7 @@ public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
 
     @Override
     public boolean hasLicenseFor(LicenseType licenseType, User user, Event event) {
-        List<License> licenses = Context.eventGateway.findLicensesForUserAndEvent(user, event);
+        List<License> licenses = Context.licenseGateway.findLicensesForUserAndEvent(user, event);
         for (License l : licenses) {
             LicenseType type = l.getLicenseType();
             if (type == licenseType) {

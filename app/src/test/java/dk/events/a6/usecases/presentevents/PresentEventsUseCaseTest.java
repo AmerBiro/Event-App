@@ -10,6 +10,7 @@ import java.util.List;
 
 import dk.events.a6.Context;
 import dk.events.a6.gateways.EventGatewayInMemory;
+import dk.events.a6.gateways.LicenseGatewayInMemory;
 import dk.events.a6.gateways.UserGatewayInMemory;
 import dk.events.a6.usecases.entities.Event;
 import dk.events.a6.usecases.entities.License;
@@ -30,6 +31,7 @@ public class PresentEventsUseCaseTest {
     public void beforeAll(){
         Context.eventGateway = new EventGatewayInMemory();
         Context.userGateway = new UserGatewayInMemory();
+        Context.licenseGateway = new LicenseGatewayInMemory();
         useCase = new PresentEventsUseCaseInMemory();
 
         user = Context.userGateway.createUser( User.newUserBuilder().build() );
@@ -43,7 +45,7 @@ public class PresentEventsUseCaseTest {
 
     @Test
     public void givenUserWithParticipationLicense_returnUserCanParticipateInTheEvent(){
-        Context.eventGateway.createLicense(
+        Context.licenseGateway.createLicense(
                 License.newBuilder().withLicenseType(PARTICIPATING).withUser(user).withEvent(event).build() );
         assertEquals(true, useCase.hasLicenseFor(PARTICIPATING, user, event));
     }
@@ -51,7 +53,7 @@ public class PresentEventsUseCaseTest {
     @Test
     public void givenUserWithoutParticipationLicense_returnCannotParticipateInTheEventWhereOthersCan(){
         User otherUser = Context.userGateway.createUser( User.newUserBuilder().withUserName("OtherUserName").build() );
-        Context.eventGateway.createLicense(
+        Context.licenseGateway.createLicense(
                 License.newBuilder().withUser(user).withEvent(event).build());
 
         assertEquals(false, useCase.hasLicenseFor(PARTICIPATING, otherUser, event));
@@ -80,7 +82,7 @@ public class PresentEventsUseCaseTest {
 
     @Test
     public void givenUserWithParticipationLicenseForEvent_returnUserCanParticipate(){
-        Context.eventGateway.createLicense(
+        Context.licenseGateway.createLicense(
                 License.newBuilder().withLicenseType(PARTICIPATING).withUser(user).withEvent(event).build());
         List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);
@@ -90,7 +92,7 @@ public class PresentEventsUseCaseTest {
 
     @Test
     public void givenUserWithViewLicenseForEvent_returnEventIsViewable(){
-        Context.eventGateway.createLicense(
+        Context.licenseGateway.createLicense(
                 License.newBuilder().withLicenseType(VIEWING).withUser(user).withEvent(event).build() );
         List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);

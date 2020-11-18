@@ -42,19 +42,7 @@ public class CreateEventUseCaseTest {
 
     static class FakeEventGateway implements EventGateway{
         private static Map<String,Event> db = new HashMap<>();
-
-        @Override
-        public License createLicense(License license) {
-
-            return license;
-        }
-
-        @Override
-        public List<License> findLicensesForUserAndEvent(User user, Event event) {
-            return null;
-        }
-
-
+        
         @Override
         public List<Event> findAllEvents() {
             return null;

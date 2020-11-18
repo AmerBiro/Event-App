@@ -12,32 +12,8 @@ import dk.events.a6.usecases.entities.User;
 
 public class EventGatewayInMemory extends BaseGatewayInMemory implements EventGateway {
     private  Map<String,Event> eventsMap = new HashMap<>(); //static?
-    private List<License> licenses = new ArrayList<>(); //static?
 
     //new
-    @Override
-    public List<License> findLicensesForUserAndEvent(User user, Event event) {
-        List<License> returnedLicenses = new ArrayList<>();
-        for (License l : licenses){
-            if(l.getUser().isSame(user) && l.getEvent().isSame(event)){
-                returnedLicenses.add(l);
-            }
-        }
-        return returnedLicenses;
-    }
-
-    @Override
-    public License createLicense(License license) {
-        licenses.add(license);
-        return license;
-    }
-
-
-
-
-
-
-
     @Override
     public Event findEventByTitle(String title) {
         for (Event e : eventsMap.values()) {
