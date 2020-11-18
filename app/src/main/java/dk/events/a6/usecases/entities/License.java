@@ -3,7 +3,7 @@ package dk.events.a6.usecases.entities;
 public class License {
     private User user;
     private Event event;
-    private License(){
+    protected License(){
 
     }
     @Override

@@ -11,7 +11,7 @@ import dk.events.a6.usecases.entities.License;
 import dk.events.a6.usecases.entities.User;
 
 public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY");
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     @Override
     public List<PresentableEvent> presentEvents(User loggedUser) {
         List<Event> allEvents = Context.eventGateway.findAllEvents();

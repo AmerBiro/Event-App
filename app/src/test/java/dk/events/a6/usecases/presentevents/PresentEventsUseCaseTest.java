@@ -12,6 +12,7 @@ import dk.events.a6.Context;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.usecases.entities.Event;
 import dk.events.a6.usecases.entities.License;
+import dk.events.a6.usecases.entities.ParticipationLicense;
 import dk.events.a6.usecases.entities.User;
 
 import static org.junit.Assert.assertEquals;
@@ -40,14 +41,14 @@ public class PresentEventsUseCaseTest {
 
     @Test
     public void givenUserWithParticipationLicense_returnUserCanParticipateInTheEvent(){
-        Context.eventGateway.createLicense( License.newBuilder().withUser(user).withEvent(event).build() );
+        Context.eventGateway.createLicense(ParticipationLicense.newBuilder().withUser(user).withEvent(event).build() );
         assertEquals(true, useCase.isLicensedToParticipate(user, event));
     }
 
     @Test
     public void givenUserWithoutParticipationLicense_returnCannotParticipateInTheEventWhereOthersCan(){
         User otherUser = Context.eventGateway.createUser( User.newUserBuilder().withUserName("OtherUserName").build() );
-        Context.eventGateway.createLicense(License.newBuilder().withUser(user).withEvent(event).build());
+        Context.eventGateway.createLicense(ParticipationLicense.newBuilder().withUser(user).withEvent(event).build());
 
         assertEquals(false, useCase.isLicensedToParticipate(otherUser, event));
     }
@@ -62,7 +63,7 @@ public class PresentEventsUseCaseTest {
 
         PresentableEvent presentableEvent = presentableEvents.get(0);
         assertEquals(TITLE, presentableEvent.title);
-        assertEquals(new SimpleDateFormat("dd/MM/YYYY").format(START_DATE), presentableEvent.startDate);
+        assertEquals(new SimpleDateFormat("dd/MM/yyyy").format(START_DATE), presentableEvent.startDate);
     }
 
     @Test
@@ -75,7 +76,7 @@ public class PresentEventsUseCaseTest {
 
     @Test
     public void givenHasLicenseForEvent_returnUserHasLicenseFor(){
-        Context.eventGateway.createLicense(License.newBuilder().withUser(user).withEvent(event).build());
+        Context.eventGateway.createLicense(ParticipationLicense.newBuilder().withUser(user).withEvent(event).build());
         List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);
 
