@@ -1,4 +1,4 @@
-package dk.events.a6.usecases;
+package dk.events.a6.usecases.createevent;
 
 import org.junit.Test;
 
@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import dk.events.a6.usecases.entities.Event;
-import dk.events.a6.usecases.entities.License;
-import dk.events.a6.usecases.entities.User;
+import dk.events.a6.usecases.createevent.CreateEventOutputPort;
+import dk.events.a6.usecases.createevent.CreateEventUseCase;
+import dk.events.a6.usecases.createevent.EventGateway;
+import dk.events.a6.entities.Event;
 
 import static org.junit.Assert.assertEquals;
 
@@ -42,7 +43,7 @@ public class CreateEventUseCaseTest {
 
     static class FakeEventGateway implements EventGateway{
         private static Map<String,Event> db = new HashMap<>();
-        
+
         @Override
         public List<Event> findAllEvents() {
             return null;
@@ -70,7 +71,7 @@ public class CreateEventUseCaseTest {
         }
     }
 
-    static class FakeOutputPort implements CreateEventOutputPort{
+    static class FakeOutputPort implements CreateEventOutputPort {
         public String sendMsg = "not set";
         @Override
         public void show(String msg) {

@@ -1,9 +1,7 @@
-package dk.events.a6.app;
+package dk.events.a6.android;
 
 import android.app.Application;
 
-import dk.events.a6.BruceAlmighty;
-import dk.events.a6.Context;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.usecases.presentevents.PresentEventsUseCaseInMemory;
 

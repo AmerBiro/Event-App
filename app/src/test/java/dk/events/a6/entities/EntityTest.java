@@ -1,6 +1,8 @@
-package dk.events.a6.usecases.entities;
+package dk.events.a6.entities;
 
 import org.junit.Test;
+
+import dk.events.a6.entities.Entity;
 
 import static org.junit.Assert.assertEquals;
 

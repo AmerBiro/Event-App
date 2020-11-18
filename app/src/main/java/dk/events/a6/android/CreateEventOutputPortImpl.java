@@ -1,6 +1,6 @@
-package dk.events.a6;
+package dk.events.a6.android;
 
-import dk.events.a6.usecases.CreateEventOutputPort;
+import dk.events.a6.usecases.createevent.CreateEventOutputPort;
 
 public class CreateEventOutputPortImpl implements CreateEventOutputPort {
     @Override

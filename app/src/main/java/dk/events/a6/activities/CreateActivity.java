@@ -25,17 +25,17 @@ import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import dk.events.a6.CreateEventInputPortImpl;
-import dk.events.a6.CreateEventViewModel;
+import dk.events.a6.android.CreateEventInputPortImpl;
+import dk.events.a6.android.CreateEventViewModel;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.events.a6.gateways.EventGatewayInMemory;
-import dk.events.a6.usecases.CreateEventOutputPort;
-import dk.events.a6.usecases.CreateEventInputPort;
-import dk.events.a6.usecases.CreateEventUseCase;
-import dk.events.a6.usecases.EventGateway;
-import dk.events.a6.usecases.entities.ImageDetails;
+import dk.events.a6.usecases.createevent.CreateEventOutputPort;
+import dk.events.a6.usecases.createevent.CreateEventInputPort;
+import dk.events.a6.usecases.createevent.CreateEventUseCase;
+import dk.events.a6.usecases.createevent.EventGateway;
+import dk.events.a6.entities.ImageDetails;
 
 public class CreateActivity extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
 

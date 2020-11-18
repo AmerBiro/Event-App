@@ -1,10 +1,9 @@
-package dk.events.a6;
+package dk.events.a6.android;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
-import dk.events.a6.usecases.entities.ImageDetails;
+import dk.events.a6.entities.ImageDetails;
 
 public class CreateEventViewModel {
     public String title = "";

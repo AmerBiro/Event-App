@@ -1,8 +1,4 @@
-package dk.events.a6.usecases.entities;
-
-import androidx.recyclerview.widget.ItemTouchHelper;
-
-import java.util.Objects;
+package dk.events.a6.entities;
 
 public class User extends Entity {
     private String firstName;

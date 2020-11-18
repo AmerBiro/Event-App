@@ -2,10 +2,9 @@ package dk.events.a6.usecases.presentevents;
 
 import java.util.List;
 
-import dk.events.a6.usecases.entities.Event;
-import dk.events.a6.usecases.entities.License;
-import dk.events.a6.usecases.entities.License.LicenseType;
-import dk.events.a6.usecases.entities.User;
+import dk.events.a6.entities.Event;
+import dk.events.a6.entities.License.LicenseType;
+import dk.events.a6.entities.User;
 
 public interface PresentEventsUseCase {
 

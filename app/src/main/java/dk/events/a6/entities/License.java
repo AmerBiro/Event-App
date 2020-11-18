@@ -1,4 +1,4 @@
-package dk.events.a6.usecases.entities;
+package dk.events.a6.entities;
 
 public class License {
     public enum LicenseType {VIEWING, PARTICIPATING}

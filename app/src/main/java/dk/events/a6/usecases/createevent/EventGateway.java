@@ -1,10 +1,8 @@
-package dk.events.a6.usecases;
+package dk.events.a6.usecases.createevent;
 
 import java.util.List;
 
-import dk.events.a6.usecases.entities.Event;
-import dk.events.a6.usecases.entities.License;
-import dk.events.a6.usecases.entities.User;
+import dk.events.a6.entities.Event;
 
 public interface EventGateway {
      //new

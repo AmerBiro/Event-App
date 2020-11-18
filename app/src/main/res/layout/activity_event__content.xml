@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#0B0833"
     android:gravity="center"
-    tools:context=".Event_Content">
+    tools:context=".android.Event_Content">
 
 
     <Button

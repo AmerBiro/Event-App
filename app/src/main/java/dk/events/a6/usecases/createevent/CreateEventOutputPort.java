@@ -1,4 +1,4 @@
-package dk.events.a6.usecases;
+package dk.events.a6.usecases.createevent;
 
 public interface CreateEventOutputPort {
 

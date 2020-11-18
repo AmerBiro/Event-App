@@ -8,15 +8,15 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import dk.events.a6.Context;
+import dk.events.a6.android.Context;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.gateways.LicenseGatewayInMemory;
 import dk.events.a6.gateways.UserGatewayInMemory;
-import dk.events.a6.usecases.entities.Event;
-import dk.events.a6.usecases.entities.License;
-import dk.events.a6.usecases.entities.User;
+import dk.events.a6.entities.Event;
+import dk.events.a6.entities.License;
+import dk.events.a6.entities.User;
 
-import static dk.events.a6.usecases.entities.License.LicenseType.*;
+import static dk.events.a6.entities.License.LicenseType.*;
 import static org.junit.Assert.assertEquals;
 
 public class PresentEventsUseCaseTest {

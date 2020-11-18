@@ -1,14 +1,14 @@
-package dk.events.a6;
+package dk.events.a6.android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import dk.events.a6.R;
 import dk.events.a6.activities.MainActivity;
 import dk.events.a6.databinding.ActivityEventContentBinding;
 

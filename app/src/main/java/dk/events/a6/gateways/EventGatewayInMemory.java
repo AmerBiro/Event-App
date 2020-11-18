@@ -3,17 +3,11 @@ package dk.events.a6.gateways;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import dk.events.a6.usecases.EventGateway;
-import dk.events.a6.usecases.entities.Event;
-import dk.events.a6.usecases.entities.License;
-import dk.events.a6.usecases.entities.User;
+import dk.events.a6.usecases.createevent.EventGateway;
+import dk.events.a6.entities.Event;
 
 public class EventGatewayInMemory extends BaseGatewayInMemory implements EventGateway {
-    private  Map<String,Event> eventsMap = new HashMap<>(); //static?
-
-    //new
     @Override
     public Event findEventByTitle(String title) {
         for (Event e : eventsMap.values()) {
@@ -39,8 +33,6 @@ public class EventGatewayInMemory extends BaseGatewayInMemory implements EventGa
     public void delete(Event event) {
         eventsMap.remove(event.getId());
     }
-    //end new
-
 
     @Override
     public Event createEvent(Event event) {

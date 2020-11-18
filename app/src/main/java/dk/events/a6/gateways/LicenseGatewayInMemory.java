@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.events.a6.usecases.LicenseGateway;
-import dk.events.a6.usecases.entities.Event;
-import dk.events.a6.usecases.entities.License;
-import dk.events.a6.usecases.entities.User;
+import dk.events.a6.entities.Event;
+import dk.events.a6.entities.License;
+import dk.events.a6.entities.User;
 
 public class LicenseGatewayInMemory extends BaseGatewayInMemory implements LicenseGateway {
 
