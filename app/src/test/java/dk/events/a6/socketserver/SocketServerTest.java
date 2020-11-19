@@ -51,7 +51,7 @@ public class SocketServerTest {
         server.start();
 
         new Socket("localhost", port); //connect to the server port and ip/localhost
-
+        synchronized (fakeService){fakeService.wait();}
         server.stop();
         assertEquals(1, fakeService.connections);
     }
@@ -61,8 +61,9 @@ public class SocketServerTest {
         server.start();
 
         new Socket("localhost", port); //connect to the server port and ip/localhost
+        synchronized (fakeService){fakeService.wait();}
         new Socket("localhost", port); //connect to the server port and ip/localhost
-
+        synchronized (fakeService){fakeService.wait();}
         server.stop();
         assertEquals(2, fakeService.connections);
     }
@@ -77,6 +78,23 @@ public class SocketServerTest {
         server.stop();
         assertEquals("test", fakeService.msg);
     }*/
+    public class ClosingSocketService implements SocketService {
+        public int connections = 0;
+        public String msg;
+
+        @Override
+        public void serve(Socket socket) {
+            ++connections;
+            try {
+                socket.close();
+                synchronized (this){
+                    this.notify();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public class FakeSocketService implements SocketService {
         public int connections = 0;
@@ -100,20 +118,7 @@ public class SocketServerTest {
         }
     }
 
-    public class ClosingSocketService implements SocketService {
-        public int connections = 0;
-        public String msg;
 
-        @Override
-        public void serve(Socket socket) {
-            ++connections;
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 }
 
