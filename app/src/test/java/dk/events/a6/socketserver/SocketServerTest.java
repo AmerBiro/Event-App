@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,11 +18,12 @@ public class SocketServerTest {
     private ClosingSocketService fakeService;
     private SocketServer server;
     private int port;
-
+    private ReadSocketService readFakeService;
     @Before
     public void beforeAll() throws IOException {
         port = 8042;
-        fakeService = new ClosingSocketService();//FakeSocketService();
+        fakeService = new ClosingSocketService();
+        readFakeService = new ReadSocketService();
         server = new SocketServer(port, fakeService);
     }
 
@@ -67,17 +67,6 @@ public class SocketServerTest {
         server.stop();
         assertEquals(2, fakeService.connections);
     }
-/*
-    @Test
-    public void given_return() throws IOException, InterruptedException {
-        server.start();
-
-        Socket socket = new Socket("localhost", port); //connect to the server port and ip/localhost
-        OutputStream os = socket.getOutputStream();
-        os.write("test\n".getBytes());
-        server.stop();
-        assertEquals("test", fakeService.msg);
-    }*/
     public class ClosingSocketService implements SocketService {
         public int connections = 0;
         public String msg;
@@ -96,7 +85,27 @@ public class SocketServerTest {
         }
     }
 
-    public class FakeSocketService implements SocketService {
+    @Test
+    public void given_return() throws IOException, InterruptedException {
+        server.stop();
+        server = new SocketServer(port, readFakeService);
+        //server.setService(readFakeService);
+
+        server.start();
+
+        Socket socket = new Socket("localhost", port);
+
+        OutputStream os = socket.getOutputStream();
+        os.write("test\n".getBytes());
+
+        synchronized (readFakeService){readFakeService.wait();}
+
+        server.stop();
+
+        assertEquals("test", readFakeService.msg);
+    }
+
+    public class ReadSocketService implements SocketService {
         public int connections = 0;
         public String msg;
 
@@ -110,13 +119,17 @@ public class SocketServerTest {
                 BufferedReader br = new BufferedReader(isr);
                 msg = br.readLine();
 
-
                 socket.close();
+                synchronized (this){ this.notify(); }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
+
+
+
 
 
 
