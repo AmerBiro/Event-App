@@ -14,12 +14,14 @@ public class SocketServer {
     private boolean running;
     private ServerSocket serverSocket;
     private ExecutorService executorService;
+    private ExecutorService executorService2;
 
     public SocketServer(int port, SocketService service) throws IOException {
         this.port = port;
         this.service = service;
         serverSocket = new ServerSocket(port);
-        executorService = Executors.newFixedThreadPool(1);
+        executorService = Executors.newFixedThreadPool(2);
+        executorService2 = Executors.newFixedThreadPool(2);
     }
 
     public int getPort() {
@@ -38,14 +40,19 @@ public class SocketServer {
         this.service = service;
     }
 
+
     public void start() throws IOException {
         final Socket[] serviceSocket = new Socket[1];
+
         executorService.execute(()-> {
             try {
-                serviceSocket[0] =  serverSocket.accept();
-                service.serve(serviceSocket[0]);
+                while (true) {
+                    serviceSocket[0] = serverSocket.accept();
+                    executorService2.execute(() -> service.serve(serviceSocket[0]));
+                }
             } catch (IOException e) {
-                e.printStackTrace();
+                if(running)
+                    e.printStackTrace();
             }
         });
 
@@ -57,8 +64,11 @@ public class SocketServer {
     }
 
     public void stop() throws IOException, InterruptedException {
+        executorService.shutdown();
         executorService.awaitTermination(400, TimeUnit.MILLISECONDS);
         serverSocket.close();
         running = false;
     }
+
+
 }
