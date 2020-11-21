@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.events.a6.android.Context;
-import dk.events.a6.entities.Event;
-import dk.events.a6.entities.License;
-import dk.events.a6.entities.License.LicenseType;
-import dk.events.a6.entities.User;
+import dk.events.entities.Event;
+import dk.events.entities.License;
+import dk.events.entities.License.LicenseType;
+import dk.events.entities.User;
 
-import static dk.events.a6.entities.License.LicenseType.*;
+import static dk.events.entities.License.LicenseType.*;
 
 public class PresentEventsUseCaseInMemory implements PresentEventsUseCase {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");

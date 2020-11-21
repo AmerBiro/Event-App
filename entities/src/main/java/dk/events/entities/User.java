@@ -1,4 +1,4 @@
-package dk.events.a6.entities;
+package dk.events.entities;
 
 public class User extends Entity {
     private String firstName;

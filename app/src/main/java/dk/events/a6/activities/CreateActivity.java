@@ -35,7 +35,7 @@ import dk.events.a6.usecases.createevent.CreateEventOutputPort;
 import dk.events.a6.usecases.createevent.CreateEventInputPort;
 import dk.events.a6.usecases.createevent.CreateEventUseCase;
 import dk.events.a6.usecases.createevent.EventGateway;
-import dk.events.a6.entities.ImageDetails;
+import dk.events.entities.ImageDetails;
 
 public class CreateActivity extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
 

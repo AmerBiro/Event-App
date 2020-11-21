@@ -1,4 +1,4 @@
-package dk.events.a6.entities;
+package dk.events.entities;
 
 public class ImageDetails {
     private int width = 0;

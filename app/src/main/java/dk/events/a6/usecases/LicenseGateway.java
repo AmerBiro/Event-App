@@ -1,10 +1,11 @@
 package dk.events.a6.usecases;
 
+
 import java.util.List;
 
-import dk.events.a6.entities.Event;
-import dk.events.a6.entities.License;
-import dk.events.a6.entities.User;
+import dk.events.entities.Event;
+import dk.events.entities.License;
+import dk.events.entities.User;
 
 public interface LicenseGateway {
     License createLicense(License license);

@@ -1,6 +1,7 @@
 package dk.events.a6.usecases.createevent;
 
-import dk.events.a6.entities.Event;
+
+import dk.events.entities.Event;
 
 public class CreateEventUseCase{
     private EventGateway eventGateway;

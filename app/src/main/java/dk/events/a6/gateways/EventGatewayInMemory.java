@@ -3,10 +3,10 @@ package dk.events.a6.gateways;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import dk.events.a6.usecases.createevent.EventGateway;
-import dk.events.a6.entities.Event;
+import dk.events.entities.Event;
+import dk.events.entities.Event;
 
 public class EventGatewayInMemory extends BaseGatewayInMemory<Event> implements EventGateway {
     @Override

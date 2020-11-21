@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import dk.events.a6.usecases.createevent.CreateEventOutputPort;
-import dk.events.a6.usecases.createevent.CreateEventUseCase;
-import dk.events.a6.usecases.createevent.EventGateway;
-import dk.events.a6.entities.Event;
+import dk.events.entities.Event;
+import dk.events.entities.Event;
 
 import static org.junit.Assert.assertEquals;
 

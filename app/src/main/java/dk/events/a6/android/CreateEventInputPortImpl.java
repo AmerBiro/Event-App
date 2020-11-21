@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import dk.events.a6.usecases.createevent.CreateEventInputPort;
 import dk.events.a6.usecases.createevent.CreateEventUseCase;
-import dk.events.a6.entities.Event;
-import dk.events.a6.entities.User;
+import dk.events.entities.Event;
+import dk.events.entities.User;
 
 public class CreateEventInputPortImpl implements CreateEventInputPort {
     private final CreateEventUseCase useCase;
