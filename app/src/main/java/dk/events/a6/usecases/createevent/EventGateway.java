@@ -2,7 +2,7 @@ package dk.events.a6.usecases.createevent;
 
 import java.util.List;
 
-import dk.events.entities.Event;
+import dk.eventslib.entities.Event;
 
 public interface EventGateway {
      //new

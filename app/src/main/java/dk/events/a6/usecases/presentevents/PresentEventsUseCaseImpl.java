@@ -4,15 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.events.a6.android.Context;
 import dk.events.a6.usecases.LicenseGateway;
 import dk.events.a6.usecases.createevent.EventGateway;
-import dk.events.entities.Event;
-import dk.events.entities.License;
-import dk.events.entities.License.LicenseType;
-import dk.events.entities.User;
+import dk.eventslib.entities.Event;
+import dk.eventslib.entities.License;
+import dk.eventslib.entities.License.LicenseType;
+import dk.eventslib.entities.User;
 
-import static dk.events.entities.License.LicenseType.*;
+import static dk.eventslib.entities.License.LicenseType.*;
 
 public class PresentEventsUseCaseImpl implements PresentEventsUseCase {
     private EventGateway eventGateway;

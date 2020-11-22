@@ -1,4 +1,4 @@
-package dk.events.entities;
+package dk.eventslib.entities;
 
 public class ImageDetails {
     private int width = 0;

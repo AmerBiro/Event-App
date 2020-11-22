@@ -1,4 +1,6 @@
-package dk.events.entities;
+package dk.eventslib.entities;
+
+import dk.eventslib.entities.Entity;
 
 public class License extends Entity {
     public enum LicenseType {VIEWING, PARTICIPATING}

@@ -1,6 +1,6 @@
 package dk.events.a6.android;
 
-import dk.events.entities.User;
+import dk.eventslib.entities.User;
 
 public class BruceAlmighty {
     private User loggedInUser;

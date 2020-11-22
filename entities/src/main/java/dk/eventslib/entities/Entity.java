@@ -1,4 +1,4 @@
-package dk.events.entities;
+package dk.eventslib.entities;
 
 import java.util.Objects;
 

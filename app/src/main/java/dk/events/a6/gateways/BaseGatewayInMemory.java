@@ -3,7 +3,9 @@ package dk.events.a6.gateways;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import dk.events.entities.Entity;
+
+import dk.eventslib.entities.Entity;
+
 
 public class BaseGatewayInMemory <T extends Entity>{
     protected Map<String, T> usersMap = new HashMap<>(); //static?

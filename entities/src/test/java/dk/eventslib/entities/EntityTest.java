@@ -1,9 +1,9 @@
-package dk.events.entities;
+package dk.eventslib.entities;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import dk.events.entities.Entity;
+import dk.eventslib.entities.Entity;
 
 import static org.junit.Assert.assertEquals;
 

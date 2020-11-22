@@ -14,11 +14,11 @@ import dk.events.a6.gateways.UserGatewayInMemory;
 import dk.events.a6.usecases.LicenseGateway;
 import dk.events.a6.usecases.UserGateway;
 import dk.events.a6.usecases.createevent.EventGateway;
-import dk.events.entities.Event;
-import dk.events.entities.License;
-import dk.events.entities.User;
+import dk.eventslib.entities.Event;
+import dk.eventslib.entities.License;
+import dk.eventslib.entities.User;
 
-import static dk.events.entities.License.LicenseType.*;
+import static dk.eventslib.entities.License.LicenseType.*;
 import static org.junit.Assert.assertEquals;
 
 public class PresentEventsUseCaseImplTest {

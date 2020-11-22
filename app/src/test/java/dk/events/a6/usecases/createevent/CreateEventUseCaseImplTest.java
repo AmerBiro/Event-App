@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import dk.events.entities.Event;
+import dk.eventslib.entities.Event;
 
 import static org.junit.Assert.assertEquals;
 

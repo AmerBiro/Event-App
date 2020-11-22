@@ -1,8 +1,10 @@
-package dk.events.entities;
+package dk.eventslib.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import dk.eventslib.entities.Entity;
 
 public class Event extends Entity {
     private String title;

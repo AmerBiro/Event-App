@@ -17,7 +17,7 @@ import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
-import dk.events.entities.Event;
+import dk.eventslib.entities.Event;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;

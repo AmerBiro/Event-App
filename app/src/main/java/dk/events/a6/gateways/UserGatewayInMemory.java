@@ -3,7 +3,7 @@ package dk.events.a6.gateways;
 import java.util.List;
 
 import dk.events.a6.usecases.UserGateway;
-import dk.events.entities.User;
+import dk.eventslib.entities.User;
 
 public class UserGatewayInMemory extends BaseGatewayInMemory implements UserGateway {
     @Override
