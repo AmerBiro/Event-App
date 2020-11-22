@@ -94,22 +94,27 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <org.florescu.android.rangeseekbar.RangeSeekBar
+                <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
                     android:id="@+id/rangeseekbar"
                     android:layout_width="320dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="10dp"
+                    app:bar_color="@color/white"
+                    app:left_thumb_color="@color/white"
+                    app:right_thumb_color="@color/white"
+                    app:bar_highlight_color="@color/barsColour"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/range_text"
                     app:layout_constraintVertical_bias="0.0" />
 
-
-                <SeekBar
+                <com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
                     android:id="@+id/seek_bar"
-                    android:layout_width="334dp"
-                    android:layout_height="48dp"
+                    android:layout_width="320dp"
+                    android:layout_height="60dp"
+                    app:bar_highlight_color="@color/barsColour"
+                    app:left_thumb_color="@color/white"
                     android:layout_marginTop="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
