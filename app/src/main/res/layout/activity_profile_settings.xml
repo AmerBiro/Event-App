@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DEE0EC"
+    android:background="@drawable/ic_background_activity"
     android:orientation="vertical"
     tools:context=".profileView.ProfileSettingsActivity">
 
@@ -13,7 +13,7 @@
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0B0833"
+        android:background="@color/barsColour"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
-                android:text="JURA" />
+                android:text="JURA"
+                android:textColor="#FFFFFF" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
@@ -144,7 +145,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="60dp"
-                android:text="INFO" />
+                android:text="INFO"
+                android:textColor="#FFFFFF" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
@@ -234,7 +236,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="60dp"
-                android:text="NOTIFICATIONS" />
+                android:text="NOTIFICATIONS"
+                android:textColor="#FFFFFF" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

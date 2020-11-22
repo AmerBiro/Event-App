@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_background_activity"
     tools:context=".activities.MyFilter">
 
 
@@ -11,7 +12,7 @@
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0B0833"
+        android:background="@color/barsColour"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,9 +50,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="15dp"
+            android:orientation="vertical"
 
-            android:orientation="vertical">
+            android:padding="15dp">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,6 +72,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
                     android:text="Age"
+                    android:textColor="#FFFFFF"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/range_text"
@@ -85,6 +87,7 @@
                     android:layout_marginTop="4dp"
                     android:gravity="right"
                     android:text="18-90"
+                    android:textColor="#FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.956"
                     app:layout_constraintStart_toStartOf="parent"
@@ -123,6 +126,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="20dp"
                     android:text="1 Km"
+                    android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toTopOf="@+id/seek_bar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.983"
@@ -137,6 +141,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="52dp"
                     android:text="Activity within"
+                    android:textColor="#FFFFFF"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Motion"
+                    android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toTopOf="@+id/switch3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.468"
@@ -169,6 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Entertainment"
+                    android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -180,6 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="food and drinks"
+                    android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.489"
@@ -225,5 +233,16 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.017" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

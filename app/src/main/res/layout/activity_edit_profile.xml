@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DEE0EC"
+    android:background="@drawable/ic_background_activity"
     tools:context=".profileView.EditProfileActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        android:background="#0B0833"
+        android:background="@color/barsColour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +31,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <TextView
         android:id="@+id/about_text"
         android:layout_width="match_parent"
@@ -40,6 +39,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
         android:text="About Mads"
+        android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,6 +76,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
         android:text="City"
+        android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,6 +112,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
         android:text="Eduction"
+        android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

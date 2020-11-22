@@ -13,7 +13,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:background="#0D1932"
+        android:background="@color/barsColour"
         android:layout_height="wrap_content"
         app:tabGravity="fill"
         app:tabIndicatorColor="#BEC7F1"
@@ -27,7 +27,7 @@
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FAF6F6"
+        android:background="@drawable/ic_background_activity"
         android:id="@+id/view_page"
         android:layout_marginBottom="50dp"
         android:layout_below="@id/tab_layout"
@@ -37,7 +37,7 @@
     <Button
         android:id="@+id/buttonAddImageCreate"
         android:layout_width="match_parent"
-        android:background="#0D1932"
+        android:background="@color/barsColour"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:layout_height="wrap_content"

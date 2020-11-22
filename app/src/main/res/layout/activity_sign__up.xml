@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_blue"
+    android:background="@drawable/ic_background_activity"
     android:scaleType="centerCrop"
     tools:context=".signInView.Sign_Up">
 
@@ -19,148 +19,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.087"
+        app:layout_constraintVertical_bias="0.189"
         tools:ignore="MissingConstraints" />
-
-    <ImageButton
-        android:id="@+id/id_button_sign_up_back_arrow"
-        android:layout_width="24dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="672dp"
-        android:background="@drawable/ic_back_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.695"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/id_button_sign_up_sign_up"
-        style="@style/sign_up"
-        android:layout_width="148dp"
-        android:layout_height="38dp"
-        android:background="@drawable/button"
-        android:text="Sign up"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.624" />
-
-    <EditText
-        android:id="@+id/id_edit_text_sign_up_first_name"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="First name:"
-        android:inputType="textAutoCorrect"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.304" />
-
-
-    <EditText
-        android:id="@+id/id_edit_text_sign_up_password"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Password:"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.523" />
-
-    <EditText
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:enabled="false"
-        android:hint=""
-        android:inputType="none"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.416" />
-
-    <TextView
-        android:id="@+id/id_date_picker"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Age:"
-        android:inputType="date"
-        android:paddingLeft="4dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.416" />
-
-    <EditText
-        android:id="@+id/id_edit_text_sign_up_email"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Email address:"
-        android:inputType="textWebEmailAddress"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.469" />
-
-    <EditText
-        android:id="@+id/id_edit_text_sign_up_last_name"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Last name:"
-        android:inputType="textAutoComplete"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -170,11 +30,11 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-        app:layout_constraintVertical_bias="0.224">
+        app:layout_constraintVertical_bias="0.349">
 
         <RadioButton
             android:layout_width="67dp"
@@ -206,5 +66,146 @@
             app:layout_constraintVertical_bias="0.231" />
 
     </RadioGroup>
+
+    <ImageButton
+        android:layout_marginTop="40dp"
+        android:id="@+id/id_button_sign_up_back_arrow"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="672dp"
+        android:background="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.695"
+        tools:ignore="MissingConstraints" />
+
+
+    <EditText
+        android:id="@+id/id_edit_text_sign_up_first_name"
+        style="@style/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="14"
+        android:hint="First name:"
+        android:inputType="textAutoCorrect"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.475" />
+
+    <EditText
+        android:id="@+id/id_edit_text_sign_up_password"
+        style="@style/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="14"
+        android:hint="Password:"
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.694" />
+
+    <EditText
+        style="@style/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="14"
+        android:enabled="false"
+        android:hint=""
+        android:inputType="none"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.587" />
+
+    <Button
+        android:id="@+id/id_button_sign_up_sign_up"
+        style="@style/sign_up"
+        android:layout_width="148dp"
+        android:layout_height="38dp"
+        android:background="@drawable/button"
+        android:text="Sign up"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.796" />
+
+    <TextView
+        android:id="@+id/id_date_picker"
+        style="@style/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="14"
+        android:hint="Age:"
+        android:inputType="date"
+        android:paddingLeft="4dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.583" />
+
+    <EditText
+        android:id="@+id/id_edit_text_sign_up_last_name"
+        style="@style/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="14"
+        android:hint="Last name:"
+        android:inputType="textAutoComplete"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.528" />
+
+    <EditText
+        android:id="@+id/id_edit_text_sign_up_email"
+        style="@style/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="14"
+        android:hint="Email address:"
+        android:inputType="textWebEmailAddress"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.639" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
