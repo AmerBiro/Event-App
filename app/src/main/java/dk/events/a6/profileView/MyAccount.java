@@ -8,8 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.io.IOException;
 
@@ -50,6 +55,21 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
         view_profile_layout.setOnClickListener(this);
         edit_profile_layout.setOnClickListener(this);
         settings_layout.setOnClickListener(this);
+
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+
+            binding.profileName.setText(personName);
+            binding.personEmail.setText(personEmail);
+            binding.personId.setText(personId);
+            Glide.with(this).load(String.valueOf(personPhoto)).into(binding.imageProfile);
+
+        }
 
     }
 
