@@ -1,7 +1,8 @@
-package dk.events.a6.signInView;
+package com.example.eventsapp.functions;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
@@ -10,7 +11,7 @@ import android.os.Bundle;
 
 import java.util.Calendar;
 
-public class DatePickerFragment extends DialogFragment {
+public class DatePicker extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background_blue"
     android:scaleType="centerCrop"
     tools:context=".signInView.Sign_Up">
 
@@ -24,13 +24,17 @@
 
     <ImageButton
         android:id="@+id/id_button_sign_up_back_arrow"
-        android:layout_width="16dp"
-        android:layout_height="24dp"
+        android:layout_width="24dp"
+        android:layout_height="36dp"
         android:layout_marginStart="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/back_arrow"
+        android:layout_marginBottom="672dp"
+        android:background="@drawable/ic_back_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.695"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -91,8 +95,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#ffffff"
         android:ems="14"
-        android:hint=""
         android:enabled="false"
+        android:hint=""
         android:inputType="none"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -112,10 +116,10 @@
         android:ems="14"
         android:hint="Age:"
         android:inputType="date"
+        android:paddingLeft="4dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="12sp"
-        android:paddingLeft="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -159,24 +163,26 @@
         app:layout_constraintVertical_bias="0.357" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
 
         app:layout_constraintVertical_bias="0.224">
 
         <RadioButton
-            android:id="@+id/id_radiobutton_female"
             android:layout_width="67dp"
             android:layout_height="48dp"
             android:buttonTint="@color/white"
             android:drawableRight="@drawable/ic_female_"
+            android:text="Female"
+            android:textSize="0sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.963"
@@ -185,12 +191,13 @@
             app:layout_constraintVertical_bias="0.229" />
 
         <RadioButton
-            android:id="@+id/id_radiobutton_male"
             android:layout_width="83dp"
             android:layout_height="48dp"
             android:layout_marginEnd="212dp"
             android:buttonTint="@color/white"
             android:drawableRight="@drawable/ic_male_"
+            android:text="Male"
+            android:textSize="0sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.893"

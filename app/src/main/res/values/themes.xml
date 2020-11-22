@@ -32,7 +32,8 @@ Line height: 14sp
 
     <style name="CustomButton" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@drawable/favorite_button_onclick</item>
+            </style>
 
 
-    </style>
+
 </resources>
