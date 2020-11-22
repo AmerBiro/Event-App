@@ -24,10 +24,14 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.stream.Collectors;
 
 import dk.events.a6.R;
+import dk.events.a6.android.BruceAlmighty;
+import dk.events.a6.android.Context;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
+import dk.eventslib.entities.User;
 import dk.eventslib.gateways.EventGatewayInMemory;
 import dk.eventslib.usecases.createevent.CreateEventOutputPort;
 import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
@@ -64,8 +68,6 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
         if(v.getId() == R.id.buttonCreateEvent){
             vm.title = editTextTitle.getText().toString();
             vm.description = editTextDescription.getText().toString();
-            vm.ownerFirstName = "Jon";
-            vm.ownerLastName = "Travolta";
 
             useCase = new CreateEventUseCaseImpl();
             EventGateway gateway = new EventGatewayInMemory();
@@ -76,8 +78,7 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
 
             CreateEventController createEventController = new CreateEventController(useCase);
 
-
-            createEventController.createEvent(vm);
+            createEventController.createEvent(vm, Context.bruceAlmighty.getLoggedInUser());
 
             //simulate back pressed
             onBackPressed();

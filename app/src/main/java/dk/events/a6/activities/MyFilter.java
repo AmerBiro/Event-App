@@ -2,13 +2,9 @@ package dk.events.a6.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
@@ -60,7 +56,7 @@ public class MyFilter extends AppCompatActivity {
 
         rangeSeekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
-            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Number minValue, Number maxValue) {
                 Number min_value = bar.getSelectedMinValue();
                 Number max_value = bar.getSelectedMaxValue();
                 int min = (int) min_value;

@@ -9,7 +9,8 @@ public class BruceAlmighty {
         return loggedInUser;
     }
 
-    public void setLoggedInUser(User loggedInUser) {
+    public BruceAlmighty setLoggedInUser(User loggedInUser) {
         this.loggedInUser = loggedInUser;
+        return this;
     }
 }
