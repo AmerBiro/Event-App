@@ -8,6 +8,14 @@
     tools:context=".profileView.ViewProfileActivity">
 
 
+    <Button
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_width="15dp"
+        android:layout_height="25dp"
+        android:background="@drawable/ic_back_arrow"
+/>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,11 +27,11 @@
             android:orientation="vertical"
             android:paddingBottom="75dp">
 
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/id_viewpager2_profile_view"
                 android:layout_width="412dp"
                 android:layout_height="500dp" />
-
 
             <TextView
                 android:id="@+id/name_text"

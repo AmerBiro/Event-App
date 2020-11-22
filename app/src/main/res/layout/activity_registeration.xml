@@ -11,8 +11,8 @@
 
     <ImageButton
         android:id="@+id/id_button_registeration_floater_button"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_floater_create_event"
@@ -31,12 +31,31 @@
         android:inputType="textEmailAddress"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="12sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.327" />
+        app:layout_constraintVertical_bias="0.244" />
+
+    <EditText
+        android:id="@+id/id_edit_text_registeration_password"
+        style="@style/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="14"
+        android:hint="Password:"
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.322" />
 
     <Button
         android:id="@+id/id_button_registeration_sign_guest"
@@ -51,39 +70,21 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.542" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <ImageButton
         android:id="@+id/id_button_registeration_google"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="38dp"
+        android:layout_height="41dp"
         android:layout_marginTop="156dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/google"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.591" />
-
-    <EditText
-        android:id="@+id/id_edit_text_registeration_password"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Password:"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -92,22 +93,22 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/id_button_registeration_google"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_button_registeration_sign_guest"
-        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintVertical_bias="0.512"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/id_button_registeration_facebook"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="38dp"
+        android:layout_height="41dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="156dp"
         android:background="@drawable/facebook"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.591" />
@@ -125,7 +126,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468" />
+        app:layout_constraintVertical_bias="0.422" />
 
     <!-- Never get bored Get out, meet other and have fun!!! -->
 

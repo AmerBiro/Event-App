@@ -50,9 +50,9 @@
         android:id="@+id/buttonAddImageCreate"
         android:layout_width="match_parent"
         android:background="@color/barsColour"
-        android:textAllCaps="true"
         android:textColor="@color/white"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:layout_alignParentBottom="true"
         android:text="Create Event" />
 
