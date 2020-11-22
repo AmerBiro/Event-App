@@ -1,5 +1,6 @@
-package dk.events.a6.entities;
+package dk.events.entities;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import dk.events.entities.Entity;
@@ -13,14 +14,14 @@ public class EntityTest {
         Entity entity = Entity.newEntityBuilder().withId("EntityId").build();
         Entity other = Entity.newEntityBuilder().withId("otherEntityId").build();
 
-        assertEquals(false, entity.isSame(other));
+        Assert.assertEquals(false, entity.isSame(other));
     }
 
     @Test
     public void givenEntityComparedWithSelf_returnEntityIsTheSame(){
         Entity entity = Entity.newEntityBuilder().withId("EntityId").build();
 
-        assertEquals(true, entity.isSame(entity));
+        Assert.assertEquals(true, entity.isSame(entity));
     }
 
     @Test
@@ -29,7 +30,7 @@ public class EntityTest {
         Entity entity = Entity.newEntityBuilder().withId(entityID).build();
         Entity otherEntity = Entity.newEntityBuilder().withId(entityID).build();
 
-        assertEquals(true, entity.isSame(otherEntity));
+        Assert.assertEquals(true, entity.isSame(otherEntity));
     }
 
     @Test
@@ -37,6 +38,6 @@ public class EntityTest {
         Entity entity = Entity.newEntityBuilder().build();
         Entity otherEntity = Entity.newEntityBuilder().build();
 
-        assertEquals(false, entity.isSame(otherEntity));
+        Assert.assertEquals(false, entity.isSame(otherEntity));
     }
 }
