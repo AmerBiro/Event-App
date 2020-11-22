@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_blue"
-    tools:context=".activities.CreateActivity">
+    tools:context=".android.usecases.createevent.CreateEventActivityView">
 
     <ImageView
         android:id="@+id/imageViewEventImage"

@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 
+import dk.events.a6.android.usecases.createevent.CreateEventActivityView;
 import dk.events.a6.fragments.ChatFragment;
 import dk.events.a6.fragments.FavoriteFragment;
 import dk.events.a6.R;
@@ -25,7 +26,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(HomeActivity.this, CreateActivity.class);
+        Intent intent = new Intent(HomeActivity.this, CreateEventActivityView.class);
         startActivity(intent);
     }
 

@@ -11,8 +11,8 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:screenOrientation="portrait">
  
-        <activity android:name="dk.events.a6.activities.CreateActivity"></activity>
-        <activity android:name="dk.events.a6.android.Event_Content"></activity>
+        <activity android:name="dk.events.a6.android.usecases.createevent.CreateEventActivityView"></activity>
+        <activity android:name="dk.events.a6.activities.Event_Content"></activity>
         <activity android:name="dk.events.a6.activities.HomeActivity"></activity>
         <activity android:name="dk.events.a6.activities.MyFilter"></activity>
         <activity android:name="dk.events.a6.activities.MainActivity" />

@@ -1,4 +1,4 @@
-package dk.events.a6.activities;
+package dk.events.a6.android.usecases.createevent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -25,19 +25,16 @@ import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import dk.events.a6.android.CreateEventController;
-import dk.events.a6.android.CreateEventViewModel;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.eventslib.gateways.EventGatewayInMemory;
 import dk.eventslib.usecases.createevent.CreateEventOutputPort;
-import dk.eventslib.usecases.createevent.CreateEventInputPort;
 import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
 import dk.eventslib.usecases.createevent.EventGateway;
 import dk.eventslib.entities.ImageDetails;
 
-public class CreateActivity extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
+public class CreateEventActivityView extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
 
     private Button buttonCreateEvent;
     private EditText editTextTitle;
@@ -113,7 +110,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
-        showMsg("resultCode="+ resultCode + ", reqCode=" + reqCode, CreateActivity.this);
+        showMsg("resultCode="+ resultCode + ", reqCode=" + reqCode, CreateEventActivityView.this);
 
             try {
                 if (resultCode == RESULT_OK && reqCode ==  RESULT_LOAD_IMG){
@@ -121,11 +118,11 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
                 }else if(resultCode == RESULT_OK && reqCode ==  RESULT_TAKE_A_PICTURE){
                     handleEventPictureFromCamera(data);
                 }else {
-                    showMsg("You haven't picked Image", CreateActivity.this);
+                    showMsg("You haven't picked Image", CreateEventActivityView.this);
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                showMsg("Something went wrong", CreateActivity.this);
+                showMsg("Something went wrong", CreateEventActivityView.this);
             }finally {
                closeFragment();
             }
@@ -193,7 +190,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         getSupportFragmentManager().popBackStack();
     }
 
-    private void showMsg(String msg, CreateActivity context) {
+    private void showMsg(String msg, CreateEventActivityView context) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
     private ActivityCreateBinding binding;
@@ -244,11 +241,11 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 };
 
-                new TimePickerDialog(CreateActivity.this,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false).show();
+                new TimePickerDialog(CreateEventActivityView.this,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false).show();
             }
         };
 
-        new DatePickerDialog(CreateActivity.this,dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
+        new DatePickerDialog(CreateEventActivityView.this,dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
 
     }
 

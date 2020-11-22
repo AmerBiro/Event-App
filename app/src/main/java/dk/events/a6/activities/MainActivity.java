@@ -13,6 +13,7 @@ import java.util.List;
 
 import dk.events.a6.R;
 import dk.events.a6.adapters.EventsAdapter;
+import dk.events.a6.android.usecases.createevent.CreateEventActivityView;
 import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         button_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                Intent intent = new Intent(MainActivity.this, CreateEventActivityView.class);
                 startActivity(intent);
             }
         });

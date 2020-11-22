@@ -1,9 +1,8 @@
-package dk.events.a6.android;
+package dk.events.a6.android.usecases.createevent;
 
 import java.util.UUID;
 
 import dk.eventslib.usecases.createevent.CreateEventInputPort;
-import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
 import dk.eventslib.entities.Event;
 import dk.eventslib.entities.User;
 

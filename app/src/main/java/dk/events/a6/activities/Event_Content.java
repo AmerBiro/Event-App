@@ -1,4 +1,4 @@
-package dk.events.a6.android;
+package dk.events.a6.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import dk.events.a6.R;
-import dk.events.a6.activities.MainActivity;
 import dk.events.a6.databinding.ActivityEventContentBinding;
 
 public class Event_Content extends AppCompatActivity {

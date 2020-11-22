@@ -1,4 +1,4 @@
-package dk.events.a6.android;
+package dk.events.a6.android.usecases.createevent;
 
 import java.util.ArrayList;
 import java.util.List;

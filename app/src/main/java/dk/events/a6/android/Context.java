@@ -1,5 +1,6 @@
 package dk.events.a6.android;
 
+import dk.events.a6.android.BruceAlmighty;
 import dk.eventslib.usecases.LicenseGateway;
 import dk.eventslib.usecases.UserGateway;
 import dk.eventslib.usecases.createevent.EventGateway;

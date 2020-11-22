@@ -1,22 +1,17 @@
 package dk.events.a6.fragments;
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import dk.events.a6.R;
-import dk.events.a6.activities.CreateActivity;
 
 //https://www.journaldev.com/23096/android-dialogfragment
 
