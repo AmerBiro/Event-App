@@ -13,18 +13,13 @@ public class CreateEventController {
         this.useCase = useCase;
     }
 
-    public void createEvent(CreateEventViewModel vm) {
-        User owner = User.newUserBuilder()
-                .withId(UUID.randomUUID().toString())
-                .withFirstName(vm.ownerFirstName)
-                .withLastName(vm.ownerLastName)
-                .build();
+    public void createEvent(CreateEventViewModel vm, User loggedInUser) {
 
         Event event = Event.newBuilder()
                 .withId(UUID.randomUUID().toString())
                 .withTitle(vm.title)
                 .withDescription(vm.description)
-                .withOwner(owner)
+                .withOwner(loggedInUser)
                 .build();
 
         event.setImages(vm.createEventImages);

@@ -21,5 +21,11 @@ public interface EventGateway {
 
      Event getEvent(String id);
 
+     class EventCreationException extends RuntimeException{
+          public EventCreationException(String msg){
+               super(msg);
+          }
+     }
+
 
 }
