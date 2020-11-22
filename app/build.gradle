@@ -38,6 +38,8 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     implementation 'org.jetbrains:annotations:15.0'
     implementation project(path: ':entities')
+    implementation project(path: ':usecases')
+    implementation project(path: ':gateways')
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

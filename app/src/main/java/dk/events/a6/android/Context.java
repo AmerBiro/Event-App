@@ -1,9 +1,9 @@
 package dk.events.a6.android;
 
-import dk.events.a6.usecases.createevent.EventGateway;
-import dk.events.a6.usecases.LicenseGateway;
-import dk.events.a6.usecases.UserGateway;
-import dk.events.a6.usecases.presentevents.PresentEventsUseCase;
+import dk.eventslib.usecases.LicenseGateway;
+import dk.eventslib.usecases.UserGateway;
+import dk.eventslib.usecases.createevent.EventGateway;
+import dk.eventslib.usecases.presentevents.PresentEventsUseCase;
 
 
 public class Context {

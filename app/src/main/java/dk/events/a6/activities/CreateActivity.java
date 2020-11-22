@@ -25,16 +25,16 @@ import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import dk.events.a6.android.CreateEventInputPortImpl;
+import dk.events.a6.android.CreateEventController;
 import dk.events.a6.android.CreateEventViewModel;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
-import dk.events.a6.gateways.EventGatewayInMemory;
-import dk.events.a6.usecases.createevent.CreateEventOutputPort;
-import dk.events.a6.usecases.createevent.CreateEventInputPort;
-import dk.events.a6.usecases.createevent.CreateEventUseCaseImpl;
-import dk.events.a6.usecases.createevent.EventGateway;
+import dk.eventslib.gateways.EventGatewayInMemory;
+import dk.eventslib.usecases.createevent.CreateEventOutputPort;
+import dk.eventslib.usecases.createevent.CreateEventInputPort;
+import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
+import dk.eventslib.usecases.createevent.EventGateway;
 import dk.eventslib.entities.ImageDetails;
 
 public class CreateActivity extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
@@ -77,10 +77,10 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             useCase.setEventGateway(gateway);
             useCase.setOutputPort(this);
 
-            CreateEventInputPort inputPort = new CreateEventInputPortImpl(useCase);
+            CreateEventController createEventController = new CreateEventController(useCase);
 
 
-            inputPort.createEvent(vm);
+            createEventController.createEvent(vm);
 
             //simulate back pressed
             onBackPressed();

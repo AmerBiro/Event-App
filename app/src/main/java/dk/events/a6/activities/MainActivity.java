@@ -14,10 +14,10 @@ import java.util.List;
 import dk.events.a6.R;
 import dk.events.a6.adapters.EventsAdapter;
 import dk.events.a6.databinding.ActivityMainBinding;
-import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
 import dk.eventslib.entities.Event;
+import dk.eventslib.gateways.EventGatewayInMemory;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;

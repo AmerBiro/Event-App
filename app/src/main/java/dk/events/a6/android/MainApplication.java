@@ -2,8 +2,8 @@ package dk.events.a6.android;
 
 import android.app.Application;
 
-import dk.events.a6.gateways.EventGatewayInMemory;
-import dk.events.a6.usecases.presentevents.PresentEventsUseCaseImpl;
+import dk.eventslib.gateways.EventGatewayInMemory;
+import dk.eventslib.usecases.presentevents.PresentEventsUseCaseImpl;
 
 public class MainApplication extends Application {
 
