@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_blue"
-    tools:context=".android.usecases.createevent.CreateEventActivityView">
+    android:background="@drawable/background_blue">
 
     <ImageView
         android:id="@+id/imageViewEventImage"
@@ -13,110 +12,29 @@
         android:layout_height="140dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
         android:src="@drawable/ic_baseline_image_24"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024"
-        tools:ignore="MissingConstraints" />
-
-    <RadioGroup
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        app:layout_constraintVertical_bias="0.224">
-
-        <RadioButton
-            android:id="@+id/id_radiobutton_event_female"
-            android:layout_width="67dp"
-            android:layout_height="48dp"
-            android:buttonTint="@color/white"
-            android:drawableRight="@drawable/ic_female_"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.963"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.229" />
-
-        <RadioButton
-            android:id="@+id/id_radiobutton_event_male"
-            android:layout_width="83dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="212dp"
-            android:buttonTint="@color/white"
-            android:drawableRight="@drawable/ic_male_"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.893"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.231" />
-
-    </RadioGroup>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextTitle"
         style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#ffffff"
         android:ems="14"
         android:hint="Event title:"
         android:inputType="text"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.304" />
-
-    <EditText
-        android:id="@+id/id_event_price"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Price:"
-        android:inputType="text"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357" />
-
-    <EditText
-        android:id="@+id/id_event_type"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Type:"
-        android:inputType="text"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.408" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewEventImage"
+        app:layout_constraintStart_toStartOf="@+id/imageViewEventImage"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewEventImage" />
 
 
     <EditText
@@ -124,96 +42,55 @@
         style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#ffffff"
-        android:ems="14"
         android:enabled="false"
         android:hint="Date and Time:"
         android:inputType="none"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
+        android:ems="14"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTitle"
+        app:layout_constraintStart_toStartOf="@+id/editTextTitle"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
 
     <TextView
         android:id="@+id/event_date_time"
         style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#ffffff"
         android:ems="14"
+        android:textSize="20dp"
         android:hint=""
         android:inputType="date"
         android:padding="2dp"
         android:paddingLeft="4dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
-
-
-    <EditText
-        android:id="@+id/id_event_address"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Address:"
-        android:inputType="textPostalAddress"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.52" />
-
-
-    <EditText
-        android:id="@+id/id_event_age"
-        style="@style/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Age:"
-        android:inputType="number"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextTitle"
+        app:layout_constraintStart_toStartOf="@+id/editTextTitle"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
 
     <EditText
         android:id="@+id/editTextDescription"
         style="@style/sign_up"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#ffffff"
-        android:ems="14"
-        android:hint="Let other be inspired by adding description to your event"
+        android:hint="type event description here"
         android:inputType="textMultiLine"
-        android:maxLines="3"
+        android:maxLines="10"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.653" />
+        android:ems="14"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/event_date_time"
+        app:layout_constraintStart_toStartOf="@+id/line"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
 
     <Button
         android:id="@+id/buttonAddImageCreate"
@@ -223,11 +100,11 @@
         android:background="@drawable/ic_floater_create_event"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewEventImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.845"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewEventImage"
+        app:layout_constraintTop_toTopOf="@+id/imageViewEventImage"
         app:layout_constraintVertical_bias="0.095" />
 
     <ImageButton
@@ -242,8 +119,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.0"/>
 
     <Button
         android:id="@+id/buttonCreateEvent"
@@ -259,6 +135,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.945" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
