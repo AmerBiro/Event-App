@@ -3,14 +3,14 @@ package dk.events.a6.android;
 import java.util.UUID;
 
 import dk.events.a6.usecases.createevent.CreateEventInputPort;
-import dk.events.a6.usecases.createevent.CreateEventUseCase;
+import dk.events.a6.usecases.createevent.CreateEventUseCaseImpl;
 import dk.events.entities.Event;
 import dk.events.entities.User;
 
 public class CreateEventInputPortImpl implements CreateEventInputPort {
-    private final CreateEventUseCase useCase;
+    private final CreateEventUseCaseImpl useCase;
 
-    public CreateEventInputPortImpl(CreateEventUseCase useCase) {
+    public CreateEventInputPortImpl(CreateEventUseCaseImpl useCase) {
         this.useCase = useCase;
     }
 

@@ -33,7 +33,7 @@ import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.events.a6.gateways.EventGatewayInMemory;
 import dk.events.a6.usecases.createevent.CreateEventOutputPort;
 import dk.events.a6.usecases.createevent.CreateEventInputPort;
-import dk.events.a6.usecases.createevent.CreateEventUseCase;
+import dk.events.a6.usecases.createevent.CreateEventUseCaseImpl;
 import dk.events.a6.usecases.createevent.EventGateway;
 import dk.events.entities.ImageDetails;
 
@@ -42,7 +42,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     private Button buttonCreateEvent;
     private EditText editTextTitle;
     private CreateEventViewModel vm;
-    private CreateEventUseCase useCase;
+    private CreateEventUseCaseImpl useCase;
     private EditText editTextDescription;
     private Button buttonAddImageCreate;
     public static final int RESULT_LOAD_IMG = 0;
@@ -70,7 +70,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             vm.ownerFirstName = "Jon";
             vm.ownerLastName = "Travolta";
 
-            useCase = new CreateEventUseCase();
+            useCase = new CreateEventUseCaseImpl();
             EventGateway gateway = new EventGatewayInMemory();
             //CreateEventOutputPort outputPort = new CreateEventOutputPortImpl();
 

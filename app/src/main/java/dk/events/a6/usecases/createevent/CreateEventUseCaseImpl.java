@@ -3,11 +3,11 @@ package dk.events.a6.usecases.createevent;
 
 import dk.events.entities.Event;
 
-public class CreateEventUseCase{
+public class CreateEventUseCaseImpl {
     private EventGateway eventGateway;
     private CreateEventOutputPort outputPort;
 
-    public CreateEventUseCase() { }
+    public CreateEventUseCaseImpl() { }
 
     public Event getEvent(String id) {
         return eventGateway.getEvent(id);

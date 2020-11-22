@@ -9,17 +9,16 @@ import java.util.Map;
 import java.util.UUID;
 
 import dk.events.entities.Event;
-import dk.events.entities.Event;
 
 import static org.junit.Assert.assertEquals;
 
-public class CreateEventUseCaseTest {
+public class CreateEventUseCaseImplTest {
 
     @Test
     public void givenCreateEventRequested_returnEventCreatedByCallingEventGateway(){
         //setup
         EventGateway eventGateway = new FakeEventGateway();
-        CreateEventUseCase useCase = new CreateEventUseCase();
+        CreateEventUseCaseImpl useCase = new CreateEventUseCaseImpl();
         useCase.setEventGateway(eventGateway);
         useCase.setOutputPort(new FakeOutputPort());
 
