@@ -15,11 +15,15 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.example.eventsapp.functions.DatePicker;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivitySignUpBinding;
 import dk.events.a6.activities.MainActivity;
+import dk.eventslib.entities.User;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -46,16 +50,17 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         View view = binding.getRoot();
         setContentView(view);
 
-        binding.idDatePicker.setOnClickListener(new View.OnClickListener() {
+
+        binding.BirthdatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment dialogFragment = new DatePicker();
-                dialogFragment.show(getSupportFragmentManager(), "date picker");
+                dialogFragment.show(getSupportFragmentManager(), "Date Picker");
             }
         });
 
 
-        binding.idButtonSignUpBackArrow.setOnClickListener(new View.OnClickListener() {
+        binding.BackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Sign_Up.this, Registeration.class);
@@ -79,29 +84,39 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
             }
         };
 
-        binding.idButtonSignUpSignUp.setOnClickListener(new View.OnClickListener() {
+        binding.SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int selected = binding.radioGroup.getCheckedRadioButtonId();
+                int selected = binding.Gender.getCheckedRadioButtonId();
                 final RadioButton radioButton = findViewById(selected);
                 if (radioButton.getText() == null){
                     return;
                 }
 
+                final String Users = "Users";
+                final String Gender = radioButton.getText().toString();
+                final String First_Name = binding.FirstName.getText().toString();
+                final String Last_Name = binding.LastName.getText().toString();
+                final String Birthdate = binding.BirthdatePicker.getText().toString();
+                final String Email = binding.Email.getText().toString();
+                final String Password = binding.Password.getText().toString();
 
-                final String email = binding.idEditTextSignUpEmail.getText().toString();
-                final String password = binding.idEditTextSignUpPassword.getText().toString();
-                final String name = binding.idEditTextSignUpFirstName.getText().toString();
-
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Sign_Up.this, new OnCompleteListener<AuthResult>() {
+                mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(Sign_Up.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
                             Toast.makeText(Sign_Up.this, "Sign up error", Toast.LENGTH_SHORT).show();
                         }else{
                             String userID = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userID).child("name");
-                            currentUserDB.setValue(name);
+                            DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference()
+                                    .child("Users")
+                                    .child(radioButton.getText().toString())
+                                    .child(userID)
+                                    .child("name");
+                            currentUserDB.setValue(First_Name);
+
+                            binding.progressBar.setVisibility(View.VISIBLE);
+
                         }
                     }
                 });
@@ -117,7 +132,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         calendar.set(Calendar.MONTH, i1);
         calendar.set(Calendar.DAY_OF_MONTH, i2);
         String birthDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-        binding.idDatePicker.setText(birthDate);
+        binding.BirthdatePicker.setText(birthDate);
     }
 
     @Override

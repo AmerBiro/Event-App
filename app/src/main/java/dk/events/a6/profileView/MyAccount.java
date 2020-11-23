@@ -112,28 +112,5 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         }
     }
 
-
-//    @Override
-//    public void onClick(View view) {
-//        Intent intent;
-//
-//        switch (view.getId()){
-//            case R.id.view_profile_layout:
-//                Toast.makeText(getApplicationContext(),"View profile",Toast.LENGTH_SHORT).show();
-//                intent=new Intent(MyAccount.this,ViewProfileActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.edit_profile_layout:
-//                Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();
-//                intent=new Intent(MyAccount.this,EditProfileActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.settings_layout:
-//                Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
-//                intent=new Intent(MyAccount.this,ProfileSettingsActivity.class);
-//                startActivity(intent);
-//                break;
-//        }
-//    }
 }
 

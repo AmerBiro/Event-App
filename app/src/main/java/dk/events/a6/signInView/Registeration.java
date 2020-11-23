@@ -95,7 +95,7 @@ public class Registeration extends AppCompatActivity {
                             Toast.makeText(Registeration.this, "Sign in error", Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+                }); binding.progressBar.setVisibility(View.VISIBLE);
             }
         });
 
