@@ -87,62 +87,55 @@
         android:visibility="invisible"
         tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/view_profile_layout"
-        android:layout_width="388dp"
-        android:layout_height="58dp"
-        android:background="@drawable/ic_profile_button"
-        android:padding="16dp"
-        android:text="View Profile"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
-        android:textSize="17sp"
-        android:textColor="@color/white"
+
+    <LinearLayout
+        android:layout_marginTop="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.599" />
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <Button
-        android:id="@+id/edit_profile_layout"
-        android:layout_width="388dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="160dp"
-        android:background="@drawable/ic_profile_button"
-        android:padding="16dp"
-        android:text="Edit Profile"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
-        android:textSize="17sp"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.441"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.599" />
+        <Button
+            android:id="@+id/view_profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:background="@drawable/ic_profile_button"
+            android:text="View Profile"
+            android:padding="10dp"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/settings_layout"
-        android:layout_width="388dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="320dp"
-        android:background="@drawable/ic_profile_button"
-        android:padding="16dp"
-        android:text="Settings"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
-        android:textSize="17sp"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.441"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.599" />
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/edit_profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:background="@drawable/ic_profile_button"
+            android:text="Edit Profile"
+            android:padding="10dp"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textColor="@color/white" />
 
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/settings_layout"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:background="@drawable/ic_profile_button"
+            android:text="Settings"
+            android:padding="10dp"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
