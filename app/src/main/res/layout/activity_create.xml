@@ -7,17 +7,54 @@
     android:background="@drawable/ic_background_activity">
 
 
-    <Button
-        android:id="@+id/buttonCreateEvent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:background="@color/barsColour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:layout_width="15dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/back_arrow_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01" />
+
+    <TextView
+        android:id="@+id/edit_profile_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Create Event"
+        android:layout_marginTop="12dp"
+        android:text="Create an event"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/buttonCreateEvent"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/check_mark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextDescription"
-        app:layout_constraintStart_toStartOf="@+id/editTextDescription"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
 
     <ImageView
         android:id="@+id/imageViewEventImage"
@@ -25,18 +62,18 @@
         android:layout_height="198dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
         android:src="@drawable/ic_baseline_image_24"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.243" />
 
     <EditText
         android:id="@+id/editTextTitle"
         style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:backgroundTint="#ffffff"
         android:ems="14"
         android:hint="Event title:"
@@ -44,17 +81,18 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewEventImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="@+id/imageViewEventImage"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewEventImage" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.563" />
 
     <EditText
         android:id="@+id/editTextDescription"
         style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:backgroundTint="#ffffff"
         android:ems="14"
         android:hint="type event description here"
@@ -63,10 +101,12 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="@+id/line"
-        app:layout_constraintTop_toBottomOf="@+id/line" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.713" />
 
     <Button
         android:id="@+id/buttonAddImageCreate"
@@ -77,18 +117,18 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewEventImage"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewEventImage"
-        app:layout_constraintTop_toTopOf="@+id/imageViewEventImage"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintHorizontal_bias="0.786"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.433" />
 
     <EditText
         android:id="@+id/line"
         style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:backgroundTint="#ffffff"
         android:ems="14"
         android:enabled="false"
@@ -97,16 +137,18 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="@+id/editTextTitle"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.642" />
 
     <TextView
         android:id="@+id/event_date_time"
         style="@style/sign_up"
-        android:layout_width="293dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="#ffffff"
         android:ems="14"
         android:hint=""
@@ -116,9 +158,8 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/line"
-        app:layout_constraintStart_toStartOf="@+id/line"
-        app:layout_constraintTop_toTopOf="@+id/line" />
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="600dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
