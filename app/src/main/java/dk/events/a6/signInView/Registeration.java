@@ -33,8 +33,7 @@ public class Registeration extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private GoogleSignInClient mGoogleSignInClient;
-    private int RC_SIGN_IN = 0;
-    ProfileSettingsActivity profileSettingsActivity;
+    private int RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +44,6 @@ public class Registeration extends AppCompatActivity {
         binding = ActivityRegisterationBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        profileSettingsActivity = new ProfileSettingsActivity();
 
         binding.idButtonRegisterationFloaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +61,6 @@ public class Registeration extends AppCompatActivity {
                 finish();
             }
         });
-
 
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -97,29 +93,24 @@ public class Registeration extends AppCompatActivity {
             }
         });
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        createRequest();
         binding.idButtonRegisterationGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.id_button_registeration_google:
-                        signIn();
-                        break;
-                }
+//                switch (v.getId()) {
+//                    case R.id.id_button_registeration_google:
+//                        signIn();
+//                        break;
+//                }
+                signIn();
             }
         });
 
 
 
     }
+
+
 
     @Override
     protected void onStart() {
@@ -137,6 +128,17 @@ public class Registeration extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
+    }
+
+    private void createRequest() {
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     private void signIn() {

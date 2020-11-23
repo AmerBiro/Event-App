@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,7 +22,7 @@ import java.io.IOException;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityMyAccountBinding;
 
-public class MyAccount extends AppCompatActivity implements View.OnClickListener {
+public class MyAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
     private ActivityMyAccountBinding binding;
     private static final int PICK_IMAGE = 1;
     Uri imageUri;
@@ -48,14 +49,6 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
             }
         });
 
-        view_profile_layout=findViewById(R.id.view_profile_layout);
-        edit_profile_layout=findViewById(R.id.edit_profile_layout);
-        settings_layout=findViewById(R.id.settings_layout);
-
-        view_profile_layout.setOnClickListener(this);
-        edit_profile_layout.setOnClickListener(this);
-        settings_layout.setOnClickListener(this);
-
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -70,6 +63,33 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
             Glide.with(this).load(String.valueOf(personPhoto)).into(binding.imageProfile);
 
         }
+
+        binding.viewProfileLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"View profile",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(MyAccount.this,ViewProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        binding.editProfileLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(MyAccount.this,EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        binding.settingsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Settings",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(MyAccount.this, ProfileSettingsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -90,27 +110,27 @@ public class MyAccount extends AppCompatActivity implements View.OnClickListener
     }
 
 
-    @Override
-    public void onClick(View view) {
-        Intent intent;
-
-        switch (view.getId()){
-            case R.id.view_profile_layout:
-                Toast.makeText(getApplicationContext(),"View profile",Toast.LENGTH_SHORT).show();
-                intent=new Intent(MyAccount.this,ViewProfileActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.edit_profile_layout:
-                Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();
-                intent=new Intent(MyAccount.this,EditProfileActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.settings_layout:
-                Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
-                intent=new Intent(MyAccount.this,ProfileSettingsActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View view) {
+//        Intent intent;
+//
+//        switch (view.getId()){
+//            case R.id.view_profile_layout:
+//                Toast.makeText(getApplicationContext(),"View profile",Toast.LENGTH_SHORT).show();
+//                intent=new Intent(MyAccount.this,ViewProfileActivity.class);
+//                startActivity(intent);
+//                break;
+//            case R.id.edit_profile_layout:
+//                Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();
+//                intent=new Intent(MyAccount.this,EditProfileActivity.class);
+//                startActivity(intent);
+//                break;
+//            case R.id.settings_layout:
+//                Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
+//                intent=new Intent(MyAccount.this,ProfileSettingsActivity.class);
+//                startActivity(intent);
+//                break;
+//        }
+//    }
 }
 
