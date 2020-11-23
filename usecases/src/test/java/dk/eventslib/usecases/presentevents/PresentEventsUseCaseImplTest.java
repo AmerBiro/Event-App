@@ -34,6 +34,84 @@ public class PresentEventsUseCaseImplTest {
     private UserGateway userGateway;
     private LicenseGateway licenseGateway;
 
+
+
+    @Before
+    public void beforeAll(){
+        eventGateway = new FakeEventGateway();
+        userGateway = new FakeUserGateway();
+        licenseGateway = new FakeLicenseGateway();
+        useCase = new PresentEventsUseCaseImpl(eventGateway, licenseGateway);
+
+
+        user = userGateway.createUser( User.newUserBuilder().build() );
+        event = eventGateway.createEvent( Event.newBuilder().withStartDate(new Date()).build() );
+    }
+
+    @Test
+    public void givenUserWithoutParticipationLicense_returnUserCannotParticipateInTheEvent(){
+        assertEquals(false, useCase.hasLicenseFor(PARTICIPATING, user, event));
+    }
+
+    @Test
+    public void givenUserWithParticipationLicense_returnUserCanParticipateInTheEvent(){
+        licenseGateway.createLicense(
+                License.newBuilder().withLicenseType(PARTICIPATING).withUser(user).withEvent(event).build() );
+        assertEquals(true, useCase.hasLicenseFor(PARTICIPATING, user, event));
+    }
+
+    @Test
+    public void givenUserWithoutParticipationLicense_returnCannotParticipateInTheEventWhereOthersCan(){
+        User otherUser = userGateway.createUser( User.newUserBuilder().withUserName("OtherUserName").build() );
+        licenseGateway.createLicense(
+                License.newBuilder().withUser(user).withEvent(event).build());
+
+        assertEquals(false, useCase.hasLicenseFor(PARTICIPATING, otherUser, event));
+    }
+
+    @Test
+    public void givenOneEvent_returnPresentOneEvent(){
+        event.setTitle(TITLE);
+        event.setStartDate(START_DATE);
+
+        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        assertEquals(1, presentableEvents.size());
+
+        PresentableEvent presentableEvent = presentableEvents.get(0);
+        assertEquals(TITLE, presentableEvent.title);
+        assertEquals(new SimpleDateFormat("dd/MM/yyyy").format(START_DATE), presentableEvent.startDate);
+    }
+
+    @Test
+    public void givenNoLicenseForEvent_returnEventCannotBeParticipated(){
+        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        PresentableEvent presentableEvent = presentableEvents.get(0);
+
+        assertEquals(false, presentableEvent.isParticipable);
+    }
+
+    @Test
+    public void givenUserWithParticipationLicenseForEvent_returnUserCanParticipate(){
+        licenseGateway.createLicense(
+                License.newBuilder().withLicenseType(PARTICIPATING).withUser(user).withEvent(event).build());
+        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        PresentableEvent presentableEvent = presentableEvents.get(0);
+
+        assertEquals(true, presentableEvent.isParticipable);
+    }
+
+    @Test
+    public void givenUserWithViewLicenseForEvent_returnEventIsViewable(){
+        licenseGateway.createLicense(
+                License.newBuilder().withLicenseType(VIEWING).withUser(user).withEvent(event).build() );
+        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        PresentableEvent presentableEvent = presentableEvents.get(0);
+
+        assertEquals(true, presentableEvent.isViewable);
+        assertEquals(false, presentableEvent.isParticipable);
+    }
+
+
     class FakeBaseGateway <T extends Entity>{
         protected Map<String, T> usersMap = new HashMap<>(); //static?
         protected Map<String, T> eventsMap = new HashMap<>(); //static?
@@ -121,80 +199,5 @@ public class PresentEventsUseCaseImplTest {
             licensesMap.put(license.getId(), setWithId(license));
             return license;
         }
-    }
-
-    @Before
-    public void beforeAll(){
-        eventGateway = new FakeEventGateway();
-        userGateway = new FakeUserGateway();
-        licenseGateway = new FakeLicenseGateway();
-        useCase = new PresentEventsUseCaseImpl(eventGateway, licenseGateway);
-
-
-        user = userGateway.createUser( User.newUserBuilder().build() );
-        event = eventGateway.createEvent( Event.newBuilder().withStartDate(new Date()).build() );
-    }
-
-    @Test
-    public void givenUserWithoutParticipationLicense_returnUserCannotParticipateInTheEvent(){
-        assertEquals(false, useCase.hasLicenseFor(PARTICIPATING, user, event));
-    }
-
-    @Test
-    public void givenUserWithParticipationLicense_returnUserCanParticipateInTheEvent(){
-        licenseGateway.createLicense(
-                License.newBuilder().withLicenseType(PARTICIPATING).withUser(user).withEvent(event).build() );
-        assertEquals(true, useCase.hasLicenseFor(PARTICIPATING, user, event));
-    }
-
-    @Test
-    public void givenUserWithoutParticipationLicense_returnCannotParticipateInTheEventWhereOthersCan(){
-        User otherUser = userGateway.createUser( User.newUserBuilder().withUserName("OtherUserName").build() );
-        licenseGateway.createLicense(
-                License.newBuilder().withUser(user).withEvent(event).build());
-
-        assertEquals(false, useCase.hasLicenseFor(PARTICIPATING, otherUser, event));
-    }
-
-    @Test
-    public void givenOneEvent_returnPresentOneEvent(){
-        event.setTitle(TITLE);
-        event.setStartDate(START_DATE);
-
-        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
-        assertEquals(1, presentableEvents.size());
-
-        PresentableEvent presentableEvent = presentableEvents.get(0);
-        assertEquals(TITLE, presentableEvent.title);
-        assertEquals(new SimpleDateFormat("dd/MM/yyyy").format(START_DATE), presentableEvent.startDate);
-    }
-
-    @Test
-    public void givenNoLicenseForEvent_returnEventCannotBeParticipated(){
-        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
-        PresentableEvent presentableEvent = presentableEvents.get(0);
-
-        assertEquals(false, presentableEvent.isParticipable);
-    }
-
-    @Test
-    public void givenUserWithParticipationLicenseForEvent_returnUserCanParticipate(){
-        licenseGateway.createLicense(
-                License.newBuilder().withLicenseType(PARTICIPATING).withUser(user).withEvent(event).build());
-        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
-        PresentableEvent presentableEvent = presentableEvents.get(0);
-
-        assertEquals(true, presentableEvent.isParticipable);
-    }
-
-    @Test
-    public void givenUserWithViewLicenseForEvent_returnEventIsViewable(){
-        licenseGateway.createLicense(
-                License.newBuilder().withLicenseType(VIEWING).withUser(user).withEvent(event).build() );
-        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
-        PresentableEvent presentableEvent = presentableEvents.get(0);
-
-        assertEquals(true, presentableEvent.isViewable);
-        assertEquals(false, presentableEvent.isParticipable);
     }
 }
