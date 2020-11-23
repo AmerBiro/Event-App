@@ -81,7 +81,10 @@ public class Registeration extends AppCompatActivity {
             public void onClick(View view) {
                 final String email = binding.idEditTextRegisterationEmail.getText().toString();
                 final String password = binding.idEditTextRegisterationPassword.getText().toString();
-
+                if (email.isEmpty() || password.isEmpty()){
+                    Toast.makeText(Registeration.this, "Username and password cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Registeration.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
