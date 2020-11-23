@@ -44,6 +44,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/buttonCreateEvent"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/check_mark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
+
 
     <TextView
         android:id="@+id/about_text"
@@ -65,7 +78,7 @@
         android:id="@+id/about_edit_text"
         style="@style/sign_up"
         android:layout_width="match_parent"
-        android:layout_height="136dp"
+        android:layout_height="110dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -101,7 +114,7 @@
         android:id="@+id/city_edit_text"
         style="@style/sign_up"
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="110dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -137,7 +150,7 @@
         android:id="@+id/eduction_edit_text"
         style="@style/sign_up"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="110dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -157,7 +170,7 @@
         app:layout_constraintTop_toBottomOf="@+id/eduction_text"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+<!--    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/blue_button"
@@ -169,7 +182,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.898" />
+        app:layout_constraintVertical_bias="0.957" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
