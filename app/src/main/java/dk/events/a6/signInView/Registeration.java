@@ -13,6 +13,7 @@ import android.widget.Toast;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityRegisterationBinding;
 import dk.events.a6.activities.MainActivity;
+import dk.events.a6.profileView.ProfileSettingsActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -33,7 +34,7 @@ public class Registeration extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private GoogleSignInClient mGoogleSignInClient;
     private int RC_SIGN_IN = 0;
-
+    ProfileSettingsActivity profileSettingsActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class Registeration extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        profileSettingsActivity = new ProfileSettingsActivity();
 
         binding.idButtonRegisterationFloaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +57,6 @@ public class Registeration extends AppCompatActivity {
         });
 
         binding.idButtonRegisterationSignGuest.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Registeration.this, MainActivity.class);
@@ -127,6 +128,8 @@ public class Registeration extends AppCompatActivity {
         // the GoogleSignInAccount will be non-null.
 //        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 //        updateUI(account);
+//        Intent intent = new Intent(Registeration.this, MainActivity.class);
+//        startActivity(intent);
         mAuth.addAuthStateListener(firebaseAuthStateListener);
     }
 
@@ -157,7 +160,6 @@ public class Registeration extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
             // Signed in successfully, show authenticated UI.
             Intent intent = new Intent(Registeration.this, MainActivity.class);
             startActivity(intent);
