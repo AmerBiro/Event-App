@@ -22,8 +22,8 @@
 
     <ImageButton
         android:id="@+id/id_back_arrow_create_event"
-        android:layout_width="15dp"
-        android:layout_height="25dp"
+        android:layout_width="14dp"
+        android:layout_height="22dp"
         android:layout_marginTop="7dp"
         android:background="@drawable/back_arrow_white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
         app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.012" />
+        app:layout_constraintVertical_bias="0.018" />
 
     <TextView
         android:id="@+id/textView"
@@ -45,10 +45,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
+
     <Button
         android:id="@+id/buttonCreateEvent"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
+        android:layout_width="22dp"
+        android:layout_height="30dp"
         android:layout_marginTop="7dp"
         android:background="@drawable/check_mark"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,322 +59,153 @@
         app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001" />
-
+        app:layout_constraintVertical_bias="0.007" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2"
         app:layout_constraintVertical_bias="0.0">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/jura_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:text="JURA"
-                android:textColor="#FFFFFF" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
+            <Switch
+                android:id="@+id/switch_message_id"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="16dp">
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="15dp"
+                android:paddingTop="10dp"
+                android:text="Messages"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
 
-                <LinearLayout
-                    android:id="@+id/message_layout"
-                    android:layout_width="match_parent"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_height="60dp"
-                    android:orientation="horizontal"
-                    android:paddingTop="14dp">
-
-                    <TextView
-                        android:id="@+id/message_text"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_weight="1"
-                        android:text="Message"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                    <Switch
-                        android:id="@+id/switch_message"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginRight="24dp"
-                    android:background="#D1CCCC" />
-
-                <LinearLayout
-                    android:id="@+id/participate_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="60dp"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:paddingTop="14dp">
-
-                    <TextView
-                        android:id="@+id/requests_to_participate_text"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_weight="1"
-                        android:text="Requests to participate"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                    <Switch
-                        android:id="@+id/switch_share"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/info_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="60dp"
-                android:text="INFO"
-                android:textColor="#FFFFFF" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
+            <Switch
+                android:id="@+id/switch_share_id"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="16dp">
-
-                <LinearLayout
-                    android:id="@+id/help_and_support_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:paddingTop="14dp">
-
-                    <TextView
-                        android:id="@+id/help_and_support_text"
-                        android:layout_width="335dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_weight="1"
-                        android:text="Help and support"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                    <ImageView
-                        android:id="@+id/vector1"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/vector" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginRight="24dp"
-                    android:background="#D1CCCC" />
-
-                <LinearLayout
-                    android:id="@+id/contact_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="60dp"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:paddingTop="14dp">
-
-                    <TextView
-                        android:id="@+id/contact_text"
-                        android:layout_width="335dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_weight="1"
-                        android:text="Contact"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                    <ImageView
-                        android:id="@+id/vector2"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/vector" />
-                </LinearLayout>
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="20dp"
+                android:paddingTop="25dp"
+                android:text="Requests for participation"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
 
 
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/notification_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="60dp"
-                android:text="NOTIFICATIONS"
-                android:textColor="#FFFFFF" />
-
-            <androidx.cardview.widget.CardView
+            <Button
+                android:id="@+id/help_button_id"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="16dp">
+                android:layout_height="58dp"
+                android:background="@drawable/ic_profile_button"
+                android:padding="16dp"
+                android:layout_marginTop="25dp"
+                android:text="Help and support"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.304"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="286dp" />
 
-                <LinearLayout
-                    android:id="@+id/privacy_policy_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:paddingTop="14dp">
-
-                    <TextView
-                        android:id="@+id/privacy_policy_text"
-                        android:layout_width="335dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_weight="1"
-                        android:text="Privacy Policy"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-
-                    <ImageView
-                        android:id="@+id/vector3"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/vector" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginRight="24dp"
-                    android:background="#D1CCCC" />
-
-                <LinearLayout
-                    android:id="@+id/terms_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="60dp"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:paddingTop="14dp">
-
-                    <TextView
-                        android:id="@+id/terms_text"
-                        android:layout_width="335dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_weight="1"
-                        android:text="Terms"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                    <ImageView
-                        android:id="@+id/vector4"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/vector" />
-                </LinearLayout>
+            <Button
+                android:id="@+id/contact_button_id"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@drawable/ic_profile_button"
+                android:padding="16dp"
+                android:text="Contact"
+                android:layout_marginTop="25dp"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.304"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="367dp" />
 
 
-            </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/privacy_button_id"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@drawable/ic_profile_button"
+                android:padding="16dp"
+                android:text="Privacy Policy"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:layout_marginTop="25dp"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.304"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="446dp" />
 
+            <Button
+                android:id="@+id/terms_button_id"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@drawable/ic_profile_button"
+                android:padding="16dp"
+                android:text="Terms"
+                android:textAlignment="viewStart"
+                android:layout_marginTop="25dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.478"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="522dp" />
 
             <Button
                 android:id="@+id/button_logout"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/blue_button"
                 android:text="Log out"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:layout_marginTop="25dp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/button_delete_account"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textAllCaps="false"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/blue_button"
+                android:text="Delete account"
+                android:textAllCaps="false"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/white"
-                android:layout_marginBottom="100dp"
-                android:text="Delete account" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="607dp" />
+
         </LinearLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
