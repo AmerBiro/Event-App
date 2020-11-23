@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -27,6 +28,8 @@ public class MyFilter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_filter);
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
 
         rangeSeekBar = findViewById(R.id.rangeseekbar);
         rangeBar_text_view=findViewById(R.id.range_text);

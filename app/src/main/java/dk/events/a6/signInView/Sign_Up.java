@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -38,6 +39,8 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign__up);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
 
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();

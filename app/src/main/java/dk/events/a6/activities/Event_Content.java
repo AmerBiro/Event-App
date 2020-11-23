@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class Event_Content extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event__content);
         event_content = findViewById(R.id.id_event_background_content);
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbarevents));
 
 
         binding = ActivityEventContentBinding.inflate(getLayoutInflater());

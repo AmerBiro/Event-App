@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 
@@ -34,6 +35,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
 
         buttonCreateEvent = findViewById(R.id.buttonAddImageCreate);
         buttonCreateEvent.setOnClickListener(this);

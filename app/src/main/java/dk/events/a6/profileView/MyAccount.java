@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_account);
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
 
         binding = ActivityMyAccountBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();

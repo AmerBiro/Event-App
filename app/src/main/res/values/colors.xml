@@ -8,7 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="barsColour">#03A9F4 </color>
-    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimary">#0280B9</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorstatusbar">#0280B9</color>
+    <color name="colorstatusbarevents">#1E1E3C</color>
 </resources>

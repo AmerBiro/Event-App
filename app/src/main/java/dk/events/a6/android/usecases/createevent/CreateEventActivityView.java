@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -204,7 +205,8 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
         binding = ActivityCreateBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
 
         binding.eventDateTime.setOnClickListener(new View.OnClickListener() {
             @Override

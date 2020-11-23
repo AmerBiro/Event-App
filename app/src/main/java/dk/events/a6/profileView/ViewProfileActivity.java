@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class ViewProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_profile);
         viewPager2_profile_view = findViewById(R.id.id_viewpager2_profile_view);
         number_of_image_text=findViewById(R.id.number_of_image_text);
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbarevents));
 
         profileImageList = new ArrayList<>();
         profileImageList.add(new ProfileImage(R.drawable.profile2));
