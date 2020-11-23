@@ -14,19 +14,18 @@ import android.widget.Toast;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityRegisterationBinding;
 import dk.events.a6.activities.MainActivity;
-import dk.events.a6.profileView.ProfileSettingsActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Registeration extends AppCompatActivity {
     private ActivityRegisterationBinding binding;
@@ -93,6 +92,9 @@ public class Registeration extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
                             Toast.makeText(Registeration.this, "Sign in error", Toast.LENGTH_SHORT).show();
+                            binding.progressBar.setVisibility(View.GONE);
+                        }else {
+
                         }
                     }
                 }); binding.progressBar.setVisibility(View.VISIBLE);

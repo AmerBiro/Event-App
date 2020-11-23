@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,18 +26,23 @@ import dk.events.a6.activities.MainActivity;
 import dk.eventslib.entities.User;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+    public static final String TAG = "TAG";
     private ActivitySignUpBinding binding;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+    private FirebaseFirestore fStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +77,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
 
 
         mAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -101,22 +108,38 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                 final String Email = binding.Email.getText().toString();
                 final String Password = binding.Password.getText().toString();
 
-                mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(Sign_Up.this, new OnCompleteListener<AuthResult>() {
+                mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()){
-                            Toast.makeText(Sign_Up.this, "Sign up error", Toast.LENGTH_SHORT).show();
-                        }else{
+                        if (task.isSuccessful()){
+                            Toast.makeText(Sign_Up.this, "User created", Toast.LENGTH_SHORT).show();
                             String userID = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference()
-                                    .child("Users")
-                                    .child(radioButton.getText().toString())
-                                    .child(userID)
-                                    .child("name");
-                            currentUserDB.setValue(First_Name);
+                            DocumentReference documentReference = fStore.collection("Users").document(userID);
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("Gender", Gender);
+                            user.put("First_Name", First_Name);
+                            user.put("Last_Name", Last_Name);
+                            user.put("Birthdate", Birthdate);
+                            user.put("Email", Email);
+                            user.put("Password", Password);
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: user profile is created for " + userID);
+                                }
+                            });
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                            DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference()
+//                                    .child("Users")
+//                                    .child(radioButton.getText().toString())
+//                                    .child(userID)
+//                                    .child("name");
+//                            currentUserDB.setValue(First_Name);
 
                             binding.progressBar.setVisibility(View.VISIBLE);
-
+                        }else{
+                            Toast.makeText(Sign_Up.this, "Sign up error", Toast.LENGTH_SHORT).show();
+                            binding.progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
