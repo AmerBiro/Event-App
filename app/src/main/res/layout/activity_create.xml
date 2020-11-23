@@ -11,9 +11,9 @@
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/barsColour"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        android:background="@color/barsColour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,8 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Create an event"
-        android:textSize="20dp"
         android:textColor="#FFFFFF"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -158,8 +158,12 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="600dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.637" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
