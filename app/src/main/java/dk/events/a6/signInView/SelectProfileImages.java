@@ -31,6 +31,8 @@ public class SelectProfileImages extends AppCompatActivity {
     private ActivitySelectProfileImagesBinding binding;
     private FirebaseFirestore fStore;
     private StorageReference storageReference;
+    private Boolean imageStatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class SelectProfileImages extends AppCompatActivity {
 
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+        imageStatus = false;
 
         binding.BackArrowow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,10 +59,14 @@ public class SelectProfileImages extends AppCompatActivity {
         binding.checkMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SelectProfileImages.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                if (imageStatus){
+                    Intent intent = new Intent(SelectProfileImages.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }else Toast.makeText(SelectProfileImages.this, "At least, Profile pitcure must be selected", Toast.LENGTH_SHORT).show();
                 return;
+
             }
         });
 
@@ -99,6 +106,7 @@ public class SelectProfileImages extends AppCompatActivity {
                         Map<String, Object> user = new HashMap<>();
                         user.put("UserImage", uri);
                         Glide.with(SelectProfileImages.this).load(uri).into(binding.UserImage);
+                        imageStatus = true;
                     }
                 });
             }

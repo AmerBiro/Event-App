@@ -8,6 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewpager2_events_view;
     private List<MyEvents> myEventsList;
     private EventsAdapter eventsAdapter;
-
+    private FirebaseUser user;
     private ImageButton button_account, button_chat, button_filter, id_button_share;
 
 
@@ -42,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         viewpager2_events_view = findViewById(R.id.id_viewpager2_events_view);
 
@@ -61,6 +69,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.idButtonFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (user == null){
+                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        });
+
 
 
 
@@ -73,24 +91,39 @@ public class MainActivity extends AppCompatActivity {
         button_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MyAccount.class);
-                startActivity(intent);
+                if (user == null){
+                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    Intent intent = new Intent(MainActivity.this, MyAccount.class);
+                    startActivity(intent);
+                }
             }
         });
 
         button_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CreateEventActivityView.class);
-                startActivity(intent);
+                if (user == null){
+                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    Intent intent = new Intent(MainActivity.this, CreateEventActivityView.class);
+                    startActivity(intent);
+                }
             }
         });
 
         button_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MyFilter.class);
-                startActivity(intent);
+                if (user == null){
+                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    Intent intent = new Intent(MainActivity.this, MyFilter.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -105,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
         eventsAdapter = new EventsAdapter(this, myEventsList);
         viewpager2_events_view.setAdapter(eventsAdapter);
-
 
     }
 
