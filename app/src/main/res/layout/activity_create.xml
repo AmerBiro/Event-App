@@ -19,16 +19,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:layout_width="15dp"
+        android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="7dp"
-        android:background="@drawable/back_arrow_white"
+        android:background="@drawable/ic_back_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01" />
+        app:layout_constraintVertical_bias="0.014" />
 
     <TextView
         android:id="@+id/edit_profile_text"
@@ -45,8 +45,8 @@
 
     <Button
         android:id="@+id/buttonCreateEvent"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
+        android:layout_width="27dp"
+        android:layout_height="35dp"
         android:layout_marginTop="7dp"
         android:background="@drawable/check_mark"
         app:layout_constraintBottom_toBottomOf="parent"

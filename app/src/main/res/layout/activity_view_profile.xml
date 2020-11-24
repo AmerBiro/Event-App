@@ -9,13 +9,13 @@
     tools:context=".profileView.ViewProfileActivity">
 
 
-    <Button
-        android:layout_marginTop="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_width="15dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ic_back_arrow"
-/>
+<!--    <Button-->
+<!--        android:layout_marginTop="29dp"-->
+<!--        android:layout_marginLeft="35dp"-->
+<!--        android:layout_width="15dp"-->
+<!--        android:layout_height="25dp"-->
+<!--        android:background="@drawable/ic_back_arrow"-->
+<!--/>-->
 
 
     <ScrollView

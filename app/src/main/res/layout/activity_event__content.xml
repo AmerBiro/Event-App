@@ -13,8 +13,8 @@
 
     <Button
         android:id="@+id/id_back_arrow_create_event"
-        android:layout_width="20dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/ic_back_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,12 +70,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 app:cardCornerRadius="20dp">
+
                 <ImageView
                     android:id="@+id/id_event_background_content"
                     android:layout_width="match_parent"
-                    android:scaleType="fitXY"
                     android:layout_height="600dp"
-                    android:src="@drawable/event_background_02"/>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/event_background_02" />
             </androidx.cardview.widget.CardView>
 
             </androidx.cardview.widget.CardView>

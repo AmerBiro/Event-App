@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/buttonCreateEvent"
-        android:layout_width="22dp"
-        android:layout_height="30dp"
+        android:layout_width="28dp"
+        android:layout_height="34dp"
         android:layout_marginTop="7dp"
         android:background="@drawable/check_mark"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
         app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.007" />
+        app:layout_constraintVertical_bias="0.004" />
 
     <TextView
         android:id="@+id/textView"
@@ -249,16 +249,16 @@
     </ScrollView>
 
     <ImageButton
-        android:layout_width="13dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/ic_back_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.017" />
+        app:layout_constraintVertical_bias="0.014" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

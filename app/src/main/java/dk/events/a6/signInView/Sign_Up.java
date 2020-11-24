@@ -107,7 +107,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
             }
         };
 
-        binding.SignUp.setOnClickListener(new View.OnClickListener() {
+        binding.NextArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int selected = binding.Gender.getCheckedRadioButtonId();

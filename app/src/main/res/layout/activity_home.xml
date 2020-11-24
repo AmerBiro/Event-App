@@ -23,10 +23,10 @@
     <ImageButton
         android:layout_marginLeft="10dp"
         android:id="@+id/id_back_arrow_create_event"
-        android:layout_width="15dp"
+        android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/back_arrow_white"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/ic_back_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.04"

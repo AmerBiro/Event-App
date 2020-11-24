@@ -19,8 +19,8 @@
         android:id="@+id/id_button_favorite"
         android:textOff=""
         android:textOn=""
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="578dp"
         android:background="@drawable/favorite_button_onclick"
@@ -34,8 +34,8 @@
 
     <ImageButton
         android:id="@+id/id_button_share"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginTop="16dp"
         android:background="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
