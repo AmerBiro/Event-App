@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,7 @@ import dk.events.a6.android.usecases.createevent.CreateEventActivityView;
 import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.signInView.Registeration;
 import dk.eventslib.entities.Event;
 import dk.eventslib.gateways.EventGatewayInMemory;
 
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private EventsAdapter eventsAdapter;
     private FirebaseUser user;
     private ImageButton button_account, button_chat, button_filter, id_button_share;
-
+    GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         viewpager2_events_view = findViewById(R.id.id_viewpager2_events_view);
 
-        button_account = findViewById(R.id.id_button_account);
-        button_chat = findViewById(R.id.id_button_chat);
-        button_filter = findViewById(R.id.id_button_filter);
-        id_button_share = findViewById(R.id.id_button_share);
 
-        id_button_share.setOnClickListener(new View.OnClickListener() {
+        binding.idButtonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -72,7 +70,11 @@ public class MainActivity extends AppCompatActivity {
         binding.idButtonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (user == null){
+                if (user != null || account != null){
+
+                }
+                else {
+                    binding.idButtonFavorite.setEnabled(false);
                     Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -81,49 +83,40 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-        button_account.setOnClickListener(new View.OnClickListener() {
+        binding.idButtonAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user == null){
-                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
-                    return;
-                }else {
+                if (user != null || account != null){
                     Intent intent = new Intent(MainActivity.this, MyAccount.class);
                     startActivity(intent);
                 }
+                else {
+                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
 
-        button_chat.setOnClickListener(new View.OnClickListener() {
+         account = GoogleSignIn.getLastSignedInAccount(this);
+        binding.idButtonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user == null){
-                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
-                    return;
-                }else {
+                if (user != null || account != null){
                     Intent intent = new Intent(MainActivity.this, CreateEventActivityView.class);
                     startActivity(intent);
                 }
+                else {
+                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
 
-        button_filter.setOnClickListener(new View.OnClickListener() {
+        binding.idButtonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user == null){
-                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
-                    return;
-                }else {
                     Intent intent = new Intent(MainActivity.this, MyFilter.class);
                     startActivity(intent);
-                }
             }
         });
 

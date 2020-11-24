@@ -34,6 +34,7 @@ public class Registeration extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private GoogleSignInClient mGoogleSignInClient;
     private int RC_SIGN_IN = 123;
+    private GoogleSignInOptions gso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,17 +106,18 @@ public class Registeration extends AppCompatActivity {
         binding.idButtonRegisterationGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                switch (v.getId()) {
-//                    case R.id.id_button_registeration_google:
-//                        signIn();
-//                        break;
-//                }
                 signIn();
             }
         });
 
 
-
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null){
+            Intent intent = new Intent(Registeration.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
 
@@ -139,9 +141,10 @@ public class Registeration extends AppCompatActivity {
     }
 
     private void createRequest() {
+
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 

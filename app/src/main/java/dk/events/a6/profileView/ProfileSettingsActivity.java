@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import dk.events.a6.R;
+import dk.events.a6.activities.MainActivity;
 import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.databinding.ActivityProfileSettingsBinding;
 import dk.events.a6.databinding.ActivitySignUpBinding;
@@ -64,14 +65,14 @@ public class ProfileSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Task<GoogleSignInAccount> completedTask = null;
                 if (user != null){
                     signOutEmail();
-                } else
-                    switch (v.getId()) {
-                        case R.id.button_logout:
-                            signOutGmail();
-                            break;
+                }
+                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(ProfileSettingsActivity.this);
+                if (account != null){
+                    signOutGmail();
+                    Intent intent = new Intent(ProfileSettingsActivity.this, Registeration.class);
+                    startActivity(intent);
                 }
             }
         });
