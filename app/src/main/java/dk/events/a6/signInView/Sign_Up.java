@@ -1,12 +1,16 @@
 package dk.events.a6.signInView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -25,7 +29,10 @@ import dk.events.a6.databinding.ActivitySignUpBinding;
 import dk.events.a6.activities.MainActivity;
 import dk.eventslib.entities.User;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,6 +42,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     public static final String TAG = "TAG";
@@ -43,6 +53,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private FirebaseFirestore fStore;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +86,18 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
             }
         });
 
+        binding.UserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1001);
+            }
+        });
+
 
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -129,14 +149,9 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                                 }
                             });
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                            DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference()
-//                                    .child("Users")
-//                                    .child(radioButton.getText().toString())
-//                                    .child(userID)
-//                                    .child("name");
-//                            currentUserDB.setValue(First_Name);
 
                             binding.progressBar.setVisibility(View.VISIBLE);
+
                         }else{
                             Toast.makeText(Sign_Up.this, "Sign up error", Toast.LENGTH_SHORT).show();
                             binding.progressBar.setVisibility(View.GONE);
@@ -146,6 +161,35 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001){
+            if (resultCode == Activity.RESULT_OK){
+                Uri imageUri = data.getData();
+                binding.UserImage.setImageURI(imageUri);
+
+                uploadeImageToFirebase(imageUri);
+            }
+        }
+    }
+
+    private void uploadeImageToFirebase(Uri imageUri) {
+        StorageReference fileRf = storageReference.child("UserImage");
+        fileRf.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(Sign_Up.this, "Image has been uploaded", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Sign_Up.this, "Failed uploading image!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
