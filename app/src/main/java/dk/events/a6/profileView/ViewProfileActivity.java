@@ -43,7 +43,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
         Window window = this.getWindow();
-        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbarevents));
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
 
         binding = ActivityViewProfileBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();

@@ -26,7 +26,7 @@ public class Event_Content extends AppCompatActivity {
         setContentView(R.layout.activity_event__content);
         event_content = findViewById(R.id.id_event_background_content);
         Window window = this.getWindow();
-        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbarevents));
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
 
 
         binding = ActivityEventContentBinding.inflate(getLayoutInflater());
