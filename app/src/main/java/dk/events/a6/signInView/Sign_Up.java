@@ -23,7 +23,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.bumptech.glide.Glide;
 import com.example.eventsapp.functions.DatePicker;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivitySignUpBinding;

@@ -12,7 +12,11 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".signInView.SelectProfileImages"></activity>
+        <activity android:name=".profileView.MyGoogleAccount"></activity>
+        <activity android:name=".profileView.MyGmailProfile" />
+        <activity android:name=".profileView.MyProfile" />
+        <activity android:name=".signInView.MainActivityTest" />
+        <activity android:name=".signInView.SelectProfileImages" />
         <activity android:name=".android.usecases.createevent.CreateEventActivityView" />
         <activity android:name=".activities.Event_Content" />
         <activity android:name=".activities.HomeActivity" />

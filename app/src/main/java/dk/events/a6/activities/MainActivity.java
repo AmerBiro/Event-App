@@ -25,6 +25,7 @@ import dk.events.a6.android.usecases.createevent.CreateEventActivityView;
 import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.profileView.MyGoogleAccount;
 import dk.events.a6.signInView.Registeration;
 import dk.eventslib.entities.Event;
 import dk.eventslib.gateways.EventGatewayInMemory;
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 else {
-                    binding.idButtonFavorite.setEnabled(false);
                     Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -86,8 +86,11 @@ public class MainActivity extends AppCompatActivity {
         binding.idButtonAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user != null || account != null){
+                if (user != null){
                     Intent intent = new Intent(MainActivity.this, MyAccount.class);
+                    startActivity(intent);
+                }else if (account != null){
+                    Intent intent = new Intent(MainActivity.this, MyGoogleAccount.class);
                     startActivity(intent);
                 }
                 else {

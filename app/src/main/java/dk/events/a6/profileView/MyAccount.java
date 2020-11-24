@@ -28,7 +28,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 
 import dk.events.a6.R;
@@ -87,21 +86,6 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
                     else binding.FullNameAge.setText(First_Name + " " + Last_Name + ", " + Birthdate);
                 }
             });
-
-        }
-
-        // íf signed in via gmail
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(MyAccount.this);
-        if (account != null) {
-            String personName = account.getDisplayName();
-            String personEmail = account.getEmail();
-            Uri personPhoto = account.getPhotoUrl();
-
-            binding.FullNameAge.setText(personName);
-            binding.personEmail.setText(personEmail);
-            Glide.with(this).load(String.valueOf(personPhoto)).into(binding.imageProfile);
-
-
         }
 
 
