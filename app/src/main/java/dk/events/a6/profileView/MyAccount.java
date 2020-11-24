@@ -1,5 +1,6 @@
 package dk.events.a6.profileView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,6 +18,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.io.IOException;
 
@@ -27,6 +34,10 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
     private ActivityMyAccountBinding binding;
     private static final int PICK_IMAGE = 1;
     Uri imageUri;
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore fStore;
+    private String userID;
 
     LinearLayout view_profile_layout,edit_profile_layout,settings_layout;
 
@@ -41,6 +52,22 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         binding = ActivityMyAccountBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        mAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
+
+
+        DocumentReference documentReference = fStore.collection("Users").document(userID);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                binding.FullNameAge.setText(
+                        value.getString("First_Name") + " " +
+                                value.getString("Last_Name") + ", " +
+                                value.getString("Birthdate"));
+            }
+        });
 
         binding.imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +87,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
 
-            binding.profileName.setText(personName);
+            binding.FullNameAge.setText(personName);
             binding.personEmail.setText(personEmail);
             binding.personId.setText(personId);
             Glide.with(this).load(String.valueOf(personPhoto)).into(binding.imageProfile);
