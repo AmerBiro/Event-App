@@ -98,59 +98,59 @@
 
 
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/city_text"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="10dp"-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:layout_below="@+id/id_viewpager2_profile_view"-->
-<!--                            android:text="København NV" />-->
-<!--            -->
-<!--                        <TextView-->
-<!--                            android:id="@+id/job_text"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="10dp"-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:layout_below="@+id/id_viewpager2_profile_view"-->
-<!--                            android:text="Fotograf hos Hansens Billeder" />-->
-<!--            -->
-<!--                        <TextView-->
-<!--                            android:id="@+id/study_text"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="10dp"-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:layout_below="@+id/id_viewpager2_profile_view"-->
-<!--                            android:text="Dansk fotograf insititut" />-->
-<!--            -->
-<!--            -->
-<!--                        <TextView-->
-<!--                            android:id="@+id/about_text"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:layout_marginTop="40dp"-->
-<!--                            android:layout_marginStart="10dp"-->
-<!--                            android:textSize="16dp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:layout_below="@+id/id_viewpager2_profile_view"-->
-<!--                            android:text="About Mads" />-->
-<!--            -->
-<!--                        <TextView-->
-<!--                            android:id="@+id/description_text"-->
-<!--                            android:layout_width="302dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_below="@+id/id_viewpager2_profile_view"-->
-<!--                            android:layout_marginStart="10dp"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:text="Typpen der altid løber efter bussen, og altid ender med at komme i alt for god tid."-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:textSize="14dp" />-->
+            <TextView
+                android:id="@+id/city_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/id_viewpager2_profile_view"
+                android:text="København NV" />
+
+            <TextView
+                android:id="@+id/job_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/id_viewpager2_profile_view"
+                android:text="Fotograf hos Hansens Billeder" />
+
+            <TextView
+                android:id="@+id/study_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/id_viewpager2_profile_view"
+                android:text="Dansk fotograf insititut" />
+
+
+            <TextView
+                android:id="@+id/about_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="10dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_below="@+id/id_viewpager2_profile_view"
+                android:text="About Mads" />
+
+            <TextView
+                android:id="@+id/description_text"
+                android:layout_width="302dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/id_viewpager2_profile_view"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Typpen der altid løber efter bussen, og altid ender med at komme i alt for god tid."
+                android:textColor="@color/white"
+                android:textSize="14dp" />
 
         </LinearLayout>
     </ScrollView>

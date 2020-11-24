@@ -12,7 +12,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".profileView.MyGoogleAccount"></activity>
+        <activity android:name=".signInView.ProfileInfo"></activity>
+        <activity android:name=".profileView.MyGoogleAccount" />
         <activity android:name=".profileView.MyGmailProfile" />
         <activity android:name=".profileView.MyProfile" />
         <activity android:name=".signInView.MainActivityTest" />
