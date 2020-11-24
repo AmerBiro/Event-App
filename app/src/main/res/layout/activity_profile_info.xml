@@ -8,6 +8,148 @@
     tools:context=".signInView.ProfileInfo">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="7dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/about_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="56dp"
+                android:layout_marginEnd="16dp"
+                android:text="City"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/about_edit_text"
+                style="@style/sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_text_frame"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="You can trype here where you live to make it easier \n for other to see your events"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textColor="#171616"
+                android:textColorHint="#989696"
+                android:textSize="16dp" />
+
+
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Description"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/description_edit_text"
+                style="@style/sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_text_frame"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="You can type here more about your self like what\n your job"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textColor="#171616"
+                android:textColorHint="#989696"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:id="@+id/Job_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Job"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/city_edit_text"
+                style="@style/sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_text_frame"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="You can type here more about your self like what\n your job"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textColor="#171616"
+                android:textColorHint="#989696"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:id="@+id/eduction_text"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Eduction"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/eduction_edit_text"
+                style="@style/sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="75dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_text_frame"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="Give other people an idea about your education"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textColor="#171616"
+                android:textColorHint="#989696"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </ScrollView>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -53,124 +195,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.289"
         tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/about_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
-        android:text="City"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/about_edit_text"
-        style="@style/sign_up"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/ic_text_frame"
-        android:ems="10"
-        android:gravity="left"
-        android:hint="You can trype here where you live to make it easier \n for other to see your events"
-        android:inputType="textPersonName"
-        android:padding="5dp"
-        android:textColor="#171616"
-        android:textColorHint="#989696"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/about_text" />
-
-    <TextView
-        android:id="@+id/city_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
-        android:text="Job"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/about_edit_text" />
-
-    <EditText
-        android:id="@+id/city_edit_text"
-        style="@style/sign_up"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/ic_text_frame"
-        android:ems="10"
-        android:gravity="left"
-        android:hint="You can type here more about your self like what\n your job"
-        android:inputType="textPersonName"
-        android:padding="5dp"
-        android:textColor="#171616"
-        android:textColorHint="#989696"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city_text" />
-
-    <TextView
-        android:id="@+id/eduction_text"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
-        android:text="Eduction"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city_edit_text" />
-
-    <EditText
-        android:id="@+id/eduction_edit_text"
-        style="@style/sign_up"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="193dp"
-        android:background="@drawable/ic_text_frame"
-        android:ems="10"
-        android:gravity="left"
-        android:hint="Give other people an idea about your education"
-        android:inputType="textPersonName"
-        android:padding="5dp"
-        android:textColor="#171616"
-        android:textColorHint="#989696"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eduction_text"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
