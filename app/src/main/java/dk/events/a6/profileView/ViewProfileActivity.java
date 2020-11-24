@@ -4,17 +4,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +36,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
     private String userID;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                     binding.Email.setText(Email);
                 }
             }
+
         });
 
         profileImageList = new ArrayList<>();
@@ -84,14 +91,24 @@ public class ViewProfileActivity extends AppCompatActivity {
 
 
         profilePhotoAdapter = new ProfilePhotoAdapter(profileImageList,this);
-        binding.idViewpager2ProfileView.setAdapter(profilePhotoAdapter);
+//        binding.idViewpager2ProfileView.setAdapter(profilePhotoAdapter);
+//
+//
+//        binding.idViewpager2ProfileView.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                super.onPageSelected(position);
+//                binding.numberOfImageText.setText((position + 1 ) + " /" + profilePhotoAdapter.getItemCount());
+//            }
+//        });
 
+        storageReference = FirebaseStorage.getInstance().getReference();
 
-        binding.idViewpager2ProfileView.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        StorageReference userimage = storageReference.child("UserImage.jpg");
+        userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                binding.numberOfImageText.setText((position + 1 ) + " /" + profilePhotoAdapter.getItemCount());
+            public void onSuccess(Uri uri) {
+                Glide.with(ViewProfileActivity.this).load(uri).into(binding.UserImage);
             }
         });
 
