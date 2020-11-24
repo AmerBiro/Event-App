@@ -221,6 +221,13 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
 
         buttonCreateEvent.setOnClickListener(this);
         buttonAddImageCreate.setOnClickListener(this);
+
+        binding.backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void showDateTimeDialog(final EditText date_time_in) {
