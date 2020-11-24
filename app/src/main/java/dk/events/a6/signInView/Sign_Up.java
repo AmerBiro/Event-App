@@ -55,7 +55,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private FirebaseFirestore fStore;
-    StorageReference storageReference;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,24 +88,19 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
             }
         });
 
-        binding.UserImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGallery, 1001);
-            }
-        });
+
 
 
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
-                    Intent intent = new Intent(Sign_Up.this, MainActivity.class );
+                    Intent intent = new Intent(Sign_Up.this, SelectProfileImages.class );
                     startActivity(intent);
                     finish();
                     return;
@@ -118,9 +113,9 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
             public void onClick(View view) {
                 int selected = binding.Gender.getCheckedRadioButtonId();
                 final RadioButton radioButton = findViewById(selected);
-                if (radioButton.getText() == null){
-                    return;
-                }
+//                if (radioButton.getText() == null){
+//                    return;
+//                }
 
                 final String Users = "Users";
                 final String Gender = radioButton.getText().toString();
@@ -129,6 +124,16 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                 final String Birthdate = binding.BirthdatePicker.getText().toString();
                 final String Email = binding.Email.getText().toString();
                 final String Password = binding.Password.getText().toString();
+
+                if (    Gender.isEmpty()||
+                        First_Name.isEmpty()||
+                        Last_Name.isEmpty()||
+                        Birthdate.isEmpty()||
+                        Email.isEmpty()||
+                        Password.isEmpty()){
+                    Toast.makeText(Sign_Up.this, "All fields must be filled", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -150,7 +155,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                                     Log.d(TAG, "onSuccess: user profile is created for " + userID);
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), SelectProfileImages.class));
 
                             binding.progressBar.setVisibility(View.VISIBLE);
 
@@ -165,42 +170,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001){
-            if (resultCode == Activity.RESULT_OK){
-                Uri imageUri = data.getData();
-//                binding.UserImage.setImageURI(imageUri);
 
-                uploadeImageToFirebase(imageUri);
-
-            }
-        }
-    }
-
-    private void uploadeImageToFirebase(Uri imageUri) {
-        final StorageReference fileRf = storageReference.child("UserImage.jpg");
-        fileRf.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(Sign_Up.this, "Image has been uploaded", Toast.LENGTH_SHORT).show();
-                fileRf.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("UserImage", uri);
-                        Glide.with(Sign_Up.this).load(uri).into(binding.UserImage);
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Sign_Up.this, "Failed uploading image!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @Override
     public void onDateSet(android.widget.DatePicker datePicker, int i, int i1, int i2) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dk.events.a6">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -8,21 +9,20 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:screenOrientation="portrait">
- 
-        <activity android:name="dk.events.a6.android.usecases.createevent.CreateEventActivityView"></activity>
-        <activity android:name="dk.events.a6.activities.Event_Content"></activity>
-        <activity android:name="dk.events.a6.activities.HomeActivity"></activity>
-        <activity android:name="dk.events.a6.activities.MyFilter"></activity>
-        <activity android:name="dk.events.a6.activities.MainActivity" />
-        <activity android:name="dk.events.a6.profileView.ViewProfileActivity" />
-        <activity android:name="dk.events.a6.signInView.Sign_Up" />
-        <activity android:name="dk.events.a6.profileView.ProfileSettingsActivity" />
-        <activity android:name="dk.events.a6.profileView.EditProfileActivity" />
-        <activity android:name="dk.events.a6.profileView.MyAccount" />
-
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".signInView.SelectProfileImages"></activity>
+        <activity android:name=".android.usecases.createevent.CreateEventActivityView" />
+        <activity android:name=".activities.Event_Content" />
+        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.MyFilter" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".profileView.ViewProfileActivity" />
+        <activity android:name=".signInView.Sign_Up" />
+        <activity android:name=".profileView.ProfileSettingsActivity" />
+        <activity android:name=".profileView.EditProfileActivity" />
+        <activity android:name=".profileView.MyAccount" />
         <activity android:name=".signInView.Registeration">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,8 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

@@ -81,11 +81,11 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         });
 
-        profileImageList = new ArrayList<>();
-        profileImageList.add(new ProfileImage(R.drawable.profile2));
-        profileImageList.add(new ProfileImage(R.drawable.profile3));
-        profileImageList.add(new ProfileImage(R.drawable.profile4));
 
+//        profileImageList = new ArrayList<>();
+//                profileImageList.add(new ProfileImage(uri));
+//                profileImageList.add(new ProfileImage(R.drawable.profile3));
+//                profileImageList.add(new ProfileImage(R.drawable.profile4));
 
 
 
@@ -108,6 +108,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
+                profileImageList = new ArrayList<>();
                 Glide.with(ViewProfileActivity.this).load(uri).into(binding.UserImage);
             }
         });
