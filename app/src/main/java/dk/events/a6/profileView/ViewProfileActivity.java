@@ -51,12 +51,26 @@ public class ViewProfileActivity extends AppCompatActivity {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                binding.FullNameAge.setText(
-                        value.getString("First_Name") + " " +
-                        value.getString("Last_Name") + ", " +
-                        value.getString("Birthdate"));
-                binding.Gender.setText(value.getString("Gender"));
-                binding.Email.setText(value.getString("Email"));
+
+                String First_Name = value.getString("First_Name");
+                String Last_Name = value.getString("Last_Name");
+                String Birthdate = value.getString("Birthdate");
+                String Gender = value.getString("Gender");
+                String Email = value.getString("Email");
+
+                if (First_Name == null ||
+                    Last_Name == null ||
+                    Birthdate == null ||
+                    Gender == null ||
+                    Email == null){
+                    binding.FullNameAge.setText("");
+                    binding.Gender.setText("");
+                    binding.Email.setText("");
+                } else{
+                    binding.FullNameAge.setText(First_Name + " " + Last_Name + ", " + Birthdate);
+                    binding.Gender.setText(Gender);
+                    binding.Email.setText(Email);
+                }
             }
         });
 

@@ -52,7 +52,7 @@
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:textColor="@color/white"
-                android:text="Amer Biro, 30" />
+                android:text="" />
 
 
 
@@ -64,7 +64,7 @@
                 android:textColor="@color/white"
                 android:layout_marginTop="5dp"
                 android:layout_below="@+id/id_viewpager2_profile_view"
-                android:text="Male" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/Email"
@@ -74,7 +74,7 @@
                 android:textColor="@color/white"
                 android:layout_marginTop="5dp"
                 android:layout_below="@+id/id_viewpager2_profile_view"
-                android:text="amer.biro@gmail.com" />
+                android:text="" />
 
 
 

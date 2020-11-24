@@ -62,10 +62,12 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                binding.FullNameAge.setText(
-                        value.getString("First_Name") + " " +
-                                value.getString("Last_Name") + ", " +
-                                value.getString("Birthdate"));
+                String First_Name = value.getString("First_Name");
+                String Last_Name = value.getString("Last_Name");
+                String Birthdate = value.getString("Birthdate");
+                if (First_Name == null || Last_Name == null || Birthdate == null)
+                    binding.FullNameAge.setText("");
+                else binding.FullNameAge.setText(First_Name + " " + Last_Name + ", " + Birthdate);
             }
         });
 

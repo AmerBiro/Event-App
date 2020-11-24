@@ -154,7 +154,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         calendar.set(Calendar.YEAR, i);
         calendar.set(Calendar.MONTH, i1);
         calendar.set(Calendar.DAY_OF_MONTH, i2);
-        String birthDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        String birthDate = DateFormat.getDateInstance(DateFormat.YEAR_FIELD).format(calendar.getTime());
         binding.BirthdatePicker.setText(birthDate);
     }
 
