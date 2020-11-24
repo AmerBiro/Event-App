@@ -249,6 +249,7 @@
     </ScrollView>
 
     <ImageButton
+        android:id="@+id/ic_back_arrow"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="7dp"

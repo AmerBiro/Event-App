@@ -36,8 +36,15 @@ public class Event_Content extends AppCompatActivity {
         binding.idEventBackgroundContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Event_Content.this, MainActivity.class);
-                startActivity(intent);
+                onBackPressed();
+            }
+        });
+
+
+        binding.idBackArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 

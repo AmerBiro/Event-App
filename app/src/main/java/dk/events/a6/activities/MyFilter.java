@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -22,7 +24,7 @@ public class MyFilter extends AppCompatActivity {
 
     private CrystalRangeSeekbar rangeSeekBar;
     private CrystalSeekbar seekBar;
-
+    private ImageButton backButton;
     private TextView rangeBar_text_view, seek_bar_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class MyFilter extends AppCompatActivity {
         rangeBar_text_view=findViewById(R.id.range_text);
         seekBar=findViewById(R.id.seek_bar);
         seek_bar_text=findViewById(R.id.textView4);
-
+        backButton = findViewById(R.id.ic_back_arrow);
 
         rangeSeekBar.setMinValue(18);
         rangeSeekBar.setMaxValue(90);
@@ -58,24 +60,12 @@ public class MyFilter extends AppCompatActivity {
         });
 
 
-
-////        rangeSeekBar.setRangeValues(18,90);
-////
-////        rangeSeekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
-////            @Override
-////            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Number minValue, Number maxValue) {
-////                Number min_value = bar.getSelectedMinValue();
-////                Number max_value = bar.getSelectedMaxValue();
-////                int min = (int) min_value;
-////                int max = (int) max_value;
-////
-////                textView.setText( min +"-"+max);
-////
-////            }
-////        });
-//
-
-
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
     }

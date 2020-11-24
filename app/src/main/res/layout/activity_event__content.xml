@@ -12,7 +12,7 @@
 
 
     <Button
-        android:id="@+id/id_back_arrow_create_event"
+        android:id="@+id/id_back_arrow"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:background="@drawable/ic_back_arrow"

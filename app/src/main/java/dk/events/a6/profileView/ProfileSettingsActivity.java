@@ -76,7 +76,15 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        binding.idBackArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
+
 
     public void signOutEmail() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -101,5 +109,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         finish();
         return;
     }
+
+
 
 }

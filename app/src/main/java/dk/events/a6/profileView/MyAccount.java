@@ -29,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 
 
 import dk.events.a6.R;
+import dk.events.a6.activities.MainActivity;
 import dk.events.a6.databinding.ActivityMyAccountBinding;
 
 
@@ -44,6 +45,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,13 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         binding = ActivityMyAccountBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+
+
+
+
+
+
 
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -114,7 +123,15 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
             }
         });
 
+        binding.idBackArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               onBackPressed();
+            }
+        });
+
     }
+
 
 }
 

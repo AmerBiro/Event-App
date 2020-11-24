@@ -47,12 +47,10 @@ public class SelectProfileImages extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         imageStatus = false;
 
-        binding.BackArrowow.setOnClickListener(new View.OnClickListener() {
+        binding.BackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectProfileImages.this, Sign_Up.class);
-                startActivity(intent);
-                finish();
+                onBackPressed();
             }
         });
 

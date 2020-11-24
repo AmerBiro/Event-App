@@ -81,9 +81,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         binding.BackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Sign_Up.this, Registeration.class);
-                startActivity(intent);
-                finish();
+               onBackPressed();
             }
         });
 

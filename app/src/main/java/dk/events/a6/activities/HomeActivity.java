@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -24,6 +25,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Button buttonCreateEvent;
+    private ImageButton backArrow;
 
     @Override
     public void onClick(View v) {
@@ -41,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         buttonCreateEvent = findViewById(R.id.buttonAddImageCreate);
         buttonCreateEvent.setOnClickListener(this);
 
+
         // Tabbed Activity
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_page);
@@ -54,6 +57,15 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_chat_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_baseline_favorite_border_24);
+
+        backArrow = findViewById(R.id.id_back_arrow);
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
 
