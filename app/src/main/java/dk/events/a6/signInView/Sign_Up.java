@@ -23,10 +23,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.bumptech.glide.Glide;
 import com.example.eventsapp.functions.DatePicker;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivitySignUpBinding;
 import dk.events.a6.activities.MainActivity;
+import dk.events.a6.profileView.MyAccount;
 import dk.eventslib.entities.User;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -169,20 +171,28 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         if (requestCode == 1001){
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
-                binding.UserImage.setImageURI(imageUri);
+//                binding.UserImage.setImageURI(imageUri);
 
                 uploadeImageToFirebase(imageUri);
+
             }
         }
     }
 
     private void uploadeImageToFirebase(Uri imageUri) {
-        StorageReference fileRf = storageReference.child("UserImage");
+        final StorageReference fileRf = storageReference.child("UserImage.jpg");
         fileRf.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(Sign_Up.this, "Image has been uploaded", Toast.LENGTH_SHORT).show();
-
+                fileRf.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Map<String, Object> user = new HashMap<>();
+                        user.put("UserImage", uri);
+                        Glide.with(Sign_Up.this).load(uri).into(binding.UserImage);
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

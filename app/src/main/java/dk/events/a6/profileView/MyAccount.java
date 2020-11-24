@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,17 +19,22 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityMyAccountBinding;
+import dk.events.a6.signInView.Sign_Up;
+import dk.eventslib.entities.User;
 
 public class MyAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
     private ActivityMyAccountBinding binding;
@@ -38,7 +44,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
     private String userID;
-
+    StorageReference storageReference;
     LinearLayout view_profile_layout,edit_profile_layout,settings_layout;
 
 
@@ -56,6 +62,15 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userID = mAuth.getCurrentUser().getUid();
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        StorageReference userimage = storageReference.child("UserImage.jpg");
+        userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(MyAccount.this).load(uri).into(binding.imageProfile);
+            }
+        });
 
 
         DocumentReference documentReference = fStore.collection("Users").document(userID);
