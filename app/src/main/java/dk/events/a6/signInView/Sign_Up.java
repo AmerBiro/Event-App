@@ -55,6 +55,8 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private FirebaseFirestore fStore;
     private StorageReference storageReference;
+    private String fn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +83,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               onBackPressed();
+                onBackPressed();
             }
         });
 
@@ -144,10 +146,13 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                             user.put("Email", Email);
                             user.put("Password", Password);
 
-                            user.put("Address", "Address");
-                            user.put("Job", "Job");
-                            user.put("Education", "Education");
-                            user.put("Description", "Description");
+                            user.put("Address", "");
+                            user.put("Job", "");
+                            user.put("Education", "");
+                            user.put("Description", "");
+
+                            fn = First_Name;
+
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -155,8 +160,10 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                                     Log.d(TAG, "onSuccess: user profile is created for " + userID);
                                 }
                             });
+//                            Intent intent = new Intent(Sign_Up.this, ProfileInfo.class);
+//                            intent.putExtra("fn", fn);
+//                            startActivity(intent);
                             startActivity(new Intent(getApplicationContext(), ProfileInfo.class));
-
                             binding.progressBar.setVisibility(View.VISIBLE);
 
                         }else{

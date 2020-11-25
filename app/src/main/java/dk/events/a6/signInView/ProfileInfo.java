@@ -79,6 +79,9 @@ public class ProfileInfo extends AppCompatActivity {
                     String userID = mAuth.getCurrentUser().getUid();
                     DocumentReference documentReference = fStore.collection("Users").document(userID);
                     Map<String, Object> user = new HashMap<>();
+//                    Intent intent = getIntent();
+//                    String fn = intent.getStringExtra("fn");
+//                    user.put("First_Name", fn);
                     user.put("Address", Address);
                     user.put("Job", Job);
                     user.put("Education", Education);

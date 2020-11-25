@@ -1,16 +1,23 @@
 package dk.events.a6.profileView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -20,6 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityEditProfileBinding;
@@ -31,7 +40,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
     private String userID;
-    StorageReference storageReference;
+    private StorageReference storageReference;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +56,18 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(view);
 
 
-        binding.FirstName.setEnabled(false);
-        binding.LastName.setEnabled(false);
-        binding.profileGender.setEnabled(false);
-        binding.BirthdatePicker.setEnabled(false);
-        binding.profileEmail.setEnabled(false);
+//        binding.FirstName.setEnabled(false);
+//        binding.LastName.setEnabled(false);
+//        binding.profileGender.setEnabled(false);
+//        binding.BirthdatePicker.setEnabled(false);
+//        binding.profileEmail.setEnabled(false);
 
 
 
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userID = mAuth.getCurrentUser().getUid();
+        user = mAuth.getCurrentUser();
 
         DocumentReference documentReference = fStore.collection("Users").document(userID);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -125,7 +136,59 @@ public class EditProfileActivity extends AppCompatActivity {
         binding.checkMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (binding.FirstName.getText().toString().isEmpty() ||
+                    binding.LastName.getText().toString().isEmpty() ||
+                    binding.BirthdatePicker.getText().toString().isEmpty() ||
+                    binding.profileGender.getText().toString().isEmpty() ||
+                    binding.profileEmail.getText().toString().isEmpty() ||
+                    binding.Password.getText().toString().isEmpty() ||
+                    binding.Address.getText().toString().isEmpty() ||
+                    binding.Job.getText().toString().isEmpty() ||
+                    binding.Education.getText().toString().isEmpty() ||
+                    binding.Description.getText().toString().isEmpty()
+                ){
+                    Toast.makeText(EditProfileActivity.this, "One or more fields are empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    user.updateEmail(binding.profileEmail.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            DocumentReference dataRef = fStore.collection("Users").document(userID);
+                            Map<String, Object> updateUser = new HashMap<>();
+                            updateUser.put("First_Name", binding.FirstName.getText().toString());
+                            updateUser.put("Last_Name", binding.LastName.getText().toString());
+                            updateUser.put("Gender",binding.profileGender.getText().toString() );
+                            updateUser.put("Birthdate", binding.BirthdatePicker.getText().toString());
+                            updateUser.put("Email", binding.profileEmail.getText().toString());
+                            updateUser.put("Password", binding.Password.getText().toString());
+                            updateUser.put("Address", binding.Address.getText().toString());
+                            updateUser.put("Job", binding.Job.getText().toString());
+                            updateUser.put("Education", binding.Education.getText().toString());
+                            updateUser.put("Description", binding.Description.getText().toString());
+                            dataRef.set(updateUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(EditProfileActivity.this, "Email is changed successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(EditProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            Toast.makeText(EditProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MyAccount.class));
+                            finish();
+                            return;
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(EditProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
 
