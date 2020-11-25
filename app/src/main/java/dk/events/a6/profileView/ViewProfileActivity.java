@@ -64,19 +64,39 @@ public class ViewProfileActivity extends AppCompatActivity {
                 String Birthdate = value.getString("Birthdate");
                 String Gender = value.getString("Gender");
                 String Email = value.getString("Email");
+                String Address = value.getString("Address");
+                String Job = value.getString("Job");
+                String Education = value.getString("Education");
+                String Description = value.getString("Description");
 
                 if (First_Name == null ||
                     Last_Name == null ||
                     Birthdate == null ||
                     Gender == null ||
-                    Email == null){
+                    Email == null ||
+                    Address == null ||
+                    Job == null ||
+                    Education == null ||
+                    Description == null){
+
                     binding.profileName.setText("");
-                    binding.profileGender.setText("");
+                    binding.profileBirthdate.setText("");
                     binding.profileEmail.setText("");
+                    binding.profileAddress.setText("");
+                    binding.profileJob.setText("");
+                    binding.profileEducation.setText("");
+                    binding.profileAbout.setText("");
+                    binding.profileDescription.setText("");
+
                 } else{
-                    binding.profileName.setText(First_Name + " " + Last_Name + ", " + Birthdate);
-                    binding.profileGender.setText(Gender);
+                    binding.profileName.setText(First_Name + " " + Last_Name + ", " + Gender);
+                    binding.profileBirthdate.setText(Birthdate);
                     binding.profileEmail.setText(Email);
+                    binding.profileAddress.setText(Address);
+                    binding.profileJob.setText(Job);
+                    binding.profileEducation.setText(Education);
+                    binding.profileAbout.setText("About " + First_Name);
+                    binding.profileDescription.setText(Description);
                 }
             }
 
@@ -104,12 +124,10 @@ public class ViewProfileActivity extends AppCompatActivity {
 //        });
 
         storageReference = FirebaseStorage.getInstance().getReference();
-
         StorageReference userimage = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/Profile Picture.jpg");
         userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                profileImageList = new ArrayList<>();
                 Glide.with(ViewProfileActivity.this).load(uri).into(binding.profileImage);
 //                Picasso.get().load(uri).into(binding.UserImage);
 
