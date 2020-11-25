@@ -31,9 +31,11 @@ import com.google.firebase.storage.StorageReference;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityMyAccountBinding;
 import dk.events.a6.profileView.updateprofile.Change_Email_Password;
+import dk.events.a6.profileView.updateprofile.EditProfileActivity;
 import dk.events.a6.profileView.updateprofile.Update_Personal_Information;
 import dk.events.a6.profileView.updateprofile.Update_Profile_Background;
 import dk.events.a6.profileView.updateprofile.Update_Profile_Pictures;
+import dk.events.a6.signInView.Registeration;
 
 
 public class MyAccount extends AppCompatActivity /*implements View.OnClickListener*/ {

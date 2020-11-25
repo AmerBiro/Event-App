@@ -42,6 +42,18 @@ public class EditProfileActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private FirebaseUser user;
 
+
+    private String First_Name;
+    private String Last_Name;
+    private String Birthdate;
+    private String Gender;
+    private String Email;
+    private String Password;
+    private String Address;
+    private String Job;
+    private String Education;
+    private String Description;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,15 +76,16 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                String First_Name = value.getString("First_Name");
-                String Last_Name = value.getString("Last_Name");
-                String Birthdate = value.getString("Birthdate");
-                String Gender = value.getString("Gender");
-                String Email = value.getString("Email");
-                String Address = value.getString("Address");
-                String Job = value.getString("Job");
-                String Education = value.getString("Education");
-                String Description = value.getString("Description");
+                First_Name = value.getString("First_Name");
+                Last_Name = value.getString("Last_Name");
+                Birthdate = value.getString("Birthdate");
+                Gender = value.getString("Gender");
+                Email = value.getString("Email");
+                Password = value.getString("Password");
+                Address = value.getString("Address");
+                Job = value.getString("Job");
+                Education = value.getString("Education");
+                Description = value.getString("Description");
 
                 if (First_Name == null ||
                         Last_Name == null ||
@@ -131,7 +144,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     binding.BirthdatePicker.getText().toString().isEmpty() ||
                     binding.profileGender.getText().toString().isEmpty() ||
                     binding.profileEmail.getText().toString().isEmpty() ||
-                    binding.Password.getText().toString().isEmpty() ||
                     binding.Address.getText().toString().isEmpty() ||
                     binding.Job.getText().toString().isEmpty() ||
                     binding.Education.getText().toString().isEmpty() ||
@@ -151,7 +163,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             updateUser.put("Gender",binding.profileGender.getText().toString() );
                             updateUser.put("Birthdate", binding.BirthdatePicker.getText().toString());
                             updateUser.put("Email", binding.profileEmail.getText().toString());
-                            updateUser.put("Password", binding.Password.getText().toString());
+                            updateUser.put("Password", Password);
                             updateUser.put("Address", binding.Address.getText().toString());
                             updateUser.put("Job", binding.Job.getText().toString());
                             updateUser.put("Education", binding.Education.getText().toString());
@@ -182,7 +194,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        binding.Password.setOnClickListener(new View.OnClickListener() {
+        binding.ResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -43,6 +43,7 @@ public class Change_Email_Password extends AppCompatActivity {
     private StorageReference storageReference;
     private FirebaseUser user;
 
+
     private String First_Name;
     private String Last_Name;
     private String Birthdate;
@@ -57,7 +58,7 @@ public class Change_Email_Password extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_change__email__password);
         Window window = this.getWindow();
         window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
 
@@ -81,26 +82,28 @@ public class Change_Email_Password extends AppCompatActivity {
                 Birthdate = value.getString("Birthdate");
                 Gender = value.getString("Gender");
                 Email = value.getString("Email");
+                Password = value.getString("Password");
                 Address = value.getString("Address");
                 Job = value.getString("Job");
                 Education = value.getString("Education");
                 Description = value.getString("Description");
 
-                if (First_Name == null ||
-                        Last_Name == null ||
-                        Birthdate == null ||
-                        Gender == null ||
-                        Email == null ||
-                        Address == null ||
-                        Job == null ||
-                        Education == null ||
+                if (First_Name == null &&
+                        Last_Name == null &&
+                        Birthdate == null &&
+                        Gender == null &&
+                        Email == null &&
+                        Address == null &&
+                        Job == null &&
+                        Education == null &&
                         Description == null){
-
 
                     binding.profileEmail.setText("");
 
                 } else{
+
                     binding.profileEmail.setText(Email);
+
                 }
             }
 
@@ -120,7 +123,7 @@ public class Change_Email_Password extends AppCompatActivity {
                 if (
                         binding.profileEmail.getText().toString().isEmpty()
                 ){
-                    Toast.makeText(Change_Email_Password.this, "Email field cannot be empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Change_Email_Password.this, "One or more fields are empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else {
@@ -131,9 +134,9 @@ public class Change_Email_Password extends AppCompatActivity {
                             Map<String, Object> updateUser = new HashMap<>();
                             updateUser.put("First_Name", First_Name);
                             updateUser.put("Last_Name", Last_Name);
-                            updateUser.put("Gender",Gender );
+                            updateUser.put("Gender", Gender);
                             updateUser.put("Birthdate", Birthdate);
-                            updateUser.put("Email", Email);
+                            updateUser.put("Email", binding.profileEmail.getText().toString());
                             updateUser.put("Password", Password);
                             updateUser.put("Address", Address);
                             updateUser.put("Job", Job);
@@ -165,8 +168,7 @@ public class Change_Email_Password extends AppCompatActivity {
             }
         });
 
-
-        binding.Password.setOnClickListener(new View.OnClickListener() {
+        binding.ResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -175,3 +177,7 @@ public class Change_Email_Password extends AppCompatActivity {
 
     }
 }
+
+
+
+
