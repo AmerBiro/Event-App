@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_background_activity"
-    tools:context=".profileView.EditProfileActivity">
+    tools:context=".profileView.updateprofile.EditProfileActivity"
+    android:background="@drawable/ic_background_activity">
 
 
     <ScrollView

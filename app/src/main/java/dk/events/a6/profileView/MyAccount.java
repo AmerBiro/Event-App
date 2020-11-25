@@ -29,9 +29,11 @@ import com.google.firebase.storage.StorageReference;
 
 
 import dk.events.a6.R;
-import dk.events.a6.activities.MainActivity;
 import dk.events.a6.databinding.ActivityMyAccountBinding;
-import dk.events.a6.signInView.Registeration;
+import dk.events.a6.profileView.updateprofile.Change_Email_Password;
+import dk.events.a6.profileView.updateprofile.Update_Personal_Information;
+import dk.events.a6.profileView.updateprofile.Update_Profile_Background;
+import dk.events.a6.profileView.updateprofile.Update_Profile_Pictures;
 
 
 public class MyAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
@@ -100,27 +102,17 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         binding.viewProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"View profile",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(MyAccount.this,ViewProfileActivity.class);
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(),"Profile Overview",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), ViewProfileActivity.class));
             }
         });
 
-        binding.editProfileLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(MyAccount.this,EditProfileActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        binding.settingsLayout.setOnClickListener(new View.OnClickListener() {
+        binding.Settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Settings",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(MyAccount.this, ProfileSettingsActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), ProfileSettingsActivity.class));
+                Toast.makeText(getApplicationContext(),"Personal Settings",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -134,9 +126,41 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         binding.imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyAccount.this, ViewProfilePicture.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), ViewProfilePicture.class));
+                Toast.makeText(getApplicationContext(),"Profile image",Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        binding.updatePersonalInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Update_Personal_Information.class));
+                Toast.makeText(getApplicationContext(),"Update Personal Information",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.updateProfileBackground.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Update_Profile_Background.class));
+                Toast.makeText(getApplicationContext(),"Update Profile background\n",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.updateProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Update_Profile_Pictures.class));
+                Toast.makeText(getApplicationContext(),"Update Profile Pictures\n",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.changeEmailOrPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Change_Email_Password.class));
+                Toast.makeText(getApplicationContext(),"Change Email / Password",Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -11,10 +11,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.squareup.picasso.Picasso;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityMyGoogleAccountBinding;
+import dk.events.a6.profileView.updateprofile.EditProfileActivity;
 
 public class MyGoogleAccount extends AppCompatActivity {
     private ActivityMyGoogleAccountBinding binding;
@@ -65,7 +65,7 @@ public class MyGoogleAccount extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(MyGoogleAccount.this,EditProfileActivity.class);
+                    Intent intent=new Intent(MyGoogleAccount.this, EditProfileActivity.class);
                     startActivity(intent);
                 }
             });

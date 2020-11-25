@@ -12,7 +12,12 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".profileView.ViewProfilePicture"></activity>
+        <activity android:name=".profileView.updateprofile.Update_Profile_Background"></activity>
+        <activity android:name=".profileView.updateprofile.Update_Personal_Information" />
+        <activity android:name=".profileView.updateprofile.Change_Email_Password" />
+        <activity android:name=".profileView.updateprofile.Update_Profile_Pictures" />
+        <activity android:name=".profileView.updateprofile.Update_your_background" />
+        <activity android:name=".profileView.ViewProfilePicture" />
         <activity android:name=".signInView.ProfileInfo" />
         <activity android:name=".profileView.MyGoogleAccount" />
         <activity android:name=".profileView.MyGmailProfile" />
@@ -27,7 +32,7 @@
         <activity android:name=".profileView.ViewProfileActivity" />
         <activity android:name=".signInView.Sign_Up" />
         <activity android:name=".profileView.ProfileSettingsActivity" />
-        <activity android:name=".profileView.EditProfileActivity" />
+        <activity android:name=".profileView.updateprofile.EditProfileActivity" />
         <activity android:name=".profileView.MyAccount" />
         <activity android:name=".signInView.Registeration">
             <intent-filter>

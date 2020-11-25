@@ -1,4 +1,4 @@
-package dk.events.a6.profileView;
+package dk.events.a6.profileView.updateprofile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,13 +26,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityEditProfileBinding;
-import dk.events.a6.databinding.ActivityMyAccountBinding;
+import dk.events.a6.profileView.MyAccount;
 
 public class EditProfileActivity extends AppCompatActivity {
     private ActivityEditProfileBinding binding;
@@ -54,15 +53,6 @@ public class EditProfileActivity extends AppCompatActivity {
         binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-
-//        binding.FirstName.setEnabled(false);
-//        binding.LastName.setEnabled(false);
-//        binding.profileGender.setEnabled(false);
-//        binding.BirthdatePicker.setEnabled(false);
-//        binding.profileEmail.setEnabled(false);
-
-
 
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();

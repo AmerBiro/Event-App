@@ -49,7 +49,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="27dp"
         android:src="@drawable/account"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,9 +88,9 @@
 
 
     <LinearLayout
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="270dp"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,9 +101,9 @@
         <Button
             android:id="@+id/view_profile_layout"
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="50dp"
             android:background="@drawable/ic_profile_button"
-            android:text="View Profile"
+            android:text="Profile Overview"
             android:padding="10dp"
             android:textAllCaps="false"
             android:textSize="17sp"
@@ -111,11 +111,11 @@
 
         <Button
             android:layout_marginTop="10dp"
-            android:id="@+id/edit_profile_layout"
+            android:id="@+id/updatePersonalInformation"
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="50dp"
             android:background="@drawable/ic_profile_button"
-            android:text="Edit Profile"
+            android:text="Update Personal Information"
             android:padding="10dp"
             android:textAllCaps="false"
             android:textSize="17sp"
@@ -123,11 +123,47 @@
 
         <Button
             android:layout_marginTop="10dp"
-            android:id="@+id/settings_layout"
+            android:id="@+id/updateProfileBackground"
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="50dp"
             android:background="@drawable/ic_profile_button"
-            android:text="Settings"
+            android:text="Update your background"
+            android:padding="10dp"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textColor="@color/white" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/updateProfileImage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_profile_button"
+            android:text="Update Profile Pictures"
+            android:padding="10dp"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textColor="@color/white" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/changeEmailOrPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_profile_button"
+            android:text="Change Email / Password"
+            android:padding="10dp"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textColor="@color/white" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/Settings"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_profile_button"
+            android:text="Profile Settings"
             android:padding="10dp"
             android:textAllCaps="false"
             android:textSize="17sp"
