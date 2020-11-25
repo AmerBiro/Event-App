@@ -58,7 +58,7 @@ public class FavoriteEventAdapter extends RecyclerView.Adapter<FavoriteEventAdap
 
             profileImage=itemView.findViewById(R.id.image_profile);
             name=itemView.findViewById(R.id.name_text);
-            description=itemView.findViewById(R.id.description_text);
+            description=itemView.findViewById(R.id.profileDescription);
             eventImage=itemView.findViewById(R.id.event_image);
         }
     }

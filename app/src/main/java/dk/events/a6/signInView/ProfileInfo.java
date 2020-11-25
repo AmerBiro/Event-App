@@ -48,7 +48,7 @@ public class ProfileInfo extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
 
-        binding.BackArrow.setOnClickListener(new View.OnClickListener() {
+        binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();

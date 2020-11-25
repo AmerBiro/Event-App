@@ -70,13 +70,13 @@ public class ViewProfileActivity extends AppCompatActivity {
                     Birthdate == null ||
                     Gender == null ||
                     Email == null){
-                    binding.FullNameAge.setText("");
-                    binding.Gender.setText("");
-                    binding.Email.setText("");
+                    binding.profileName.setText("");
+                    binding.profileGender.setText("");
+                    binding.profileEmail.setText("");
                 } else{
-                    binding.FullNameAge.setText(First_Name + " " + Last_Name + ", " + Birthdate);
-                    binding.Gender.setText(Gender);
-                    binding.Email.setText(Email);
+                    binding.profileName.setText(First_Name + " " + Last_Name + ", " + Birthdate);
+                    binding.profileGender.setText(Gender);
+                    binding.profileEmail.setText(Email);
                 }
             }
 
@@ -110,9 +110,23 @@ public class ViewProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 profileImageList = new ArrayList<>();
-                Glide.with(ViewProfileActivity.this).load(uri).into(binding.UserImage);
+                Glide.with(ViewProfileActivity.this).load(uri).into(binding.profileImage);
 //                Picasso.get().load(uri).into(binding.UserImage);
 
+            }
+        });
+
+        binding.profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        binding.backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 

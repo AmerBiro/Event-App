@@ -37,7 +37,7 @@ public class MyGoogleAccount extends AppCompatActivity {
             String personEmail = account.getEmail();
             Uri personPhoto = account.getPhotoUrl();
 
-            binding.FullNameAge.setText(personName);
+            binding.profileName.setText(personName);
             binding.personEmail.setText(personEmail);
             Glide.with(this).load(String.valueOf(personPhoto)).into(binding.imageProfile);
 

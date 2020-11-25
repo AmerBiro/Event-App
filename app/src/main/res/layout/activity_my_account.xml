@@ -58,7 +58,7 @@
 
 
     <TextView
-        android:id="@+id/Full_Name_Age"
+        android:id="@+id/profileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"

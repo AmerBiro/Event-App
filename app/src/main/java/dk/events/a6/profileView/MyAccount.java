@@ -90,8 +90,8 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
                     String Last_Name = value.getString("Last_Name");
                     String Birthdate = value.getString("Birthdate");
                     if (First_Name == null || Last_Name == null || Birthdate == null)
-                        binding.FullNameAge.setText("");
-                    else binding.FullNameAge.setText(First_Name + " " + Last_Name + ", " + Birthdate);
+                        binding.profileName.setText("");
+                    else binding.profileName.setText(First_Name + " " + Last_Name + ", " + Birthdate);
                 }
             });
         }

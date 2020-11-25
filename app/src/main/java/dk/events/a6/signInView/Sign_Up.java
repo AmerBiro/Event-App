@@ -78,7 +78,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         });
 
 
-        binding.BackArrow.setOnClickListener(new View.OnClickListener() {
+        binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                onBackPressed();
@@ -108,7 +108,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         binding.NextArrowId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int selected = binding.Gender.getCheckedRadioButtonId();
+                int selected = binding.profileGender.getCheckedRadioButtonId();
                 final RadioButton radioButton = findViewById(selected);
 
                 final String Users = "Users";
@@ -116,7 +116,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                 final String First_Name = binding.FirstName.getText().toString();
                 final String Last_Name = binding.LastName.getText().toString();
                 final String Birthdate = binding.BirthdatePicker.getText().toString();
-                final String Email = binding.Email.getText().toString();
+                final String Email = binding.profileEmail.getText().toString();
                 final String Password = binding.Password.getText().toString();
 
                 if (    Gender.isEmpty()||

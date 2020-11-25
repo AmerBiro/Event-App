@@ -24,7 +24,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(view);
 
 
-        binding.idBackArrow.setOnClickListener(new View.OnClickListener() {
+        binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
