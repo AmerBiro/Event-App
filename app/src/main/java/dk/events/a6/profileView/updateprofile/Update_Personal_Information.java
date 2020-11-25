@@ -30,25 +30,25 @@ import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityUpdatePersonalInformationBinding;
 import dk.events.a6.profileView.MyAccount;
 
-        public class Update_Personal_Information extends AppCompatActivity {
-            private ActivityUpdatePersonalInformationBinding binding;
+    public class Update_Personal_Information extends AppCompatActivity {
+        private ActivityUpdatePersonalInformationBinding binding;
 
-            private FirebaseAuth mAuth;
-            private FirebaseFirestore fStore;
-            private String userID;
-            private StorageReference storageReference;
-            private FirebaseUser user;
+        private FirebaseAuth mAuth;
+        private FirebaseFirestore fStore;
+        private String userID;
+        private StorageReference storageReference;
+        private FirebaseUser user;
 
-            private String First_Name;
-            private String Last_Name;
-            private String Birthdate;
-            private String Gender;
-            private String Email;
-            private String Password;
-            private String Address;
-            private String Job;
-            private String Education;
-            private String Description;
+        private String First_Name;
+        private String Last_Name;
+        private String Birthdate;
+        private String Gender;
+        private String Email;
+        private String Password;
+        private String Address;
+        private String Job;
+        private String Education;
+        private String Description;
 
             @Override
             protected void onCreate(Bundle savedInstanceState) {
