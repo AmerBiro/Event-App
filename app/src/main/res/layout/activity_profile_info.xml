@@ -18,8 +18,52 @@
             android:padding="7dp"
             android:orientation="vertical" >
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Let other know more about you"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageButton
+                    android:id="@+id/Back_arrow"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_back_arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.042"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.514" />
+
+                <ImageButton
+                    android:id="@+id/Next_arrow_id"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_next_arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.957"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.514" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             <TextView
-                android:id="@+id/about_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -32,7 +76,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/about_edit_text"
+                android:id="@+id/Address"
                 style="@style/sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
@@ -52,7 +96,6 @@
 
 
             <TextView
-                android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -64,7 +107,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/description_edit_text"
+                android:id="@+id/Description"
                 style="@style/sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
@@ -83,7 +126,6 @@
 
 
             <TextView
-                android:id="@+id/Job_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -97,7 +139,7 @@
 
 
             <EditText
-                android:id="@+id/city_edit_text"
+                android:id="@+id/Job"
                 style="@style/sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
@@ -116,7 +158,6 @@
 
 
             <TextView
-                android:id="@+id/eduction_text"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="16dp"
@@ -130,7 +171,7 @@
 
 
             <EditText
-                android:id="@+id/eduction_edit_text"
+                android:id="@+id/Education"
                 style="@style/sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
@@ -149,52 +190,6 @@
                 android:textSize="16dp" />
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Let other know more about you"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageButton
-        android:id="@+id/Back_arrow"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="672dp"
-        android:background="@drawable/ic_back_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.002"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.289"
-        tools:ignore="MissingConstraints" />
-
-    <ImageButton
-        android:id="@+id/Next_arrow"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="672dp"
-        android:background="@drawable/ic_next_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.997"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.289"
-        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.squareup.picasso.Picasso;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityMyGoogleAccountBinding;
@@ -39,7 +40,6 @@ public class MyGoogleAccount extends AppCompatActivity {
             binding.FullNameAge.setText(personName);
             binding.personEmail.setText(personEmail);
             Glide.with(this).load(String.valueOf(personPhoto)).into(binding.imageProfile);
-
 
 
 

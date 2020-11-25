@@ -97,7 +97,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
-                    Intent intent = new Intent(Sign_Up.this, SelectProfileImages.class );
+                    Intent intent = new Intent(Sign_Up.this, ProfileInfo.class );
                     startActivity(intent);
                     finish();
                     return;
@@ -110,9 +110,6 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
             public void onClick(View view) {
                 int selected = binding.Gender.getCheckedRadioButtonId();
                 final RadioButton radioButton = findViewById(selected);
-//                if (radioButton.getText() == null){
-//                    return;
-//                }
 
                 final String Users = "Users";
                 final String Gender = radioButton.getText().toString();
@@ -146,13 +143,19 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                             user.put("Birthdate", Birthdate);
                             user.put("Email", Email);
                             user.put("Password", Password);
+
+                            user.put("Address", "Address");
+                            user.put("Job", "Job");
+                            user.put("Education", "Education");
+                            user.put("Description", "Description");
+
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "onSuccess: user profile is created for " + userID);
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), SelectProfileImages.class));
+                            startActivity(new Intent(getApplicationContext(), ProfileInfo.class));
 
                             binding.progressBar.setVisibility(View.VISIBLE);
 

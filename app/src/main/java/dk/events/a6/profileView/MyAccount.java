@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import dk.events.a6.R;
 import dk.events.a6.activities.MainActivity;
 import dk.events.a6.databinding.ActivityMyAccountBinding;
+import dk.events.a6.signInView.Registeration;
 
 
 public class MyAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
@@ -73,7 +74,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         // if signed in via email
         if (user != null){
             // restore profile image
-            StorageReference userimage = storageReference.child("UserImage.jpg");
+            StorageReference userimage = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/Profile Picture.jpg");
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
@@ -127,6 +128,15 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
             @Override
             public void onClick(View view) {
                onBackPressed();
+            }
+        });
+
+        binding.imageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyAccount.this, ViewProfilePicture.class);
+                startActivity(intent);
+
             }
         });
 
