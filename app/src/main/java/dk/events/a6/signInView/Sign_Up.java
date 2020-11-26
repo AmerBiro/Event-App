@@ -137,6 +137,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                         if (task.isSuccessful()){
                             Toast.makeText(Sign_Up.this, "User created", Toast.LENGTH_SHORT).show();
                             String userID = mAuth.getCurrentUser().getUid();
+//                            DocumentReference documentReference = fStore.collection("A6 Events' App").document("Users").collection(Gender).document(userID);
                             DocumentReference documentReference = fStore.collection("Users").document(userID);
                             Map<String, Object> user = new HashMap<>();
                             user.put("Gender", Gender);
