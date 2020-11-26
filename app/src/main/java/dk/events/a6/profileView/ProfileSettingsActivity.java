@@ -2,8 +2,10 @@ package dk.events.a6.profileView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -77,20 +79,35 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         binding.buttonDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(ProfileSettingsActivity.this, "The following profile: " + userEmail +  " has been deleted successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), Registeration.class));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileSettingsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProfileSettingsActivity.this);
+                builder.setMessage("Are you sure you want to delete the following profile " + userEmail + "?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(ProfileSettingsActivity.this, "The following profile: " + userEmail +  " has been deleted successfully", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), Registeration.class));
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ProfileSettingsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                ProfileSettingsActivity.this.finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();alert.show();
             }
         });
+
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
