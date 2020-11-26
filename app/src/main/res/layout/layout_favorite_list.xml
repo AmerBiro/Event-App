@@ -67,8 +67,9 @@
                         app:layout_constraintHorizontal_bias="0.944"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        android:background="?android:attr/selectableItemBackground"
                         app:layout_constraintVertical_bias="0.454"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        app:srcCompat="@drawable/ic__share_black" />
 
                     <TextView
 
@@ -89,13 +90,14 @@
                         android:layout_width="34dp"
                         android:layout_height="34dp"
                         android:layout_gravity="right"
+                        android:background="?android:attr/selectableItemBackground"
+                        app:srcCompat="@drawable/ic_delete"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.791"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.454"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        app:layout_constraintVertical_bias="0.454" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
