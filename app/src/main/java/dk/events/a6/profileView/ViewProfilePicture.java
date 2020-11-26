@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +30,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Delayed;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityViewProfileBinding;
@@ -124,6 +126,16 @@ public class ViewProfilePicture extends AppCompatActivity {
                         Map<String, Object> user = new HashMap<>();
                         user.put("UserImage", uri);
                         Glide.with(ViewProfilePicture.this).load(uri).into(binding.profileImage);
+//                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//                        mAuth.updateCurrentUser(mAuth.getCurrentUser());
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(ViewProfilePicture.this, MyAccount.class);
+                                startActivity(intent);
+                                finish();
+                                return;                            }
+                        },2000);
                     }
                 });
             }
