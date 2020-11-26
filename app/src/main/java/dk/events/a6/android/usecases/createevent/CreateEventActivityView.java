@@ -33,6 +33,7 @@ import dk.events.a6.android.Context;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.eventslib.entities.User;
+import dk.eventslib.gatewayimpl.EventGatewayFirebaseImpl;
 import dk.eventslib.gateways.EventGatewayInMemory;
 import dk.eventslib.usecases.createevent.CreateEventOutputPort;
 import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
@@ -71,7 +72,7 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
             vm.description = editTextDescription.getText().toString();
 
             useCase = new CreateEventUseCaseImpl();
-            EventGateway gateway = new EventGatewayInMemory();
+            EventGateway gateway = new EventGatewayFirebaseImpl();//EventGatewayInMemory();
             //CreateEventOutputPort outputPort = new CreateEventOutputPortImpl();
 
             useCase.setEventGateway(gateway);
