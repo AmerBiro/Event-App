@@ -5,16 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:padding="5dp"
     android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        android:background="@drawable/background_blue"
         android:layout_height="wrap_content" >
 
         <LinearLayout
-            android:background="?android:selectableItemBackground"
+            android:background="#FF616DF4"
             android:clickable="true"
             android:focusable="true"
             android:layout_width="match_parent"

@@ -101,11 +101,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
          account = GoogleSignIn.getLastSignedInAccount(this);
+
+
         binding.idButtonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (user != null || account != null){
-                    Intent intent = new Intent(MainActivity.this, CreateEventActivityView.class);
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }
                 else {

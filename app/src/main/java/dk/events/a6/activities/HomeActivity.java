@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import com.google.android.material.tabs.TabLayout;
 
 import dk.events.a6.android.usecases.createevent.CreateEventActivityView;
+import dk.events.a6.databinding.ActivityHomeBinding;
+import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.fragments.ChatFragment;
 import dk.events.a6.fragments.FavoriteFragment;
 import dk.events.a6.R;
@@ -26,7 +28,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private ViewPager viewPager;
     private Button buttonCreateEvent;
     private ImageButton backArrow;
-
+    private ActivityHomeBinding binding;
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(HomeActivity.this, CreateEventActivityView.class);
@@ -42,7 +44,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
         buttonCreateEvent = findViewById(R.id.buttonAddImageCreate);
         buttonCreateEvent.setOnClickListener(this);
-
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         // Tabbed Activity
         tabLayout = findViewById(R.id.tab_layout);
@@ -61,6 +65,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         backArrow = findViewById(R.id.id_back_arrow);
 
         backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+
+
+        });
+        binding.idBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
