@@ -63,13 +63,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
             <TextView
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Update your city"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="City"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
@@ -94,13 +93,12 @@
                 android:textSize="16dp" />
 
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Write something new about your self"
                 android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="Description"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
@@ -131,7 +129,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Have you got a new job?\n Why you don't update it?"
+                android:text="Job"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
@@ -163,7 +161,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="You can update how far you are with \nyour eduction"
+                android:text="Eduction"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
