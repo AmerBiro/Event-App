@@ -13,7 +13,7 @@
         android:layout_height="wrap_content" >
 
         <LinearLayout
-            android:background="#867983EC"
+            android:background="?android:selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:layout_width="match_parent"
@@ -22,6 +22,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_profile"
+                android:layout_marginStart="10dp"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/images" />
@@ -36,6 +37,7 @@
 
                 <TextView
                     android:id="@+id/name_text"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="UserName"
@@ -45,6 +47,7 @@
                 <TextView
                     android:id="@+id/profileDescription"
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
                     android:text="Description"
                     android:textSize="16sp" />
@@ -53,8 +56,10 @@
             </LinearLayout>
 
             <TextView
+                android:layout_marginRight="10dp"
                 android:id="@+id/date_text"
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
                 android:text="man"
                 android:textSize="16sp" />
