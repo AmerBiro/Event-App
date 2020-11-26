@@ -89,6 +89,8 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(ProfileSettingsActivity.this, "The following profile: " + userEmail +  " has been deleted successfully", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), Registeration.class));
+                                        finish();
+                                        return;
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
