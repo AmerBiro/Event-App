@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -130,6 +131,7 @@ public class Registeration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText resetPassword = new EditText(v.getContext());
+                resetPassword.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                 final AlertDialog.Builder resetPasswordDialog = new AlertDialog.Builder(v.getContext());
                 resetPasswordDialog.setTitle("Reset Password");
                 resetPasswordDialog.setMessage("You can receive a link to reset your password by entering your email down below");
@@ -139,6 +141,10 @@ public class Registeration extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String email = resetPassword.getText().toString();
+                        if (email.isEmpty()){
+                            Toast.makeText(Registeration.this, "You have not entered your email!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -152,12 +158,11 @@ public class Registeration extends AppCompatActivity {
                         });
                     }
                 });
-//                resetPasswordDialog.setPositiveButton("No", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
+                resetPasswordDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
                 resetPasswordDialog.create().show();
             }
