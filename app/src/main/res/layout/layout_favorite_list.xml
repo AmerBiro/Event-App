@@ -16,7 +16,7 @@
         android:layout_height="wrap_content" >
 
         <LinearLayout
-            android:background="@color/barsColour"
+            android:background="?android:selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/white"
+
                     android:id="@+id/name_text"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
@@ -51,7 +51,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:textColor="@color/white"
+
                     android:id="@+id/profileDescription"
                     android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
