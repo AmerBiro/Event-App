@@ -1,6 +1,6 @@
 package dk.eventslib.entities;
 
-public class ImageDetails {
+public class ImageDetails extends Entity{
     private int width = 0;
     private int height = 0;
     private String configName = "";
