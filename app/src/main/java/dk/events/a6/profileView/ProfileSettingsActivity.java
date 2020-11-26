@@ -74,9 +74,6 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         });
 
 
-
-
-
         binding.buttonDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +81,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(ProfileSettingsActivity.this, "The following profile: " + userEmail +  " has been deleted successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), Registeration.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

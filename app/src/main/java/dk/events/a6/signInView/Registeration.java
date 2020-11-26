@@ -1,14 +1,17 @@
 package dk.events.a6.signInView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import dk.events.a6.R;
@@ -20,7 +23,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.internal.DialogRedirect;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,10 +78,11 @@ public class Registeration extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
                     Intent intent = new Intent(Registeration.this, MainActivity.class );
+                    Toast.makeText(Registeration.this, "Welcome back " + user.getDisplayName() , Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();
                     return;
-                }
+                }return;
             }
         };
 
@@ -118,6 +125,43 @@ public class Registeration extends AppCompatActivity {
             Intent intent = new Intent(Registeration.this, MainActivity.class);
             startActivity(intent);
         }
+
+        binding.ResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText resetPassword = new EditText(v.getContext());
+                final AlertDialog.Builder resetPasswordDialog = new AlertDialog.Builder(v.getContext());
+                resetPasswordDialog.setTitle("Reset Password");
+                resetPasswordDialog.setMessage("You can receive a link to reset your password by entering your email down below");
+                resetPasswordDialog.setView(resetPassword);
+
+                resetPasswordDialog.setPositiveButton("Send me a reset link", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String email = resetPassword.getText().toString();
+                        mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(Registeration.this, "A reset password line is sent your entered email. Please check your inbox", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(Registeration.this, "An error has been occured!\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+//                resetPasswordDialog.setPositiveButton("No", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+
+                resetPasswordDialog.create().show();
+            }
+        });
     }
 
 
