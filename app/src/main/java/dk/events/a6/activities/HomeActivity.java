@@ -27,7 +27,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Button buttonCreateEvent;
-    private ImageButton backArrow;
     private ActivityHomeBinding binding;
     @Override
     public void onClick(View v) {
@@ -42,8 +41,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         Window window = this.getWindow();
         window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
 
-        buttonCreateEvent = findViewById(R.id.buttonAddImageCreate);
-        buttonCreateEvent.setOnClickListener(this);
+
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -62,20 +60,17 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_chat_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_baseline_favorite_border_24);
 
-        backArrow = findViewById(R.id.id_back_arrow);
-
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-
-
-        });
         binding.idBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+        binding.buttonAddImageCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, CreateEventActivityView.class);
+                startActivity(intent);
             }
         });
     }
