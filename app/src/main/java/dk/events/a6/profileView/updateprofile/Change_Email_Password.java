@@ -203,6 +203,11 @@ public class Change_Email_Password extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(Change_Email_Password.this, "A reset password line is sent your entered email. Please check your inbox", Toast.LENGTH_SHORT).show();
+                                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                mAuth.signOut();
+                                startActivity(new Intent(getApplicationContext(), Registeration.class));
+                                finish();
+                                return;
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -221,15 +226,7 @@ public class Change_Email_Password extends AppCompatActivity {
                 resetPasswordDialog.create().show();
             }
         });
-
-
-
-
-
-
     }
-
-
 }
 
 
