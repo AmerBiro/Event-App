@@ -47,8 +47,9 @@
         android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
+        android:textSize="18dp"
         android:layout_alignParentBottom="true"
-        android:text="Create Event" />
+        android:text="Create an Event" />
 
     <!--    <ListView
             android:id="@+id/my_event_list"
