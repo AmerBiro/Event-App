@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -45,6 +47,7 @@ public class ViewProfilePicture extends AppCompatActivity {
     private FirebaseUser user;
     private StorageReference storageReference;
     private String userID;
+    private AddImages addImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +66,12 @@ public class ViewProfilePicture extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
         userID = mAuth.getCurrentUser().getUid();
-
+        addImages = new AddImages();
 
         // show profile image if signed in via email
         if (user != null){
             // restore profile image
-            StorageReference userimage = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/Profile Picture.jpg");
+            StorageReference userimage = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/Profile image.jpg");
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
@@ -81,7 +84,7 @@ public class ViewProfilePicture extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGallery, 1001);
+                startActivityForResult(openGallery, 1000);
             }
         });
 
@@ -91,63 +94,26 @@ public class ViewProfilePicture extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
     }
-
-
-
-
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001){
+        if (requestCode == 1000){
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
 //                binding.UserImage.setImageURI(imageUri);
-                uploadeImageToFirebase(imageUri);
-
+                addImages.uploadeImageToFirebase(imageUri, "Profile image", ViewProfilePicture.this, binding.profileImage);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(ViewProfilePicture.this, MyAccount.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                },4000);
             }
         }
     }
-
-
-    private void uploadeImageToFirebase(Uri imageUri) {
-        final StorageReference profilePicture = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/Profile Picture.jpg");
-        profilePicture.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(ViewProfilePicture.this, "Image has been uploaded", Toast.LENGTH_SHORT).show();
-                profilePicture.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("UserImage", uri);
-                        Glide.with(ViewProfilePicture.this).load(uri).into(binding.profileImage);
-//                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//                        mAuth.updateCurrentUser(mAuth.getCurrentUser());
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(ViewProfilePicture.this, MyAccount.class);
-                                startActivity(intent);
-                                finish();
-                                return;                            }
-                        },2000);
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ViewProfilePicture.this, "Failed uploading image!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }
-
-
-
-

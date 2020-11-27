@@ -8,8 +8,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +33,9 @@ import java.util.Map;
 import dk.events.a6.R;
 import dk.events.a6.activities.MainActivity;
 import dk.events.a6.databinding.ActivitySelectProfileImagesBinding;
+import dk.events.a6.profileView.AddImages;
+import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.profileView.ViewProfilePicture;
 
 public class SelectProfileImages extends AppCompatActivity {
     private ActivitySelectProfileImagesBinding binding;
@@ -39,6 +44,9 @@ public class SelectProfileImages extends AppCompatActivity {
     private Boolean imageStatus;
     private FirebaseAuth mAuth;
     private String userID;
+    private AddImages addImages;
+    private ImageView imageView;
+    private int count = 0;
 
     String First_Name   = "";
     String Last_Name    = "";
@@ -59,6 +67,7 @@ public class SelectProfileImages extends AppCompatActivity {
         imageStatus = false;
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getCurrentUser().getUid();
+        addImages = new AddImages();
 
 
 
@@ -104,46 +113,112 @@ public class SelectProfileImages extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1000);
+            }
+        });
+
+        binding.UserImage1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(openGallery, 1001);
             }
         });
+
+        binding.UserImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1002);
+            }
+        });
+
+        binding.UserImage3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1003);
+            }
+        });
+
+        binding.UserImage4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1004);
+            }
+        });
+
+        binding.UserImage5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1005);
+            }
+        });
+
+        binding.UserImage6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1006);
+            }
+        });
+
+
     }
+
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001){
+        if (requestCode == 1000){
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
-//                binding.UserImage.setImageURI(imageUri);
-                uploadeImageToFirebase(imageUri);
-
+                addImages.uploadeImageToFirebase(imageUri, "Profile image", SelectProfileImages.this, binding.UserImage);
+            } imageStatus = true;
+        }else if (requestCode == 1001){
+            if (resultCode == Activity.RESULT_OK){
+                Uri imageUri = data.getData();
+                addImages.uploadeImageToFirebase(imageUri, "image 1", SelectProfileImages.this, binding.UserImage1);
+            }
+        }else if (requestCode == 1002){
+            if (resultCode == Activity.RESULT_OK){
+                Uri imageUri = data.getData();
+                addImages.uploadeImageToFirebase(imageUri, "image 2", SelectProfileImages.this, binding.UserImage2);
+            }
+        }else if (requestCode == 1003){
+            if (resultCode == Activity.RESULT_OK){
+                Uri imageUri = data.getData();
+                addImages.uploadeImageToFirebase(imageUri, "image 3", SelectProfileImages.this, binding.UserImage3);
+            }
+        }else if (requestCode == 1004){
+            if (resultCode == Activity.RESULT_OK){
+                Uri imageUri = data.getData();
+                addImages.uploadeImageToFirebase(imageUri, "image 4", SelectProfileImages.this, binding.UserImage4);
+            }
+        }else if (requestCode == 1005){
+            if (resultCode == Activity.RESULT_OK){
+                Uri imageUri = data.getData();
+                addImages.uploadeImageToFirebase(imageUri, "image 5", SelectProfileImages.this, binding.UserImage5);
+            }
+        }else if (requestCode == 1006){
+            if (resultCode == Activity.RESULT_OK){
+                Uri imageUri = data.getData();
+                addImages.uploadeImageToFirebase(imageUri, "image 6", SelectProfileImages.this, binding.UserImage6);
             }
         }
     }
 
-    private void uploadeImageToFirebase(Uri imageUri) {
-        final StorageReference profilePicture = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/Profile Picture.jpg");
-        profilePicture.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(SelectProfileImages.this, "Image has been uploaded", Toast.LENGTH_SHORT).show();
-                profilePicture.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("UserImage", uri);
-                        Glide.with(SelectProfileImages.this).load(uri).into(binding.UserImage);
-                        imageStatus = true;
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(SelectProfileImages.this, "Failed uploading image!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    @Override
+//    public void onClick(View v) {
+//        imageView = findViewById(imageView.getId());
+//        count++;
+//    }
+
 }
+
+
+
+

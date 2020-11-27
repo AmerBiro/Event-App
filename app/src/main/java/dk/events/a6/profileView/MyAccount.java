@@ -78,7 +78,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         // if signed in via email
         if (user != null){
             // restore profile image
-            StorageReference userimage = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/Profile Picture.jpg");
+            StorageReference userimage = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/Profile image.jpg");
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
