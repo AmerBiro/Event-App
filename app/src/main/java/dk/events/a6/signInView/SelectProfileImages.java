@@ -211,11 +211,6 @@ public class SelectProfileImages extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        imageView = findViewById(imageView.getId());
-//        count++;
-//    }
 
 }
 
