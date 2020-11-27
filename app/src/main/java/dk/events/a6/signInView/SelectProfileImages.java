@@ -109,6 +109,7 @@ public class SelectProfileImages extends AppCompatActivity {
 
             }
         });
+
         binding.UserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
