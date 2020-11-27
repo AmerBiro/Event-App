@@ -67,8 +67,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:scaleType="fitXY" />
-        </androidx.cardview.widget.CardView>
 
+        </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,7 @@ public class SelectProfileImages extends AppCompatActivity {
     private FirebaseFirestore fStore;
     private StorageReference storageReference;
     private Boolean imageStatus;
+    private Boolean image1;
     private FirebaseAuth mAuth;
     private String userID;
     private AddImages addImages;
@@ -108,7 +109,6 @@ public class SelectProfileImages extends AppCompatActivity {
 
             }
         });
-
         binding.UserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +116,6 @@ public class SelectProfileImages extends AppCompatActivity {
                 startActivityForResult(openGallery, 1000);
             }
         });
-
         binding.UserImage1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
