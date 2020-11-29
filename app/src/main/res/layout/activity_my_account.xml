@@ -104,14 +104,14 @@
                     android:id="@+id/updatePersonalInformation"
                     android:layout_width="174dp"
                     android:layout_height="113dp"
-                    android:paddingRight="10dp"
+                    android:paddingRight="8dp"
                     android:src="@drawable/personal_information_icon" />
 
                 <ImageView
                     android:id="@+id/view_profile_layout"
                     android:layout_width="174dp"
                     android:layout_height="112dp"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="8dp"
                     android:src="@drawable/overview_icon" />
             </LinearLayout>
 
@@ -126,14 +126,14 @@
                     android:id="@+id/updateProfileBackground"
                     android:layout_width="174dp"
                     android:layout_height="112dp"
-                    android:paddingRight="10dp"
+                    android:paddingRight="8dp"
                     android:src="@drawable/edit_your_info_icon" />
 
                 <ImageView
                     android:id="@+id/updateProfileImage"
                     android:layout_width="174dp"
                     android:layout_height="113dp"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="8dp"
                     android:src="@drawable/pictures_icon" />
             </LinearLayout>
 
@@ -147,14 +147,14 @@
                     android:id="@+id/Settings"
                     android:layout_width="174dp"
                     android:layout_height="113dp"
-                    android:paddingRight="10dp"
+                    android:paddingRight="8dp"
                     android:src="@drawable/settings" />
 
                 <ImageView
                     android:id="@+id/changeEmailOrPassword"
                     android:layout_width="174dp"
                     android:layout_height="113dp"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="8dp"
                     android:src="@drawable/email_icon" />
             </LinearLayout>
 
@@ -168,13 +168,13 @@
                 <ImageView
                     android:layout_width="174dp"
                     android:layout_height="113dp"
-                    android:paddingRight="10dp"
+                    android:paddingRight="8dp"
                     android:src="@drawable/log_out_icon" />
 
                 <ImageView
                     android:layout_width="174dp"
                     android:layout_height="113dp"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="8dp"
                     android:src="@drawable/delete_account_icon" />
             </LinearLayout>
 
