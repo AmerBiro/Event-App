@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import dk.events.a6.R;
+import dk.events.a6.profileView.updateprofile.ProfileImage;
 
 public class ProfilePhotoAdapter extends RecyclerView.Adapter<ProfilePhotoAdapter.ViewHolder> {
     private static final String TAG = "ProfilePhotoAdapter";

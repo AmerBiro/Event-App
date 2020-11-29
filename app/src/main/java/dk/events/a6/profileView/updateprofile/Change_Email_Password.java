@@ -2,13 +2,17 @@ package dk.events.a6.profileView.updateprofile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -33,6 +37,7 @@ import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityChangeEmailPasswordBinding;
 import dk.events.a6.databinding.ActivityEditProfileBinding;
 import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.signInView.Registeration;
 
 public class Change_Email_Password extends AppCompatActivity {
     private ActivityChangeEmailPasswordBinding binding;
@@ -175,6 +180,52 @@ public class Change_Email_Password extends AppCompatActivity {
             }
         });
 
+
+        binding.ResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText resetPassword = new EditText(v.getContext());
+                resetPassword.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                final AlertDialog.Builder resetPasswordDialog = new AlertDialog.Builder(v.getContext());
+                resetPasswordDialog.setTitle("Reset Password");
+                resetPasswordDialog.setMessage("You can receive a link to reset your password by entering your email down below");
+                resetPasswordDialog.setView(resetPassword);
+
+                resetPasswordDialog.setPositiveButton("Send me a reset link", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String email = resetPassword.getText().toString();
+                        if (email.isEmpty()){
+                            Toast.makeText(Change_Email_Password.this, "You have not entered your email!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(Change_Email_Password.this, "A reset password line is sent your entered email. Please check your inbox", Toast.LENGTH_SHORT).show();
+                                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                mAuth.signOut();
+                                startActivity(new Intent(getApplicationContext(), Registeration.class));
+                                finish();
+                                return;
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(Change_Email_Password.this, "An error has been occured!\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+                resetPasswordDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                resetPasswordDialog.create().show();
+            }
+        });
     }
 }
 
