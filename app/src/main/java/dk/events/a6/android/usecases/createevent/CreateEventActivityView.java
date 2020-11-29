@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 import dk.events.a6.R;
 import dk.events.a6.android.BruceAlmighty;
 import dk.events.a6.android.Context;
+import dk.events.a6.android.MainApplication;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.eventslib.entities.User;
@@ -202,6 +203,8 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+        //may needed in MainActivity
+        MainApplication mainApplication = ((MainApplication)getApplication());
 
         binding = ActivityCreateBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();

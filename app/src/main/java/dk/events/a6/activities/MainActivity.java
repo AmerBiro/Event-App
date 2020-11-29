@@ -21,6 +21,7 @@ import java.util.List;
 
 import dk.events.a6.R;
 import dk.events.a6.adapters.EventsAdapter;
+import dk.events.a6.android.MainApplication;
 import dk.events.a6.android.usecases.createevent.CreateEventActivityView;
 import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.models.MyEvents;
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
         Window window = this.getWindow();
         window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbarevents));
 
