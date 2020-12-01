@@ -3,20 +3,13 @@ package dk.eventslib.usecases.createevent;
 import java.util.List;
 
 import dk.eventslib.entities.Event;
+import dk.eventslib.usecases.ProcessObservable;
+import dk.eventslib.usecases.ProcessObserver;
 
-public interface EventGateway {
-     //new
-     //License createLicense(License license);
-     //List<License> findLicensesForUserAndEvent(User user, Event event);
-
-     //User createUser(User user);
-     //User findUser(String userName);
-
+public interface ObservableEventGateway extends ProcessObservable {
      List<Event> findAllEvents();
-     void delete(Event event);
      Event findEventByTitle(String title);
-     //end new
-
+     void delete(Event event);
      Event createEvent(Event event);
 
      Event getEvent(String id);

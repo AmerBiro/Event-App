@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.eventslib.usecases.LicenseGateway;
-import dk.eventslib.usecases.createevent.EventGateway;
+import dk.eventslib.usecases.createevent.ObservableEventGateway;
 import dk.eventslib.entities.Event;
 import dk.eventslib.entities.License;
 import dk.eventslib.entities.License.LicenseType;
@@ -14,19 +14,19 @@ import dk.eventslib.entities.User;
 import static dk.eventslib.entities.License.LicenseType.*;
 
 public class PresentEventsUseCaseImpl implements PresentEventsUseCase {
-    private EventGateway eventGateway;
+    private ObservableEventGateway observableEventGateway;
     private LicenseGateway licenseGateway;
 
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public PresentEventsUseCaseImpl(EventGateway eventGateway, LicenseGateway licenseGateway) {
-        this.eventGateway = eventGateway;
+    public PresentEventsUseCaseImpl(ObservableEventGateway observableEventGateway, LicenseGateway licenseGateway) {
+        this.observableEventGateway = observableEventGateway;
         this.licenseGateway = licenseGateway;
     }
 
     @Override
     public List<PresentableEvent> presentEvents(User loggedUser) {
-        List<Event> allEvents = eventGateway.findAllEvents();
+        List<Event> allEvents = observableEventGateway.findAllEvents();
         List<PresentableEvent> presentableEvents = new ArrayList<>();
 
         for (Event e: allEvents){

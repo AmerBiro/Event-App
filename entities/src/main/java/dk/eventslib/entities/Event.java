@@ -23,8 +23,8 @@ public class Event extends Entity {
                 id,
                 title,
                 description,
-                startDate.toString(),
-                owner.toString(),
+                startDate==null?null:startDate.toString(),
+                owner==null?null:owner.toString(),
                 participants.stream().map(u -> u.toString()).reduce("", String::concat));
     }
 

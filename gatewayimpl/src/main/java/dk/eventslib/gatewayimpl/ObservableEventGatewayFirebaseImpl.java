@@ -13,17 +13,20 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import dk.eventslib.entities.Entity;
 import dk.eventslib.entities.Event;
 import dk.eventslib.entities.ImageDetails;
-import dk.eventslib.usecases.createevent.EventGateway;
+import dk.eventslib.usecases.ProcessObserver;
+import dk.eventslib.usecases.createevent.ObservableEventGateway;
 
-public class EventGatewayFirebaseImpl implements EventGateway {
+public class ObservableEventGatewayFirebaseImpl implements ObservableEventGateway {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
     @Override
@@ -48,6 +51,7 @@ public class EventGatewayFirebaseImpl implements EventGateway {
         final String path = "event_images/" + details.getId() + ".jpg";
         StorageReference storageReference = firebaseStorage.getReference(path);
         StorageMetadata storageMetadata = new StorageMetadata.Builder()
+                .setContentType("image/jpeg")
                 .setCustomMetadata("config_name",details.getConfigName())
                 .setCustomMetadata("height", String.valueOf(details.getHeight()))
                 .setCustomMetadata("width", String.valueOf(details.getWidth())).build();
@@ -55,6 +59,9 @@ public class EventGatewayFirebaseImpl implements EventGateway {
         uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                observers.stream().forEach( o-> o.pending() );
+
                 if(task.isSuccessful())
                     putEvent(event, details.getId());
                 else
@@ -70,33 +77,40 @@ public class EventGatewayFirebaseImpl implements EventGateway {
         eventCollection.put("title", event.getTitle());
         eventCollection.put("description", event.getDescription());
         eventCollection.put("event_image_id", imageId);
-        eventCollection.put("event_creator_id", event.getOwner().getId());
+        eventCollection.put("event_creator_id", event.getOwner()==null?null:event.getOwner().getId());
 
         firebaseFirestore.collection("events")
                 .add(eventCollection)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+                        observers.stream().forEach( o-> o.onSuccess(event) );
                         //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        //Log.w(TAG, "Error adding document", e);
+                        observers.stream().forEach( o-> o.onFailure(event) );
                     }
                 });
     }
 
     @Override
     public Event createEvent(Event event) {
-        if(event.getImages().size()>0){
-            final String imageId = UUID.randomUUID().toString();
-            event.getImages().get(0).setId(imageId);
-            putImage(event);
-        }else {
-            putEvent(event);
-        }
+        executor.execute( ()->{
+            observers.stream().forEach(o-> o.starting());
+
+            if(event.getImages().size()>0){
+                final String imageId = UUID.randomUUID().toString();
+                event.getImages().get(0).setId(imageId);
+                putImage(event);
+            }else {
+                putEvent(event);
+            }
+
+        });
+        executor.shutdown();
         return event;
     }
 
@@ -107,5 +121,17 @@ public class EventGatewayFirebaseImpl implements EventGateway {
     @Override
     public void delete(Event event) {
 
+    }
+
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    List<ProcessObserver> observers = new ArrayList<>();
+    @Override
+    public void addProcessObserver(ProcessObserver observer){
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeProcessObserver(ProcessObserver observer){
+        observers.remove(observer);
     }
 }
