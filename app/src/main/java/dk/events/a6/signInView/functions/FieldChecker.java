@@ -1,29 +1,24 @@
 package dk.events.a6.signInView.functions;
 
 import android.app.Activity;
-import android.content.Context;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import dk.events.a6.R;
-import dk.events.a6.signInView.Sign_Up;
-
 public class FieldChecker {
-    private String firstName, lastName, birthDate, email, password, toString;
-    private Boolean checker = true;
-
-    private String gender;
+    private String firstName, lastName, birthDate, email, password, gender;
+    private EditText editText_password;
     private int selected;
     private RadioButton radioButton;
     private Activity activity;
-    private Context context;
+
     public FieldChecker() {
     }
 
     public Boolean allFieldsEmpty(Activity activity, EditText firstName, EditText lastName, EditText birthDate,
                            EditText email, EditText password){
+        this.editText_password = password;
         this.firstName = firstName.getText().toString();
         this.lastName = lastName.getText().toString();
         this.birthDate = birthDate.getText().toString();
@@ -42,13 +37,13 @@ public class FieldChecker {
             email.setError("Email is empty!");
             password.setError("Password is empty!");
             Toast.makeText(activity, "All fields seem to be empty!", Toast.LENGTH_SHORT).show();
-            this.checker = true;
             return true;
         }else return false;
     }
 
     public Boolean someFieldsEmpty(Activity activity, EditText firstName, EditText lastName, EditText birthDate,
                           EditText email, EditText password){
+        this.editText_password = password;
         if (firstName.getText().toString().isEmpty())
             firstName.setError("First name is empty!");
         if (lastName.getText().toString().isEmpty())
@@ -69,8 +64,18 @@ public class FieldChecker {
         ){
             Toast.makeText(activity, "Some field/s are empty!", Toast.LENGTH_SHORT).show();
             return true;
-        }
-        else return false;
+        } else return false;
+    }
+
+    public Boolean passwordCheck(Activity activity, EditText password){
+        this.password = password.getText().toString();
+        if (password.length() <6){
+            this.editText_password.setError("Password cannot be less than 6 characters");
+            return true;
+        }else if (password.length() > 10){
+            this.editText_password.setError("Password cannot be greater than 10 characters");
+            return true;
+        }else return false;
     }
 
     public Boolean genderCheck(Activity activity, RadioGroup radioGroup){

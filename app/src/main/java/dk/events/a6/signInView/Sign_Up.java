@@ -116,6 +116,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                 if (
                         checker.allFieldsEmpty(Sign_Up.this, First_Name, Last_Name, Birthdate, Email, Password) ||
                         checker.someFieldsEmpty(Sign_Up.this, First_Name, Last_Name, Birthdate, Email, Password) ||
+                        checker.passwordCheck(Sign_Up.this, Password) ||
                         checker.genderCheck(Sign_Up.this, binding.radioGroup))
                     return;
                 else {
