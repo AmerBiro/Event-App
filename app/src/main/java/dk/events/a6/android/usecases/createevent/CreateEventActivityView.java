@@ -8,11 +8,12 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -28,7 +30,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 import dk.events.a6.R;
@@ -36,10 +40,12 @@ import dk.events.a6.android.Context;
 import dk.events.a6.android.MainApplication;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
-import dk.eventslib.gatewayimpl.EventGatewayFirebaseImpl;
+import dk.eventslib.entities.Event;
+import dk.eventslib.gatewayimpl.ObservableEventGatewayFirebaseImpl;
+import dk.eventslib.usecases.ProcessObserver;
 import dk.eventslib.usecases.createevent.CreateEventOutputPort;
 import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
-import dk.eventslib.usecases.createevent.EventGateway;
+import dk.eventslib.usecases.createevent.ObservableEventGateway;
 import dk.eventslib.entities.ImageDetails;
 
 public class CreateEventActivityView extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
@@ -56,6 +62,7 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
     private FragmentTransaction fragmentTransaction;
     private ChooseImageDialogFragment dialogFragment;
     private Uri imageUriFromCamera;
+    private ProgressBar progressBarCreateEvent;
 
     @Override
     public void onBackPressed() {
@@ -75,8 +82,40 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
             vm.description = editTextDescription.getText().toString();
 
             useCase = new CreateEventUseCaseImpl();
-            EventGateway gateway = new EventGatewayFirebaseImpl();//EventGatewayInMemory();
-            //CreateEventOutputPort outputPort = new CreateEventOutputPortImpl();
+            ObservableEventGateway gateway = new ObservableEventGatewayFirebaseImpl();
+            gateway.addProcessObserver(new ProcessObserver() {
+                @Override
+                public void starting() {
+                    new Handler(Looper.getMainLooper()).post(()->{
+                        progressBarCreateEvent.setVisibility(View.VISIBLE);
+                        progressBarCreateEvent.setProgress(1);
+
+                        setViewEnable(false);
+                    });
+                }
+                @Override
+                public void pending() {
+                    new Handler(Looper.getMainLooper()).post(()->{
+                        progressBarCreateEvent.setProgress(3);
+                    });
+                }
+                @Override
+                public void processed(Event event) {
+                    new Handler(Looper.getMainLooper()).post(()->{
+                        System.out.println("Event: " + event.toString());
+                        progressBarCreateEvent.setProgress(4);
+
+                        new Handler().postDelayed(()->{
+                            progressBarCreateEvent.setVisibility(View.GONE);
+                            //simulate back pressed
+                            setViewEnable(true);
+                            onBackPressed();
+
+                        },500);
+                    });
+
+                }
+            });
 
             useCase.setEventGateway(gateway);
             useCase.setOutputPort(this);
@@ -86,7 +125,7 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
             createEventController.createEvent(vm, Context.bruceAlmighty.getLoggedInUser());
 
             //simulate back pressed
-            onBackPressed();
+            //onBackPressed();
 
         }else if(v.getId() == R.id.buttonAddImageCreate){
             dialogFragment = new ChooseImageDialogFragment();
@@ -108,6 +147,14 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
         }
 
     }
+
+    private void setViewEnable(boolean enable) {
+        buttonCreateEvent.setEnabled(enable);
+        editTextTitle.setEnabled(enable);
+        editTextDescription.setEnabled(enable);
+        buttonAddImageCreate.setEnabled(enable);
+    }
+
 
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
@@ -236,6 +283,7 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
                 onBackPressed();
             }
         });
+
     }
 
     private void showDateTimeDialog(final EditText date_time_in) {
@@ -273,6 +321,7 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
         editTextDescription = findViewById(R.id.editTextDescription);
         buttonAddImageCreate = findViewById(R.id.buttonAddImageCreate);
         imageViewEventImage = findViewById(R.id.imageViewEventImage);
+        progressBarCreateEvent = findViewById(R.id.progressBarCreateEvent);
 
     }
 

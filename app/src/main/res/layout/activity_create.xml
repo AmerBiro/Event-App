@@ -18,6 +18,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progressBarCreateEvent"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressBackgroundTint="@color/black"
+        android:progressTint="@color/white"
+        android:scaleY="8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:max="4"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/edit_profile_text"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewEventImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <ImageButton
         android:id="@+id/back_arrow"
         android:layout_width="25dp"

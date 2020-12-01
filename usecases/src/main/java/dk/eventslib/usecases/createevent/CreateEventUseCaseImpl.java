@@ -4,29 +4,29 @@ package dk.eventslib.usecases.createevent;
 import dk.eventslib.entities.Event;
 
 public class CreateEventUseCaseImpl implements CreateEventInputPort {
-    private EventGateway eventGateway;
+    private ObservableEventGateway observableEventGateway;
     private CreateEventOutputPort outputPort;
 
     public CreateEventUseCaseImpl() { }
 
     public Event getEvent(String id) {
-        return eventGateway.getEvent(id);
+        return observableEventGateway.getEvent(id);
     }
 
     public void createEvent(Event event) {
-        eventGateway.createEvent(event);
+        observableEventGateway.createEvent(event);
         outputPort.show(
                 String.format(
                         "Event with Id: %s, Title: %s, Owner: %s was created!",
                         event.getId(), event.getTitle(), event.getOwner()==null?"null":event.getOwner().toString()));
     }
 
-    public EventGateway getEventGateway() {
-        return eventGateway;
+    public ObservableEventGateway getEventGateway() {
+        return observableEventGateway;
     }
 
-    public void setEventGateway(EventGateway eventGateway) {
-        this.eventGateway = eventGateway;
+    public void setEventGateway(ObservableEventGateway observableEventGateway) {
+        this.observableEventGateway = observableEventGateway;
     }
 
     public CreateEventOutputPort getOutputPort() {

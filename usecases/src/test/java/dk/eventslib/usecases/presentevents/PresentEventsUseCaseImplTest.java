@@ -15,7 +15,7 @@ import java.util.UUID;
 import dk.eventslib.entities.Entity;
 import dk.eventslib.usecases.LicenseGateway;
 import dk.eventslib.usecases.UserGateway;
-import dk.eventslib.usecases.createevent.EventGateway;
+import dk.eventslib.usecases.createevent.ObservableEventGateway;
 import dk.eventslib.entities.Event;
 import dk.eventslib.entities.License;
 import dk.eventslib.entities.User;
@@ -30,7 +30,7 @@ public class PresentEventsUseCaseImplTest {
     private User user;
     private Event event;
     private PresentEventsUseCase useCase;
-    private EventGateway eventGateway;
+    private ObservableEventGateway observableEventGateway;
     private UserGateway userGateway;
     private LicenseGateway licenseGateway;
 
@@ -38,14 +38,14 @@ public class PresentEventsUseCaseImplTest {
 
     @Before
     public void beforeAll(){
-        eventGateway = new FakeEventGateway();
+        observableEventGateway = new FakeObservableEventGateway();
         userGateway = new FakeUserGateway();
         licenseGateway = new FakeLicenseGateway();
-        useCase = new PresentEventsUseCaseImpl(eventGateway, licenseGateway);
+        useCase = new PresentEventsUseCaseImpl(observableEventGateway, licenseGateway);
 
 
         user = userGateway.createUser( User.newUserBuilder().build() );
-        event = eventGateway.createEvent( Event.newBuilder().withStartDate(new Date()).build() );
+        event = observableEventGateway.createEvent( Event.newBuilder().withStartDate(new Date()).build() );
     }
 
     @Test
@@ -123,7 +123,7 @@ public class PresentEventsUseCaseImplTest {
             return entity;
         }
     }
-    class FakeEventGateway extends FakeBaseGateway<Event> implements EventGateway{
+    class FakeObservableEventGateway extends FakeBaseGateway<Event> implements ObservableEventGateway {
         @Override
         public Event findEventByTitle(String title) {
             for (Event e : eventsMap.values()) {

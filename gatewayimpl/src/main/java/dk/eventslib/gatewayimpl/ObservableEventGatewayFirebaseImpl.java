@@ -13,17 +13,20 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import dk.eventslib.entities.Entity;
 import dk.eventslib.entities.Event;
 import dk.eventslib.entities.ImageDetails;
-import dk.eventslib.usecases.createevent.EventGateway;
+import dk.eventslib.usecases.ProcessObserver;
+import dk.eventslib.usecases.createevent.ObservableEventGateway;
 
-public class EventGatewayFirebaseImpl implements EventGateway {
+public class ObservableEventGatewayFirebaseImpl implements ObservableEventGateway {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
     @Override
@@ -56,6 +59,9 @@ public class EventGatewayFirebaseImpl implements EventGateway {
         uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                observers.stream().forEach( o-> o.pending() );
+
                 if(task.isSuccessful())
                     putEvent(event, details.getId());
                 else
@@ -78,12 +84,14 @@ public class EventGatewayFirebaseImpl implements EventGateway {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+                        observers.stream().forEach( o-> o.processed(Event.newBuilder().withId("onSuccess").withDescription("onSuccess").withTitle("onSuccess").build()) );
                         //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        observers.stream().forEach( o-> o.processed(Event.newBuilder().withId("onFailure").withDescription("onFailure").withTitle("onFailure").build()) );
                         //Log.w(TAG, "Error adding document", e);
                     }
                 });
@@ -91,13 +99,23 @@ public class EventGatewayFirebaseImpl implements EventGateway {
 
     @Override
     public Event createEvent(Event event) {
-        if(event.getImages().size()>0){
-            final String imageId = UUID.randomUUID().toString();
-            event.getImages().get(0).setId(imageId);
-            putImage(event);
-        }else {
-            putEvent(event);
-        }
+        executor.execute( ()->{
+            observers.stream().forEach(o-> o.starting());
+
+            if(event.getImages().size()>0){
+                final String imageId = UUID.randomUUID().toString();
+                event.getImages().get(0).setId(imageId);
+                putImage(event);
+            }else {
+                putEvent(event);
+            }
+
+        });
+
+        executor.shutdown();
+
+
+
         return event;
     }
 
@@ -108,5 +126,17 @@ public class EventGatewayFirebaseImpl implements EventGateway {
     @Override
     public void delete(Event event) {
 
+    }
+
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    List<ProcessObserver> observers = new ArrayList<>();
+    @Override
+    public void addProcessObserver(ProcessObserver observer){
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeProcessObserver(ProcessObserver observer){
+        observers.remove(observer);
     }
 }
