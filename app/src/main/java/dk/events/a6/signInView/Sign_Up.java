@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -20,10 +19,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.eventsapp.functions.DatePicker;
+import dk.events.a6.signInView.functions.DatePicker;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivitySignUpBinding;
 import dk.events.a6.signInView.functions.FieldChecker;
+import dk.events.a6.signInView.functions.User;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,6 +42,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
     public static final String TAG = "TAG";
     private ActivitySignUpBinding binding;
     FieldChecker checker;
+    User user;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
@@ -65,6 +66,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         setContentView(view);
 
         checker = new FieldChecker();
+        user = new User();
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -119,58 +121,56 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                         checker.passwordCheck(Sign_Up.this, Password) ||
                         checker.genderCheck(Sign_Up.this, binding.radioGroup))
                     return;
-                else {
-                    mAuth.createUserWithEmailAndPassword(checker.getEmail(), checker.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(Sign_Up.this, "User created", Toast.LENGTH_SHORT).show();
-                                String userID = mAuth.getCurrentUser().getUid();
-//                            DocumentReference documentReference = fStore.collection("A6 Events' App").document("Users").collection(Gender).document(userID);
-                                documentReference = fStore.collection("Users").document(userID);
+//                    user.createUser(Sign_Up.this, checker.getEmail(), checker.getPassword());
 
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("Gender", checker.getGender());
-                                user.put("First_Name", checker.getFirstName());
-                                user.put("Last_Name", checker.getLastName());
-                                user.put("Birthdate", checker.getBirthDate());
-                                user.put("Email", checker.getEmail());
-                                user.put("Password", checker.getPassword());
-
-                                user.put("Address", "");
-                                user.put("Job", "");
-                                user.put("Education", "");
-                                user.put("Description", "");
-
-
-
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user profile is created for " + userID);
-                                    }
-                                });
-//                            Intent intent = new Intent(Sign_Up.this, ProfileInfo.class);
-//                            intent.putExtra("fn", fn);
-//                            startActivity(intent);
-                                startActivity(new Intent(getApplicationContext(), ProfileInfo.class));
-                                binding.progressBar.setVisibility(View.VISIBLE);
-
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Sign_Up.this, "Cannot create an account " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            binding.progressBar.setVisibility(View.GONE);
-                        }
-                    });
+                else{
+                    //                    mAuth.createUserWithEmailAndPassword(checker.getEmail(), checker.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//                            if (task.isSuccessful()){
+//                                Toast.makeText(Sign_Up.this, "User created", Toast.LENGTH_SHORT).show();
+//                                String userID = mAuth.getCurrentUser().getUid();
+////                            DocumentReference documentReference = fStore.collection("A6 Events' App").document("Users").collection(Gender).document(userID);
+//                                documentReference = fStore.collection("Users").document(userID);
+//
+//                                Map<String, Object> user = new HashMap<>();
+//                                user.put("Gender", checker.getGender());
+//                                user.put("First_Name", checker.getFirstName());
+//                                user.put("Last_Name", checker.getLastName());
+//                                user.put("Birthdate", checker.getBirthDate());
+//                                user.put("Email", checker.getEmail());
+//                                user.put("Password", checker.getPassword());
+//
+//                                user.put("Address", "");
+//                                user.put("Job", "");
+//                                user.put("Education", "");
+//                                user.put("Description", "");
+//
+//
+//
+//                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        Log.d(TAG, "onSuccess: user profile is created for " + userID);
+//                                    }
+//                                });
+////                            Intent intent = new Intent(Sign_Up.this, ProfileInfo.class);
+////                            intent.putExtra("fn", fn);
+////                            startActivity(intent);
+//                                startActivity(new Intent(getApplicationContext(), ProfileInfo.class));
+//                                binding.progressBar.setVisibility(View.VISIBLE);
+//
+//                            }
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(Sign_Up.this, "Cannot create an account " + e.getMessage(), Toast.LENGTH_LONG).show();
+//                            binding.progressBar.setVisibility(View.GONE);
+//                        }
+//                    });
                 }
-
-
-
-
-
             }
         });
 
