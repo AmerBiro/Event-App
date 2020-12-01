@@ -124,52 +124,53 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
 //                    user.createUser(Sign_Up.this, checker.getEmail(), checker.getPassword());
 
                 else{
-                    //                    mAuth.createUserWithEmailAndPassword(checker.getEmail(), checker.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//
-//                            if (task.isSuccessful()){
-//                                Toast.makeText(Sign_Up.this, "User created", Toast.LENGTH_SHORT).show();
-//                                String userID = mAuth.getCurrentUser().getUid();
-////                            DocumentReference documentReference = fStore.collection("A6 Events' App").document("Users").collection(Gender).document(userID);
-//                                documentReference = fStore.collection("Users").document(userID);
-//
-//                                Map<String, Object> user = new HashMap<>();
-//                                user.put("Gender", checker.getGender());
-//                                user.put("First_Name", checker.getFirstName());
-//                                user.put("Last_Name", checker.getLastName());
-//                                user.put("Birthdate", checker.getBirthDate());
-//                                user.put("Email", checker.getEmail());
-//                                user.put("Password", checker.getPassword());
-//
-//                                user.put("Address", "");
-//                                user.put("Job", "");
-//                                user.put("Education", "");
-//                                user.put("Description", "");
-//
-//
-//
-//                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        Log.d(TAG, "onSuccess: user profile is created for " + userID);
-//                                    }
-//                                });
-////                            Intent intent = new Intent(Sign_Up.this, ProfileInfo.class);
-////                            intent.putExtra("fn", fn);
-////                            startActivity(intent);
-//                                startActivity(new Intent(getApplicationContext(), ProfileInfo.class));
-//                                binding.progressBar.setVisibility(View.VISIBLE);
-//
-//                            }
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(Sign_Up.this, "Cannot create an account " + e.getMessage(), Toast.LENGTH_LONG).show();
-//                            binding.progressBar.setVisibility(View.GONE);
-//                        }
-//                    });
+
+                    mAuth.createUserWithEmailAndPassword(checker.getEmail(), checker.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            if (task.isSuccessful()){
+                                Toast.makeText(Sign_Up.this, "User created", Toast.LENGTH_SHORT).show();
+                                String userID = mAuth.getCurrentUser().getUid();
+//                            DocumentReference documentReference = fStore.collection("A6 Events' App").document("Users").collection(Gender).document(userID);
+                                documentReference = fStore.collection("Users").document(userID);
+
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("Gender", checker.getGender());
+                                user.put("First_Name", checker.getFirstName());
+                                user.put("Last_Name", checker.getLastName());
+                                user.put("Birthdate", checker.getBirthDate());
+                                user.put("Email", checker.getEmail());
+                                user.put("Password", checker.getPassword());
+
+                                user.put("Address", "");
+                                user.put("Job", "");
+                                user.put("Education", "");
+                                user.put("Description", "");
+
+
+
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: user profile is created for " + userID);
+                                    }
+                                });
+//                            Intent intent = new Intent(Sign_Up.this, ProfileInfo.class);
+//                            intent.putExtra("fn", fn);
+//                            startActivity(intent);
+                                startActivity(new Intent(getApplicationContext(), ProfileInfo.class));
+                                binding.progressBar.setVisibility(View.VISIBLE);
+
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Sign_Up.this, "Cannot create an account " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            binding.progressBar.setVisibility(View.GONE);
+                        }
+                    });
                 }
             }
         });
