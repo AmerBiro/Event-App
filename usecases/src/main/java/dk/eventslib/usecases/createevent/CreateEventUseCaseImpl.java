@@ -18,7 +18,7 @@ public class CreateEventUseCaseImpl implements CreateEventInputPort {
         outputPort.show(
                 String.format(
                         "Event with Id: %s, Title: %s, Owner: %s was created!",
-                        event.getId(), event.getTitle(), event.getOwner().toString()));
+                        event.getId(), event.getTitle(), event.getOwner()==null?"null":event.getOwner().toString()));
     }
 
     public EventGateway getEventGateway() {

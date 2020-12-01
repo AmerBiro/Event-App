@@ -48,6 +48,7 @@ public class EventGatewayFirebaseImpl implements EventGateway {
         final String path = "event_images/" + details.getId() + ".jpg";
         StorageReference storageReference = firebaseStorage.getReference(path);
         StorageMetadata storageMetadata = new StorageMetadata.Builder()
+                .setContentType("image/jpeg")
                 .setCustomMetadata("config_name",details.getConfigName())
                 .setCustomMetadata("height", String.valueOf(details.getHeight()))
                 .setCustomMetadata("width", String.valueOf(details.getWidth())).build();
@@ -70,7 +71,7 @@ public class EventGatewayFirebaseImpl implements EventGateway {
         eventCollection.put("title", event.getTitle());
         eventCollection.put("description", event.getDescription());
         eventCollection.put("event_image_id", imageId);
-        eventCollection.put("event_creator_id", event.getOwner().getId());
+        eventCollection.put("event_creator_id", event.getOwner()==null?null:event.getOwner().getId());
 
         firebaseFirestore.collection("events")
                 .add(eventCollection)
