@@ -100,7 +100,24 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
                     });
                 }
                 @Override
-                public void processed(Event event) {
+                public void onSuccess(Event event) {
+                    new Handler(Looper.getMainLooper()).post(()->{
+                        System.out.println("Event: " + event.toString());
+                        progressBarCreateEvent.setProgress(4);
+
+                        new Handler().postDelayed(()->{
+                            progressBarCreateEvent.setVisibility(View.GONE);
+                            //simulate back pressed
+                            showMsg("Success in creation of Event: "+ event.toString(),CreateEventActivityView.this);
+                            setViewEnable(true);
+                            onBackPressed();
+
+                        },500);
+                    });
+                }
+
+                @Override
+                public void onFailure(Event event) {
                     new Handler(Looper.getMainLooper()).post(()->{
                         System.out.println("Event: " + event.toString());
                         progressBarCreateEvent.setProgress(4);
@@ -109,11 +126,9 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
                             progressBarCreateEvent.setVisibility(View.GONE);
                             //simulate back pressed
                             setViewEnable(true);
-                            onBackPressed();
-
+                            showMsg("Failure to create Event: "+ event.toString(),CreateEventActivityView.this);
                         },500);
                     });
-
                 }
             });
 

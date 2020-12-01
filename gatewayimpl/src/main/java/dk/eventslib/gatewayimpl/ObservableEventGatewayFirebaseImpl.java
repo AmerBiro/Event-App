@@ -84,15 +84,14 @@ public class ObservableEventGatewayFirebaseImpl implements ObservableEventGatewa
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        observers.stream().forEach( o-> o.processed(Event.newBuilder().withId("onSuccess").withDescription("onSuccess").withTitle("onSuccess").build()) );
+                        observers.stream().forEach( o-> o.onSuccess(event) );
                         //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        observers.stream().forEach( o-> o.processed(Event.newBuilder().withId("onFailure").withDescription("onFailure").withTitle("onFailure").build()) );
-                        //Log.w(TAG, "Error adding document", e);
+                        observers.stream().forEach( o-> o.onFailure(event) );
                     }
                 });
     }
@@ -111,11 +110,7 @@ public class ObservableEventGatewayFirebaseImpl implements ObservableEventGatewa
             }
 
         });
-
         executor.shutdown();
-
-
-
         return event;
     }
 
