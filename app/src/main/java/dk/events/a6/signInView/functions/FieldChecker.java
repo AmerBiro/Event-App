@@ -73,7 +73,7 @@ public class FieldChecker {
         else return false;
     }
 
-    public Boolean genderCheck(Activity activity, RadioGroup radioGroup, String gender){
+    public Boolean genderCheck(Activity activity, RadioGroup radioGroup){
         this.selected = radioGroup.getCheckedRadioButtonId();
         if (selected == -1){
             Toast.makeText(activity, "Gender not selected", Toast.LENGTH_SHORT).show();
@@ -83,5 +83,29 @@ public class FieldChecker {
             this.gender = radioButton.getText().toString();
             return false;
         }
+    }
+
+    public String getFirstName(){
+        return this.firstName;
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
+
+    public String getBirthDate(){
+        return this.birthDate;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+
+    public String getPassword(){
+        return this.password;
+    }
+
+    public String getGender(){
+        return this.gender;
     }
 }

@@ -27,6 +27,7 @@ import dk.events.a6.signInView.functions.FieldChecker;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -46,20 +47,10 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private FirebaseFirestore fStore;
     private StorageReference storageReference;
+    private DocumentReference documentReference;
 
-     private String Users;
-     private EditText First_Name;
-     private EditText Last_Name;
-     private EditText Birthdate;
-     private EditText Email;
-     private EditText Password;
-     private String Gender;
+     private EditText First_Name, Last_Name, Birthdate, Email, Password;
 
-     private String toStringFirst_Name;
-     private String toStringLast_Name;
-     private String toStringBirthdate;
-     private String toStringEmail;
-     private String toStringPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,20 +65,15 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
         setContentView(view);
 
         checker = new FieldChecker();
-        Users = "Users";
+        mAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
+
         First_Name = binding.FirstName;
         Last_Name = binding.LastName;
         Birthdate = binding.BirthdatePicker;
         Email = binding.profileEmail;
         Password = binding.Password;
-        Gender = "";
-
-        toStringFirst_Name = binding.FirstName.getText().toString();
-        toStringLast_Name = binding.LastName.getText().toString();
-        toStringBirthdate = binding.BirthdatePicker.getText().toString();
-        toStringEmail = binding.profileEmail.getText().toString();
-        toStringPassword = binding.Password.getText().toString();
-
 
 
         binding.BirthdatePicker.setOnClickListener(new View.OnClickListener() {
@@ -109,9 +95,7 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
 
 
 
-        mAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
+
 
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -132,31 +116,31 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                 if (
                         checker.allFieldsEmpty(Sign_Up.this, First_Name, Last_Name, Birthdate, Email, Password) ||
                         checker.someFieldsEmpty(Sign_Up.this, First_Name, Last_Name, Birthdate, Email, Password) ||
-                        checker.genderCheck(Sign_Up.this, binding.radioGroup, Gender))
+                        checker.genderCheck(Sign_Up.this, binding.radioGroup))
                     return;
                 else {
-                    mAuth.createUserWithEmailAndPassword(binding.profileEmail.getText().toString(), binding.Password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    mAuth.createUserWithEmailAndPassword(checker.getEmail(), checker.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(Sign_Up.this, "User created", Toast.LENGTH_SHORT).show();
                                 String userID = mAuth.getCurrentUser().getUid();
 //                            DocumentReference documentReference = fStore.collection("A6 Events' App").document("Users").collection(Gender).document(userID);
-                                DocumentReference documentReference = fStore.collection("Users").document(userID);
+                                documentReference = fStore.collection("Users").document(userID);
+
                                 Map<String, Object> user = new HashMap<>();
-                                user.put("Gender", Gender);
-                                user.put("First_Name", toStringFirst_Name);
-                                user.put("Last_Name", toStringLast_Name);
-                                user.put("Birthdate", toStringBirthdate);
-                                user.put("Email", toStringEmail);
-                                user.put("Password", toStringPassword);
+                                user.put("Gender", checker.getGender());
+                                user.put("First_Name", checker.getFirstName());
+                                user.put("Last_Name", checker.getLastName());
+                                user.put("Birthdate", checker.getBirthDate());
+                                user.put("Email", checker.getEmail());
+                                user.put("Password", checker.getPassword());
 
                                 user.put("Address", "");
                                 user.put("Job", "");
                                 user.put("Education", "");
                                 user.put("Description", "");
 
-//                            fn = First_Name;
 
 
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -171,10 +155,13 @@ public class Sign_Up extends AppCompatActivity implements DatePickerDialog.OnDat
                                 startActivity(new Intent(getApplicationContext(), ProfileInfo.class));
                                 binding.progressBar.setVisibility(View.VISIBLE);
 
-                            }else{
-                                Toast.makeText(Sign_Up.this, "Sign up error", Toast.LENGTH_SHORT).show();
-                                binding.progressBar.setVisibility(View.GONE);
                             }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Sign_Up.this, "Cannot create an account " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            binding.progressBar.setVisibility(View.GONE);
                         }
                     });
                 }
