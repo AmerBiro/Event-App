@@ -30,9 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.UUID;
 
 import dk.events.a6.R;
@@ -41,11 +39,12 @@ import dk.events.a6.android.MainApplication;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.eventslib.entities.Event;
-import dk.eventslib.gatewayimpl.ObservableEventGatewayFirebaseImpl;
+import dk.eventslib.gatewayimpl.EventGatewayFirebaseImpl;
+import dk.eventslib.usecases.ProcessObservable;
 import dk.eventslib.usecases.ProcessObserver;
 import dk.eventslib.usecases.createevent.CreateEventOutputPort;
 import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
-import dk.eventslib.usecases.createevent.ObservableEventGateway;
+import dk.eventslib.usecases.createevent.EventGateway;
 import dk.eventslib.entities.ImageDetails;
 
 public class CreateEventActivityView extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
@@ -82,8 +81,8 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
             vm.description = editTextDescription.getText().toString();
 
             useCase = new CreateEventUseCaseImpl();
-            ObservableEventGateway gateway = new ObservableEventGatewayFirebaseImpl();
-            gateway.addProcessObserver(new ProcessObserver() {
+            EventGateway gateway = new EventGatewayFirebaseImpl();
+            ((ProcessObservable)gateway).addProcessObserver(new ProcessObserver() {
                 @Override
                 public void starting() {
                     new Handler(Looper.getMainLooper()).post(()->{

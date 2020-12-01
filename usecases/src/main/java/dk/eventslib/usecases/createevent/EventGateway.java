@@ -6,7 +6,7 @@ import dk.eventslib.entities.Event;
 import dk.eventslib.usecases.ProcessObservable;
 import dk.eventslib.usecases.ProcessObserver;
 
-public interface ObservableEventGateway extends ProcessObservable {
+public interface EventGateway {
      List<Event> findAllEvents();
      Event findEventByTitle(String title);
      void delete(Event event);
