@@ -25,7 +25,6 @@ import dk.events.a6.signInView.Registeration;
 
 
 public class User {
-
     public User() {
     }
 

@@ -43,7 +43,12 @@ public class Registeration extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private int RC_SIGN_IN = 123;
     private GoogleSignInOptions gso;
-    User user;
+
+    private User user;
+    private FieldChecker checker;
+
+    private EditText[] fields;
+    private String[] errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,15 @@ public class Registeration extends AppCompatActivity {
         setContentView(view);
 
         user = new User();
+        checker = new FieldChecker();
+        fields = new EditText[2];
+        errorMessage = new String[2];
+
+        fields[0] = binding.idEditTextRegisterationEmail;
+        fields[1] = binding.idEditTextRegisterationPassword;
+
+        errorMessage[0] = "Invalid Email";
+        errorMessage[1] = "Invalid Password";
 
         binding.idButtonRegisterationFloaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,29 +97,35 @@ public class Registeration extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null){
-                    Intent intent = new Intent(Registeration.this, MainActivity.class );
-                    Toast.makeText(Registeration.this, "Welcome back " + user.getDisplayName() , Toast.LENGTH_SHORT).show();
+                if (user != null) {
+                    Intent intent = new Intent(Registeration.this, MainActivity.class);
+                    Toast.makeText(Registeration.this, "Welcome back " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();
                     return;
-                }return;
+                }
+                return;
             }
         };
-
 
 
         binding.idButtonRegisterationSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FieldChecker checker = new FieldChecker();
-                if (checker.checkEmailAndPassword(Registeration.this, binding.idEditTextRegisterationEmail, binding.idEditTextRegisterationPassword))
+
+                if (checker.isEmpty(Registeration.this, fields, errorMessage))
                     return;
                 else
-                user.signIn(Registeration.this, binding.progressBar, binding.idEditTextRegisterationEmail, binding.idEditTextRegisterationPassword);
+                    user.signIn(Registeration.this, binding.progressBar, binding.idEditTextRegisterationEmail, binding.idEditTextRegisterationPassword);
+
+
+//                if (checker.checkEmailAndPassword(Registeration.this, binding.idEditTextRegisterationEmail, binding.idEditTextRegisterationPassword))
+//                    return;
+//                else
+//                    user.signIn(Registeration.this, binding.progressBar, binding.idEditTextRegisterationEmail, binding.idEditTextRegisterationPassword);
+                
             }
         });
-
 
 
 //        binding.idButtonRegisterationSignIn.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +163,7 @@ public class Registeration extends AppCompatActivity {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null){
+        if (account != null) {
             Intent intent = new Intent(Registeration.this, MainActivity.class);
             startActivity(intent);
         }
@@ -198,7 +218,6 @@ public class Registeration extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -221,7 +240,7 @@ public class Registeration extends AppCompatActivity {
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 

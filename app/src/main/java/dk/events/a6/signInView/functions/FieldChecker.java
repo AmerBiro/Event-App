@@ -6,6 +6,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import dk.events.a6.signInView.Registeration;
+
 public class FieldChecker {
     private String firstName, lastName, birthDate, email, password, gender;
     private EditText editText_password;
@@ -13,6 +15,7 @@ public class FieldChecker {
     private RadioButton radioButton;
     private Activity activity;
 
+    Boolean status = false;
     public FieldChecker() {
     }
 
@@ -102,6 +105,43 @@ public class FieldChecker {
             Toast.makeText(activity, "Some field/s are empty!", Toast.LENGTH_SHORT).show();
             return true;
         }else return false;
+    }
+
+//    public void isEmpty(Activity activity, EditText [] fields, String [] errorMessage){
+//        for (int i = 0; i < fields.length; i++) {
+//            for (int ii = 0; ii < fields.length; ii++) {
+//                if (fields[ii].getText().toString().isEmpty()) {
+//                    fields[ii].setError(errorMessage[ii]);
+//                }
+//            }
+//            for (int iii = 0; iii < fields.length; iii++) {
+//                if (fields[iii].getText().toString().isEmpty()) {
+//                    Toast.makeText(activity, "Some field/s are empty", 0).show();
+//                    return;
+//                }
+//            }
+//            Toast.makeText(activity, "Success", 0).show();
+//        }
+//    }
+
+
+    public Boolean isEmpty(Activity activity, EditText [] fields, String [] errorMessage){
+        for (int i = 0; i < fields.length; i++) {
+            for (int ii = 0; ii < fields.length; ii++) {
+                if (fields[ii].getText().toString().isEmpty()) {
+                    fields[ii].setError(errorMessage[ii]);
+                }
+            }
+            for (int iii = 0; iii < fields.length; iii++) {
+                if (fields[iii].getText().toString().isEmpty()) {
+                    Toast.makeText(activity, "Some field/s are empty", 0).show();
+                    status = true;
+                    return true;
+                }
+            }
+        }
+//        Toast.makeText(activity, "Success", 0).show();
+        return status;
     }
 
     public String getFirstName(){
