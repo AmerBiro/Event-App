@@ -36,18 +36,19 @@ import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.databinding.ActivityProfileSettingsBinding;
 import dk.events.a6.databinding.ActivitySignUpBinding;
 import dk.events.a6.signInView.Registeration;
+import dk.events.a6.signInView.Sign_Up;
+import dk.events.a6.signInView.functions.User;
 
 public class ProfileSettingsActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     private ActivityProfileSettingsBinding binding;
-    private Registeration registeration;
-
+    User user;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
     private String userID;
     private StorageReference storageReference;
-    private FirebaseUser user;
+    private FirebaseUser fuser;
     private String userEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +62,11 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        user = new User();
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userID = mAuth.getCurrentUser().getUid();
-        user = mAuth.getCurrentUser();
+        fuser = mAuth.getCurrentUser();
 
 
         DocumentReference documentReference = fStore.collection("Users").document(userID);
@@ -79,34 +81,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         binding.buttonDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ProfileSettingsActivity.this);
-                builder.setMessage("Are you sure you want to delete the following profile " + userEmail + "?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(ProfileSettingsActivity.this, "The following profile: " + userEmail +  " has been deleted successfully", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getApplicationContext(), Registeration.class));
-                                        finish();
-                                        return;
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ProfileSettingsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                ProfileSettingsActivity.this.finish();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = builder.create();alert.show();
+                user.deleteUser(ProfileSettingsActivity.this, Registeration.class);
             }
         });
 
