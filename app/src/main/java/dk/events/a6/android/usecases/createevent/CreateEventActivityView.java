@@ -8,13 +8,18 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -66,6 +71,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
     private ChooseImageDialogFragment dialogFragment;
     private Uri imageUriFromCamera;
     private ProgressBar progressBarCreateEvent;
+    private ImageDetails imageDetails;
 
     @Override
     public void onBackPressed() {
@@ -81,8 +87,8 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
     public void onClick(View v) {
 
         if(v.getId() == R.id.buttonCreateEvent){
-            vm.title = editTextTitle.getText().toString();
-            vm.description = editTextDescription.getText().toString();
+            //vm.title = editTextTitle.getText().toString();
+            //vm.description = editTextDescription.getText().toString();
 
             useCase = new CreateEventUseCaseImpl();
             EventGateway gateway = new EventGatewayFirebaseImpl();
@@ -182,8 +188,10 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
             try {
                 if (resultCode == RESULT_OK && reqCode ==  RESULT_LOAD_IMG){
                     handleEventPictureFromGallery(data);
+                    fsm.yesImg();
                 }else if(resultCode == RESULT_OK && reqCode ==  RESULT_TAKE_A_PICTURE){
                     handleEventPictureFromCamera(data);
+                    fsm.yesImg();
                 }else {
                     showMsg("You haven't picked Image", CreateEventActivityView.this);
                 }
@@ -209,13 +217,11 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
         ByteBuffer byteBuffer = ByteBuffer.allocate(size);
         selectedImage.copyPixelsToBuffer(byteBuffer);
 
-        ImageDetails imageDetails = new ImageDetails();
+        imageDetails = new ImageDetails();
         imageDetails.setHeight(selectedImage.getHeight());
         imageDetails.setWidth(selectedImage.getWidth());
         imageDetails.setConfigName(selectedImage.getConfig().name());
         imageDetails.setPixels(byteArray);
-
-        vm.createEventImages.add(imageDetails);
 
         //
         //Bitmap.Config configBmp = Bitmap.Config.valueOf(bitmap.getConfig().name());
@@ -241,13 +247,13 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
         selectedImage.copyPixelsToBuffer(byteBuffer);
 
 
-        ImageDetails imageDetails = new ImageDetails();
+        imageDetails = new ImageDetails();
         imageDetails.setHeight(selectedImage.getHeight());
         imageDetails.setWidth(selectedImage.getWidth());
         imageDetails.setConfigName(selectedImage.getConfig().name());
         imageDetails.setPixels(byteArray);
 
-        vm.createEventImages.add(imageDetails);
+
 
         //
         //Bitmap.Config configBmp = Bitmap.Config.valueOf(bitmap.getConfig().name());
@@ -257,6 +263,10 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
         //imageViewEventImage.setImageBitmap(bitmap_tmp);
 
         imageViewEventImage.setImageBitmap(selectedImage);
+
+
+        //if image check needed
+        //if(imageViewEventImage.getDrawable().getConstantState() == getDrawable( R.drawable.ic_baseline_image_24).getConstantState()){}
     }
 
     private void closeFragment() {
@@ -314,32 +324,80 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
     @Override
     public void DoSetupPrepareEvent() {
         buttonCreateEvent.setEnabled(false);
-        editTextTitle.setHint("title required");
-        editTextDescription.setHint("description required");
+
+        editTextTitle.setHint("title");
+        editTextTitle.setError("Title required");
+        editTextTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if(TextUtils.isEmpty(editTextTitle.getText().toString().trim())){
+                    fsm.yesTitle();
+                }else {
+                    fsm.noTitle();
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        editTextDescription.setHint("description");
+        editTextDescription.setError("Description required");
+        editTextDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if(!TextUtils.isEmpty(editTextDescription.getText().toString().trim())){
+                    fsm.yesDesc();
+                }else {
+                    fsm.noDesc();
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+        //imageViewEventImage.setImageDrawable(null);
+        //imageViewEventImage.setTag(R.drawable.ic_baseline_image_24);
+        imageViewEventImage.setImageResource(R.drawable.ic_baseline_image_24);
+
+
     }
+
     @Override
     public void DoTitleProvided() {
-
+        vm.title = editTextTitle.getText().toString();
     }
 
     @Override
     public void DoTitleRemoved() {
-
+        editTextTitle.setError("Title required");
+        vm.title = null;
     }
 
     @Override
     public void DoDescProvided() {
-
+        vm.description = editTextDescription.getText().toString();
     }
 
     @Override
     public void DoDescRemoved() {
-
+        editTextDescription.setError("Description required"); //maybe not needed every time?
+        vm.description = null;
     }
 
     @Override
     public void DoImgProvided() {
-
+        vm.createEventImages.add(imageDetails);
     }
 
     @Override

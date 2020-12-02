@@ -16,27 +16,29 @@ public enum  PrepareEventStateImpl implements PrepareEventState {
 
         @Override
         public void noTitle(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
         public void yesDesc(PrepareEventFSM fsm) {
-
+            fsm.setState(YES_DESC_NO_TITLE_IMG);
+            fsm.DoDescProvided();
         }
 
         @Override
         public void noDesc(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
         public void yesImg(PrepareEventFSM fsm) {
-
+            fsm.setState(YES_IMG_NO_TITLE_DESC);
+            fsm.DoImgProvided();
         }
 
         @Override
         public void noImg(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
@@ -53,22 +55,24 @@ public enum  PrepareEventStateImpl implements PrepareEventState {
 
         @Override
         public void yesTitle(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
         public void noTitle(PrepareEventFSM fsm) {
-
+            fsm.setState(NO_TITLE_IMG_DESC);
+            fsm.DoTitleRemoved();
         }
 
         @Override
         public void yesDesc(PrepareEventFSM fsm) {
-
+            fsm.setState(YES_DESC_TITLE_NO_IMG);
+            fsm.DoDescProvided();
         }
 
         @Override
         public void noDesc(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
@@ -176,7 +180,8 @@ public enum  PrepareEventStateImpl implements PrepareEventState {
 
         @Override
         public void yesTitle(PrepareEventFSM fsm) {
-
+            fsm.setState(YES_DESC_TITLE_NO_IMG);
+            fsm.DoTitleProvided();
         }
 
         @Override
@@ -186,12 +191,13 @@ public enum  PrepareEventStateImpl implements PrepareEventState {
 
         @Override
         public void yesDesc(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
         public void noDesc(PrepareEventFSM fsm) {
-
+            fsm.setState(NO_TITLE_IMG_DESC);
+            fsm.DoDescRemoved();
         }
 
         @Override
@@ -217,22 +223,24 @@ public enum  PrepareEventStateImpl implements PrepareEventState {
 
         @Override
         public void yesTitle(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
         public void noTitle(PrepareEventFSM fsm) {
-
+            fsm.setState(YES_DESC_NO_TITLE_IMG);
+            fsm.DoTitleRemoved();
         }
 
         @Override
         public void yesDesc(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
         public void noDesc(PrepareEventFSM fsm) {
-
+            fsm.setState(YES_TITLE_NO_IMG_DESC);
+            fsm.DoDescRemoved();
         }
 
         @Override
@@ -258,37 +266,45 @@ public enum  PrepareEventStateImpl implements PrepareEventState {
 
         @Override
         public void yesTitle(PrepareEventFSM fsm) {
-
+            fsm.setState(YES_TITLE_IMG_NO_DESC);
+            fsm.DoTitleProvided();
         }
 
         @Override
         public void noTitle(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
         public void yesDesc(PrepareEventFSM fsm) {
-
+            fsm.setState(YES_IMG_DESC_NO_TITLE);
+            fsm.DoDescProvided();
         }
 
         @Override
         public void noDesc(PrepareEventFSM fsm) {
-
+            //do nothing
         }
 
         @Override
         public void yesImg(PrepareEventFSM fsm) {
-
+            //stay in the same state
+            //in case new image is provided, hm
+            //I might need to do the same for the Title and Desc when in state with Title or Desc
+            fsm.DoImgProvided();
         }
 
         @Override
         public void noImg(PrepareEventFSM fsm) {
-
+            //well this is not implemented yet and
+            //might not be implemented at all but lets change the state and call the action for now
+            fsm.setState(NO_TITLE_IMG_DESC);
+            fsm.DoImgRemoved();
         }
 
         @Override
         public void createEventPressed(PrepareEventFSM fsm) {
-
+            //this should not be possible
         }
     },
     YES_IMG_DESC_NO_TITLE{
