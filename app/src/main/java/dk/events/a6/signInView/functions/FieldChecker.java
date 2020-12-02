@@ -90,6 +90,20 @@ public class FieldChecker {
         }
     }
 
+    public Boolean checkEmailAndPassword(Activity activity, EditText email, EditText password){
+        if (email.getText().toString().isEmpty())
+            email.setError("Email address is empty!");
+        if (password.getText().toString().isEmpty())
+            password.setError("Password is empty!");
+        if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
+            Toast.makeText(activity, "All fields seem to be empty!", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+            Toast.makeText(activity, "Some field/s are empty!", Toast.LENGTH_SHORT).show();
+            return true;
+        }else return false;
+    }
+
     public String getFirstName(){
         return this.firstName;
     }

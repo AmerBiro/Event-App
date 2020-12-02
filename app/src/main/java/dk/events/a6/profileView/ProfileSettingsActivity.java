@@ -50,6 +50,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private FirebaseUser fuser;
     private String userEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +82,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         binding.buttonDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 user.deleteUser(ProfileSettingsActivity.this, Registeration.class);
             }
         });
@@ -101,10 +103,10 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         binding.buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null){
-                    signOutEmail();
+                if (user.signOut(ProfileSettingsActivity.this)){
+                    afterSignout();
                 }
+
                 GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(ProfileSettingsActivity.this);
                 if (account != null){
                     signOutGmail();
@@ -123,11 +125,8 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     }
 
 
-    public void signOutEmail() {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+    public void afterSignout() {
         Intent intent = new Intent(ProfileSettingsActivity.this, Registeration.class);
-        Toast.makeText(this, "Email signed out", Toast.LENGTH_SHORT).show();
         startActivity(intent);
         finish();
         return;

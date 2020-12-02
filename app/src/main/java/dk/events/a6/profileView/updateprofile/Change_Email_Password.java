@@ -34,10 +34,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import dk.events.a6.R;
+import dk.events.a6.activities.MainActivity;
 import dk.events.a6.databinding.ActivityChangeEmailPasswordBinding;
 import dk.events.a6.databinding.ActivityEditProfileBinding;
 import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.signInView.ProfileInfo;
 import dk.events.a6.signInView.Registeration;
+import dk.events.a6.signInView.Sign_Up;
+import dk.events.a6.signInView.functions.User;
 
 public class Change_Email_Password extends AppCompatActivity {
     private ActivityChangeEmailPasswordBinding binding;
@@ -46,7 +50,8 @@ public class Change_Email_Password extends AppCompatActivity {
     private FirebaseFirestore fStore;
     private String userID;
     private StorageReference storageReference;
-    private FirebaseUser user;
+    private FirebaseUser fuser;
+    User user;
 
 
     private String First_Name;
@@ -59,6 +64,7 @@ public class Change_Email_Password extends AppCompatActivity {
     private String Job;
     private String Education;
     private String Description;
+    private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,8 @@ public class Change_Email_Password extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userID = mAuth.getCurrentUser().getUid();
-        user = mAuth.getCurrentUser();
+        fuser = mAuth.getCurrentUser();
+        user = new User();
 
         DocumentReference documentReference = fStore.collection("Users").document(userID);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -132,7 +139,7 @@ public class Change_Email_Password extends AppCompatActivity {
                     return;
                 }
                 else {
-                    user.updateEmail(binding.profileEmail.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    fuser.updateEmail(binding.profileEmail.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             DocumentReference dataRef = fStore.collection("Users").document(userID);
@@ -173,59 +180,19 @@ public class Change_Email_Password extends AppCompatActivity {
             }
         });
 
-        binding.ResetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+
+
+
 
 
         binding.ResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText resetPassword = new EditText(v.getContext());
-                resetPassword.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                final AlertDialog.Builder resetPasswordDialog = new AlertDialog.Builder(v.getContext());
-                resetPasswordDialog.setTitle("Reset Password");
-                resetPasswordDialog.setMessage("You can receive a link to reset your password by entering your email down below");
-                resetPasswordDialog.setView(resetPassword);
-
-                resetPasswordDialog.setPositiveButton("Send me a reset link", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String email = resetPassword.getText().toString();
-                        if (email.isEmpty()){
-                            Toast.makeText(Change_Email_Password.this, "You have not entered your email!", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(Change_Email_Password.this, "A reset password line is sent your entered email. Please check your inbox", Toast.LENGTH_SHORT).show();
-                                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                                mAuth.signOut();
-                                startActivity(new Intent(getApplicationContext(), Registeration.class));
-                                finish();
-                                return;
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(Change_Email_Password.this, "An error has been occured!\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
-                resetPasswordDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-
-                resetPasswordDialog.create().show();
+                user.resetPassword(Change_Email_Password.this, v);
             }
         });
+
     }
 }
 
