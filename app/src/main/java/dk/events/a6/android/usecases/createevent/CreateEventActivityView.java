@@ -267,14 +267,13 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
     private ActivityCreateBinding binding;
-    public PrepareEventFSMWrapper fsm = new PrepareEventFSMWrapper();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        fsm.actionsImpl = this;
-        fsm.setState(NO_TITLE_IMG_DESC);
+
 
         //may needed in MainActivity
         MainApplication mainApplication = ((MainApplication)getApplication());
@@ -305,6 +304,58 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
                 onBackPressed();
             }
         });
+
+
+        fsm.actionsImpl = this;
+        fsm.setState(NO_TITLE_IMG_DESC);
+        fsm.startPrepareEvent();
+    }
+    public PrepareEventFSMWrapper fsm = new PrepareEventFSMWrapper();
+    @Override
+    public void DoSetupPrepareEvent() {
+        buttonCreateEvent.setEnabled(false);
+        editTextTitle.setHint("title required");
+        editTextDescription.setHint("description required");
+    }
+    @Override
+    public void DoTitleProvided() {
+
+    }
+
+    @Override
+    public void DoTitleRemoved() {
+
+    }
+
+    @Override
+    public void DoDescProvided() {
+
+    }
+
+    @Override
+    public void DoDescRemoved() {
+
+    }
+
+    @Override
+    public void DoImgProvided() {
+
+    }
+
+    @Override
+    public void DoImgRemoved() {
+
+    }
+
+
+
+    @Override
+    public void DoEnableCreateEvent() {
+
+    }
+
+    @Override
+    public void DoDisableCreateEvent() {
 
     }
 
@@ -372,48 +423,5 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
         closeFragment();
     }
 
-    @Override
-    public void DoTitleProvided() {
 
-    }
-
-    @Override
-    public void DoTitleRemoved() {
-
-    }
-
-    @Override
-    public void DoDescProvided() {
-
-    }
-
-    @Override
-    public void DoDescRemoved() {
-
-    }
-
-    @Override
-    public void DoImgProvided() {
-
-    }
-
-    @Override
-    public void DoImgRemoved() {
-
-    }
-
-    @Override
-    public void DoSetupPrepareEvent() {
-
-    }
-
-    @Override
-    public void DoEnableCreateEvent() {
-
-    }
-
-    @Override
-    public void DoDisableCreateEvent() {
-
-    }
 }
