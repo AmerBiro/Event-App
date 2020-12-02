@@ -107,22 +107,6 @@ public class FieldChecker {
         }else return false;
     }
 
-//    public void isEmpty(Activity activity, EditText [] fields, String [] errorMessage){
-//        for (int i = 0; i < fields.length; i++) {
-//            for (int ii = 0; ii < fields.length; ii++) {
-//                if (fields[ii].getText().toString().isEmpty()) {
-//                    fields[ii].setError(errorMessage[ii]);
-//                }
-//            }
-//            for (int iii = 0; iii < fields.length; iii++) {
-//                if (fields[iii].getText().toString().isEmpty()) {
-//                    Toast.makeText(activity, "Some field/s are empty", 0).show();
-//                    return;
-//                }
-//            }
-//            Toast.makeText(activity, "Success", 0).show();
-//        }
-//    }
 
 
     public Boolean isEmpty(Activity activity, EditText [] fields, String [] errorMessage){
@@ -137,10 +121,9 @@ public class FieldChecker {
                     Toast.makeText(activity, "Some field/s are empty", 0).show();
                     status = true;
                     return true;
-                }
+                }else status = false;
             }
         }
-//        Toast.makeText(activity, "Success", 0).show();
         return status;
     }
 

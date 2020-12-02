@@ -62,8 +62,11 @@ public class Registeration extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        mAuth = FirebaseAuth.getInstance();
+
         user = new User();
         checker = new FieldChecker();
+
         fields = new EditText[2];
         errorMessage = new String[2];
 
@@ -90,7 +93,6 @@ public class Registeration extends AppCompatActivity {
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
 
 
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -112,44 +114,13 @@ public class Registeration extends AppCompatActivity {
         binding.idButtonRegisterationSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (checker.isEmpty(Registeration.this, fields, errorMessage))
                     return;
                 else
                     user.signIn(Registeration.this, binding.progressBar, binding.idEditTextRegisterationEmail, binding.idEditTextRegisterationPassword);
-
-
-//                if (checker.checkEmailAndPassword(Registeration.this, binding.idEditTextRegisterationEmail, binding.idEditTextRegisterationPassword))
-//                    return;
-//                else
-//                    user.signIn(Registeration.this, binding.progressBar, binding.idEditTextRegisterationEmail, binding.idEditTextRegisterationPassword);
-                
             }
         });
 
-
-//        binding.idButtonRegisterationSignIn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                final String email = binding.idEditTextRegisterationEmail.getText().toString();
-//                final String password = binding.idEditTextRegisterationPassword.getText().toString();
-//                if (email.isEmpty() || password.isEmpty()){
-//                    Toast.makeText(Registeration.this, "Username and password cannot be empty", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Registeration.this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (!task.isSuccessful()){
-//                            Toast.makeText(Registeration.this, "Sign in error", Toast.LENGTH_SHORT).show();
-//                            binding.progressBar.setVisibility(View.GONE);
-//                        }else {
-//
-//                        }
-//                    }
-//                }); binding.progressBar.setVisibility(View.VISIBLE);
-//            }
-//        });
 
         createRequest();
         binding.idButtonRegisterationGoogle.setOnClickListener(new View.OnClickListener() {
@@ -174,47 +145,6 @@ public class Registeration extends AppCompatActivity {
                 user.resetPassword(Registeration.this, v);
             }
         });
-
-//        binding.ResetPassword.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final EditText resetPassword = new EditText(v.getContext());
-//                resetPassword.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-//                final AlertDialog.Builder resetPasswordDialog = new AlertDialog.Builder(v.getContext());
-//                resetPasswordDialog.setTitle("Reset Password");
-//                resetPasswordDialog.setMessage("You can receive a link to reset your password by entering your email down below");
-//                resetPasswordDialog.setView(resetPassword);
-//
-//                resetPasswordDialog.setPositiveButton("Send me a reset link", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        String email = resetPassword.getText().toString();
-//                        if (email.isEmpty()){
-//                            Toast.makeText(Registeration.this, "You have not entered your email!", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                        mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Toast.makeText(Registeration.this, "A reset password line is sent your entered email. Please check your inbox", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(Registeration.this, "An error has been occured!\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//                });
-//                resetPasswordDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                    }
-//                });
-//
-//                resetPasswordDialog.create().show();
-//            }
-//        });
     }
 
 
