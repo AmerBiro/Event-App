@@ -1,8 +1,7 @@
 package dk.events.a6.android.usecases.createevent.fsm;
 
-public abstract class PrepareEventFSM {
+public abstract class PrepareEventFSM extends BasePrepareEventFSM implements BasePrepareEventFSM.PrepareEventFSMActions{
     private PrepareEventState state;
-
 
     public void yesTitle(){
         state.yesTitle(this);
@@ -25,14 +24,18 @@ public abstract class PrepareEventFSM {
     //|    -       | back  |     -     |         -              |
     //|=========================================================|
 
-    public abstract void DoTitleProvided();
-    public abstract void DoTitleRemoved();
-    public abstract void DoDescProvided();
-    public abstract void DoDescRemoved();
-    public abstract void DoImgProvided();
-    public abstract void DoImgRemoved();
+/* actions were pulled up in a common interface
+        void DoTitleProvided();
+        void DoTitleRemoved();
+        void DoDescProvided();
+        void DoDescRemoved();
+        void DoImgProvided();
+        void DoImgRemoved();
 
-    public abstract void DoSetupPrepareEvent();
-    public abstract void DoEnableCreateEvent();
-    public abstract void DoDisableCreateEvent();
+        void DoSetupPrepareEvent();
+        void DoEnableCreateEvent();
+        void DoDisableCreateEvent();
+* */
+
+
 }

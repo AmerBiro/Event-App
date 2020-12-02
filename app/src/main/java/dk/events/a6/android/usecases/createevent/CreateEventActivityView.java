@@ -36,6 +36,8 @@ import java.util.UUID;
 import dk.events.a6.R;
 import dk.events.a6.android.Context;
 import dk.events.a6.android.MainApplication;
+import dk.events.a6.android.usecases.createevent.fsm.BasePrepareEventFSM;
+import dk.events.a6.android.usecases.createevent.fsm.PrepareEventFSMWrapper;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.eventslib.entities.Event;
@@ -47,7 +49,9 @@ import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
 import dk.eventslib.usecases.createevent.EventGateway;
 import dk.eventslib.entities.ImageDetails;
 
-public class CreateEventActivityView extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
+import static dk.events.a6.android.usecases.createevent.fsm.PrepareEventStateImpl.NO_TITLE_IMG_DESC;
+
+public class CreateEventActivityView extends AppCompatActivity implements BasePrepareEventFSM.PrepareEventFSMActions, View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
 
     private Button buttonCreateEvent;
     private EditText editTextTitle;
@@ -263,11 +267,15 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
     private ActivityCreateBinding binding;
-
+    public PrepareEventFSMWrapper fsm = new PrepareEventFSMWrapper();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+
+        fsm.actionsImpl = this;
+        fsm.setState(NO_TITLE_IMG_DESC);
+
         //may needed in MainActivity
         MainApplication mainApplication = ((MainApplication)getApplication());
 
@@ -362,5 +370,50 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
     @Override
     public void onCancelClicked() {
         closeFragment();
+    }
+
+    @Override
+    public void DoTitleProvided() {
+
+    }
+
+    @Override
+    public void DoTitleRemoved() {
+
+    }
+
+    @Override
+    public void DoDescProvided() {
+
+    }
+
+    @Override
+    public void DoDescRemoved() {
+
+    }
+
+    @Override
+    public void DoImgProvided() {
+
+    }
+
+    @Override
+    public void DoImgRemoved() {
+
+    }
+
+    @Override
+    public void DoSetupPrepareEvent() {
+
+    }
+
+    @Override
+    public void DoEnableCreateEvent() {
+
+    }
+
+    @Override
+    public void DoDisableCreateEvent() {
+
     }
 }
