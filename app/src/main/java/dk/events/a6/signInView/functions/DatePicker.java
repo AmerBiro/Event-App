@@ -1,4 +1,4 @@
-package com.example.eventsapp.functions;
+package dk.events.a6.signInView.functions;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -23,6 +23,7 @@ import dk.events.a6.adapters.EventsAdapter;
 import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.signInView.functions.User;
 import dk.eventslib.entities.Event;
 import dk.eventslib.gateways.EventGatewayInMemory;
 
@@ -33,11 +34,13 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewpager2_events_view;
     private List<MyEvents> myEventsList;
     private EventsAdapter eventsAdapter;
-    private FirebaseUser user;
+    private FirebaseUser fuser;
     private ImageButton button_account, button_chat, button_filter, id_button_share;
     GoogleSignInAccount account;
     private FirebaseAuth ve;
     private FirebaseAuth mAuth;
+
+    private User user;
 
 
 
@@ -60,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        user = new User();
         viewpager2_events_view = findViewById(R.id.id_viewpager2_events_view);
 
 
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ve = FirebaseAuth.getInstance();
-                if (user != null || account != null){
+                if (fuser != null || account != null){
 
                 }
                 else {
@@ -95,67 +98,7 @@ public class MainActivity extends AppCompatActivity {
         binding.idButtonAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (user!=null){
-//                    if ( !user.isEmailVerified()){
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                        builder.setTitle("You have not verified your email yet!");
-//                        builder.setMessage("Do you want to verify your email?")
-//                                .setCancelable(false)
-//                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int id) {
-//                                        user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void aVoid) {
-//                                                Toast.makeText(MainActivity.this, "A verification email has been sent to: \n" + user.getEmail(), Toast.LENGTH_SHORT).show();
-//                                                mAuth.signOut();
-//                                                startActivity(new Intent(getApplicationContext(), Registeration.class));
-////                                            MainActivity.this.finish();
-//                                                finish();
-//                                                return;
-//                                            }
-//                                        }).addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Log.d(TAG, "onFailure: " + e.getMessage());
-//                                                Toast.makeText(MainActivity.this, "Email verification was not sent!", Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        });
-//                                    }
-//                                })
-//                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int id) {
-//                                        dialog.cancel();
-//                                        Toast.makeText(MainActivity.this, "You cannot see or edit your profile before verifying your email!", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//                        AlertDialog alert = builder.create();alert.show();
-//                    }else{
-//                        Intent intent = new Intent(MainActivity.this, MyAccount.class);
-//                        startActivity(intent);
-//                    }
-//                }else if (account != null){
-//                    Intent intent = new Intent(MainActivity.this, MyGoogleAccount.class);
-//                    startActivity(intent);
-//                }
-//                else {
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                    builder.setTitle("You don't have an account");
-//                    builder.setMessage("Do you want to create an account?")
-//                            .setCancelable(false)
-//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    startActivity(new Intent(getApplicationContext(), Sign_Up.class));
-//                                    finish();
-//                                    return;
-//                                }
-//                            })
-//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    dialog.cancel();
-//                                }
-//                            });
-//                    AlertDialog alert = builder.create();alert.show();
-//                }
+//                user.verifyUser(MainActivity.this);
                 if (user!=null){
                     startActivity(new Intent(getApplicationContext(), MyAccount.class));
                 }
@@ -168,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         binding.idButtonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user != null || account != null){
+                if (fuser != null || account != null){
                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }

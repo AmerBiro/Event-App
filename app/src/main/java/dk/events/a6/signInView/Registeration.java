@@ -18,6 +18,8 @@ import android.widget.Toast;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityRegisterationBinding;
 import dk.events.a6.activities.MainActivity;
+import dk.events.a6.signInView.functions.FieldChecker;
+import dk.events.a6.signInView.functions.User;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,7 +34,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Registeration extends AppCompatActivity {
     private ActivityRegisterationBinding binding;
@@ -42,6 +43,12 @@ public class Registeration extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private int RC_SIGN_IN = 123;
     private GoogleSignInOptions gso;
+
+    private User user;
+    private FieldChecker checker;
+
+    private EditText[] fields;
+    private String[] errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,20 @@ public class Registeration extends AppCompatActivity {
         binding = ActivityRegisterationBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        user = new User();
+        checker = new FieldChecker();
+
+        fields = new EditText[2];
+        errorMessage = new String[2];
+
+        fields[0] = binding.idEditTextRegisterationEmail;
+        fields[1] = binding.idEditTextRegisterationPassword;
+
+        errorMessage[0] = "Invalid Email";
+        errorMessage[1] = "Invalid Password";
 
         binding.idButtonRegisterationFloaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,43 +93,34 @@ public class Registeration extends AppCompatActivity {
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
+
+
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null){
-                    Intent intent = new Intent(Registeration.this, MainActivity.class );
-                    Toast.makeText(Registeration.this, "Welcome back " + user.getDisplayName() , Toast.LENGTH_SHORT).show();
+                if (user != null) {
+                    Intent intent = new Intent(Registeration.this, MainActivity.class);
+                    Toast.makeText(Registeration.this, "Welcome back " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();
                     return;
-                }return;
+                }
+                return;
             }
         };
 
+
         binding.idButtonRegisterationSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                final String email = binding.idEditTextRegisterationEmail.getText().toString();
-                final String password = binding.idEditTextRegisterationPassword.getText().toString();
-                if (email.isEmpty() || password.isEmpty()){
-                    Toast.makeText(Registeration.this, "Username and password cannot be empty", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                if (checker.isEmpty(Registeration.this, fields, errorMessage))
                     return;
-                }
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Registeration.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()){
-                            Toast.makeText(Registeration.this, "Sign in error", Toast.LENGTH_SHORT).show();
-                            binding.progressBar.setVisibility(View.GONE);
-                        }else {
-
-                        }
-                    }
-                }); binding.progressBar.setVisibility(View.VISIBLE);
+                else
+                    user.signIn(Registeration.this, binding.progressBar, binding.idEditTextRegisterationEmail, binding.idEditTextRegisterationPassword);
             }
         });
+
 
         createRequest();
         binding.idButtonRegisterationGoogle.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +134,7 @@ public class Registeration extends AppCompatActivity {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null){
+        if (account != null) {
             Intent intent = new Intent(Registeration.this, MainActivity.class);
             startActivity(intent);
         }
@@ -130,45 +142,10 @@ public class Registeration extends AppCompatActivity {
         binding.ResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText resetPassword = new EditText(v.getContext());
-                resetPassword.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                final AlertDialog.Builder resetPasswordDialog = new AlertDialog.Builder(v.getContext());
-                resetPasswordDialog.setTitle("Reset Password");
-                resetPasswordDialog.setMessage("You can receive a link to reset your password by entering your email down below");
-                resetPasswordDialog.setView(resetPassword);
-
-                resetPasswordDialog.setPositiveButton("Send me a reset link", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String email = resetPassword.getText().toString();
-                        if (email.isEmpty()){
-                            Toast.makeText(Registeration.this, "You have not entered your email!", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(Registeration.this, "A reset password line is sent your entered email. Please check your inbox", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(Registeration.this, "An error has been occured!\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
-                resetPasswordDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-
-                resetPasswordDialog.create().show();
+                user.resetPassword(Registeration.this, v);
             }
         });
     }
-
 
 
     @Override
@@ -193,7 +170,7 @@ public class Registeration extends AppCompatActivity {
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
