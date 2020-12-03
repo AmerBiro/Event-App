@@ -8,13 +8,18 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -30,25 +35,28 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.UUID;
 
 import dk.events.a6.R;
 import dk.events.a6.android.Context;
 import dk.events.a6.android.MainApplication;
+import dk.events.a6.android.usecases.createevent.fsm.BasePrepareEventFSM;
+import dk.events.a6.android.usecases.createevent.fsm.PrepareEventFSMWrapper;
 import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.eventslib.entities.Event;
-import dk.eventslib.gatewayimpl.ObservableEventGatewayFirebaseImpl;
+import dk.eventslib.gatewayimpl.EventGatewayFirebaseImpl;
+import dk.eventslib.usecases.ProcessObservable;
 import dk.eventslib.usecases.ProcessObserver;
 import dk.eventslib.usecases.createevent.CreateEventOutputPort;
 import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
-import dk.eventslib.usecases.createevent.ObservableEventGateway;
+import dk.eventslib.usecases.createevent.EventGateway;
 import dk.eventslib.entities.ImageDetails;
 
-public class CreateEventActivityView extends AppCompatActivity implements View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
+import static dk.events.a6.android.usecases.createevent.fsm.PrepareEventStateImpl.NO_TITLE_IMG_DESC;
+
+public class CreateEventActivityView extends AppCompatActivity implements BasePrepareEventFSM.PrepareEventFSMActions, View.OnClickListener, CreateEventOutputPort, ChooseImageDialogFragment.DialogListener {
 
     private Button buttonCreateEvent;
     private EditText editTextTitle;
@@ -63,6 +71,7 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
     private ChooseImageDialogFragment dialogFragment;
     private Uri imageUriFromCamera;
     private ProgressBar progressBarCreateEvent;
+    private ImageDetails imageDetails;
 
     @Override
     public void onBackPressed() {
@@ -78,66 +87,9 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
     public void onClick(View v) {
 
         if(v.getId() == R.id.buttonCreateEvent){
-            vm.title = editTextTitle.getText().toString();
-            vm.description = editTextDescription.getText().toString();
-
-            useCase = new CreateEventUseCaseImpl();
-            ObservableEventGateway gateway = new ObservableEventGatewayFirebaseImpl();
-            gateway.addProcessObserver(new ProcessObserver() {
-                @Override
-                public void starting() {
-                    new Handler(Looper.getMainLooper()).post(()->{
-                        progressBarCreateEvent.setVisibility(View.VISIBLE);
-                        progressBarCreateEvent.setProgress(1);
-
-                        setViewEnable(false);
-                    });
-                }
-                @Override
-                public void pending() {
-                    new Handler(Looper.getMainLooper()).post(()->{
-                        progressBarCreateEvent.setProgress(3);
-                    });
-                }
-                @Override
-                public void onSuccess(Event event) {
-                    new Handler(Looper.getMainLooper()).post(()->{
-                        System.out.println("Event: " + event.toString());
-                        progressBarCreateEvent.setProgress(4);
-
-                        new Handler().postDelayed(()->{
-                            progressBarCreateEvent.setVisibility(View.GONE);
-                            //simulate back pressed
-                            showMsg("Success in creation of Event: "+ event.toString(),CreateEventActivityView.this);
-                            setViewEnable(true);
-                            onBackPressed();
-
-                        },500);
-                    });
-                }
-
-                @Override
-                public void onFailure(Event event) {
-                    new Handler(Looper.getMainLooper()).post(()->{
-                        System.out.println("Event: " + event.toString());
-                        progressBarCreateEvent.setProgress(4);
-
-                        new Handler().postDelayed(()->{
-                            progressBarCreateEvent.setVisibility(View.GONE);
-                            //simulate back pressed
-                            setViewEnable(true);
-                            showMsg("Failure to create Event: "+ event.toString(),CreateEventActivityView.this);
-                        },500);
-                    });
-                }
-            });
-
-            useCase.setEventGateway(gateway);
-            useCase.setOutputPort(this);
-
-            CreateEventController createEventController = new CreateEventController(useCase);
-
-            createEventController.createEvent(vm, Context.bruceAlmighty.getLoggedInUser());
+            //vm.title = editTextTitle.getText().toString();
+            //vm.description = editTextDescription.getText().toString();
+            fsm.createEventPressed();
 
             //simulate back pressed
             //onBackPressed();
@@ -179,8 +131,10 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
             try {
                 if (resultCode == RESULT_OK && reqCode ==  RESULT_LOAD_IMG){
                     handleEventPictureFromGallery(data);
+                    fsm.yesImg();
                 }else if(resultCode == RESULT_OK && reqCode ==  RESULT_TAKE_A_PICTURE){
                     handleEventPictureFromCamera(data);
+                    fsm.yesImg();
                 }else {
                     showMsg("You haven't picked Image", CreateEventActivityView.this);
                 }
@@ -206,13 +160,11 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
         ByteBuffer byteBuffer = ByteBuffer.allocate(size);
         selectedImage.copyPixelsToBuffer(byteBuffer);
 
-        ImageDetails imageDetails = new ImageDetails();
+        imageDetails = new ImageDetails();
         imageDetails.setHeight(selectedImage.getHeight());
         imageDetails.setWidth(selectedImage.getWidth());
         imageDetails.setConfigName(selectedImage.getConfig().name());
         imageDetails.setPixels(byteArray);
-
-        vm.createEventImages.add(imageDetails);
 
         //
         //Bitmap.Config configBmp = Bitmap.Config.valueOf(bitmap.getConfig().name());
@@ -238,13 +190,13 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
         selectedImage.copyPixelsToBuffer(byteBuffer);
 
 
-        ImageDetails imageDetails = new ImageDetails();
+        imageDetails = new ImageDetails();
         imageDetails.setHeight(selectedImage.getHeight());
         imageDetails.setWidth(selectedImage.getWidth());
         imageDetails.setConfigName(selectedImage.getConfig().name());
         imageDetails.setPixels(byteArray);
 
-        vm.createEventImages.add(imageDetails);
+
 
         //
         //Bitmap.Config configBmp = Bitmap.Config.valueOf(bitmap.getConfig().name());
@@ -254,6 +206,10 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
         //imageViewEventImage.setImageBitmap(bitmap_tmp);
 
         imageViewEventImage.setImageBitmap(selectedImage);
+
+
+        //if image check needed
+        //if(imageViewEventImage.getDrawable().getConstantState() == getDrawable( R.drawable.ic_baseline_image_24).getConstantState()){}
     }
 
     private void closeFragment() {
@@ -269,6 +225,9 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+
+
+
         //may needed in MainActivity
         MainApplication mainApplication = ((MainApplication)getApplication());
 
@@ -299,6 +258,172 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
             }
         });
 
+
+        fsm.actionsImpl = this;
+        fsm.setState(NO_TITLE_IMG_DESC);
+        fsm.startPrepareEvent();
+    }
+    public PrepareEventFSMWrapper fsm = new PrepareEventFSMWrapper();
+    @Override
+    public void DoSetupPrepareEvent() {
+        buttonAddImageCreate.setFocusable(true);
+        buttonAddImageCreate.setFocusableInTouchMode(true);
+        buttonAddImageCreate.setError("Image required");
+
+        buttonCreateEvent.setEnabled(false);
+
+        editTextTitle.setHint("title");
+        editTextTitle.setError("Title required");
+        editTextTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if(!TextUtils.isEmpty(editTextTitle.getText().toString().trim())){
+                    fsm.yesTitle();
+                }else {
+                    fsm.noTitle();
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        editTextDescription.setHint("description");
+        editTextDescription.setError("Description required");
+        editTextDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if(!TextUtils.isEmpty(editTextDescription.getText().toString().trim())){
+                    fsm.yesDesc();
+                }else {
+                    fsm.noDesc();
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+        //imageViewEventImage.setImageDrawable(null);
+        //imageViewEventImage.setTag(R.drawable.ic_baseline_image_24);
+        imageViewEventImage.setImageResource(R.drawable.ic_baseline_image_24);
+
+
+    }
+
+    @Override
+    public void DoCreateEvent(){
+        useCase = new CreateEventUseCaseImpl();
+        EventGateway gateway = new EventGatewayFirebaseImpl();
+        ((ProcessObservable)gateway).addProcessObserver(new ProcessObserver() {
+            @Override
+            public void starting() {
+                new Handler(Looper.getMainLooper()).post(()->{
+                    progressBarCreateEvent.setVisibility(View.VISIBLE);
+                    progressBarCreateEvent.setProgress(1);
+
+                    setViewEnable(false);
+                });
+            }
+            @Override
+            public void pending() {
+                new Handler(Looper.getMainLooper()).post(()->{
+                    progressBarCreateEvent.setProgress(3);
+                });
+            }
+            @Override
+            public void onSuccess(Event event) {
+                new Handler(Looper.getMainLooper()).post(()->{
+                    System.out.println("Event: " + event.toString());
+                    progressBarCreateEvent.setProgress(4);
+
+                    new Handler().postDelayed(()->{
+                        progressBarCreateEvent.setVisibility(View.GONE);
+                        //simulate back pressed
+                        showMsg("Success in creation of Event: "+ event.toString(),CreateEventActivityView.this);
+                        setViewEnable(true);
+                        onBackPressed();
+
+                    },500);
+                });
+            }
+
+            @Override
+            public void onFailure(Event event) {
+                new Handler(Looper.getMainLooper()).post(()->{
+                    System.out.println("Event: " + event.toString());
+                    progressBarCreateEvent.setProgress(4);
+
+                    new Handler().postDelayed(()->{
+                        progressBarCreateEvent.setVisibility(View.GONE);
+                        //simulate back pressed
+                        setViewEnable(true);
+                        showMsg("Failure to create Event: "+ event.toString(),CreateEventActivityView.this);
+                    },500);
+                });
+            }
+        });
+
+        useCase.setEventGateway(gateway);
+        useCase.setOutputPort(this);
+
+        CreateEventController createEventController = new CreateEventController(useCase);
+
+        createEventController.createEvent(vm, Context.bruceAlmighty.getLoggedInUser());
+    }
+
+    @Override
+    public void DoTitleProvided() {
+        vm.title = editTextTitle.getText().toString();
+    }
+
+    @Override
+    public void DoTitleRemoved() {
+        editTextTitle.setError("Title required");
+        vm.title = null;
+    }
+
+    @Override
+    public void DoDescProvided() {
+        vm.description = editTextDescription.getText().toString();
+    }
+
+    @Override
+    public void DoDescRemoved() {
+        editTextDescription.setError("Description required"); //maybe not needed every time?
+        vm.description = null;
+    }
+
+    @Override
+    public void DoImgProvided() {
+        vm.createEventImages.add(imageDetails);
+        buttonAddImageCreate.setError(null);
+    }
+
+    @Override
+    public void DoImgRemoved() {
+
+    }
+
+
+
+    @Override
+    public void DoEnableCreateEvent() {
+        buttonCreateEvent.setEnabled(true);
+    }
+
+    @Override
+    public void DoDisableCreateEvent() {
+        buttonCreateEvent.setEnabled(false);
     }
 
     private void showDateTimeDialog(final EditText date_time_in) {
@@ -364,4 +489,6 @@ public class CreateEventActivityView extends AppCompatActivity implements View.O
     public void onCancelClicked() {
         closeFragment();
     }
+
+
 }

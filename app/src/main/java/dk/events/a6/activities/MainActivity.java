@@ -25,7 +25,7 @@ import dk.events.a6.models.MyEvents;
 import dk.events.a6.profileView.MyAccount;
 import dk.events.a6.signInView.functions.User;
 import dk.eventslib.entities.Event;
-import dk.eventslib.gateways.ObservableEventGatewayInMemory;
+import dk.eventslib.gateways.EventGatewayInMemory;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addNewEventIfAny() {
-        ObservableEventGatewayInMemory inMemory = new ObservableEventGatewayInMemory();
+        EventGatewayInMemory inMemory = new EventGatewayInMemory();
         List<Event> events = inMemory.getEvents();
         if(events != null && events.size() > 0){
             Event e = events.get(0);

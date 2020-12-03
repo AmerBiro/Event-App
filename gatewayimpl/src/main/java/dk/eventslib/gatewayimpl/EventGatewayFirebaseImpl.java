@@ -23,10 +23,11 @@ import java.util.concurrent.Executors;
 
 import dk.eventslib.entities.Event;
 import dk.eventslib.entities.ImageDetails;
+import dk.eventslib.usecases.ProcessObservable;
 import dk.eventslib.usecases.ProcessObserver;
-import dk.eventslib.usecases.createevent.ObservableEventGateway;
+import dk.eventslib.usecases.createevent.EventGateway;
 
-public class ObservableEventGatewayFirebaseImpl implements ObservableEventGateway {
+public class EventGatewayFirebaseImpl implements EventGateway, ProcessObservable {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
     @Override

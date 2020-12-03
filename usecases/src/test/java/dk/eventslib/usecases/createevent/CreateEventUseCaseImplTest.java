@@ -17,9 +17,9 @@ public class CreateEventUseCaseImplTest {
     @Test
     public void givenCreateEventRequested_returnEventCreatedByCallingEventGateway(){
         //setup
-        ObservableEventGateway observableEventGateway = new FakeObservableEventGateway();
+        EventGateway eventGateway = new FakeEventGateway();
         CreateEventUseCaseImpl useCase = new CreateEventUseCaseImpl();
-        useCase.setEventGateway(observableEventGateway);
+        useCase.setEventGateway(eventGateway);
         useCase.setOutputPort(new FakeOutputPort());
 
         String id = UUID.randomUUID().toString();
@@ -38,7 +38,7 @@ public class CreateEventUseCaseImplTest {
         assertEquals(event.toString(), returnedEvent.toString());
     }
 
-    static class FakeObservableEventGateway implements ObservableEventGateway {
+    static class FakeEventGateway implements EventGateway {
         private static Map<String,Event> db = new HashMap<>();
 
         @Override

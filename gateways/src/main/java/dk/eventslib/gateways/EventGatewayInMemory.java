@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import dk.eventslib.usecases.ProcessObserver;
-import dk.eventslib.usecases.createevent.ObservableEventGateway;
+import dk.eventslib.usecases.createevent.EventGateway;
 import dk.eventslib.entities.Event;
 
-public class ObservableEventGatewayInMemory extends BaseGatewayInMemory<Event> implements ObservableEventGateway {
+public class EventGatewayInMemory extends BaseGatewayInMemory<Event> implements EventGateway {
     @Override
     public Event findEventByTitle(String title) {
         for (Event e : eventsMap.values()) {
@@ -48,16 +48,6 @@ public class ObservableEventGatewayInMemory extends BaseGatewayInMemory<Event> i
 
     public List<Event> getEvents() {
         return new ArrayList<>(eventsMap.values()) ;
-    }
-
-    @Override
-    public void addProcessObserver(ProcessObserver observer) {
-        
-    }
-
-    @Override
-    public void removeProcessObserver(ProcessObserver observer) {
-
     }
 }
 
