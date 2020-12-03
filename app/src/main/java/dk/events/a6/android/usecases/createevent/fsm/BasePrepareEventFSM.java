@@ -12,5 +12,7 @@ public abstract class BasePrepareEventFSM {
         void DoSetupPrepareEvent();
         void DoEnableCreateEvent();
         void DoDisableCreateEvent();
+
+        void DoCreateEvent();
     }
 }

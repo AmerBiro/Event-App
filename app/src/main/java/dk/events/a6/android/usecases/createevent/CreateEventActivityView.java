@@ -89,64 +89,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
         if(v.getId() == R.id.buttonCreateEvent){
             //vm.title = editTextTitle.getText().toString();
             //vm.description = editTextDescription.getText().toString();
-
-            useCase = new CreateEventUseCaseImpl();
-            EventGateway gateway = new EventGatewayFirebaseImpl();
-            ((ProcessObservable)gateway).addProcessObserver(new ProcessObserver() {
-                @Override
-                public void starting() {
-                    new Handler(Looper.getMainLooper()).post(()->{
-                        progressBarCreateEvent.setVisibility(View.VISIBLE);
-                        progressBarCreateEvent.setProgress(1);
-
-                        setViewEnable(false);
-                    });
-                }
-                @Override
-                public void pending() {
-                    new Handler(Looper.getMainLooper()).post(()->{
-                        progressBarCreateEvent.setProgress(3);
-                    });
-                }
-                @Override
-                public void onSuccess(Event event) {
-                    new Handler(Looper.getMainLooper()).post(()->{
-                        System.out.println("Event: " + event.toString());
-                        progressBarCreateEvent.setProgress(4);
-
-                        new Handler().postDelayed(()->{
-                            progressBarCreateEvent.setVisibility(View.GONE);
-                            //simulate back pressed
-                            showMsg("Success in creation of Event: "+ event.toString(),CreateEventActivityView.this);
-                            setViewEnable(true);
-                            onBackPressed();
-
-                        },500);
-                    });
-                }
-
-                @Override
-                public void onFailure(Event event) {
-                    new Handler(Looper.getMainLooper()).post(()->{
-                        System.out.println("Event: " + event.toString());
-                        progressBarCreateEvent.setProgress(4);
-
-                        new Handler().postDelayed(()->{
-                            progressBarCreateEvent.setVisibility(View.GONE);
-                            //simulate back pressed
-                            setViewEnable(true);
-                            showMsg("Failure to create Event: "+ event.toString(),CreateEventActivityView.this);
-                        },500);
-                    });
-                }
-            });
-
-            useCase.setEventGateway(gateway);
-            useCase.setOutputPort(this);
-
-            CreateEventController createEventController = new CreateEventController(useCase);
-
-            createEventController.createEvent(vm, Context.bruceAlmighty.getLoggedInUser());
+            fsm.createEventPressed();
 
             //simulate back pressed
             //onBackPressed();
@@ -323,6 +266,10 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
     public PrepareEventFSMWrapper fsm = new PrepareEventFSMWrapper();
     @Override
     public void DoSetupPrepareEvent() {
+        buttonAddImageCreate.setFocusable(true);
+        buttonAddImageCreate.setFocusableInTouchMode(true);
+        buttonAddImageCreate.setError("Image required");
+
         buttonCreateEvent.setEnabled(false);
 
         editTextTitle.setHint("title");
@@ -330,7 +277,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
         editTextTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                if(TextUtils.isEmpty(editTextTitle.getText().toString().trim())){
+                if(!TextUtils.isEmpty(editTextTitle.getText().toString().trim())){
                     fsm.yesTitle();
                 }else {
                     fsm.noTitle();
@@ -374,6 +321,67 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
     }
 
     @Override
+    public void DoCreateEvent(){
+        useCase = new CreateEventUseCaseImpl();
+        EventGateway gateway = new EventGatewayFirebaseImpl();
+        ((ProcessObservable)gateway).addProcessObserver(new ProcessObserver() {
+            @Override
+            public void starting() {
+                new Handler(Looper.getMainLooper()).post(()->{
+                    progressBarCreateEvent.setVisibility(View.VISIBLE);
+                    progressBarCreateEvent.setProgress(1);
+
+                    setViewEnable(false);
+                });
+            }
+            @Override
+            public void pending() {
+                new Handler(Looper.getMainLooper()).post(()->{
+                    progressBarCreateEvent.setProgress(3);
+                });
+            }
+            @Override
+            public void onSuccess(Event event) {
+                new Handler(Looper.getMainLooper()).post(()->{
+                    System.out.println("Event: " + event.toString());
+                    progressBarCreateEvent.setProgress(4);
+
+                    new Handler().postDelayed(()->{
+                        progressBarCreateEvent.setVisibility(View.GONE);
+                        //simulate back pressed
+                        showMsg("Success in creation of Event: "+ event.toString(),CreateEventActivityView.this);
+                        setViewEnable(true);
+                        onBackPressed();
+
+                    },500);
+                });
+            }
+
+            @Override
+            public void onFailure(Event event) {
+                new Handler(Looper.getMainLooper()).post(()->{
+                    System.out.println("Event: " + event.toString());
+                    progressBarCreateEvent.setProgress(4);
+
+                    new Handler().postDelayed(()->{
+                        progressBarCreateEvent.setVisibility(View.GONE);
+                        //simulate back pressed
+                        setViewEnable(true);
+                        showMsg("Failure to create Event: "+ event.toString(),CreateEventActivityView.this);
+                    },500);
+                });
+            }
+        });
+
+        useCase.setEventGateway(gateway);
+        useCase.setOutputPort(this);
+
+        CreateEventController createEventController = new CreateEventController(useCase);
+
+        createEventController.createEvent(vm, Context.bruceAlmighty.getLoggedInUser());
+    }
+
+    @Override
     public void DoTitleProvided() {
         vm.title = editTextTitle.getText().toString();
     }
@@ -398,6 +406,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
     @Override
     public void DoImgProvided() {
         vm.createEventImages.add(imageDetails);
+        buttonAddImageCreate.setError(null);
     }
 
     @Override
@@ -409,12 +418,12 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
 
     @Override
     public void DoEnableCreateEvent() {
-
+        buttonCreateEvent.setEnabled(true);
     }
 
     @Override
     public void DoDisableCreateEvent() {
-
+        buttonCreateEvent.setEnabled(false);
     }
 
     private void showDateTimeDialog(final EditText date_time_in) {

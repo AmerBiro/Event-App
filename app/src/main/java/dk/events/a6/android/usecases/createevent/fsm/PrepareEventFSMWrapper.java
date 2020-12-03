@@ -47,4 +47,9 @@ public class PrepareEventFSMWrapper extends PrepareEventFSM{
     public void DoDisableCreateEvent() {
         actionsImpl.DoDisableCreateEvent();
     }
+
+    @Override
+    public void DoCreateEvent() {
+        actionsImpl.DoCreateEvent();
+    }
 }
