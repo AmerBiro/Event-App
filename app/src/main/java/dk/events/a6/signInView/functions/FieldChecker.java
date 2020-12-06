@@ -110,7 +110,6 @@ public class FieldChecker {
 
 
     public Boolean isEmpty(Activity activity, EditText [] fields, String [] errorMessage){
-        for (int i = 0; i < fields.length; i++) {
             for (int ii = 0; ii < fields.length; ii++) {
                 if (fields[ii].getText().toString().isEmpty()) {
                     fields[ii].setError(errorMessage[ii]);
@@ -123,7 +122,6 @@ public class FieldChecker {
                     return true;
                 }else status = false;
             }
-        }
         return status;
     }
 
