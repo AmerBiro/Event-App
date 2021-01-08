@@ -74,7 +74,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
-      //  userID = mAuth.getCurrentUser().getUid();
+        userID = mAuth.getCurrentUser().getUid();
 
         // if signed in via email
         if (user != null){
