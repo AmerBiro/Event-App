@@ -99,8 +99,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                user.verifyUser(MainActivity.this);
-                if (user!=null){
+                if (fuser!=null){
                     startActivity(new Intent(getApplicationContext(), MyAccount.class));
+                }else{
+                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
         });
