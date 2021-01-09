@@ -42,8 +42,8 @@ public class CreateEventUseCaseImplTest {
         private static Map<String,Event> db = new HashMap<>();
 
         @Override
-        public List<Event> findAllEventsAsync() {
-            return null;
+        public void findAllEventsAsync() {
+
         }
 
         @Override
