@@ -8,10 +8,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,7 +37,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 import dk.events.a6.R;
-import dk.events.a6.android.Context;
+import dk.events.a6.android._Context;
 import dk.events.a6.android.MainApplication;
 import dk.events.a6.android.usecases.createevent.fsm.BasePrepareEventFSM;
 import dk.events.a6.android.usecases.createevent.fsm.PrepareEventFSMWrapper;
@@ -47,8 +45,8 @@ import dk.events.a6.databinding.ActivityCreateBinding;
 import dk.events.a6.fragments.ChooseImageDialogFragment;
 import dk.eventslib.entities.Event;
 import dk.eventslib.gatewayimpl.EventGatewayFirebaseImpl;
-import dk.eventslib.usecases.ProcessObservable;
-import dk.eventslib.usecases.ProcessObserver;
+import dk.eventslib.usecases.CreateEventProcessObservable;
+import dk.eventslib.usecases.CreateEventProcessObserver;
 import dk.eventslib.usecases.createevent.CreateEventOutputPort;
 import dk.eventslib.usecases.createevent.CreateEventUseCaseImpl;
 import dk.eventslib.usecases.createevent.EventGateway;
@@ -324,7 +322,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
     public void DoCreateEvent(){
         useCase = new CreateEventUseCaseImpl();
         EventGateway gateway = new EventGatewayFirebaseImpl();
-        ((ProcessObservable)gateway).addProcessObserver(new ProcessObserver() {
+        ((CreateEventProcessObservable)gateway).addCreateEventProcessObserver(new CreateEventProcessObserver() {
             @Override
             public void starting() {
                 new Handler(Looper.getMainLooper()).post(()->{
@@ -378,7 +376,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
 
         CreateEventController createEventController = new CreateEventController(useCase);
 
-        createEventController.createEvent(vm, Context.bruceAlmighty.getLoggedInUser());
+        createEventController.createEvent(vm, _Context.bruceAlmighty.getLoggedInUser());
     }
 
     @Override

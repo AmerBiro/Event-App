@@ -1,15 +1,20 @@
 package dk.events.a6.models;
 
-public class MyEvents {
+public class MyEvent {
 
     private int event_background  ,event_avatar;
     private String event_title, event_distance;
 
-    public MyEvents(int event_background, int event_avatar, String event_name, String event_distance) {
+    public MyEvent(int event_background, int event_avatar, String event_name, String event_distance) {
         this.event_background = event_background;
         this.event_avatar = event_avatar;
         this.event_title = event_name;
         this.event_distance = event_distance;
+    }
+
+    public MyEvent(String title, String description) {
+        this.event_title = title;
+        this.event_distance = description;
     }
 
     public int getEvent_background() {

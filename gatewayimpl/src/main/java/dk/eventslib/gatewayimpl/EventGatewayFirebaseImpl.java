@@ -8,6 +8,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
@@ -23,16 +25,67 @@ import java.util.concurrent.Executors;
 
 import dk.eventslib.entities.Event;
 import dk.eventslib.entities.ImageDetails;
-import dk.eventslib.usecases.ProcessObservable;
-import dk.eventslib.usecases.ProcessObserver;
+import dk.eventslib.usecases.CreateEventProcessObservable;
+import dk.eventslib.usecases.CreateEventProcessObserver;
 import dk.eventslib.usecases.createevent.EventGateway;
+import dk.eventslib.usecases.presentevents.observers.FindAllEventsProcessObservable;
+import dk.eventslib.usecases.presentevents.observers.FindAllEventsProcessObserver;
 
-public class EventGatewayFirebaseImpl implements EventGateway, ProcessObservable {
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+public class EventGatewayFirebaseImpl implements EventGateway, CreateEventProcessObservable, FindAllEventsProcessObservable {
+    private static final String EVENTS_COLLECTION = "events";
+    public static final String TITLE_EVENT = "title";
+    public static final String DESCRIPTION_EVENT = "description";
+    public static final String ID_EVENT = "id";
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+
+
+    List<FindAllEventsProcessObserver> findAllEventsObservers = new ArrayList<>();
+    @Override
+    public void addFindAllEventsProcessObserver(FindAllEventsProcessObserver observer){
+        findAllEventsObservers.add(observer);
+    }
 
     @Override
-    public List<Event> findAllEvents() {
-        return null;
+    public void removeFindAllEventsProcessObserver(FindAllEventsProcessObserver observer){
+        findAllEventsObservers.remove(observer);
+    }
+    @Override
+    public void findAllEventsAsync() {
+        executor.execute( ()->{
+            findAllEventsObservers.stream().forEach(o-> o.starting());
+
+            firebaseFirestore
+                    .collection(EVENTS_COLLECTION)
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    findAllEventsObservers.stream().forEach(o-> o.pending() );
+                    if (task.isSuccessful()) {
+                        List<Event> events = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            final Map<String, Object> map = document.getData();
+                            events.add(
+                                    Event.newBuilder()
+                                            .withId(String.valueOf(map.get(ID_EVENT)))
+                                            .withTitle(String.valueOf(map.get(TITLE_EVENT)))
+                                            .withDescription(String.valueOf(map.get(DESCRIPTION_EVENT)))
+                                            .build()
+                            );
+                            //document.getId()  document.getData()
+                        }
+                        findAllEventsObservers.stream().forEach(o-> o.onSuccess(events) );
+                    } else {
+                        findAllEventsObservers.stream().forEach( o-> o.onFailure( task.getException() ) );
+                        //task.getException()
+                    }
+                }
+            });
+
+        });
+        executor.shutdown();
+
+
     }
 
     @Override
@@ -61,7 +114,7 @@ public class EventGatewayFirebaseImpl implements EventGateway, ProcessObservable
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 
-                observers.stream().forEach( o-> o.pending() );
+                createEventObservers.stream().forEach(o-> o.pending() );
 
                 if(task.isSuccessful())
                     putEvent(event, details.getId());
@@ -74,25 +127,25 @@ public class EventGatewayFirebaseImpl implements EventGateway, ProcessObservable
 
     private void putEvent(Event event, final String imageId){
         Map<String, Object> eventCollection = new HashMap<>();
-        eventCollection.put("id", event.getId());
-        eventCollection.put("title", event.getTitle());
-        eventCollection.put("description", event.getDescription());
+        eventCollection.put(ID_EVENT, event.getId());
+        eventCollection.put(TITLE_EVENT, event.getTitle());
+        eventCollection.put(DESCRIPTION_EVENT, event.getDescription());
         eventCollection.put("event_image_id", imageId);
         eventCollection.put("event_creator_id", event.getOwner()==null?null:event.getOwner().getId());
 
-        firebaseFirestore.collection("events")
+        firebaseFirestore.collection(EVENTS_COLLECTION)
                 .add(eventCollection)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        observers.stream().forEach( o-> o.onSuccess(event) );
+                        createEventObservers.stream().forEach(o-> o.onSuccess(event) );
                         //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        observers.stream().forEach( o-> o.onFailure(event) );
+                        createEventObservers.stream().forEach(o-> o.onFailure(event) );
                     }
                 });
     }
@@ -100,7 +153,7 @@ public class EventGatewayFirebaseImpl implements EventGateway, ProcessObservable
     @Override
     public Event createEvent(Event event) {
         executor.execute( ()->{
-            observers.stream().forEach(o-> o.starting());
+            createEventObservers.stream().forEach(o-> o.starting());
 
             if(event.getImages().size()>0){
                 final String imageId = UUID.randomUUID().toString();
@@ -125,14 +178,14 @@ public class EventGatewayFirebaseImpl implements EventGateway, ProcessObservable
     }
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
-    List<ProcessObserver> observers = new ArrayList<>();
+    List<CreateEventProcessObserver> createEventObservers = new ArrayList<>();
     @Override
-    public void addProcessObserver(ProcessObserver observer){
-        observers.add(observer);
+    public void addCreateEventProcessObserver(CreateEventProcessObserver observer){
+        createEventObservers.add(observer);
     }
 
     @Override
-    public void removeProcessObserver(ProcessObserver observer){
-        observers.remove(observer);
+    public void removeCreateEventProcessObserver(CreateEventProcessObserver observer){
+        createEventObservers.remove(observer);
     }
 }

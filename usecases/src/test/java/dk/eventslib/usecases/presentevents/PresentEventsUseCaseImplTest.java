@@ -41,7 +41,7 @@ public class PresentEventsUseCaseImplTest {
         eventGateway = new FakeEventGateway();
         userGateway = new FakeUserGateway();
         licenseGateway = new FakeLicenseGateway();
-        useCase = new PresentEventsUseCaseImpl(eventGateway, licenseGateway);
+        useCase = new PresentEventsUseCaseImpl(eventGateway);
 
 
         user = userGateway.createUser( User.newUserBuilder().build() );
@@ -74,7 +74,7 @@ public class PresentEventsUseCaseImplTest {
         event.setTitle(TITLE);
         event.setStartDate(START_DATE);
 
-        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        List<PresentableEvent> presentableEvents =  useCase.presentEventsAsync(user);
         assertEquals(1, presentableEvents.size());
 
         PresentableEvent presentableEvent = presentableEvents.get(0);
@@ -84,7 +84,7 @@ public class PresentEventsUseCaseImplTest {
 
     @Test
     public void givenNoLicenseForEvent_returnEventCannotBeParticipated(){
-        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        List<PresentableEvent> presentableEvents =  useCase.presentEventsAsync(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);
 
         assertEquals(false, presentableEvent.isParticipable);
@@ -94,7 +94,7 @@ public class PresentEventsUseCaseImplTest {
     public void givenUserWithParticipationLicenseForEvent_returnUserCanParticipate(){
         licenseGateway.createLicense(
                 License.newBuilder().withLicenseType(PARTICIPATING).withUser(user).withEvent(event).build());
-        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        List<PresentableEvent> presentableEvents =  useCase.presentEventsAsync(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);
 
         assertEquals(true, presentableEvent.isParticipable);
@@ -104,7 +104,7 @@ public class PresentEventsUseCaseImplTest {
     public void givenUserWithViewLicenseForEvent_returnEventIsViewable(){
         licenseGateway.createLicense(
                 License.newBuilder().withLicenseType(VIEWING).withUser(user).withEvent(event).build() );
-        List<PresentableEvent> presentableEvents =  useCase.presentEvents(user);
+        List<PresentableEvent> presentableEvents =  useCase.presentEventsAsync(user);
         PresentableEvent presentableEvent = presentableEvents.get(0);
 
         assertEquals(true, presentableEvent.isViewable);
@@ -141,8 +141,8 @@ public class PresentEventsUseCaseImplTest {
         }
 
         @Override
-        public List<Event> findAllEvents() {
-            return new ArrayList<>(eventsMap.values());
+        public void findAllEventsAsync() {
+            //return new ArrayList<>(eventsMap.values());
         }
 
         @Override

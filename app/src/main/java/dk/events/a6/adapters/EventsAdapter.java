@@ -17,16 +17,16 @@ import java.util.List;
 
 import dk.events.a6.activities.Event_Content;
 import dk.events.a6.R;
-import dk.events.a6.models.MyEvents;
+import dk.events.a6.models.MyEvent;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder> {
 
     Context context;
-    List<MyEvents> myEventsList;
+    List<MyEvent> myEventList;
 
-    public EventsAdapter(Context context, List<MyEvents> myEvents) {
+    public EventsAdapter(Context context, List<MyEvent> myEvents) {
         this.context = context;
-        this.myEventsList = myEvents;
+        this.myEventList = myEvents;
     }
 
     @NonNull
@@ -38,18 +38,20 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     @Override
     public void onBindViewHolder(@NonNull EventsViewHolder holder, final int position) {
-        MyEvents myEvents = myEventsList.get(position);
-        holder.event_background.setImageResource(myEvents.getEvent_background());
-        holder.event_avatar.setImageResource(myEvents.getEvent_avatar());
-        holder.event_title.setText(myEvents.getEvent_title());
-        holder.event_distance.setText(myEvents.getEvent_distance());
+        MyEvent myEvent = myEventList.get(position);
+        //holder.event_background.setImageResource(myEvents.getEvent_background());
+        //holder.event_avatar.setImageResource(myEvents.getEvent_avatar());
+        //holder.event_title.setText(myEvents.getEvent_title());
+        //holder.event_distance.setText(myEvents.getEvent_distance());
+        holder.event_title.setText(myEvent.getEvent_title());
+        holder.event_distance.setText(myEvent.getEvent_distance());
 
         holder.events_view_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Event_Content.class);
-                MyEvents myEvents = myEventsList.get(position);
-                intent.putExtra("event_background_data",myEvents.getEvent_background());
+                MyEvent myEvent = myEventList.get(position);
+                intent.putExtra("event_background_data", myEvent.getEvent_background());
                 context.startActivity(intent);
             }
         });
@@ -64,18 +66,18 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     @Override
     public int getItemCount() {
-        return myEventsList.size();
+        return myEventList.size();
     }
 
     public class EventsViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView event_background , event_avatar;
-        TextView event_title, event_distance;
+        ImageView event_background;
+        ImageView event_avatar;
+        TextView event_title;
+        TextView event_distance;
         ConstraintLayout events_view_content;
 
         public EventsViewHolder(@NonNull View itemView) {
             super(itemView);
-
             event_background = itemView.findViewById(R.id.id_event_background_content);
             event_avatar = itemView.findViewById(R.id.id_event_avatar);
             event_title = itemView.findViewById(R.id.id_event_title);
