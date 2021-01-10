@@ -14,7 +14,11 @@ public class PresentEventsPresenterAsyncImpl implements PresentEventsPresenterAs
     public void presentEvents(List<Event> events) {
         List<PresentableEvent> presentableEvents = new ArrayList<>();
         for (Event event : events){
-            presentableEvents.add(new PresentableEvent("presented title: " + event.getTitle(), "presented description: " + event.getDescription()));
+            presentableEvents.add(
+                    new PresentableEvent(
+                            "presented title: " + event.getTitle(),
+                            "presented description: " + event.getDescription(),
+                            event.getImageLocation()));
         }
         presentEventsPresenterObserver.onSuccess(presentableEvents);
     }

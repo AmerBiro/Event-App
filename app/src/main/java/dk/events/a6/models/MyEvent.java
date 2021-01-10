@@ -3,7 +3,9 @@ package dk.events.a6.models;
 public class MyEvent {
 
     private int event_background  ,event_avatar;
-    private String event_title, event_distance;
+    private String event_title;
+    private String event_distance;
+    private String imageLocation;
 
     public MyEvent(int event_background, int event_avatar, String event_name, String event_distance) {
         this.event_background = event_background;
@@ -12,9 +14,10 @@ public class MyEvent {
         this.event_distance = event_distance;
     }
 
-    public MyEvent(String title, String description) {
+    public MyEvent(String title, String description, String imageLocation) {
         this.event_title = title;
         this.event_distance = description;
+        this.imageLocation = imageLocation;
     }
 
     public int getEvent_background() {
@@ -47,5 +50,9 @@ public class MyEvent {
 
     public void setEvent_distance(String event_distance) {
         this.event_distance = event_distance;
+    }
+
+    public String getImageLocation() {
+        return imageLocation;
     }
 }

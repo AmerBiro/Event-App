@@ -21,17 +21,17 @@ import dk.events.a6.fragments.FavoriteFragment;
 import dk.events.a6.R;
 import dk.events.a6.adapters.CustomPagerAdapter;
 
-public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private CustomPagerAdapter customPagerAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Button buttonCreateEvent;
     private ActivityHomeBinding binding;
+
     @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(HomeActivity.this, CreateEventActivityView.class);
-        startActivity(intent);
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override

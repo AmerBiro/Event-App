@@ -13,18 +13,20 @@ public class Event extends Entity {
     private List<User> participants = new ArrayList<>();
     private List<ImageDetails> images = new ArrayList<>();
     private Date startDate;
+    private String imageLocation;
 
     private Event(){
     }
 
     public String toString(){
         return String.format(
-                "Event: id = %s, title = %s, description = %s, startDate = %s, owner = %s, participants = %s",
+                "Event: id = %s, title = %s, description = %s, startDate = %s, owner = %s, image location: %s, participants = %s",
                 id,
                 title,
                 description,
                 startDate==null?null:startDate.toString(),
                 owner==null?null:owner.toString(),
+                imageLocation,
                 participants.stream().map(u -> u.toString()).reduce("", String::concat));
     }
 
@@ -42,6 +44,7 @@ public class Event extends Entity {
 
 
 
+
     public static class EventBuilder{
         private String title;
         private String id;
@@ -50,6 +53,7 @@ public class Event extends Entity {
         private List<User> participants = new ArrayList<>();
         private List<ImageDetails> images = new ArrayList<>();
         private Date startDate;
+        private String imageLocation;
 
         private EventBuilder(){
         }
@@ -62,11 +66,8 @@ public class Event extends Entity {
             event.setParticipants(participants);
             event.setImages(images);
             event.setStartDate(startDate);
+            event.setImageLocation(imageLocation);
             return event;
-        }
-
-        public void withImages(List<ImageDetails> images) {
-            this.images = images;
         }
 
         public EventBuilder withId(String id) {
@@ -93,6 +94,15 @@ public class Event extends Entity {
             this.startDate = startDate;
             return this;
         }
+        public EventBuilder withImageLocation(String imageLocation) {
+            this.imageLocation = imageLocation;
+            return this;
+        }
+        public EventBuilder withImages(List<ImageDetails> images) {
+            this.images = images;
+            return this;
+        }
+
     }
 
 
@@ -135,5 +145,13 @@ public class Event extends Entity {
 
     public Date getStartDate() {
         return startDate;
+    }
+
+    public String getImageLocation() {
+        return imageLocation;
+    }
+
+    public void setImageLocation(String imageLocation) {
+        this.imageLocation = imageLocation;
     }
 }

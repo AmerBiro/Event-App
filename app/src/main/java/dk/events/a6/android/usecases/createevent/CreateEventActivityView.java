@@ -25,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -70,6 +71,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
     private Uri imageUriFromCamera;
     private ProgressBar progressBarCreateEvent;
     private ImageDetails imageDetails;
+    private TextView textViewDateAndTime;
 
     @Override
     public void onBackPressed() {
@@ -109,6 +111,8 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
 
 
             dialogFragment.show(fragmentTransaction, "dialog");
+        }else if(v.getId() == R.id.event_date_time){
+            showDateTimeDialog(binding.line);
         }
 
     }
@@ -234,13 +238,13 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
         setContentView(view);
         Window window = this.getWindow();
         window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbar));
-
+/*
         binding.eventDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDateTimeDialog(binding.line);
             }
-        });
+        });*/
 
         vm = new CreateEventViewModel();
 
@@ -248,6 +252,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
 
         buttonCreateEvent.setOnClickListener(this);
         buttonAddImageCreate.setOnClickListener(this);
+        textViewDateAndTime.setOnClickListener(this);
 
         binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -461,6 +466,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
         imageViewEventImage = findViewById(R.id.imageViewEventImage);
         progressBarCreateEvent = findViewById(R.id.progressBarCreateEvent);
 
+        textViewDateAndTime = findViewById(R.id.event_date_time);
     }
 
     @Override

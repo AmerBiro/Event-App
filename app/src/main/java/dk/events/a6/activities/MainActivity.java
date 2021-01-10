@@ -10,7 +10,9 @@ import android.os.Looper;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -33,7 +35,7 @@ import dk.events.a6.models.MyEvent;
 import dk.events.a6.profileView.MyAccount;
 import dk.events.a6.signInView.functions.User;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = "TAG";
     private ActivityMainBinding binding;
 
@@ -46,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth ve;
     private FirebaseAuth mAuth;
 
-    private User user;
-
-
+    private ImageButton imageButtonHome;
+    private ImageView imageButtonAccount;
+    private ImageView imageButtonShare;
+    private ToggleButton toggleButtonFavorite;
+    private ImageView imageButtonFilter;
 
 
     @Override
@@ -56,98 +60,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        initialize();
 
 
         Window window = this.getWindow();
         window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbarevents));
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
-
-
-
         mAuth = FirebaseAuth.getInstance();
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-        user = new User();
+
         viewpager2_events_view = findViewById(R.id.id_viewpager2_events_view);
 
-
-        binding.idButtonShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, "A new event");
-                intent.setType("text/plain");
-                startActivity(intent);
-            }
-        });
-
-        binding.idButtonFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ve = FirebaseAuth.getInstance();
-                if (fuser != null || account != null){
-
-                }
-                else {
-                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        });
-
-
-
-        binding.idButtonAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                user.verifyUser(MainActivity.this);
-                if (fuser!=null){
-                    startActivity(new Intent(getApplicationContext(), MyAccount.class));
-                }else{
-                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        });
-
-         account = GoogleSignIn.getLastSignedInAccount(this);
-
-
-        binding.idButtonChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (fuser != null || account != null){
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        });
-
-        binding.idButtonFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    Intent intent = new Intent(MainActivity.this, MyFilter.class);
-                    startActivity(intent);
-            }
-        });
-
-
-        ((PresentEventsPresenterAsyncImpl)_Context.presentEventsPresenterAsync).setPresentEventsPresenterObserver( getPresentEventsPresenterObserver() );
-        //new Handler(Looper.getMainLooper()).post(()->{
-            _Context.presentEventsController.execute();
-        //});
-
-
-
-
+        account = GoogleSignIn.getLastSignedInAccount(this);
 
         myEventList = new  ArrayList<>();
         //myEventsList.add(new MyEvents(R.drawable.event_background_01, R.drawable.event_avatar_01, "Tivoli", "Anonce, indenfor 3 km"));
@@ -158,6 +82,60 @@ public class MainActivity extends AppCompatActivity {
         eventsAdapter = new EventsAdapter(this, myEventList);
         viewpager2_events_view.setAdapter(eventsAdapter);
 
+        //((PresentEventsPresenterAsyncImpl)_Context.presentEventsPresenterAsync).setPresentEventsPresenterObserver( getPresentEventsPresenterObserver() ); //TODO: getPresentEventsPresenterObserver() should do an update here
+        //_Context.presentEventsController.execute();
+
+    }
+
+    private void initialize() {
+        imageButtonHome = findViewById(R.id.id_button_home);
+        imageButtonAccount = findViewById(R.id.id_button_account);
+        imageButtonShare = findViewById(R.id.id_button_share);
+        toggleButtonFavorite = findViewById(R.id.id_button_favorite);
+        imageButtonFilter = findViewById(R.id.id_button_filter);
+
+
+        imageButtonHome.setOnClickListener(this);
+        imageButtonAccount.setOnClickListener(this);
+        imageButtonShare.setOnClickListener(this);
+        toggleButtonFavorite.setOnClickListener(this);
+        imageButtonFilter.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.id_button_home){
+            if (fuser != null || account != null){
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }else {
+                Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+            }
+        }else if (v.getId() == R.id.id_button_account){
+            //user.verifyUser(MainActivity.this);
+            if (fuser!=null){
+                startActivity(new Intent(getApplicationContext(), MyAccount.class));
+            }else{
+                Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+            }
+        }else if(v.getId() == R.id.id_button_share){
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, "A new event");
+            intent.setType("text/plain");
+            startActivity(intent);
+        }else if(v.getId() == R.id.id_button_favorite){
+            ve = FirebaseAuth.getInstance();
+            if (fuser != null || account != null){
+
+            } else {
+                Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }else if(v.getId() == R.id.id_button_filter){
+            Intent intent = new Intent(MainActivity.this, MyFilter.class);
+            startActivity(intent);
+        }
     }
 
     @NotNull
@@ -177,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(List<PresentableEvent> presentableEvents) {
                 new Handler(Looper.getMainLooper()).post(()->{
                     for (PresentableEvent pe : presentableEvents){
-                        myEventList.add(new MyEvent(pe.title, pe.description));
+                        myEventList.add(new MyEvent(pe.title, pe.description, pe.imageLocation));
                     }
                     eventsAdapter.notifyDataSetChanged();
                 });
@@ -200,5 +178,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        ((PresentEventsPresenterAsyncImpl)_Context.presentEventsPresenterAsync).setPresentEventsPresenterObserver( getPresentEventsPresenterObserver() ); //TODO: getPresentEventsPresenterObserver() should do an update here
+
+        _Context.presentEventsController.execute();
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

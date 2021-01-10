@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.FirebaseStorage;
+
 import java.util.List;
 
 import dk.events.a6.activities.Event_Content;
@@ -39,12 +41,22 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
     @Override
     public void onBindViewHolder(@NonNull EventsViewHolder holder, final int position) {
         MyEvent myEvent = myEventList.get(position);
-        //holder.event_background.setImageResource(myEvents.getEvent_background());
-        //holder.event_avatar.setImageResource(myEvents.getEvent_avatar());
+        //holder.imageViewEventBackground.setImageResource(myEvent.getEvent_background());
+        //holder.imageView_EventAvatar.setImageResource(myEvent.getEvent_avatar());
         //holder.event_title.setText(myEvents.getEvent_title());
         //holder.event_distance.setText(myEvents.getEvent_distance());
         holder.event_title.setText(myEvent.getEvent_title());
         holder.event_distance.setText(myEvent.getEvent_distance());
+
+        // https://stackoverflow.com/questions/48762263/using-firebase-storage-image-with-glide
+        // the important part is: Once you have created an AppGlideModule class and done a clean build, you can use GlideApp to load a StorageReference into an ImageView
+        // and remember the @GlideModule annotation
+        GlideApp.with(context)
+                .load(FirebaseStorage.getInstance().getReference(myEvent.getImageLocation()))
+                //.centerCrop()
+                //.transition(DrawableTransitionOptions.withCrossFade())
+                .into(holder.imageView_EventBackground);
+
 
         holder.events_view_content.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +68,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
             }
         });
 
-        holder.event_avatar.setOnClickListener(new View.OnClickListener() {
+        holder.imageView_EventAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "There is no account owner", Toast.LENGTH_SHORT).show();
@@ -70,16 +82,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
     }
 
     public class EventsViewHolder extends RecyclerView.ViewHolder {
-        ImageView event_background;
-        ImageView event_avatar;
+        ImageView imageView_EventBackground;
+        ImageView imageView_EventAvatar;
         TextView event_title;
         TextView event_distance;
         ConstraintLayout events_view_content;
 
         public EventsViewHolder(@NonNull View itemView) {
             super(itemView);
-            event_background = itemView.findViewById(R.id.id_event_background_content);
-            event_avatar = itemView.findViewById(R.id.id_event_avatar);
+            imageView_EventBackground = itemView.findViewById(R.id.id_event_background_content);
+            imageView_EventAvatar = itemView.findViewById(R.id.id_event_avatar);
             event_title = itemView.findViewById(R.id.id_event_title);
             event_distance = itemView.findViewById(R.id.id_event_distance);
             events_view_content = itemView.findViewById(R.id.id_event_view);

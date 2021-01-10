@@ -33,11 +33,12 @@ import dk.eventslib.usecases.presentevents.observers.FindAllEventsProcessObserve
 
 public class EventGatewayFirebaseImpl implements EventGateway, CreateEventProcessObservable, FindAllEventsProcessObservable {
     private static final String EVENTS_COLLECTION = "events";
-    public static final String TITLE_EVENT = "title";
-    public static final String DESCRIPTION_EVENT = "description";
-    public static final String ID_EVENT = "id";
+    public static final String EVENT_KEY_TITLE = "title";
+    public static final String EVENT_KEY_DESCRIPTION = "description";
+    public static final String EVENT_KEY_ID = "id";
+    public static final String EVENT_KEY_IMAGE_LOCATION = "image_location";
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-
+    private static final String DEFAULT_EVENT_IMAGE_LOCATION = "event_images/3f45c330-6b11-4d55-ac63-a6d4bd87e7ac.jpg";
 
 
     List<FindAllEventsProcessObserver> findAllEventsObservers = new ArrayList<>();
@@ -67,9 +68,10 @@ public class EventGatewayFirebaseImpl implements EventGateway, CreateEventProces
                             final Map<String, Object> map = document.getData();
                             events.add(
                                     Event.newBuilder()
-                                            .withId(String.valueOf(map.get(ID_EVENT)))
-                                            .withTitle(String.valueOf(map.get(TITLE_EVENT)))
-                                            .withDescription(String.valueOf(map.get(DESCRIPTION_EVENT)))
+                                            .withId(String.valueOf(map.get(EVENT_KEY_ID)))
+                                            .withTitle(String.valueOf(map.get(EVENT_KEY_TITLE)))
+                                            .withDescription(String.valueOf(map.get(EVENT_KEY_DESCRIPTION)))
+                                            .withImageLocation( map.get(EVENT_KEY_IMAGE_LOCATION)==null ? DEFAULT_EVENT_IMAGE_LOCATION : String.valueOf(map.get(EVENT_KEY_IMAGE_LOCATION)))
                                             .build()
                             );
                             //document.getId()  document.getData()
@@ -103,6 +105,7 @@ public class EventGatewayFirebaseImpl implements EventGateway, CreateEventProces
     public void putImage(Event event) {
         final ImageDetails details = event.getImages().get(0);
         final String path = "event_images/" + details.getId() + ".jpg";
+        event.setImageLocation(path);
         StorageReference storageReference = firebaseStorage.getReference(path);
         StorageMetadata storageMetadata = new StorageMetadata.Builder()
                 .setContentType("image/jpeg")
@@ -127,11 +130,12 @@ public class EventGatewayFirebaseImpl implements EventGateway, CreateEventProces
 
     private void putEvent(Event event, final String imageId){
         Map<String, Object> eventCollection = new HashMap<>();
-        eventCollection.put(ID_EVENT, event.getId());
-        eventCollection.put(TITLE_EVENT, event.getTitle());
-        eventCollection.put(DESCRIPTION_EVENT, event.getDescription());
+        eventCollection.put(EVENT_KEY_ID, event.getId());
+        eventCollection.put(EVENT_KEY_TITLE, event.getTitle());
+        eventCollection.put(EVENT_KEY_DESCRIPTION, event.getDescription());
         eventCollection.put("event_image_id", imageId);
         eventCollection.put("event_creator_id", event.getOwner()==null?null:event.getOwner().getId());
+        eventCollection.put(EVENT_KEY_IMAGE_LOCATION, event.getImageLocation()==null?DEFAULT_EVENT_IMAGE_LOCATION:event.getImageLocation()); //TODO: some default image will be good
 
         firebaseFirestore.collection(EVENTS_COLLECTION)
                 .add(eventCollection)
