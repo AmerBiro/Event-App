@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,6 +27,7 @@ import java.util.List;
 
 import dk.events.a6.R;
 import dk.events.a6.adapters.EventsAdapter;
+import dk.events.a6.android.MainApplication;
 import dk.events.a6.android._Context;
 import dk.events.a6.android.usecases.presentevents.PresentEventsPresenterAsyncImpl;
 import dk.events.a6.android.usecases.presentevents.PresentEventsPresenterObserver;
@@ -62,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initialize();
 
-
         Window window = this.getWindow();
         window.setStatusBarColor(this.getResources().getColor(R.color.colorstatusbarevents));
 
@@ -78,12 +79,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //myEventsList.add(new MyEvents(R.drawable.event_background_02, R.drawable.event_avatar_02, "Cykeltur", "Anonce, indenfor 7 km"));
         //myEventsList.add(new MyEvents(R.drawable.event_background_03, R.drawable.event_avatar_03, "Søndags-is :)", "Anonce, indenfor 1 km"));
 
-
-        eventsAdapter = new EventsAdapter(this, myEventList);
+        eventsAdapter = new EventsAdapter(this, ((MainApplication)getApplication()).firebaseStorage, myEventList);
         viewpager2_events_view.setAdapter(eventsAdapter);
 
-        //((PresentEventsPresenterAsyncImpl)_Context.presentEventsPresenterAsync).setPresentEventsPresenterObserver( getPresentEventsPresenterObserver() ); //TODO: getPresentEventsPresenterObserver() should do an update here
-        //_Context.presentEventsController.execute();
+
+        ((PresentEventsPresenterAsyncImpl)_Context.presentEventsPresenterAsync).setPresentEventsPresenterObserver( getPresentEventsPresenterObserver() ); //TODO: getPresentEventsPresenterObserver() should do an update here
 
     }
 
@@ -143,17 +143,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return new PresentEventsPresenterObserver() {
             @Override
             public void starting() {
+                new Handler(Looper.getMainLooper()).post(()->{
 
+                });
             }
 
             @Override
             public void pending() {
+                new Handler(Looper.getMainLooper()).post(()->{
 
+                });
             }
 
             @Override
             public void onSuccess(List<PresentableEvent> presentableEvents) {
                 new Handler(Looper.getMainLooper()).post(()->{
+                    myEventList.clear();
                     for (PresentableEvent pe : presentableEvents){
                         myEventList.add(new MyEvent(pe.title, pe.description, pe.imageLocation));
                     }
@@ -163,40 +168,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(String errorMsg) {
+                new Handler(Looper.getMainLooper()).post(()->{
 
+                });
             }
         };
     }
 
 
-    public void ArrowBack(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     @Override
     public void onResume() {
         super.onResume();
 
-        ((PresentEventsPresenterAsyncImpl)_Context.presentEventsPresenterAsync).setPresentEventsPresenterObserver( getPresentEventsPresenterObserver() ); //TODO: getPresentEventsPresenterObserver() should do an update here
+
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
 
         _Context.presentEventsController.execute();
 
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }

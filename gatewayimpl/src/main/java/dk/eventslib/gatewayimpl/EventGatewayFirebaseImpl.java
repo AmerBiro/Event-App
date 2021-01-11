@@ -85,7 +85,7 @@ public class EventGatewayFirebaseImpl implements EventGateway, CreateEventProces
             });
 
         });
-        executor.shutdown();
+        //executor.shutdown();
 
 
     }

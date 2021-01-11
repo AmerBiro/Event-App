@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.List;
@@ -25,9 +26,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     Context context;
     List<MyEvent> myEventList;
+    FirebaseStorage firebaseStorage;
 
-    public EventsAdapter(Context context, List<MyEvent> myEvents) {
+    public EventsAdapter(Context context, FirebaseStorage firebaseStorage, List<MyEvent> myEvents) {
         this.context = context;
+        this.firebaseStorage = firebaseStorage;
         this.myEventList = myEvents;
     }
 
@@ -51,8 +54,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         // https://stackoverflow.com/questions/48762263/using-firebase-storage-image-with-glide
         // the important part is: Once you have created an AppGlideModule class and done a clean build, you can use GlideApp to load a StorageReference into an ImageView
         // and remember the @GlideModule annotation
+
         GlideApp.with(context)
-                .load(FirebaseStorage.getInstance().getReference(myEvent.getImageLocation()))
+                .load(firebaseStorage.getReference(myEvent.getImageLocation()))
+                .thumbnail(0.5f)
+
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 //.centerCrop()
                 //.transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.imageView_EventBackground);
