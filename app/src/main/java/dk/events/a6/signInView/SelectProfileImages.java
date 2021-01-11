@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -99,12 +100,17 @@ public class SelectProfileImages extends AppCompatActivity {
         binding.checkMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if (imageStatus){
+
                     Intent intent = new Intent(SelectProfileImages.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                     return;
-                }else Toast.makeText(SelectProfileImages.this, "At least, Profile pitcure must be selected", Toast.LENGTH_SHORT).show();
+                }else
+
+                    Toast.makeText(SelectProfileImages.this, "At least, Profile pitcure must be selected", Toast.LENGTH_SHORT).show();
                 return;
 
             }
@@ -113,6 +119,7 @@ public class SelectProfileImages extends AppCompatActivity {
         binding.UserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(openGallery, 1000);
             }

@@ -1,6 +1,7 @@
 package dk.events.a6.profileView;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -33,16 +34,29 @@ public class AddImages<binding> {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private String userID = mAuth.getCurrentUser().getUid();
+    private ProgressDialog progressDialog;
+
+
+
+
 
     public void uploadeImageToFirebase(Uri imageUri, String imageName, Activity activity, ImageView imageView) {
         final StorageReference profilePicture = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/" + imageName  +   ".jpg");
         profilePicture.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                progressDialog = new ProgressDialog(activity);
+                progressDialog.setTitle("Uploading image");
+                progressDialog.setMessage("Please wait while we upload your image");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+
                 Toast.makeText(activity, "Image has been uploaded", Toast.LENGTH_SHORT).show();
                 profilePicture.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+                        progressDialog.dismiss();
                         Map<String, Object> user = new HashMap<>();
                         user.put("UserImage", uri);
                         Glide.with(activity).load(uri).into(imageView);
@@ -60,6 +74,7 @@ public class AddImages<binding> {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                progressDialog.hide();
                 Toast.makeText(activity, "Failed uploading image!", Toast.LENGTH_SHORT).show();
             }
         });
