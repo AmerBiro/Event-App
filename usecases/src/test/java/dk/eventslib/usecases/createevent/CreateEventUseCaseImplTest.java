@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ public class CreateEventUseCaseImplTest {
                 .build();
 
         //act
-        useCase.createEvent(event);
+        useCase.createEventAsync(event);
 
         //assert
         Event returnedEvent = useCase.getEvent(id);
@@ -57,7 +56,7 @@ public class CreateEventUseCaseImplTest {
         }
 
         @Override
-        public Event createEvent(Event event) {
+        public void createEventAsync(Event event) {
             db.put(event.getId(), event);
             return event;
         }

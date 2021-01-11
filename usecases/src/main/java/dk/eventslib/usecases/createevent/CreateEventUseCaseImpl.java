@@ -13,12 +13,16 @@ public class CreateEventUseCaseImpl implements CreateEventInputPort {
         return eventGateway.getEvent(id);
     }
 
-    public void createEvent(Event event) {
-        eventGateway.createEvent(event);
+    public void createEventAsync(Event event) {
+        eventGateway.createEventAsync(event);
+        outputPort.show("async returned, waiting for callback..");
+        /*
         outputPort.show(
                 String.format(
                         "Event with Id: %s, Title: %s, Owner: %s was created!",
                         event.getId(), event.getTitle(), event.getOwner()==null?"null":event.getOwner().toString()));
+        */
+
     }
 
     public EventGateway getEventGateway() {

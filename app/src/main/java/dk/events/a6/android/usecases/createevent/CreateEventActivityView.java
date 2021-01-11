@@ -346,13 +346,14 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
             @Override
             public void onSuccess(Event event) {
                 new Handler(Looper.getMainLooper()).post(()->{
-                    System.out.println("Event: " + event.toString());
+                    //System.out.println("Event: " + event.toString());
                     progressBarCreateEvent.setProgress(4);
 
                     new Handler().postDelayed(()->{
                         progressBarCreateEvent.setVisibility(View.GONE);
-                        //simulate back pressed
-                        showMsg("Success in creation of Event: "+ event.toString(),CreateEventActivityView.this);
+                        //showMsg("Success in creation of Event: "+ event.toString(),CreateEventActivityView.this);
+                        showMsg("Event was created!",CreateEventActivityView.this);
+
                         setViewEnable(true);
                         onBackPressed();
 
@@ -363,7 +364,7 @@ public class CreateEventActivityView extends AppCompatActivity implements BasePr
             @Override
             public void onFailure(Event event) {
                 new Handler(Looper.getMainLooper()).post(()->{
-                    System.out.println("Event: " + event.toString());
+                    //System.out.println("Event: " + event.toString());
                     progressBarCreateEvent.setProgress(4);
 
                     new Handler().postDelayed(()->{

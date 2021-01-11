@@ -24,6 +24,6 @@ public class CreateEventController {
 
         event.setImages(vm.createEventImages);
 
-        useCase.createEvent(event);
+        useCase.createEventAsync(event);
     }
 }

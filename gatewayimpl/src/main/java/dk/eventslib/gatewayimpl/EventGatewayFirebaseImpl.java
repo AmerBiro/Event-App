@@ -86,8 +86,6 @@ public class EventGatewayFirebaseImpl implements EventGateway, CreateEventProces
 
         });
         //executor.shutdown();
-
-
     }
 
     @Override
@@ -155,7 +153,7 @@ public class EventGatewayFirebaseImpl implements EventGateway, CreateEventProces
     }
 
     @Override
-    public Event createEvent(Event event) {
+    public void createEventAsync(Event event) {
         executor.execute( ()->{
             createEventObservers.stream().forEach(o-> o.starting());
 
@@ -169,7 +167,6 @@ public class EventGatewayFirebaseImpl implements EventGateway, CreateEventProces
 
         });
         executor.shutdown();
-        return event;
     }
 
     private void putEvent(Event event) {
