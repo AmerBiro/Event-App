@@ -39,7 +39,6 @@
         android:layout_width="60dp"
         android:layout_height="18dp"
         android:text="Name"
-
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
