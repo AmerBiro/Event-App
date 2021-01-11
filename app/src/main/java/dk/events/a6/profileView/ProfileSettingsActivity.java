@@ -40,16 +40,9 @@ import dk.events.a6.signInView.Sign_Up;
 import dk.events.a6.signInView.functions.User;
 
 public class ProfileSettingsActivity extends AppCompatActivity {
-    GoogleSignInClient mGoogleSignInClient;
-    private ActivityProfileSettingsBinding binding;
-    User user;
 
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore fStore;
-    private String userID;
-    private StorageReference storageReference;
-    private FirebaseUser fuser;
-    private String userEmail;
+
+    private ActivityProfileSettingsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +56,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        user = new User();
+       /* user = new User();
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userID = mAuth.getCurrentUser().getUid();
@@ -78,43 +71,10 @@ public class ProfileSettingsActivity extends AppCompatActivity {
             }
         });
 
-
-        binding.buttonDeleteAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                user.deleteUser(ProfileSettingsActivity.this, Registeration.class);
-            }
-        });
-
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        */
 
 
 
-
-        binding.buttonLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (user.signOut(ProfileSettingsActivity.this)){
-                    afterSignout();
-                }
-
-                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(ProfileSettingsActivity.this);
-                if (account != null){
-                    signOutGmail();
-                    Intent intent = new Intent(ProfileSettingsActivity.this, Registeration.class);
-                    startActivity(intent);
-                }
-            }
-        });
 
         binding.idBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,26 +85,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     }
 
 
-    public void afterSignout() {
-        Intent intent = new Intent(ProfileSettingsActivity.this, Registeration.class);
-        startActivity(intent);
-        finish();
-        return;
-    }
 
-    private void signOutGmail() {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                    }
-                });
-        Intent intent = new Intent(ProfileSettingsActivity.this, Registeration.class);
-        Toast.makeText(this, "Google account signed out", Toast.LENGTH_SHORT).show();
-        startActivity(intent);
-        finish();
-        return;
-    }
 
 
 

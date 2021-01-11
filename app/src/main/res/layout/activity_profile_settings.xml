@@ -175,33 +175,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="522dp" />
 
-            <Button
-                android:id="@+id/button_logout"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/button"
-                android:text="Log out"
-                android:textAllCaps="false"
-                android:layout_marginTop="25dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
-                android:id="@+id/button_delete_account"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/button"
-                android:text="Delete account"
-                android:textAllCaps="false"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="607dp" />
 
         </LinearLayout>
     </ScrollView>

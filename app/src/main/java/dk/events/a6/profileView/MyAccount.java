@@ -1,6 +1,7 @@
 package dk.events.a6.profileView;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +17,13 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -36,6 +43,7 @@ import dk.events.a6.profileView.updateprofile.Update_Personal_Information;
 import dk.events.a6.profileView.updateprofile.Update_Profile_Background;
 import dk.events.a6.profileView.updateprofile.Update_Profile_Pictures;
 import dk.events.a6.signInView.Registeration;
+import dk.events.a6.signInView.functions.User;
 
 
 public class MyAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
@@ -46,6 +54,9 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
     private FirebaseUser user;
     private StorageReference storageReference;
     private String userID;
+    GoogleSignInClient mGoogleSignInClient;
+    User mUser;
+
 
 
 
@@ -64,7 +75,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         setContentView(view);
 
 
-
+        mUser = new User();
 
 
 
@@ -75,6 +86,17 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         storageReference = FirebaseStorage.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
         userID = mAuth.getCurrentUser().getUid();
+
+
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         // if signed in via email
         if (user != null){
@@ -167,6 +189,54 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
             }
         });
 
+        binding.deleteAccountIconId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mUser.deleteUser(MyAccount.this, Registeration.class);
+            }
+        });
+
+
+        binding.logOutIconId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mUser.signOut(MyAccount.this)){
+                    afterSignout();
+                }
+
+                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(MyAccount.this);
+                if (account != null){
+                    signOutGmail();
+                    Intent intent = new Intent(MyAccount.this, Registeration.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
+
+
+    }
+
+    public void afterSignout() {
+        Intent intent = new Intent(MyAccount.this, Registeration.class);
+        startActivity(intent);
+        finish();
+        return;
+    }
+
+    private void signOutGmail() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                    }
+                });
+        Intent intent = new Intent(MyAccount.this, Registeration.class);
+        Toast.makeText(this, "Google account signed out", Toast.LENGTH_SHORT).show();
+        startActivity(intent);
+        finish();
+        return;
     }
 
 
