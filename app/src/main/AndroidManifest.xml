@@ -39,13 +39,13 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713"/>
 
-        <activity android:name=".profileView.updateprofile.Update_Personal_Information" />
-        <activity android:name=".profileView.updateprofile.Change_Email_Password" />
-        <activity android:name=".profileView.updateprofile.Update_Profile_Pictures" />
-        <activity android:name=".profileView.updateprofile.Update_Profile_Background" />
-        <activity android:name=".profileView.ViewProfilePicture" />
+        <activity android:name=".account.updateprofile.Update_Personal_Information" />
+        <activity android:name=".account.updateprofile.Change_Email_Password" />
+        <activity android:name=".account.updateprofile.Update_Profile_Pictures" />
+        <activity android:name=".account.updateprofile.Update_Profile_Background" />
+        <activity android:name=".account.ViewProfilePicture" />
         <activity android:name=".registration.BackgroundInfo" />
-        <activity android:name=".profileView.MyGoogleAccount" /> <!-- <activity android:name=".profileView.MyGmailProfile" /> -->
+        <activity android:name=".account.MyGoogleAccount" /> <!-- <activity android:name=".profileView.MyGmailProfile" /> -->
         <!-- <activity android:name=".profileView.MyProfile" /> -->
         <!-- <activity android:name=".signInView.MainActivityTest" /> -->
         <activity android:name=".registration.AccountImages" />
@@ -54,11 +54,11 @@
         <activity android:name=".activities.HomeActivity" />
         <activity android:name=".activities.MyFilter" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".profileView.ViewProfileActivity" />
+        <activity android:name=".account.ViewProfileActivity" />
         <activity android:name=".registration.SignUp" />
-        <activity android:name=".profileView.ProfileSettingsActivity" />
-        <activity android:name=".profileView.updateprofile.EditProfileActivity" />
-        <activity android:name=".profileView.MyAccount" />
+        <activity android:name=".account.ProfileSettingsActivity" />
+        <activity android:name=".account.updateprofile.EditProfileActivity" />
+        <activity android:name=".account.Account" />
         <activity android:name=".registration.Registration"/>
     </application>
 

@@ -1,13 +1,11 @@
-package dk.events.a6.registration.logic;
+package user;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -17,27 +15,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.account.Account;
 import dk.events.a6.registration.Registration;
-import dk.events.a6.registration.SignUpDirections;
-
-import static dk.events.a6.activities.MainActivity.TAG;
 
 
-public class User {
+public class UserAuth {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
@@ -48,14 +36,14 @@ public class User {
     private String userId;
     private String first_names, last_names, date_of_births, genders;
 
-    public User(Activity activity, View view, NavController controller) {
+    public UserAuth(Activity activity, View view, NavController controller) {
         this.view = view;
         this.controller = controller;
         this.controller = Navigation.findNavController(this.view);
         this.activity = activity;
     }
 
-    public User() {
+    public UserAuth() {
     }
 
 
@@ -183,7 +171,7 @@ public class User {
                 AlertDialog alert = builder.create();
                 alert.show();
             } else {
-                Intent intent = new Intent(activity, MyAccount.class);
+                Intent intent = new Intent(activity, Account.class);
                 activity.startActivity(intent);
             }
         }

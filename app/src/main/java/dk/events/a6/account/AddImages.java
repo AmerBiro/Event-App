@@ -1,12 +1,8 @@
-package dk.events.a6.profileView;
+package dk.events.a6.account;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Handler;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,8 +20,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import dk.events.a6.databinding.ActivityViewProfilePictureBinding;
 
 public class AddImages<binding> {
 

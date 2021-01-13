@@ -1,4 +1,4 @@
-package dk.events.a6.registration.logic;
+package dk.events.a6.logic;
 
 import android.app.Activity;
 import android.widget.EditText;

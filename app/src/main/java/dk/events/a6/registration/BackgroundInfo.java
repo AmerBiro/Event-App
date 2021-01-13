@@ -18,8 +18,8 @@ import android.widget.EditText;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationBackgroundInfoBinding;
-import dk.events.a6.registration.logic.FieldChecker;
-import dk.events.a6.registration.logic.User;
+import dk.events.a6.logic.FieldChecker;
+import user.UserAuth;
 import user.UserDatebase;
 
 import static dk.events.a6.activities.MainActivity.TAG;
@@ -33,7 +33,7 @@ public class BackgroundInfo extends Fragment implements View.OnClickListener {
     private NavController controller;
     private String userId;
     private FieldChecker checker;
-    private User user;
+    private UserAuth userAuth;
     private EditText[] fields;
     private String[] errorMessage;
     private UserDatebase userDatebase;
@@ -58,7 +58,7 @@ public class BackgroundInfo extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         checker = new FieldChecker(getActivity());
-        user = new User(getActivity(), view, controller);
+        userAuth = new UserAuth(getActivity(), view, controller);
         userDatebase = new UserDatebase(controller, view);
         fields = new EditText[4];
         errorMessage = new String[4];

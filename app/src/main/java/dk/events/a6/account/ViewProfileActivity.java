@@ -1,4 +1,4 @@
-package dk.events.a6.profileView;
+package dk.events.a6.account;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +23,7 @@ import java.util.List;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityViewProfileBinding;
-import dk.events.a6.profileView.updateprofile.ProfileImage;
+import dk.events.a6.account.updateprofile.ProfileImage;
 
 public class ViewProfileActivity extends AppCompatActivity {
 

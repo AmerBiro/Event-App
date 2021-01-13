@@ -33,7 +33,7 @@ import dk.events.a6.android.usecases.presentevents.PresentEventsPresenterObserve
 import dk.events.a6.android.usecases.presentevents.PresentableEvent;
 import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.models.MyEvent;
-import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.account.Account;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = "TAG";
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if (v.getId() == R.id.id_button_account){
             //user.verifyUser(MainActivity.this);
             if (fuser!=null){
-                startActivity(new Intent(getApplicationContext(), MyAccount.class));
+                startActivity(new Intent(getApplicationContext(), Account.class));
             }else{
                 Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
             }

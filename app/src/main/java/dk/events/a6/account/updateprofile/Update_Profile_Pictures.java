@@ -1,4 +1,4 @@
-package dk.events.a6.profileView.updateprofile;
+package dk.events.a6.account.updateprofile;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +20,7 @@ import com.google.firebase.storage.StorageReference;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityUpdateProfilePicturesBinding;
-import dk.events.a6.profileView.AddImages;
+import dk.events.a6.account.AddImages;
 
 public class Update_Profile_Pictures extends AppCompatActivity {
     private ActivityUpdateProfilePicturesBinding binding;

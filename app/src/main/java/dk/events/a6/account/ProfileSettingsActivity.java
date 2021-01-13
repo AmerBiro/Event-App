@@ -1,4 +1,4 @@
-package dk.events.a6.profileView;
+package dk.events.a6.account;
 
 import androidx.appcompat.app.AppCompatActivity;
 

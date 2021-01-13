@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import static dk.events.a6.activities.MainActivity.TAG;
 
 
 public class SplashScreen extends Fragment {
@@ -64,7 +67,12 @@ public class SplashScreen extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            navController.navigate(R.id.action_splashScreen_to_registeration);
+                            SplashScreenDirections.ActionSplashScreenToAccount action =
+                                    SplashScreenDirections.actionSplashScreenToAccount();
+                            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            Log.d(TAG, "onSuccess: "+ " SplashScreen userId: " + userId);
+                            action.setUserId(userId);
+                            navController.navigate(action);
                         }
                     },1500);
                 }

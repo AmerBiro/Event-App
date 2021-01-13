@@ -16,11 +16,11 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 
-import dk.events.a6.registration.logic.DatePicker;
+import dk.events.a6.logic.DatePicker;
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationSignUpBinding;
-import dk.events.a6.registration.logic.FieldChecker;
-import dk.events.a6.registration.logic.User;
+import dk.events.a6.logic.FieldChecker;
+import user.UserAuth;
 import user.UserDatebase;
 
 import androidx.annotation.Nullable;
@@ -42,7 +42,7 @@ import static dk.events.a6.activities.MainActivity.TAG;
 public class SignUp extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     private FieldChecker checker;
-    private User user;
+    private UserAuth userAuth;
     private EditText[] fields;
     private String[] errorMessage;
     private UserDatebase userDatebase;
@@ -64,7 +64,7 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         checker = new FieldChecker(getActivity());
-        user = new User(getActivity(), view, controller);
+        userAuth = new UserAuth(getActivity(), view, controller);
         userDatebase = new UserDatebase(controller, view);
         fields = new EditText[5];
         errorMessage = new String[5];

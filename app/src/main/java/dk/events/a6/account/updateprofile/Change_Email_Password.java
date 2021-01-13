@@ -1,4 +1,4 @@
-package dk.events.a6.profileView.updateprofile;
+package dk.events.a6.account.updateprofile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,8 +28,8 @@ import java.util.Map;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityChangeEmailPasswordBinding;
-import dk.events.a6.profileView.MyAccount;
-import dk.events.a6.registration.logic.User;
+import dk.events.a6.account.Account;
+import user.UserAuth;
 
 public class Change_Email_Password extends AppCompatActivity {
     private ActivityChangeEmailPasswordBinding binding;
@@ -39,7 +39,7 @@ public class Change_Email_Password extends AppCompatActivity {
     private String userID;
     private StorageReference storageReference;
     private FirebaseUser fuser;
-    User user;
+    UserAuth userAuth;
 
 
     private String First_Name;
@@ -70,7 +70,7 @@ public class Change_Email_Password extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         userID = mAuth.getCurrentUser().getUid();
         fuser = mAuth.getCurrentUser();
-        user = new User();
+        userAuth = new UserAuth();
 
         DocumentReference documentReference = fStore.collection("Users").document(userID);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -154,7 +154,7 @@ public class Change_Email_Password extends AppCompatActivity {
                                 }
                             });
                             Toast.makeText(Change_Email_Password.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MyAccount.class));
+                            startActivity(new Intent(getApplicationContext(), Account.class));
                             finish();
                             return;
                         }

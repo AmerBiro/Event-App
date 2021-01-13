@@ -1,4 +1,4 @@
-package dk.events.a6.profileView.updateprofile;
+package dk.events.a6.account.updateprofile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,7 +31,7 @@ import java.util.Map;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityEditProfileBinding;
-import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.account.Account;
 
 public class EditProfileActivity extends AppCompatActivity {
     private ActivityEditProfileBinding binding;
@@ -180,7 +180,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 }
                             });
                             Toast.makeText(EditProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MyAccount.class));
+                            startActivity(new Intent(getApplicationContext(), Account.class));
                             finish();
                             return;
                         }

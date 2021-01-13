@@ -1,4 +1,4 @@
-package dk.events.a6.profileView;
+package dk.events.a6.account;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,7 +92,7 @@ public class ViewProfilePicture extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(ViewProfilePicture.this, MyAccount.class);
+                        Intent intent = new Intent(ViewProfilePicture.this, Account.class);
                         startActivity(intent);
                         finish();
                     }

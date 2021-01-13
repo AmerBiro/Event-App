@@ -89,7 +89,10 @@ public class AccountImages extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.arrow_next:
-
+                AccountImagesDirections.ActionAccountImagesToAccount action =
+                        AccountImagesDirections.actionAccountImagesToAccount();
+                action.setUserId(userId);
+                controller.navigate(action);
                 break;
             case R.id.image0:
                 imageStatus = 0;

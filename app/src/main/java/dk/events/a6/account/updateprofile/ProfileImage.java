@@ -1,4 +1,4 @@
-package dk.events.a6.profileView.updateprofile;
+package dk.events.a6.account.updateprofile;
 
 public class ProfileImage {
     int image;

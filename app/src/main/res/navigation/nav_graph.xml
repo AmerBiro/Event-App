@@ -16,6 +16,9 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/splashScreen"
             />
+        <action
+            android:id="@+id/action_splashScreen_to_account"
+            app:destination="@id/account" />
     </fragment>
 
     <fragment
@@ -60,6 +63,19 @@
         android:name="dk.events.a6.registration.AccountImages"
         android:label="registration_account_images"
         tools:layout="@layout/registration_account_images" >
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/action_accountImages_to_account"
+            app:destination="@id/account" />
+    </fragment>
+    <fragment
+        android:id="@+id/account"
+        android:name="dk.events.a6.account.Account"
+        android:label="account_account"
+        tools:layout="@layout/account_account" >
         <argument
             android:name="userId"
             app:argType="string"

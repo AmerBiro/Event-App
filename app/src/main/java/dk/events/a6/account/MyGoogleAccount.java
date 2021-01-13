@@ -1,4 +1,4 @@
-package dk.events.a6.profileView;
+package dk.events.a6.account;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityMyGoogleAccountBinding;
-import dk.events.a6.profileView.updateprofile.EditProfileActivity;
+import dk.events.a6.account.updateprofile.EditProfileActivity;
 
 public class MyGoogleAccount extends AppCompatActivity {
     private ActivityMyGoogleAccountBinding binding;

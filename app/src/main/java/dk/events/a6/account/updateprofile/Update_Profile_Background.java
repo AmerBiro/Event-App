@@ -1,4 +1,4 @@
-package dk.events.a6.profileView.updateprofile;
+package dk.events.a6.account.updateprofile;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityUpdateProfileBackgroundBinding;
-import dk.events.a6.profileView.MyAccount;
+import dk.events.a6.account.Account;
 
 public class Update_Profile_Background extends AppCompatActivity {
     private ActivityUpdateProfileBackgroundBinding binding;
@@ -153,7 +153,7 @@ public class Update_Profile_Background extends AppCompatActivity {
                     });
 
                     Toast.makeText(Update_Profile_Background.this, "All fields are empty. You can update your background info in /Update Profile Background/", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MyAccount.class));
+                    startActivity(new Intent(getApplicationContext(), Account.class));
                     finish();
                     return;
 //                    return;
@@ -192,7 +192,7 @@ public class Update_Profile_Background extends AppCompatActivity {
                             Toast.makeText(Update_Profile_Background.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-                    startActivity(new Intent(getApplicationContext(), MyAccount.class));
+                    startActivity(new Intent(getApplicationContext(), Account.class));
                     finish();
                     return;
                 }

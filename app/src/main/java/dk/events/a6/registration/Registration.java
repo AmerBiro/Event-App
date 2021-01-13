@@ -15,8 +15,8 @@ import android.widget.EditText;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationRegisterationBinding;
-import dk.events.a6.registration.logic.FieldChecker;
-import dk.events.a6.registration.logic.User;
+import dk.events.a6.logic.FieldChecker;
+import user.UserAuth;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,7 +27,7 @@ public class Registration extends Fragment implements View.OnClickListener {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
 
-    private User user;
+    private UserAuth userAuth;
     private FieldChecker checker;
 
     private EditText[] fields;
@@ -48,7 +48,7 @@ public class Registration extends Fragment implements View.OnClickListener {
         controller = Navigation.findNavController(view);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        user = new User(getActivity(), view, controller);
+        userAuth = new UserAuth(getActivity(), view, controller);
         checker = new FieldChecker(getActivity());
         fields = new EditText[2];
         errorMessage = new String[2];
@@ -93,12 +93,12 @@ public class Registration extends Fragment implements View.OnClickListener {
     }
 
     private void forgotPassword() {
-        user.resetPassword();
+        userAuth.resetPassword();
     }
 
     private void signIn() {
         if (!checker.isEmpty(fields, errorMessage))
-        user.signIn(binding.progressBar, fields[0], fields[1]);
+        userAuth.signIn(binding.progressBar, fields[0], fields[1]);
     }
 
 }
