@@ -1,16 +1,21 @@
-package dk.events.a6.signInView.functions;
+package dk.events.a6.registration.logic;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,53 +24,119 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import dk.events.a6.profileView.MyAccount;
-import dk.events.a6.signInView.Registeration;
+import dk.events.a6.registration.Registration;
+import dk.events.a6.registration.SignUpDirections;
+
+import static dk.events.a6.activities.MainActivity.TAG;
 
 
 public class User {
-    public User() {
-    }
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
+    private View view;
+    private NavController controller;
+    private Activity activity;
+    private String emails, passwords;
+    private String userId;
+    private String first_names, last_names, date_of_births, genders;
+
+    public User(Activity activity, View view, NavController controller) {
+        this.view = view;
+        this.controller = controller;
+        this.controller = Navigation.findNavController(this.view);
+        this.activity = activity;
+    }
+
+    public User() {
+    }
 
 
-    public void createUser(Activity activity, String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+    public void signIn(ProgressBar progressBar, EditText email, EditText password/*, int i*/) {
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(activity, "Account created successfully", 0).show();
-                }
+            public void onSuccess(AuthResult authResult) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        //                controller.navigate(i);
+                        Toast.makeText(activity, "Sign in successfully", 0).show();
+                    }
+                }, 1000);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(activity, "Account not created! " + e.getMessage(), 1).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(activity, "Sign in error " + e.getMessage(), 1).show();
+                        return;
+                    }
+                }, 1000);
             }
         });
     }
 
 
-    public void signIn(Activity activity, ProgressBar progressBar, EditText email, EditText password) {
-        mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+    public void resetPassword() {
+        final EditText resetPassword = new EditText(activity);
+        resetPassword.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        final AlertDialog.Builder resetPasswordDialog = new AlertDialog.Builder(activity);
+        resetPasswordDialog.setTitle("Reset Password");
+        resetPasswordDialog.setMessage("You can receive a link to reset your password by entering your email down below");
+        resetPasswordDialog.setView(resetPassword);
+        resetPasswordDialog.setPositiveButton("Send me a reset link", new DialogInterface.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(activity, "Sign in successfully", 0).show();
-                    progressBar.setVisibility(View.VISIBLE);
+            public void onClick(DialogInterface dialog, int which) {
+                String email = resetPassword.getText().toString();
+                if (email.trim().isEmpty()) {
+                    Toast.makeText(activity, "You have not entered your email!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(activity, "A reset password link is sent to " + email, 0).show();
+                            dialog.cancel();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(activity, "Error!\n" + e.getMessage(), 1).show();
+                            return;
+                        }
+                    });
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(activity, "Sign in error" + e.getMessage(), 1).show();
-                progressBar.setVisibility(View.GONE);
+
             }
         });
+        resetPasswordDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        resetPasswordDialog.create().show();
     }
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+
 
 
     public Boolean signOut(Activity activity) {
@@ -91,7 +162,7 @@ public class User {
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(activity, "A verification email has been sent to: \n" + user.getEmail(), 0).show();
                                         mAuth.signOut();
-                                        activity.startActivity(new Intent(activity.getApplicationContext(), Registeration.class));
+                                        activity.startActivity(new Intent(activity.getApplicationContext(), Registration.class));
                                         activity.finish();
                                         return;
                                     }
@@ -134,45 +205,7 @@ public class User {
     }
 
 
-    public void resetPassword(Activity activity, View v) {
-        final EditText resetPassword = new EditText(v.getContext());
-        resetPassword.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        final AlertDialog.Builder resetPasswordDialog = new AlertDialog.Builder(v.getContext());
-        resetPasswordDialog.setTitle("Reset Password");
-        resetPasswordDialog.setMessage("You can receive a link to reset your password by entering your email down below");
-        resetPasswordDialog.setView(resetPassword);
-        resetPasswordDialog.setPositiveButton("Send me a reset link", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String email = resetPassword.getText().toString();
-                if (email.isEmpty()) {
-                    Toast.makeText(activity, "You have not entered your email!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(activity, "A reset password link is sent to " + email, 0).show();
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(activity, "An error has been occured!\n" + e.getMessage(), 1).show();
-                    }
-                });
-            }
-        });
-        resetPasswordDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        resetPasswordDialog.create().show();
-    }
-
-
-    public void deleteUser(Activity activity, Class<Registeration> afterDelete) {
+    public void deleteUser(Activity activity, Class<Registration> afterDelete) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Delete account")
                 .setMessage("Are you sure you want to delete the following profile " + user.getEmail() + "?")

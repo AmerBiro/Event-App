@@ -21,8 +21,6 @@ import com.google.firebase.storage.StorageReference;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityUpdateProfilePicturesBinding;
 import dk.events.a6.profileView.AddImages;
-import dk.events.a6.profileView.ViewProfilePicture;
-import dk.events.a6.signInView.SelectProfileImages;
 
 public class Update_Profile_Pictures extends AppCompatActivity {
     private ActivityUpdateProfilePicturesBinding binding;

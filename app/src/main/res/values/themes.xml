@@ -12,28 +12,193 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowFullscreen">true</item>
+
     </style>
     <!--
 Font family: Antic
 Line height: 14sp
 -->
     <!-- styles.xml -->
-    <style name="sign_up">
 
-        <item name="android:textSize">
-            12sp
-        </item>
-
-        <item name="android:textColor">
-            #838383
-        </item>
-
-    </style>
 
     <style name="CustomButton" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@drawable/favorite_button_onclick</item>
-            </style>
+    </style>
+
+    <style name="NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
+
+
+    /////////////////////////////////////////////////////////////////////////
+
+    <style name="app_title">
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="fontFamily"> @font/crimson_text</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">120dp</item>
+        <item name="android:layout_marginBottom">80dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="status">
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textSize" > 16sp </item>
+        <item name="fontFamily"> @font/work_sans</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    /////////////////////////////////////////////////////////////////////////
+
+    <style name="title_main_pages">
+        <item name="android:textSize" > 30sp </item>
+        <item name="fontFamily">@font/work_sans</item>
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:layout_marginTop">80dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="sub_title">
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textSize" > 24sp </item>
+        <item name="fontFamily"> @font/work_sans</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    /////////////////////////////////////////////////////////////////////////
+
+    <style name="field">
+        <item name="android:textSize" > 20sp </item>
+        <item name="fontFamily"> @font/work_sans</item>
+        <item name="android:inputType">textAutoComplete</item>
+        <item name="android:ems">14</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">100dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="backgroundTint">#FFFFFF</item>
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textColorHint">@color/font_main_color</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+
+    <style name="field_sub_field">
+        <item name="android:textSize" > 20sp </item>
+        <item name="fontFamily"> @font/work_sans</item>
+        <item name="android:inputType">textAutoComplete</item>
+        <item name="android:ems">14</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="backgroundTint">#FFFFFF</item>
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textColorHint">@color/font_main_color</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+
+    <style name="field_sub_field_profile_info">
+        <item name="android:textSize" > 20sp </item>
+        <item name="fontFamily"> @font/work_sans</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:gravity"> left</item>
+        <item name="android:ems">10</item>
+        <item name="android:background">@drawable/ic_text_frame</item>
+        <item name="android:textColorHint">@color/textHintColor</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+
+    /////////////////////////////////////////////////////////////////////////
+
+    <style name="button_main_pages">
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textSize" > 18sp </item>
+        <item name="fontFamily"> @font/work_sans</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+
+
+    <style name="button_main_pages2">
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textSize" > 18sp </item>
+        <item name="fontFamily"> @font/work_sans</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/button_background</item>
+    </style>
+
+
+    <style name="linear_layout_maiin_pages">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity"> center</item>
+        <item name="android:gravity"> center</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+    </style>
+
+
+    <style name="registration_title_style">
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <style name="sign_up">
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="backgroundTint">@color/font_main_color</item>
+        <item name="android:textColorHint">@color/font_main_color</item>
+        <item name="android:ems">14</item>
+        <item name="android:textSize" > 18sp </item>
+        <item name="fontFamily"> @font/work_sans</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:inputType">textAutoComplete</item>
+    </style>
 
 </resources>

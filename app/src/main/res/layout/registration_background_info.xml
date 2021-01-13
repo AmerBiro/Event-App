@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/ic_background_activity"
+    android:orientation="vertical"
+    tools:context=".registration.BackgroundInfo"
+    >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="7dp"
+            >
+
+            <LinearLayout
+                style="@style/linear_layout_maiin_pages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/registration_title_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/background_info_title" />
+
+                <ImageButton
+                    android:id="@+id/arrow_next"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_next_arrow" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/sub_title"
+                android:text="@string/background_info_city" />
+
+
+            <EditText
+                android:id="@+id/address"
+                style="@style/field_sub_field_profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/background_info_city_field" />
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/sub_title"
+                android:text="@string/background_info_education" />
+
+
+            <EditText
+                android:id="@+id/education"
+                style="@style/field_sub_field_profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/background_info_education_field" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/sub_title"
+                android:text="@string/background_info_job" />
+
+
+            <EditText
+                android:id="@+id/job"
+                style="@style/field_sub_field_profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/background_info_job_field" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/sub_title"
+                android:text="@string/background_info_description" />
+
+
+            <EditText
+                android:id="@+id/description"
+                style="@style/field_sub_field_profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/background_info_description_field"
+                android:layout_marginBottom="50dp"
+                />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

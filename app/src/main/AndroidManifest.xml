@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dk.events.a6">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-feature android:name="android.hardware.type.watch" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="dk.events.a6.android.MainApplication"
+        android:name=".android.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,34 +17,49 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".profileView.updateprofile.Update_Personal_Information" />
-        <activity android:name=".profileView.updateprofile.Change_Email_Password" />
-        <activity android:name=".profileView.updateprofile.Update_Profile_Pictures" />
-        <activity android:name=".profileView.updateprofile.Update_Profile_Background" />
-        <activity android:name=".profileView.ViewProfilePicture" />
-        <activity android:name=".signInView.ProfileInfo" />
-        <activity android:name=".profileView.MyGoogleAccount" />
-        <!--<activity android:name=".profileView.MyGmailProfile" />-->
-        <!--<activity android:name=".profileView.MyProfile" />-->
-        <!--<activity android:name=".signInView.MainActivityTest" />-->
-        <activity android:name=".signInView.SelectProfileImages" />
-        <activity android:name=".android.usecases.createevent.CreateEventActivityView" />
-        <activity android:name=".activities.Event_Content" />
-        <activity android:name=".activities.HomeActivity" />
-        <activity android:name=".activities.MyFilter" />
-        <activity android:name=".activities.MainActivity" />
-        <activity android:name=".profileView.ViewProfileActivity" />
-        <activity android:name=".signInView.Sign_Up" />
-        <activity android:name=".profileView.ProfileSettingsActivity" />
-        <activity android:name=".profileView.updateprofile.EditProfileActivity" />
-        <activity android:name=".profileView.MyAccount" />
-        <activity android:name=".signInView.Registeration">
+        <uses-library
+            android:name="com.google.android.maps"
+            android:required="false"/>
+
+        <activity android:name=".MainActivity2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <uses-library
+            android:name="com.google.android.maps"
+            android:required="false"/>
+
+        <!-- Sample Ad Manager app ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+
+        <activity android:name=".profileView.updateprofile.Update_Personal_Information" />
+        <activity android:name=".profileView.updateprofile.Change_Email_Password" />
+        <activity android:name=".profileView.updateprofile.Update_Profile_Pictures" />
+        <activity android:name=".profileView.updateprofile.Update_Profile_Background" />
+        <activity android:name=".profileView.ViewProfilePicture" />
+        <activity android:name=".registration.BackgroundInfo" />
+        <activity android:name=".profileView.MyGoogleAccount" /> <!-- <activity android:name=".profileView.MyGmailProfile" /> -->
+        <!-- <activity android:name=".profileView.MyProfile" /> -->
+        <!-- <activity android:name=".signInView.MainActivityTest" /> -->
+        <activity android:name=".registration.AccountImages" />
+        <activity android:name=".android.usecases.createevent.CreateEventActivityView" />
+        <activity android:name=".activities.Event_Content" />
+        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.MyFilter" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".profileView.ViewProfileActivity" />
+        <activity android:name=".registration.SignUp" />
+        <activity android:name=".profileView.ProfileSettingsActivity" />
+        <activity android:name=".profileView.updateprofile.EditProfileActivity" />
+        <activity android:name=".profileView.MyAccount" />
+        <activity android:name=".registration.Registration"/>
     </application>
 
 </manifest>

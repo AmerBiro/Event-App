@@ -2,20 +2,14 @@ package dk.events.a6.profileView.updateprofile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,21 +21,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import dk.events.a6.R;
-import dk.events.a6.activities.MainActivity;
 import dk.events.a6.databinding.ActivityChangeEmailPasswordBinding;
-import dk.events.a6.databinding.ActivityEditProfileBinding;
 import dk.events.a6.profileView.MyAccount;
-import dk.events.a6.signInView.ProfileInfo;
-import dk.events.a6.signInView.Registeration;
-import dk.events.a6.signInView.Sign_Up;
-import dk.events.a6.signInView.functions.User;
+import dk.events.a6.registration.logic.User;
 
 public class Change_Email_Password extends AppCompatActivity {
     private ActivityChangeEmailPasswordBinding binding;
@@ -189,7 +177,7 @@ public class Change_Email_Password extends AppCompatActivity {
         binding.ResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.resetPassword(Change_Email_Password.this, v);
+//                user.resetPassword(Change_Email_Password.this, v);
             }
         });
 

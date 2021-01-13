@@ -24,7 +24,6 @@ import java.util.Map;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityUpdateProfileBackgroundBinding;
 import dk.events.a6.profileView.MyAccount;
-import dk.events.a6.signInView.SelectProfileImages;
 
 public class Update_Profile_Background extends AppCompatActivity {
     private ActivityUpdateProfileBackgroundBinding binding;

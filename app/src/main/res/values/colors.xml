@@ -13,4 +13,16 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorstatusbar">#0280B9</color>
     <color name="colorstatusbarevents">#1E1E3C</color>
+
+
+    <color name="font_main_color">#ffffff</color>
+    <color name="background">#2F80ED</color>
+    <color name="textHintColor">#989696</color>
+
+
+
+
+
+
+
 </resources>

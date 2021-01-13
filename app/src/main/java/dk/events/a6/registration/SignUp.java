@@ -1,0 +1,152 @@
+package dk.events.a6.registration;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+
+import android.app.DatePickerDialog;
+import android.os.Bundle;
+
+import android.util.Log;
+import android.view.View;
+
+import android.widget.EditText;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+
+
+import dk.events.a6.registration.logic.DatePicker;
+import dk.events.a6.R;
+import dk.events.a6.databinding.RegistrationSignUpBinding;
+import dk.events.a6.registration.logic.FieldChecker;
+import dk.events.a6.registration.logic.User;
+import user.UserDatebase;
+
+import androidx.annotation.Nullable;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+import static dk.events.a6.activities.MainActivity.TAG;
+
+public class SignUp extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+
+    private FieldChecker checker;
+    private User user;
+    private EditText[] fields;
+    private String[] errorMessage;
+    private UserDatebase userDatebase;
+    private @NonNull
+    RegistrationSignUpBinding
+            binding;
+    private NavController controller;
+    private String userId;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = RegistrationSignUpBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        controller = Navigation.findNavController(view);
+        checker = new FieldChecker(getActivity());
+        user = new User(getActivity(), view, controller);
+        userDatebase = new UserDatebase(controller, view);
+        fields = new EditText[5];
+        errorMessage = new String[5];
+        fields[0] = binding.firstName;
+        fields[1] = binding.lastName;
+        fields[2] = binding.dateOfBirth;
+        fields[3] = binding.email;
+        fields[4] = binding.password;
+        errorMessage[0] = "Invalid username";
+        errorMessage[1] = "Invalid last name";
+        errorMessage[2] = "Invalid date of birth";
+        errorMessage[3] = "Invalid email";
+        errorMessage[4] = "Invalid password";
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        binding.dateOfBirth.setOnClickListener(this);
+        binding.arrowNext.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.arrow_next:
+                binding.progressBar.setVisibility(View.VISIBLE);
+                createAccount();
+                break;
+            case R.id.date_of_birth:
+                pickUpDate();
+                break;
+            default:
+        }
+
+    }
+
+    private void pickUpDate() {
+        DialogFragment dialogFragment = new DatePicker();
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "Date Picker");
+    }
+
+    private void createAccount() {
+        if (!checker.isEmpty(fields, errorMessage)){
+            if (!checker.genderCheck(binding.radioGroup)) {
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.createUserWithEmailAndPassword(
+                        fields[3].getText().toString(),
+                        fields[4].getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        userId = authResult.getUser().getUid();
+                        Log.d(TAG, "onSuccess: " + "A new userId: " + userId);
+                        SignUpDirections.ActionSignUpToBackgroundInfo action =
+                                SignUpDirections.actionSignUpToBackgroundInfo();
+                        action.setUserId(userId);
+                        userDatebase.uploadUserInfoToFirebase(userId, action, binding.progressBar,
+                                fields[0], fields[1], fields[2], checker.getGender());
+                        binding.progressBar.setVisibility(View.GONE);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        binding.progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), "Error: " + e.getMessage(), 1).show();
+                        Log.d(TAG, "onFailure: " + e.getMessage());
+                        return;
+                    }
+                });
+            }
+        }
+    }
+
+
+    @Override
+    public void onDateSet(android.widget.DatePicker datePicker, int i, int i1, int i2) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, i);
+        calendar.set(Calendar.MONTH, i1);
+        calendar.set(Calendar.DAY_OF_MONTH, i2);
+        String birthDate = DateFormat.getDateInstance(DateFormat.YEAR_FIELD).format(calendar.getTime());
+        binding.dateOfBirth.setText(birthDate);
+    }
+}

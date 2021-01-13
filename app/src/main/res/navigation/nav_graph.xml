@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreen">
+
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="dk.events.a6.registration.SplashScreen"
+        android:label="registration_splash_screen"
+        tools:layout="@layout/registration_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_registeration"
+            app:destination="@id/registeration"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/splashScreen"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registeration"
+        android:name="dk.events.a6.registration.Registration"
+        android:label="registration__registeration"
+        tools:layout="@layout/registration__registeration" >
+        <action
+            android:id="@+id/action_registeration_to_signUp"
+            app:destination="@id/signUp" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/signUp"
+        android:name="dk.events.a6.registration.SignUp"
+        android:label="registration_sign_up"
+        tools:layout="@layout/registration_sign_up" >
+        <action
+            android:id="@+id/action_signUp_to_backgroundInfo"
+            app:destination="@id/backgroundInfo" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/backgroundInfo"
+        android:name="dk.events.a6.registration.BackgroundInfo"
+        android:label="registration_profile_info"
+        tools:layout="@layout/registration_background_info" >
+        <action
+            android:id="@+id/action_backgroundInfo_to_accountImages"
+            app:destination="@id/accountImages" />
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/accountImages"
+        android:name="dk.events.a6.registration.AccountImages"
+        android:label="registration_account_images"
+        tools:layout="@layout/registration_account_images" >
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+
+
+</navigation>

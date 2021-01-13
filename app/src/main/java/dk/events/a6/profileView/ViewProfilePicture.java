@@ -1,43 +1,27 @@
 package dk.events.a6.profileView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Delayed;
 
 import dk.events.a6.R;
-import dk.events.a6.databinding.ActivityViewProfileBinding;
 import dk.events.a6.databinding.ActivityViewProfilePictureBinding;
-import dk.events.a6.signInView.SelectProfileImages;
 
 public class ViewProfilePicture extends AppCompatActivity {
     private ActivityViewProfilePictureBinding binding;

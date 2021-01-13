@@ -18,7 +18,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +34,6 @@ import dk.events.a6.android.usecases.presentevents.PresentableEvent;
 import dk.events.a6.databinding.ActivityMainBinding;
 import dk.events.a6.models.MyEvent;
 import dk.events.a6.profileView.MyAccount;
-import dk.events.a6.signInView.functions.User;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = "TAG";

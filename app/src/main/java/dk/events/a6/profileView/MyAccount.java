@@ -38,12 +38,11 @@ import com.google.firebase.storage.StorageReference;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityMyAccountBinding;
 import dk.events.a6.profileView.updateprofile.Change_Email_Password;
-import dk.events.a6.profileView.updateprofile.EditProfileActivity;
 import dk.events.a6.profileView.updateprofile.Update_Personal_Information;
 import dk.events.a6.profileView.updateprofile.Update_Profile_Background;
 import dk.events.a6.profileView.updateprofile.Update_Profile_Pictures;
-import dk.events.a6.signInView.Registeration;
-import dk.events.a6.signInView.functions.User;
+import dk.events.a6.registration.Registration;
+import dk.events.a6.registration.logic.User;
 
 
 public class MyAccount extends AppCompatActivity /*implements View.OnClickListener*/ {
@@ -192,7 +191,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
         binding.deleteAccountIconId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mUser.deleteUser(MyAccount.this, Registeration.class);
+                mUser.deleteUser(MyAccount.this, Registration.class);
             }
         });
 
@@ -207,7 +206,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
                 GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(MyAccount.this);
                 if (account != null){
                     signOutGmail();
-                    Intent intent = new Intent(MyAccount.this, Registeration.class);
+                    Intent intent = new Intent(MyAccount.this, Registration.class);
                     startActivity(intent);
                 }
             }
@@ -219,7 +218,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
     }
 
     public void afterSignout() {
-        Intent intent = new Intent(MyAccount.this, Registeration.class);
+        Intent intent = new Intent(MyAccount.this, Registration.class);
         startActivity(intent);
         finish();
         return;
@@ -232,7 +231,7 @@ public class MyAccount extends AppCompatActivity /*implements View.OnClickListen
                     public void onComplete(@NonNull Task<Void> task) {
                     }
                 });
-        Intent intent = new Intent(MyAccount.this, Registeration.class);
+        Intent intent = new Intent(MyAccount.this, Registration.class);
         Toast.makeText(this, "Google account signed out", Toast.LENGTH_SHORT).show();
         startActivity(intent);
         finish();

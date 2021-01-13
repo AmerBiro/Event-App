@@ -4,5 +4,72 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="desc_text"> Info tekst – om oplevelsen “At flyve helikopter er en helt speciel fornemmelse. Lyden af propellen blandet med den betagende panoramaudsigt…” </string>
     <string name="desc_text2"> Typpen der altid løber efter bussen, og altid ender med at komme i alt for god tid. </string>
+    <string name="title_activity_fragment_container">FragmentContainer</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+
+
+
+
+    <string name="splash_screen_title"> Events</string>
+
+
+
+
+    <string name="registration_registration">Registration</string>
+    <string name="registration_username">Username: </string>
+    <string name="registration_password">Password: </string>
+    <string name="registration_sign_in">Sign in</string>
+    <string name="registration_forgot_password">Forgot Password?</string>
+    <string name="registration_guest">Guest</string>
+    <string name="registration_sign_up">Sign up</string>
+
+
+    <string name="sign_up_title">Create Account</string>
+    <string name="sign_up_email">Email: </string>
+    <string name="sign_up_password">Password: </string>
+    <string name="sign_up_birthdate">Date of Birth</string>
+    <string name="sign_up_first_name">First name: </string>
+    <string name="sign_up_last_name">Last name: </string>
+
+
+    <string name="background_info_title">Background Info</string>
+    <string name="background_info_city">City</string>
+    <string name="background_info_city_field">You can type here where you live to make it easier for other to find your events</string>
+    <string name="background_info_job">Job</string>
+    <string name="background_info_job_field">You current job?</string>
+    <string name="background_info_education">Education</string>
+    <string name="background_info_education_field">Your education?</string>
+    <string name="background_info_description">Description</string>
+    <string name="background_info_description_field">Write more about your self</string>
+
+
+    <string name="account_image">Images</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

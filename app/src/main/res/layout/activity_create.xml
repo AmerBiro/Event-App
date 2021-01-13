@@ -89,7 +89,6 @@
 
     <EditText
         android:id="@+id/editTextTitle"
-        style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#ffffff"
@@ -107,7 +106,6 @@
 
     <EditText
         android:id="@+id/editTextDescription"
-        style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#ffffff"
@@ -126,7 +124,6 @@
 
     <Button
         android:id="@+id/buttonAddImageCreate"
-        style="@style/sign_up"
         android:layout_width="60dp"
         android:layout_height="53dp"
         android:background="@drawable/ic_baseline_add_24"
@@ -142,7 +139,6 @@
 
     <EditText
         android:id="@+id/line"
-        style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#ffffff"
@@ -162,7 +158,6 @@
 
     <TextView
         android:id="@+id/event_date_time"
-        style="@style/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#ffffff"

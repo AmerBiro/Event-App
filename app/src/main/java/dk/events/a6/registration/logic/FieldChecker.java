@@ -1,12 +1,10 @@
-package dk.events.a6.signInView.functions;
+package dk.events.a6.registration.logic;
 
 import android.app.Activity;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import dk.events.a6.signInView.Registeration;
 
 public class FieldChecker {
     private String firstName, lastName, birthDate, email, password, gender;
@@ -16,11 +14,16 @@ public class FieldChecker {
     private Activity activity;
 
     Boolean status = false;
+
+    public FieldChecker(Activity activity) {
+        this.activity = activity;
+    }
+
     public FieldChecker() {
     }
 
     public Boolean allFieldsEmpty(Activity activity, EditText firstName, EditText lastName, EditText birthDate,
-                           EditText email, EditText password){
+                                  EditText email, EditText password){
         this.editText_password = password;
         this.firstName = firstName.getText().toString();
         this.lastName = lastName.getText().toString();
@@ -81,10 +84,10 @@ public class FieldChecker {
         }else return false;
     }
 
-    public Boolean genderCheck(Activity activity, RadioGroup radioGroup){
+    public Boolean genderCheck(RadioGroup radioGroup){
         this.selected = radioGroup.getCheckedRadioButtonId();
         if (selected == -1){
-            Toast.makeText(activity, "Gender not selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Gender not selected", 0).show();
             return true;
         } else {
             this.radioButton = activity.findViewById(selected);
@@ -109,7 +112,7 @@ public class FieldChecker {
 
 
 
-    public Boolean isEmpty(Activity activity, EditText [] fields, String [] errorMessage){
+    public Boolean isEmpty(EditText [] fields, String [] errorMessage){
             for (int ii = 0; ii < fields.length; ii++) {
                 if (fields[ii].getText().toString().isEmpty()) {
                     fields[ii].setError(errorMessage[ii]);
@@ -117,7 +120,7 @@ public class FieldChecker {
             }
             for (int iii = 0; iii < fields.length; iii++) {
                 if (fields[iii].getText().toString().isEmpty()) {
-                    Toast.makeText(activity, "Some field/s are empty", 0).show();
+                    Toast.makeText(this.activity, "Some field/s are empty", 0).show();
                     status = true;
                     return true;
                 }else status = false;
@@ -125,27 +128,8 @@ public class FieldChecker {
         return status;
     }
 
-    public String getFirstName(){
-        return this.firstName;
-    }
-
-    public String getLastName(){
-        return this.lastName;
-    }
-
-    public String getBirthDate(){
-        return this.birthDate;
-    }
-
-    public String getEmail(){
-        return this.email;
-    }
-
-    public String getPassword(){
-        return this.password;
-    }
-
     public String getGender(){
         return this.gender;
     }
+
 }
