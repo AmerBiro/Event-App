@@ -1,4 +1,4 @@
-package dk.events.a6.account.updateprofile;
+package dk.events.a6.account;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,9 +28,8 @@ import java.util.Map;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityUpdatePersonalInformationBinding;
-import dk.events.a6.account.Account;
 
-    public class Update_Personal_Information extends AppCompatActivity {
+public class UpdateInfo extends AppCompatActivity {
         private ActivityUpdatePersonalInformationBinding binding;
 
         private FirebaseAuth mAuth;
@@ -128,7 +127,7 @@ import dk.events.a6.account.Account;
                                 binding.BirthdatePicker.getText().toString().isEmpty() ||
                                 binding.profileGender.getText().toString().isEmpty()
                         ){
-                            Toast.makeText(dk.events.a6.account.updateprofile.Update_Personal_Information.this, "One or more fields are empty", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateInfo.this, "One or more fields are empty", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         else {
@@ -158,7 +157,7 @@ import dk.events.a6.account.Account;
 //                                            Toast.makeText(dk.events.a6.profileView.updateprofile.Update_Personal_Information.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
-                                    Toast.makeText(dk.events.a6.account.updateprofile.Update_Personal_Information.this, "Personal information updated successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UpdateInfo.this, "Personal information updated successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), Account.class));
                                     finish();
                                     return;
@@ -166,7 +165,7 @@ import dk.events.a6.account.Account;
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(dk.events.a6.account.updateprofile.Update_Personal_Information.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UpdateInfo.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

@@ -217,6 +217,25 @@ Line height: 14sp
 
 
 
+    <style name="account_overview_title">
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:enabled">false</item>
+    </style>
+
+
+    <style name="account_overview_Sub_title">
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:enabled">false</item>
+        <item name="android:inputType">textMultiLine</item>
+    </style>
 
 
 

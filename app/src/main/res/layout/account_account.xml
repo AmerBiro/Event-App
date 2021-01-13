@@ -26,8 +26,8 @@
             tools:ignore="MissingConstraints"
             />
 
-        <ImageButton
-            android:id="@+id/id_back_arrow"
+        <Button
+            android:id="@+id/back_arrow"
             android:layout_height="25dp"
             android:layout_width="25dp"
             style="@style/appBar_arrow_back"
@@ -91,7 +91,7 @@
                     />
 
                 <ImageView
-                    android:id="@+id/view_profile_layout"
+                    android:id="@+id/overview"
                     android:layout_width="174dp"
                     android:layout_height="112dp"
                     android:paddingLeft="8dp"

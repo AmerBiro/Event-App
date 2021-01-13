@@ -107,7 +107,8 @@ public class ImageHandler {
                                     .collection("image collection").document("image" + imageStatus);
 
                             Map<String, Object> images = new HashMap<>();
-                            images.put("image" + imageStatus, image_url);
+                            images.put("image_url", image_url);
+                            images.put("number", imageStatus);
                             documentReference.set(images).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

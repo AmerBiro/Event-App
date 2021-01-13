@@ -1,4 +1,4 @@
-package dk.events.a6.account.updateprofile;
+package dk.events.a6.account;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,10 +19,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import dk.events.a6.R;
+import dk.events.a6.account.updateprofile.AddImages;
 import dk.events.a6.databinding.ActivityUpdateProfilePicturesBinding;
-import dk.events.a6.account.AddImages;
 
-public class Update_Profile_Pictures extends AppCompatActivity {
+public class Images extends AppCompatActivity {
     private ActivityUpdateProfilePicturesBinding binding;
 
     private FirebaseAuth mAuth;
@@ -75,7 +75,7 @@ public class Update_Profile_Pictures extends AppCompatActivity {
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(Update_Profile_Pictures.this).load(uri).into(binding.UserImage1);
+                    Glide.with(Images.this).load(uri).into(binding.UserImage1);
                 }
             });
         }
@@ -87,7 +87,7 @@ public class Update_Profile_Pictures extends AppCompatActivity {
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(Update_Profile_Pictures.this).load(uri).into(binding.UserImage2);
+                    Glide.with(Images.this).load(uri).into(binding.UserImage2);
                 }
             });
         }
@@ -99,7 +99,7 @@ public class Update_Profile_Pictures extends AppCompatActivity {
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(Update_Profile_Pictures.this).load(uri).into(binding.UserImage3);
+                    Glide.with(Images.this).load(uri).into(binding.UserImage3);
                 }
             });
         }
@@ -111,7 +111,7 @@ public class Update_Profile_Pictures extends AppCompatActivity {
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(Update_Profile_Pictures.this).load(uri).into(binding.UserImage4);
+                    Glide.with(Images.this).load(uri).into(binding.UserImage4);
                 }
             });
         }
@@ -123,7 +123,7 @@ public class Update_Profile_Pictures extends AppCompatActivity {
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(Update_Profile_Pictures.this).load(uri).into(binding.UserImage5);
+                    Glide.with(Images.this).load(uri).into(binding.UserImage5);
                 }
             });
         }
@@ -135,7 +135,7 @@ public class Update_Profile_Pictures extends AppCompatActivity {
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(Update_Profile_Pictures.this).load(uri).into(binding.UserImage6);
+                    Glide.with(Images.this).load(uri).into(binding.UserImage6);
                 }
             });
         }
@@ -206,32 +206,32 @@ public class Update_Profile_Pictures extends AppCompatActivity {
         if (requestCode == 1001){
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
-                addImages.uploadeImageToFirebase(imageUri, "image 1", Update_Profile_Pictures.this, binding.UserImage1);
+                addImages.uploadeImageToFirebase(imageUri, "image 1", Images.this, binding.UserImage1);
             }
         }else if (requestCode == 1002){
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
-                addImages.uploadeImageToFirebase(imageUri, "image 2", Update_Profile_Pictures.this, binding.UserImage2);
+                addImages.uploadeImageToFirebase(imageUri, "image 2", Images.this, binding.UserImage2);
             }
         }else if (requestCode == 1003){
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
-                addImages.uploadeImageToFirebase(imageUri, "image 3", Update_Profile_Pictures.this, binding.UserImage3);
+                addImages.uploadeImageToFirebase(imageUri, "image 3", Images.this, binding.UserImage3);
             }
         }else if (requestCode == 1004){
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
-                addImages.uploadeImageToFirebase(imageUri, "image 4", Update_Profile_Pictures.this, binding.UserImage4);
+                addImages.uploadeImageToFirebase(imageUri, "image 4", Images.this, binding.UserImage4);
             }
         }else if (requestCode == 1005){
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
-                addImages.uploadeImageToFirebase(imageUri, "image 5", Update_Profile_Pictures.this, binding.UserImage5);
+                addImages.uploadeImageToFirebase(imageUri, "image 5", Images.this, binding.UserImage5);
             }
         }else if (requestCode == 1006){
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
-                addImages.uploadeImageToFirebase(imageUri, "image 6", Update_Profile_Pictures.this, binding.UserImage6);
+                addImages.uploadeImageToFirebase(imageUri, "image 6", Images.this, binding.UserImage6);
             }
         }
     }

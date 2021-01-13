@@ -59,6 +59,13 @@
 
 
 
+    <string name="account_overview_title">Overview</string>
+    <string name="account_overview_title_info">Account Info</string>
+    <string name="account_overview_title_background">Background</string>
+    <string name="account_overview_title_description">Description</string>
+
+
+
 
 
 

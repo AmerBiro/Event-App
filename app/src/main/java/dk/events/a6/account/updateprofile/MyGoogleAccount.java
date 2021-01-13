@@ -1,4 +1,4 @@
-package dk.events.a6.account;
+package dk.events.a6.account.updateprofile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,8 +13,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import dk.events.a6.R;
+import dk.events.a6.account.Overview;
+import dk.events.a6.account.Settings;
 import dk.events.a6.databinding.ActivityMyGoogleAccountBinding;
-import dk.events.a6.account.updateprofile.EditProfileActivity;
 
 public class MyGoogleAccount extends AppCompatActivity {
     private ActivityMyGoogleAccountBinding binding;
@@ -56,7 +57,7 @@ public class MyGoogleAccount extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(),"View profile",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(MyGoogleAccount.this,ViewProfileActivity.class);
+                    Intent intent=new Intent(MyGoogleAccount.this, Overview.class);
                     startActivity(intent);
                 }
             });
@@ -65,7 +66,7 @@ public class MyGoogleAccount extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(),"Edit profile",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(MyGoogleAccount.this, EditProfileActivity.class);
+                    Intent intent=new Intent(MyGoogleAccount.this, UpdateInfo.class);
                     startActivity(intent);
                 }
             });
@@ -74,7 +75,7 @@ public class MyGoogleAccount extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(),"Settings",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(MyGoogleAccount.this, ProfileSettingsActivity.class);
+                    Intent intent=new Intent(MyGoogleAccount.this, Settings.class);
                     startActivity(intent);
                 }
             });

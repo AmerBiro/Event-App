@@ -1,4 +1,4 @@
-package dk.events.a6.account;
+package dk.events.a6.account.updateprofile;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

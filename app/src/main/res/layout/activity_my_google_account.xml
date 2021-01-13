@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_background_activity"
-    tools:context=".account.MyGoogleAccount">
+    tools:context=".account.updateprofile.MyGoogleAccount">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"

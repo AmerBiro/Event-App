@@ -29,13 +29,14 @@ import dk.events.a6.mvvm.UserModel;
 import static dk.events.a6.activities.MainActivity.TAG;
 
 
-public class Account extends Fragment {
+public class Account extends Fragment implements View.OnClickListener {
 
     private @NonNull
     AccountAccountBinding
             binding;
     private NavController controller;
     private String userId, first_name, last_name, image;
+    private DocumentReference reference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class Account extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         userId = AccountArgs.fromBundle(getArguments()).getUserId();
+        getUserData();
         Log.d(TAG, "onSuccess: " +  "Receiving userId successfully in Account: " + userId);
 
     }
@@ -56,11 +58,11 @@ public class Account extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        getUserData();
+        binding.overview.setOnClickListener(this);
     }
 
     public void getUserData(){
-        DocumentReference reference = FirebaseFirestore.getInstance()
+        reference = FirebaseFirestore.getInstance()
                 .collection("user").document(userId);
         reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -86,5 +88,17 @@ public class Account extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.overview:
+                AccountDirections.ActionAccountToOverview action =
+                        AccountDirections.actionAccountToOverview();
+                action.setUserId(userId);
+                controller.navigate(action);
+                break;
+            default:
+        }
+    }
 }
 

@@ -9,7 +9,7 @@ import android.view.Window;
 import dk.events.a6.R;
 import dk.events.a6.databinding.ActivityProfileSettingsBinding;
 
-public class ProfileSettingsActivity extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
 
 
     private ActivityProfileSettingsBinding binding;

@@ -1,4 +1,4 @@
-package dk.events.a6.account;
+package dk.events.a6.account.updateprofile;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import dk.events.a6.R;
-import dk.events.a6.account.updateprofile.ProfileImage;
 
 public class ProfilePhotoAdapter extends RecyclerView.Adapter<ProfilePhotoAdapter.ViewHolder> {
     private static final String TAG = "ProfilePhotoAdapter";
