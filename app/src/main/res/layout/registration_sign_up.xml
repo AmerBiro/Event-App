@@ -20,7 +20,7 @@
         >
 
         <ImageButton
-            android:id="@+id/arrow_back"
+            android:id="@+id/back_arrow_sign_up"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@drawable/ic_back_arrow"

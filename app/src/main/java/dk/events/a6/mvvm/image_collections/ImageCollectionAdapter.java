@@ -1,5 +1,6 @@
 package dk.events.a6.mvvm.image_collections;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import dk.events.a6.R;
+
+import static dk.events.a6.activities.MainActivity.TAG;
 
 public class ImageCollectionAdapter extends RecyclerView.Adapter <ImageCollectionAdapter.ImageCollectionViewHolder> {
 
@@ -38,6 +41,7 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter <ImageCollectio
     @Override
     public void onBindViewHolder(@NonNull ImageCollectionViewHolder holder, int position) {
 
+
         Glide
                 .with(holder.itemView.getContext())
                 .load(imageCollectionModels.get(position).getImage_url())
@@ -61,7 +65,7 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter <ImageCollectio
 
         public ImageCollectionViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageCollection = itemView.findViewById(R.id.image_collection);
+            imageCollection = itemView.findViewById(R.id.single_item_image);
 
             itemView.setOnClickListener(this);
 

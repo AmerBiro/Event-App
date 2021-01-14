@@ -83,12 +83,11 @@
                 >
 
                 <ImageView
-                    android:id="@+id/updatePersonalInformation"
+                    android:id="@+id/updateProfileBackground"
                     android:layout_width="174dp"
-                    android:layout_height="113dp"
+                    android:layout_height="112dp"
                     android:paddingRight="8dp"
-                    android:src="@drawable/personal_information_icon"
-                    />
+                    android:src="@drawable/edit_your_info_icon" />
 
                 <ImageView
                     android:id="@+id/overview"
@@ -107,27 +106,6 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/updateProfileBackground"
-                    android:layout_width="174dp"
-                    android:layout_height="112dp"
-                    android:paddingRight="8dp"
-                    android:src="@drawable/edit_your_info_icon" />
-
-                <ImageView
-                    android:id="@+id/updateProfileImage"
-                    android:layout_width="174dp"
-                    android:layout_height="113dp"
-                    android:paddingLeft="8dp"
-                    android:src="@drawable/pictures_icon" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
                     android:id="@+id/Settings"
                     android:layout_width="174dp"
                     android:layout_height="113dp"
@@ -135,12 +113,14 @@
                     android:src="@drawable/settings" />
 
                 <ImageView
-                    android:id="@+id/changeEmailOrPassword"
+                    android:id="@+id/account_images"
                     android:layout_width="174dp"
                     android:layout_height="113dp"
                     android:paddingLeft="8dp"
-                    android:src="@drawable/email_icon" />
+                    android:src="@drawable/pictures_icon" />
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -157,7 +137,6 @@
                     android:src="@drawable/log_out_icon" />
 
                 <ImageView
-                    android:id="@+id/delete_account_icon_id"
                     android:layout_width="174dp"
                     android:layout_height="113dp"
                     android:paddingLeft="8dp"

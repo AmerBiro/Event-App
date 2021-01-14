@@ -85,6 +85,7 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
         super.onStart();
         binding.dateOfBirth.setOnClickListener(this);
         binding.arrowNext.setOnClickListener(this);
+        binding.backArrowSignUp.setOnClickListener(this);
     }
 
 
@@ -98,6 +99,10 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
             case R.id.date_of_birth:
                 pickUpDate();
                 break;
+            case R.id.back_arrow_sign_up:
+                controller.navigate(R.id.action_signUp_to_registeration);
+                controller.navigateUp();
+                controller.popBackStack();
             default:
         }
 

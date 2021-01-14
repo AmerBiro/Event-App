@@ -59,6 +59,7 @@ public class Account extends Fragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
         binding.overview.setOnClickListener(this);
+        binding.accountImages.setOnClickListener(this);
     }
 
     public void getUserData(){
@@ -96,6 +97,12 @@ public class Account extends Fragment implements View.OnClickListener {
                         AccountDirections.actionAccountToOverview();
                 action.setUserId(userId);
                 controller.navigate(action);
+                break;
+            case R.id.account_images:
+                AccountDirections.ActionAccountToImages action1 =
+                        AccountDirections.actionAccountToImages();
+                action1.setUserId(userId);
+                controller.navigate(action1);
                 break;
             default:
         }

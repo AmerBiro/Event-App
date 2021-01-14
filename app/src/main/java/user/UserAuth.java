@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import dk.events.a6.account.Account;
 import dk.events.a6.registration.Registration;
+import dk.events.a6.registration.RegistrationDirections;
 
 
 public class UserAuth {
@@ -53,12 +54,17 @@ public class UserAuth {
         mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         progressBar.setVisibility(View.GONE);
                         //                controller.navigate(i);
                         Toast.makeText(activity, "Sign in successfully", 0).show();
+                        RegistrationDirections.ActionRegisterationToAccount action =
+                                RegistrationDirections.actionRegisterationToAccount();
+                        action.setUserId(authResult.getUser().getUid());
+                        controller.navigate(action);
                     }
                 }, 1000);
             }

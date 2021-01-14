@@ -18,14 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.bumptech.glide.Glide;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 
 import java.util.List;
 
@@ -38,14 +35,14 @@ import dk.events.a6.mvvm.image_collections.ImageCollectionViewModel;
 
 import static dk.events.a6.activities.MainActivity.TAG;
 
-public class Overview extends Fragment implements ImageCollectionAdapter.OnImageCollectionItemClicked {
+public class Overview extends Fragment implements ImageCollectionAdapter.OnImageCollectionItemClicked, View.OnClickListener {
 
     private @NonNull
     AccountOverviewBinding
             binding;
     private NavController controller;
     private DocumentReference reference;
-    private ViewPager2 recyclerView;
+    private ViewPager2 viewpager2;
     private ImageCollectionViewModel imageCollectionViewModel;
     private UserModel userModel;
     private ImageCollectionAdapter adapter;
@@ -65,13 +62,14 @@ public class Overview extends Fragment implements ImageCollectionAdapter.OnImage
         controller = Navigation.findNavController(view);
         userId = OverviewArgs.fromBundle(getArguments()).getUserId();
         Log.d(TAG, "onSuccess: " +  "Receiving userId successfully in Overview: " + userId);
-        recyclerViewSetup();
+        viewpager2Setup();
         getUserData();
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        binding.backArrowOverview.setOnClickListener(this);
     }
 
     @Override
@@ -81,8 +79,11 @@ public class Overview extends Fragment implements ImageCollectionAdapter.OnImage
         imageCollectionViewModel.getImageCollectionModelData().observe(getViewLifecycleOwner(), new Observer<List<ImageCollectionModel>>() {
             @Override
             public void onChanged(List<ImageCollectionModel> imageCollectionModels) {
-                Log.d(TAG, "onChanged: " + imageCollectionModels.get(0).getNumber());
-                Log.d(TAG, "onChanged: " + imageCollectionModels.get(0).getImage_url());
+//                Log.d(TAG, "onChanged: " + imageCollectionModels.get(0).getNumber());
+//                Log.d(TAG, "onChanged: " + imageCollectionModels.get(0).getImage_url());
+//                int s = imageCollectionViewModel.getImageCollectionModelData().getValue().size();
+
+//                Log.d(TAG, "onChanged: " + s);
                 adapter.setImageCollectionModels(imageCollectionModels);
                 adapter.notifyDataSetChanged();
             }
@@ -94,10 +95,10 @@ public class Overview extends Fragment implements ImageCollectionAdapter.OnImage
     public void onItemClicked(int position) {
     }
 
-    private void recyclerViewSetup() {
-        recyclerView = binding.recyclerview;
+    private void viewpager2Setup() {
+        viewpager2 = binding.viewpager2;
         adapter = new ImageCollectionAdapter(this);
-        recyclerView.setAdapter(adapter);
+        viewpager2.setAdapter(adapter);
     }
 
     public void getUserData(){
@@ -128,5 +129,20 @@ public class Overview extends Fragment implements ImageCollectionAdapter.OnImage
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back_arrow_overview:
+                OverviewDirections.ActionOverviewToAccount action =
+                        OverviewDirections.actionOverviewToAccount();
+                action.setUserId(userId);
+                controller.navigate(action);
+                controller.navigateUp();
+                controller.popBackStack();
+                break;
+            default:
+        }
     }
 }

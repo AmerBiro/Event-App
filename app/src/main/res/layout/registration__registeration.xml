@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/registration_username"
         android:inputType="textEmailAddress"
+        android:textStyle="italic"
         android:autofillHints="" />
 
 
@@ -37,6 +38,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/registration_password"
         android:inputType="textPassword"
+        android:textStyle="italic"
         android:autofillHints="" />
 
 

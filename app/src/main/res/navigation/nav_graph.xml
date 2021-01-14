@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_registeration_to_signUp"
             app:destination="@id/signUp" />
+        <action
+            android:id="@+id/action_registeration_to_account"
+            app:destination="@id/account" />
     </fragment>
 
 
@@ -40,6 +43,9 @@
         <action
             android:id="@+id/action_signUp_to_backgroundInfo"
             app:destination="@id/backgroundInfo" />
+        <action
+            android:id="@+id/action_signUp_to_registeration"
+            app:destination="@id/registeration" />
     </fragment>
 
 
@@ -84,7 +90,11 @@
             android:defaultValue="null" />
         <action
             android:id="@+id/action_account_to_overview"
-            app:destination="@id/overview" />
+            app:destination="@id/overview"
+            />
+        <action
+            android:id="@+id/action_account_to_images"
+            app:destination="@id/images" />
     </fragment>
 
     <fragment
@@ -96,6 +106,22 @@
             android:name="userId"
             app:argType="string"
             android:defaultValue="null" />
+        <action
+            android:id="@+id/action_overview_to_account"
+            app:destination="@id/account" />
+    </fragment>
+    <fragment
+        android:id="@+id/images"
+        android:name="dk.events.a6.account.Images"
+        android:label="account_images"
+        tools:layout="@layout/account_images" >
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/action_images_to_account"
+            app:destination="@id/account" />
     </fragment>
 
 
