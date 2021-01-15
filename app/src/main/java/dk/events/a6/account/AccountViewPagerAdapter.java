@@ -10,38 +10,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountViewPagerAdapter extends FragmentPagerAdapter {
-    private final List<Fragment> listFragment = new ArrayList<>();
-    private final List<String> listTitle = new ArrayList<>();
+    private List<Fragment> fragments = new ArrayList<>();
+    private List<String> fragmentTitle = new ArrayList<>();
 
-    // Constructor
-    public AccountViewPagerAdapter(@NonNull FragmentManager fm) {
-        super(fm);
+    public AccountViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
+        super(fm, behavior);
+    }
+
+    public void addFragment(Fragment fragment, String title){
+        fragments.add(fragment);
+        fragmentTitle.add(title);
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return listFragment.get(position);
+        return fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return listTitle.size();
+        return fragments.size();
     }
-
-
-    //override methods
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return super.getPageTitle(position);
-    }
-
-    //add fragment
-    public void addFragment(Fragment fragment, String title){
-        listFragment.add(fragment);
-        listTitle.add(title);
-
+        return fragmentTitle.get(position);
     }
 }

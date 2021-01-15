@@ -1,6 +1,7 @@
 package dk.events.a6.account;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.viewpager.widget.PagerTabStrip;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -38,14 +40,13 @@ public class AccountViewPager0 extends Fragment {
     AccountViewPager0Binding
      binding;
     private NavController controller;
-    private AccountViewPagerAdapter adapter;
-    private AccountViewPager1 accountViewPager1;
-    private AccountViewPager2 accountViewPager2;
     private String userId;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    private AccountViewPagerAdapter adapter;
+    private AccountViewPager1 accountViewPager1;
+    private AccountViewPager2 accountViewPager2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +61,9 @@ public class AccountViewPager0 extends Fragment {
         controller = Navigation.findNavController(view);
         accountViewPager1 = new AccountViewPager1();
         accountViewPager2 = new AccountViewPager2();
+        tabLayout = binding.accountTabLayout;
+        viewPager = binding.accountViewPager;
+        tabLayout.setupWithViewPager(viewPager);
         viewpagerSetup(view);
     }
 
@@ -70,17 +74,16 @@ public class AccountViewPager0 extends Fragment {
 
 
     private void viewpagerSetup(View view){
-        tabLayout = view.findViewById(R.id.account_tab_layout);
-        viewPager = view.findViewById(R.id.account_view_pager);
-        adapter = new AccountViewPagerAdapter(getChildFragmentManager());
+        adapter = new AccountViewPagerAdapter(getChildFragmentManager(), 0);
 
+        //ViewPagerAdapter
         adapter.addFragment(accountViewPager1, "Account Info");
         adapter.addFragment(accountViewPager2, "Background");
         viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.info);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_baseline_edit_24);
+
     }
 
 }

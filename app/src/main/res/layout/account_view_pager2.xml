@@ -9,7 +9,6 @@
     tools:context=".account.AccountViewPager2"
     >
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="50dp"
-            android:paddingBottom="50dp"
+            android:layout_marginTop="25dp"
+            android:paddingBottom="100dp"
             >
 
             <TextView
@@ -84,6 +83,41 @@
                 android:hint="@string/background_info_description_field"
                 android:layout_marginBottom="50dp"
                 />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
+
+                <Button
+                    android:id="@+id/save_changes"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/check_mark"
+                    android:layout_gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <ProgressBar
+                    android:layout_width="36sp"
+                    android:layout_height="36sp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/font_main_color"
+                    android:id="@+id/progressBar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="invisible"
+                    />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </LinearLayout>

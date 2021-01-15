@@ -1,9 +1,12 @@
 package user;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -107,6 +110,38 @@ public class UserDatebase {
         });
     }
 
+
+    public void uploadUserBackgroundInfoToFirebase(String userId,
+                                                   EditText address, EditText education,
+                                                   EditText job, EditText description
+                                                   ) {
+        this.documentReference = FirebaseFirestore.getInstance()
+                .collection("user").document(userId);
+
+        Map<String, Object> backgroundInfo = new HashMap<>();
+
+        this.address = address.getText().toString();
+        this.education = education.getText().toString();
+        this.job = job.getText().toString();
+        this.description = description.getText().toString();
+
+        backgroundInfo.put("address", this.address);
+        backgroundInfo.put("education", this.education);
+        backgroundInfo.put("job", this.job);
+        backgroundInfo.put("description", this.description);
+
+        documentReference.update(backgroundInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "onSuccess: " + "Updated successfully");
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+            }
+        });
+    }
 
 
 
