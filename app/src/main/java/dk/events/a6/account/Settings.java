@@ -88,7 +88,7 @@ public class Settings extends Fragment implements View.OnClickListener {
 
                 break;
             case R.id.reset_password:
-
+                userAuth.resetPassword();
                 break;
             case R.id.log_out:
                 userAuth.signOut(R.id.action_settings_to_registeration);
@@ -100,7 +100,7 @@ public class Settings extends Fragment implements View.OnClickListener {
                 },1500);
                 break;
             case R.id.delete_account:
-
+                userAuth.deleteUser(R.id.action_settings_to_registeration);
                 break;
             default:
         }

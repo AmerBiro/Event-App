@@ -80,6 +80,21 @@ public class UserAuth {
         });
     }
 
+    public Boolean signOut(int i) {
+        if (user != null) {
+            mAuth.signOut();
+            Toast.makeText(activity, "Logged out successfully", 0).show();
+            controller.navigate(i);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    activity.finish();
+                }
+            },1500);
+            return true;
+        } else return false;
+    }
+
 
     public void resetPassword() {
         final EditText resetPassword = new EditText(activity);
@@ -124,17 +139,43 @@ public class UserAuth {
 
 
 
-
-
-
-    public Boolean signOut(int i) {
-        if (user != null) {
-            mAuth.signOut();
-            Toast.makeText(activity, "Logged out successfully", 0).show();
-            controller.navigate(i);
-            return true;
-        } else return false;
+    public void deleteUser(int i) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Delete account")
+                .setMessage("Are you sure you want to delete the following account " + user.getEmail() + "?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(activity, "The following account: " + user.getEmail() + " has been deleted successfully", 0).show();
+                                controller.navigate(i);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        activity.finish();
+                                    }
+                                },1500);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(activity, "Unable to delete profile " + e.getMessage(), 1).show();
+                            }
+                        });
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
+
+
+
 
 
     public void verifyUser(Activity activity) {
@@ -194,36 +235,7 @@ public class UserAuth {
     }
 
 
-    public void deleteUser(Activity activity, Class<Registration> afterDelete) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Delete account")
-                .setMessage("Are you sure you want to delete the following profile " + user.getEmail() + "?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(activity, "The following profile: " + user.getEmail() + " has been deleted successfully", 0).show();
-                                activity.startActivity(new Intent(activity, afterDelete));
-                                activity.finish();
-                                return;
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(activity, "Unable to delete profile " + e.getMessage(), 1).show();
-                            }
-                        });
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
+
 
 
 }

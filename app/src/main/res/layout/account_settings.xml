@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/settings_button"
-                android:text="Change your email"
+                android:text="Change email"
                 android:drawableRight="@drawable/ic_baseline_update_24"
                 />
 

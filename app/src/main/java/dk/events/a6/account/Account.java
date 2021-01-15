@@ -71,6 +71,7 @@ public class Account extends Fragment implements View.OnClickListener {
         binding.accountInfo.setOnClickListener(this);
         binding.settings.setOnClickListener(this);
         binding.accountLogOut.setOnClickListener(this);
+        binding.accountDeleteAccount.setOnClickListener(this);
     }
 
     public void getUserData(){
@@ -131,6 +132,10 @@ public class Account extends Fragment implements View.OnClickListener {
                         getActivity().finish();
                     }
                 },1500);
+                break;
+            case R.id.account_delete_account:
+                userAuth.deleteUser(R.id.action_account_to_registeration);
+                break;
             default:
         }
     }

@@ -162,6 +162,7 @@
                     android:src="@drawable/log_out_icon" />
 
                 <ImageView
+                    android:id="@+id/account_delete_account"
                     android:layout_width="174dp"
                     android:layout_height="113dp"
                     android:paddingLeft="8dp"
