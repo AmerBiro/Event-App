@@ -32,8 +32,8 @@ import java.util.List;
 import dk.events.a6.R;
 import dk.events.a6.databinding.AccountImagesBinding;
 import dk.events.a6.mvvm.UserModel;
-import dk.events.a6.mvvm.image_collections.ImageCollectionModel;
-import dk.events.a6.mvvm.image_collections.ImageCollectionViewModel;
+import dk.events.a6.mvvm.ImageCollectionModel;
+import dk.events.a6.mvvm.ImageCollectionViewModel;
 import user.ImageHandler;
 
 import static dk.events.a6.activities.MainActivity.TAG;
@@ -108,7 +108,7 @@ public class Images extends Fragment implements View.OnClickListener {
                         userModel = value.toObject(UserModel.class);
                         image_url[0] = userModel.getImage_url_account();
                         Glide
-                                .with(getActivity())
+                                .with(getActivity().getApplicationContext())
                                 .load(image_url[0])
                                 .centerCrop()
                                 .into(imageViews[0]);

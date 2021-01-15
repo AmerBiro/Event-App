@@ -209,6 +209,25 @@ Line height: 14sp
         <item name="android:layout_marginRight">24dp</item>
     </style>
 
+    <style name="appBar_check_mark">
+        <item name="android:background">@drawable/check_mark</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginRight">24dp</item>
+    </style>
+
+
+    <style name="settings_button">
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/font_main_color</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:background">@drawable/ic_profile_button</item>
+    </style>
+
     <style name="appBar_title">
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>

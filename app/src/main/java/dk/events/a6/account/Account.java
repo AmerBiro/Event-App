@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -25,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import dk.events.a6.R;
 import dk.events.a6.databinding.AccountAccountBinding;
 import dk.events.a6.mvvm.UserModel;
+import user.UserAuth;
 
 import static dk.events.a6.activities.MainActivity.TAG;
 
@@ -37,6 +40,7 @@ public class Account extends Fragment implements View.OnClickListener {
     private NavController controller;
     private String userId, first_name, last_name, image;
     private DocumentReference reference;
+    private UserAuth userAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,8 +54,13 @@ public class Account extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         userId = AccountArgs.fromBundle(getArguments()).getUserId();
+        userAuth = new UserAuth(getActivity(), view, controller);
         getUserData();
         Log.d(TAG, "onSuccess: " +  "Receiving userId successfully in Account: " + userId);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null &&
+                !FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
+            binding.notVerified.setVisibility(View.VISIBLE);
+        }else binding.notVerified.setVisibility(View.GONE);
     }
 
     @Override
@@ -60,6 +69,8 @@ public class Account extends Fragment implements View.OnClickListener {
         binding.overview.setOnClickListener(this);
         binding.accountImages.setOnClickListener(this);
         binding.accountInfo.setOnClickListener(this);
+        binding.settings.setOnClickListener(this);
+        binding.accountLogOut.setOnClickListener(this);
     }
 
     public void getUserData(){
@@ -92,10 +103,10 @@ public class Account extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.overview:
-                AccountDirections.ActionAccountToOverview action =
+                AccountDirections.ActionAccountToOverview action0 =
                         AccountDirections.actionAccountToOverview();
-                action.setUserId(userId);
-                controller.navigate(action);
+                action0.setUserId(userId);
+                controller.navigate(action0);
                 break;
             case R.id.account_images:
                 AccountDirections.ActionAccountToImages action1 =
@@ -104,12 +115,22 @@ public class Account extends Fragment implements View.OnClickListener {
                 controller.navigate(action1);
                 break;
             case R.id.account_info:
-//                AccountDirections.ActionAccountToAccountViewPager0 action2 =
-//                        AccountDirections.actionAccountToAccountViewPager0();
-//                action2.setUserId(userId);
-//                controller.navigate(action2);
                 controller.navigate(R.id.action_account_to_accountViewPager0);
                 break;
+            case R.id.settings:
+                AccountDirections.ActionAccountToSettings action2 =
+                        AccountDirections.actionAccountToSettings();
+                action2.setUserId(userId);
+                controller.navigate(action2);
+                break;
+            case R.id.account_log_out:
+                userAuth.signOut(R.id.action_account_to_registeration);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getActivity().finish();
+                    }
+                },1500);
             default:
         }
     }

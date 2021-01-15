@@ -1,4 +1,4 @@
-package dk.events.a6.mvvm.image_collections;
+package dk.events.a6.mvvm;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import dk.events.a6.databinding.AccountViewPager1Binding;
 import dk.events.a6.mvvm.UserModel;
+import io.grpc.Context;
 
 
 import static dk.events.a6.activities.MainActivity.TAG;

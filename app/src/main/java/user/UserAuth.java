@@ -33,9 +33,6 @@ public class UserAuth {
     private View view;
     private NavController controller;
     private Activity activity;
-    private String emails, passwords;
-    private String userId;
-    private String first_names, last_names, date_of_births, genders;
 
     public UserAuth(Activity activity, View view, NavController controller) {
         this.view = view;
@@ -126,17 +123,15 @@ public class UserAuth {
     }
 
 
-    public String getUserId() {
-        return userId;
-    }
 
 
 
 
-    public Boolean signOut(Activity activity) {
+    public Boolean signOut(int i) {
         if (user != null) {
             mAuth.signOut();
-            Toast.makeText(activity, "Signed out successfully", 0).show();
+            Toast.makeText(activity, "Logged out successfully", 0).show();
+            controller.navigate(i);
             return true;
         } else return false;
     }

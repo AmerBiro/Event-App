@@ -1,12 +1,10 @@
-package dk.events.a6.mvvm.image_collections;
+package dk.events.a6.mvvm;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
-
-import dk.events.a6.mvvm.UserModel;
 
 public class ImageCollectionViewModel extends ViewModel implements FirebaseRepository.OnFirestoreTaskComplete {
 

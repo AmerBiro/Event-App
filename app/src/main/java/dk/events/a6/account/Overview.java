@@ -29,9 +29,9 @@ import java.util.List;
 import dk.events.a6.R;
 import dk.events.a6.databinding.AccountOverviewBinding;
 import dk.events.a6.mvvm.UserModel;
-import dk.events.a6.mvvm.image_collections.AccountOverviewImageCollectionAdapter;
-import dk.events.a6.mvvm.image_collections.ImageCollectionModel;
-import dk.events.a6.mvvm.image_collections.ImageCollectionViewModel;
+import dk.events.a6.mvvm.AccountOverviewImageCollectionAdapter;
+import dk.events.a6.mvvm.ImageCollectionModel;
+import dk.events.a6.mvvm.ImageCollectionViewModel;
 
 import static dk.events.a6.activities.MainActivity.TAG;
 

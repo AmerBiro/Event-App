@@ -98,6 +98,12 @@
         <action
             android:id="@+id/action_account_to_accountViewPager0"
             app:destination="@id/accountViewPager0" />
+        <action
+            android:id="@+id/action_account_to_settings"
+            app:destination="@id/settings" />
+        <action
+            android:id="@+id/action_account_to_registeration"
+            app:destination="@id/registeration" />
     </fragment>
 
     <fragment
@@ -134,43 +140,26 @@
         <action
             android:id="@+id/action_accountViewPager0_to_account"
             app:destination="@id/account" />
-        <action
-            android:id="@+id/action_accountViewPager0_to_accountViewPager1"
-            app:destination="@id/accountViewPager1" />
-        <action
-            android:id="@+id/action_accountViewPager0_to_accountViewPager2"
-            app:destination="@id/accountViewPager2" />
         <argument
             android:name="userId"
             app:argType="string"
             android:defaultValue="null" />
     </fragment>
     <fragment
-        android:id="@+id/accountViewPager1"
-        android:name="dk.events.a6.account.AccountViewPager1"
-        android:label="account_view_pager1"
-        tools:layout="@layout/account_view_pager1">
-
+        android:id="@+id/settings"
+        android:name="dk.events.a6.account.Settings"
+        android:label="account_settings"
+        tools:layout="@layout/account_settings" >
+        <action
+            android:id="@+id/action_settings_to_account"
+            app:destination="@id/account" />
         <argument
             android:name="userId"
             app:argType="string"
             android:defaultValue="null" />
-
-
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/accountViewPager2"
-        android:name="dk.events.a6.account.AccountViewPager2"
-        android:label="account_view_pager2"
-        tools:layout="@layout/account_view_pager2">
-
-
-        <argument
-            android:name="userId"
-            app:argType="string"
-            android:defaultValue="null" />
+        <action
+            android:id="@+id/action_settings_to_registeration"
+            app:destination="@id/registeration" />
     </fragment>
 
 

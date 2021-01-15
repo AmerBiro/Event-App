@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/ic_background_activity"
+    android:orientation="vertical"
+    tools:context=".account.Settings"
+    >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/settings_back_arrow"
+            style="@style/appBar_arrow_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/appBar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/settings_check_mark"
+            style="@style/appBar_check_mark"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            tools:ignore="MissingConstraints" />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_margin="24dp"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account Settings"
+                style="@style/sub_title"
+                android:layout_gravity="left"
+                android:layout_marginTop="150dp"
+                />
+
+
+            <Button
+                android:id="@+id/verify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/settings_button"
+                android:text="Verify account"
+                android:visibility="gone"
+                android:drawableRight="@drawable/ic_baseline_verified_user_24"
+                />
+
+            <Button
+                android:id="@+id/update_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/settings_button"
+                android:text="Change your email"
+                android:drawableRight="@drawable/ic_baseline_update_24"
+                />
+
+            <Button
+                android:id="@+id/change_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/settings_button"
+                android:text="Change password"
+                android:drawableRight="@drawable/ic_baseline_security_24"
+                />
+
+
+            <Button
+                android:id="@+id/reset_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/settings_button"
+                android:text="Reset password"
+                android:drawableRight="@drawable/ic_baseline_restore_page_24"
+                />
+
+            <Button
+                android:id="@+id/log_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/settings_button"
+                android:text="Log out"
+                android:drawableRight="@drawable/ic_baseline_all_out_24"
+                />
+
+            <Button
+                android:id="@+id/delete_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/settings_button"
+                android:text="Delete account"
+                android:drawableRight="@drawable/ic_baseline_delete_forever_24"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Who wer are?"
+                style="@style/sub_title"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="left"
+                />
+
+            <Button
+                android:id="@+id/about_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/settings_button"
+                android:text="About us"
+                android:drawableRight="@drawable/ic_baseline_architecture_24"
+                />
+
+            <Button
+                android:id="@+id/contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/settings_button"
+                android:text="Contact us"
+                android:drawableRight="@drawable/ic_baseline_call_24"
+                />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
