@@ -36,15 +36,43 @@ public class ImageHandler {
     private DocumentReference documentReference;
     private String image_url;
 
-    public void uploadImageToFirebase(Intent data, Activity activity,
-                                      String userId, int imageStatus,
-                                      ImageView imageView, ProgressBar progressBar) {
-        Uri imageUri = data.getData();
+    private Intent data;
+    private Activity activity;
+    private String userId;
+    private int imageStatus;
+    ImageView imageView;
+    private ProgressBar progressBar;
+
+
+    public ImageHandler(Intent data, Activity activity, String userId, int imageStatus, ImageView imageView, ProgressBar progressBar) {
+        this.data = data;
+        this.activity = activity;
+        this.userId = userId;
+        this.imageStatus = imageStatus;
+        this.imageView = imageView;
+        this.progressBar = progressBar;
+    }
+
+    public ImageHandler(Intent data, Activity activity, String userId, int imageStatus) {
+        this.data = data;
+        this.activity = activity;
+        this.userId = userId;
+        this.imageStatus = imageStatus;
+    }
+
+
+
+
+    public void uploadImageToFirebase() {
+        Uri imageUri = this.data.getData();
 
         String imageName;
-        if (imageStatus == 0) {
-            progressBar.setVisibility(View.VISIBLE);
-            Log.d(TAG, "onSuccess: " + "Image status: " + imageStatus);
+        if (this.imageStatus == 0) {
+            if (this.progressBar != null){
+                this.progressBar.setVisibility(View.VISIBLE);
+            }
+
+            Log.d(TAG, "onSuccess: " + "Image status: " + this.imageStatus);
             accountAvatarRef = FirebaseStorage.getInstance().getReference().child("/user/" + userId + "/Account Image Avatar.jpg");
             accountAvatarRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -53,29 +81,32 @@ public class ImageHandler {
                     accountAvatarRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            Log.d(TAG, "onSuccess: " + "Downloading account image url successfully" + image_url);
+                            Log.d(TAG, "onSuccess: " + "Downloading account image url successfully");
 
                             image_url = uri.toString();
                             DocumentReference documentReference = FirebaseFirestore.getInstance().collection("user").document(userId);
                             Map<String, Object> accountAvatar = new HashMap<>();
+
                             accountAvatar.put("image_url_account", image_url);
+                            Log.d(TAG, "onSuccess: " + documentReference.getId());
 
-                            documentReference.update(accountAvatar).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: " + "Uploading account image url successfully: ");
+                                documentReference.update(accountAvatar).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: " + "Uploading account image url successfully: ");
 
-                                    Glide
-                                            .with(activity)
-                                            .load(uri)
-                                            .centerCrop()
-                                            .placeholder(R.drawable.account)
-                                            .into(imageView);
+                                        if (imageView != null){
+                                            Glide
+                                                    .with(activity)
+                                                    .load(uri)
+                                                    .centerCrop()
+                                                    .into(imageView);
 
-                                    progressBar.setVisibility(View.GONE);
-                                }
-                            });
-                        }
+                                            progressBar.setVisibility(View.INVISIBLE);
+                                        }
+                                    }
+                                });
+                            }
                     });
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -85,6 +116,7 @@ public class ImageHandler {
                 }
             });
         } else {
+            this.progressBar.setVisibility(View.VISIBLE);
             Log.d(TAG, "onSuccess: " + "Image status: " + imageStatus);
 
             imageName = "Account Image" + imageStatus + ".jpg";
@@ -98,7 +130,7 @@ public class ImageHandler {
                     accountImageCollections.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            Log.d(TAG, "onSuccess: " + "Downloading account image collection url successfully" + image_url);
+                            Log.d(TAG, "onSuccess: " + "Downloading account image collection url successfully");
 
                             image_url = uri.toString();
 
@@ -114,12 +146,14 @@ public class ImageHandler {
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "onSuccess: " + "Uploading account image collection url successfully: ");
 
-                                    Glide
-                                            .with(activity)
-                                            .load(uri)
-                                            .centerCrop()
-                                            .placeholder(R.drawable.account)
-                                            .into(imageView);
+                                    if (imageView != null){
+                                        Glide
+                                                .with(activity)
+                                                .load(uri)
+                                                .centerCrop()
+                                                .into(imageView);
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                    }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -133,4 +167,7 @@ public class ImageHandler {
             });
         }
     }
+
+
+
 }

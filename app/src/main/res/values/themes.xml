@@ -187,12 +187,26 @@ Line height: 14sp
         <item name="theme">?attr/actionBarSize</item>
     </style>
 
+    <style name="tool_bar_transparent">
+        <item name="android:background">@drawable/transparent</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="theme">?attr/actionBarSize</item>
+    </style>
+
     <style name="appBar_arrow_back">
         <item name="android:background">@drawable/ic_back_arrow</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="android:layout_marginLeft">24dp</item>
+    </style>
+
+    <style name="appBar_arrow_next">
+        <item name="android:background">@drawable/ic_next_arrow</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginRight">24dp</item>
     </style>
 
     <style name="appBar_title">
@@ -229,15 +243,19 @@ Line height: 14sp
 
     <style name="account_overview_Sub_title">
         <item name="android:textColor">@color/font_main_color</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginLeft">24dp</item>
         <item name="android:layout_gravity">left</item>
         <item name="android:enabled">false</item>
         <item name="android:inputType">textMultiLine</item>
+
     </style>
 
 
+    <style name="custom_image">
+        <item name="android:layout_margin">4dp</item>
+    </style>
 
 
 

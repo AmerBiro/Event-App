@@ -29,13 +29,13 @@ import java.util.List;
 import dk.events.a6.R;
 import dk.events.a6.databinding.AccountOverviewBinding;
 import dk.events.a6.mvvm.UserModel;
-import dk.events.a6.mvvm.image_collections.ImageCollectionAdapter;
+import dk.events.a6.mvvm.image_collections.AccountOverviewImageCollectionAdapter;
 import dk.events.a6.mvvm.image_collections.ImageCollectionModel;
 import dk.events.a6.mvvm.image_collections.ImageCollectionViewModel;
 
 import static dk.events.a6.activities.MainActivity.TAG;
 
-public class Overview extends Fragment implements ImageCollectionAdapter.OnImageCollectionItemClicked, View.OnClickListener {
+public class Overview extends Fragment implements AccountOverviewImageCollectionAdapter.OnImageCollectionItemClicked, View.OnClickListener {
 
     private @NonNull
     AccountOverviewBinding
@@ -45,7 +45,7 @@ public class Overview extends Fragment implements ImageCollectionAdapter.OnImage
     private ViewPager2 viewpager2;
     private ImageCollectionViewModel imageCollectionViewModel;
     private UserModel userModel;
-    private ImageCollectionAdapter adapter;
+    private AccountOverviewImageCollectionAdapter adapter;
     private String userId;
     private String first_name, last_name, date_of_birth, gender, address, education, job, description;
 
@@ -97,7 +97,7 @@ public class Overview extends Fragment implements ImageCollectionAdapter.OnImage
 
     private void viewpager2Setup() {
         viewpager2 = binding.viewpager2;
-        adapter = new ImageCollectionAdapter(this);
+        adapter = new AccountOverviewImageCollectionAdapter(this);
         viewpager2.setAdapter(adapter);
     }
 

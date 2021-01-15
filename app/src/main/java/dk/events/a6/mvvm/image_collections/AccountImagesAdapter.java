@@ -1,11 +1,9 @@
 package dk.events.a6.mvvm.image_collections;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,14 +14,12 @@ import java.util.List;
 
 import dk.events.a6.R;
 
-import static dk.events.a6.activities.MainActivity.TAG;
-
-public class ImageCollectionAdapter extends RecyclerView.Adapter <ImageCollectionAdapter.ImageCollectionViewHolder> {
+public class AccountImagesAdapter extends RecyclerView.Adapter <AccountImagesAdapter.ImageCollectionViewHolder> {
 
     private List<ImageCollectionModel> imageCollectionModels;
     private OnImageCollectionItemClicked onImageCollectionItemClicked;
 
-    public ImageCollectionAdapter(OnImageCollectionItemClicked onImageCollectionItemClicked) {
+    public AccountImagesAdapter(OnImageCollectionItemClicked onImageCollectionItemClicked) {
         this.onImageCollectionItemClicked = onImageCollectionItemClicked;
     }
 
@@ -34,7 +30,7 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter <ImageCollectio
     @NonNull
     @Override
     public ImageCollectionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item_image_collections, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item_account_images, parent, false);
         return new ImageCollectionViewHolder(view);
     }
 

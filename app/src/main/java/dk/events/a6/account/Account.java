@@ -52,7 +52,6 @@ public class Account extends Fragment implements View.OnClickListener {
         userId = AccountArgs.fromBundle(getArguments()).getUserId();
         getUserData();
         Log.d(TAG, "onSuccess: " +  "Receiving userId successfully in Account: " + userId);
-
     }
 
     @Override
@@ -60,6 +59,7 @@ public class Account extends Fragment implements View.OnClickListener {
         super.onStart();
         binding.overview.setOnClickListener(this);
         binding.accountImages.setOnClickListener(this);
+        binding.accountInfo.setOnClickListener(this);
     }
 
     public void getUserData(){
@@ -80,7 +80,6 @@ public class Account extends Fragment implements View.OnClickListener {
                         .with(getActivity())
                         .load(image)
                         .centerCrop()
-                        .placeholder(R.drawable.account)
                         .into(binding.imageProfile);
 
 
@@ -103,6 +102,13 @@ public class Account extends Fragment implements View.OnClickListener {
                         AccountDirections.actionAccountToImages();
                 action1.setUserId(userId);
                 controller.navigate(action1);
+                break;
+            case R.id.account_info:
+//                AccountDirections.ActionAccountToAccountViewPager0 action2 =
+//                        AccountDirections.actionAccountToAccountViewPager0();
+//                action2.setUserId(userId);
+//                controller.navigate(action2);
+                controller.navigate(R.id.action_account_to_accountViewPager0);
                 break;
             default:
         }

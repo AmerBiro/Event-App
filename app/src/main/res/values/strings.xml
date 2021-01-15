@@ -20,11 +20,7 @@
     <string name="hello_world">Hello Square World!</string>
 
 
-
-
     <string name="splash_screen_title"> Events</string>
-
-
 
 
     <string name="registration_registration">Registration</string>
@@ -58,25 +54,10 @@
     <string name="account_image">Images</string>
 
 
-
     <string name="account_overview_title">Overview</string>
     <string name="account_overview_title_info">Account Info</string>
     <string name="account_overview_title_background">Background</string>
     <string name="account_overview_title_description">Description</string>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </resources>

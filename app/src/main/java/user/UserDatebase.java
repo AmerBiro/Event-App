@@ -31,7 +31,7 @@ public class UserDatebase {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     private DocumentReference documentReference;
-    private String first_name, last_name, date_of_birth, gender;
+    private String first_name, last_name, date_of_birth, email, gender;
     private String address, education, job, description;
 
     public UserDatebase(NavController controller, View view) {
@@ -45,18 +45,20 @@ public class UserDatebase {
     }
 
     public void uploadUserInfoToFirebase(String userId, SignUpDirections.ActionSignUpToBackgroundInfo action,
-                                         ProgressBar progressBar, EditText first_name, EditText last_name, EditText date_of_birth, String gender) {
+                                         ProgressBar progressBar, EditText first_name, EditText last_name, EditText date_of_birth, EditText email, String gender) {
         this.documentReference = FirebaseFirestore.getInstance().collection("user").document(userId);
         Map<String, Object> user = new HashMap<>();
 
         this.first_name = first_name.getText().toString();
         this.last_name = last_name.getText().toString();
         this.date_of_birth = date_of_birth.getText().toString();
+        this.email = email.getText().toString();
         this.gender = gender;
 
         user.put("first_name", this.first_name);
         user.put("last_name", this.last_name);
         user.put("date_of_birth", this.date_of_birth);
+        user.put("email", this.email);
         user.put("gender", this.gender);
 
 

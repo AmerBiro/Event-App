@@ -39,7 +39,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713"/>
 
-        <activity android:name=".account.UpdateInfo" />
+        <activity android:name=".account.AccountViewPager1" />
         <activity android:name=".account.EmailPassword" />
         <activity android:name=".account.Images" />
         <activity android:name=".account.updateprofile.Update_Profile_Background" />

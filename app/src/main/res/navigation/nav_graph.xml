@@ -95,6 +95,9 @@
         <action
             android:id="@+id/action_account_to_images"
             app:destination="@id/images" />
+        <action
+            android:id="@+id/action_account_to_accountViewPager0"
+            app:destination="@id/accountViewPager0" />
     </fragment>
 
     <fragment
@@ -122,6 +125,52 @@
         <action
             android:id="@+id/action_images_to_account"
             app:destination="@id/account" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountViewPager0"
+        android:name="dk.events.a6.account.AccountViewPager0"
+        android:label="account_view_pager0"
+        tools:layout="@layout/account_view_pager0" >
+        <action
+            android:id="@+id/action_accountViewPager0_to_account"
+            app:destination="@id/account" />
+        <action
+            android:id="@+id/action_accountViewPager0_to_accountViewPager1"
+            app:destination="@id/accountViewPager1" />
+        <action
+            android:id="@+id/action_accountViewPager0_to_accountViewPager2"
+            app:destination="@id/accountViewPager2" />
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountViewPager1"
+        android:name="dk.events.a6.account.AccountViewPager1"
+        android:label="account_view_pager1"
+        tools:layout="@layout/account_view_pager1">
+
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="null" />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/accountViewPager2"
+        android:name="dk.events.a6.account.AccountViewPager2"
+        android:label="account_view_pager2"
+        tools:layout="@layout/account_view_pager2">
+
+
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
 
 

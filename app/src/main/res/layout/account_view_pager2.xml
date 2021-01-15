@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_background_activity"
+    android:orientation="vertical"
+    tools:context=".account.AccountViewPager2"
+    >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+            android:paddingBottom="50dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/sub_title"
+                android:text="@string/background_info_city" />
+
+
+            <EditText
+                android:id="@+id/address"
+                style="@style/field_sub_field_profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/background_info_city_field" />
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/sub_title"
+                android:text="@string/background_info_education" />
+
+
+            <EditText
+                android:id="@+id/education"
+                style="@style/field_sub_field_profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/background_info_education_field" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/sub_title"
+                android:text="@string/background_info_job" />
+
+
+            <EditText
+                android:id="@+id/job"
+                style="@style/field_sub_field_profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/background_info_job_field" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/sub_title"
+                android:text="@string/background_info_description" />
+
+
+            <EditText
+                android:id="@+id/description"
+                style="@style/field_sub_field_profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/background_info_description_field"
+                android:layout_marginBottom="50dp"
+                />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

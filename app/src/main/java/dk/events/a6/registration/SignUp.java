@@ -128,7 +128,7 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
                                 SignUpDirections.actionSignUpToBackgroundInfo();
                         action.setUserId(userId);
                         userDatebase.uploadUserInfoToFirebase(userId, action, binding.progressBar,
-                                fields[0], fields[1], fields[2], checker.getGender());
+                                fields[0], fields[1], fields[2], fields[3], checker.getGender());
                         binding.progressBar.setVisibility(View.GONE);
                     }
                 }).addOnFailureListener(new OnFailureListener() {

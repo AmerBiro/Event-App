@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
+import dk.events.a6.mvvm.UserModel;
+
 public class ImageCollectionViewModel extends ViewModel implements FirebaseRepository.OnFirestoreTaskComplete {
 
     private MutableLiveData<List<ImageCollectionModel>> imageCollectionModelData = new MutableLiveData<>();
@@ -20,10 +22,13 @@ public class ImageCollectionViewModel extends ViewModel implements FirebaseRepos
         firebaseRepository.getImageCollectionData();
     }
 
+
     @Override
     public void imageCollectionDataAdded(List<ImageCollectionModel> imageCollectionModels) {
         imageCollectionModelData.setValue(imageCollectionModels);
     }
+
+
 
     @Override
     public void onError(Exception e) {
