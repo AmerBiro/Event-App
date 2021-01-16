@@ -13,7 +13,7 @@ import android.view.View;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationAccountImagesBinding;
-import user.ImageHandler;
+import dk.events.a6.user.ImageHandler;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;

@@ -19,8 +19,8 @@ import android.widget.EditText;
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationBackgroundInfoBinding;
 import dk.events.a6.logic.FieldChecker;
-import user.UserAuth;
-import user.UserDatebase;
+import dk.events.a6.user.UserAuth;
+import dk.events.a6.user.UserDatebase;
 
 import static dk.events.a6.activities.MainActivity.TAG;
 

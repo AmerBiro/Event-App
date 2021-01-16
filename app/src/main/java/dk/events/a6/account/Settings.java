@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -21,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.AccountSettingsBinding;
-import user.UserAuth;
+import dk.events.a6.user.UserAuth;
 
 import static dk.events.a6.activities.MainActivity.TAG;
 
@@ -60,7 +59,7 @@ public class Settings extends Fragment implements View.OnClickListener {
         binding.settingsBackArrow.setOnClickListener(this);
         binding.verify.setOnClickListener(this);
         binding.updateEmail.setOnClickListener(this);
-        binding.changePassword.setOnClickListener(this);
+        binding.updatePassword.setOnClickListener(this);
         binding.resetPassword.setOnClickListener(this);
         binding.logOut.setOnClickListener(this);
         binding.deleteAccount.setOnClickListener(this);
@@ -79,25 +78,20 @@ public class Settings extends Fragment implements View.OnClickListener {
                 controller.popBackStack();
                 break;
             case R.id.verify:
-
+                userAuth.verifyUser();
                 break;
             case R.id.update_email:
-
+                userAuth.updateEmail(R.id.action_settings_to_registeration);
                 break;
-            case R.id.change_password:
-
+            case R.id.update_password:
+                userAuth.updatePassword(R.id.action_settings_to_registeration);
                 break;
             case R.id.reset_password:
                 userAuth.resetPassword();
                 break;
             case R.id.log_out:
                 userAuth.signOut(R.id.action_settings_to_registeration);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getActivity().finish();
-                    }
-                },1500);
+                new Handler().postDelayed(() -> getActivity().finish(),1500);
                 break;
             case R.id.delete_account:
                 userAuth.deleteUser(R.id.action_settings_to_registeration);

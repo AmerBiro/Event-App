@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_splashScreen_to_account"
             app:destination="@id/account" />
+        <action
+            android:id="@+id/action_splashScreen_to_eventViewer"
+            app:destination="@id/eventViewer" />
     </fragment>
 
     <fragment
@@ -32,6 +35,9 @@
         <action
             android:id="@+id/action_registeration_to_account"
             app:destination="@id/account" />
+        <action
+            android:id="@+id/action_registeration_to_eventViewer"
+            app:destination="@id/eventViewer" />
     </fragment>
 
 
@@ -76,6 +82,9 @@
         <action
             android:id="@+id/action_accountImages_to_account"
             app:destination="@id/account" />
+        <action
+            android:id="@+id/action_accountImages_to_eventViewer"
+            app:destination="@id/eventViewer" />
     </fragment>
 
 
@@ -160,6 +169,16 @@
         <action
             android:id="@+id/action_settings_to_registeration"
             app:destination="@id/registeration" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventViewer"
+        android:name="dk.events.a6.event.EventViewer"
+        android:label="event_event_viewer"
+        tools:layout="@layout/event_event_viewer" >
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
 
 

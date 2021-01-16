@@ -76,7 +76,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
             }
         });
 
-       /* if (user != null){
+       /* if (dk.events.a6.user != null){
             // restore profile image
             StorageReference userimage = storageReference.child("Users/"+mAuth.getCurrentUser().getUid()+"/Profile image.jpg");
             userimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

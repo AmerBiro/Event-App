@@ -1,12 +1,9 @@
-package user;
+package dk.events.a6.user;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -49,7 +46,7 @@ public class UserDatebase {
 
     public void uploadUserInfoToFirebase(String userId, SignUpDirections.ActionSignUpToBackgroundInfo action,
                                          ProgressBar progressBar, EditText first_name, EditText last_name, EditText date_of_birth, EditText email, String gender) {
-        this.documentReference = FirebaseFirestore.getInstance().collection("user").document(userId);
+        this.documentReference = FirebaseFirestore.getInstance().collection("dk/events/a6/user").document(userId);
         Map<String, Object> user = new HashMap<>();
 
         this.first_name = first_name.getText().toString();
@@ -69,7 +66,7 @@ public class UserDatebase {
             @Override
             public void onSuccess(Void aVoid) {
                 progressBar.setVisibility(View.GONE);
-                Log.d(TAG, "onSuccess: " + "Uploading user data successfully after creating a new user");
+                Log.d(TAG, "onSuccess: " + "Uploading dk.events.a6.user data successfully after creating a new dk.events.a6.user");
                 controller.navigate(action);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -83,7 +80,7 @@ public class UserDatebase {
     public void uploadUserBackgroundInfoToFirebase(String userId, BackgroundInfoDirections.ActionBackgroundInfoToAccountImages action, EditText address, EditText education, EditText job, EditText description) {
 
         this.documentReference = FirebaseFirestore.getInstance()
-                .collection("user").document(userId);
+                .collection("dk/events/a6/user").document(userId);
 
         Map<String, Object> backgroundInfo = new HashMap<>();
 
@@ -100,7 +97,7 @@ public class UserDatebase {
         documentReference.update(backgroundInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d(TAG, "onSuccess: " + "Updating user background info successfully");
+                Log.d(TAG, "onSuccess: " + "Updating dk.events.a6.user background info successfully");
                 controller.navigate(action);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -116,7 +113,7 @@ public class UserDatebase {
                                                    EditText job, EditText description
                                                    ) {
         this.documentReference = FirebaseFirestore.getInstance()
-                .collection("user").document(userId);
+                .collection("dk/events/a6/user").document(userId);
 
         Map<String, Object> backgroundInfo = new HashMap<>();
 

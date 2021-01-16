@@ -26,15 +26,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.AccountImagesBinding;
-import dk.events.a6.mvvm.UserModel;
-import dk.events.a6.mvvm.ImageCollectionModel;
-import dk.events.a6.mvvm.ImageCollectionViewModel;
-import user.ImageHandler;
+import dk.events.a6.mvvm.model.UserModel;
+import dk.events.a6.mvvm.model.ImageCollectionModel;
+import dk.events.a6.mvvm.viewmodel.ImageCollectionViewModel;
+import dk.events.a6.user.ImageHandler;
 
 import static dk.events.a6.activities.MainActivity.TAG;
 
@@ -107,10 +108,10 @@ public class Images extends Fragment implements View.OnClickListener {
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                         userModel = value.toObject(UserModel.class);
                         image_url[0] = userModel.getImage_url_account();
-                        Glide
-                                .with(getActivity().getApplicationContext())
+                        Picasso
+                                .get()
                                 .load(image_url[0])
-                                .centerCrop()
+                                .fit()
                                 .into(imageViews[0]);
                     }
                 });

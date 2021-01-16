@@ -67,8 +67,8 @@ public class SplashScreen extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            SplashScreenDirections.ActionSplashScreenToAccount action =
-                                    SplashScreenDirections.actionSplashScreenToAccount();
+                            SplashScreenDirections.ActionSplashScreenToEventViewer action =
+                                    SplashScreenDirections.actionSplashScreenToEventViewer();
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             Log.d(TAG, "onSuccess: "+ " SplashScreen userId: " + userId);
                             action.setUserId(userId);

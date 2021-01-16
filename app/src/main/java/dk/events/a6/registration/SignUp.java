@@ -20,8 +20,8 @@ import dk.events.a6.logic.DatePicker;
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationSignUpBinding;
 import dk.events.a6.logic.FieldChecker;
-import user.UserAuth;
-import user.UserDatebase;
+import dk.events.a6.user.UserAuth;
+import dk.events.a6.user.UserDatebase;
 
 import androidx.annotation.Nullable;
 
@@ -85,7 +85,7 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
         super.onStart();
         binding.dateOfBirth.setOnClickListener(this);
         binding.arrowNext.setOnClickListener(this);
-        binding.backArrowSignUp.setOnClickListener(this);
+        binding.arrowBackSignUp.setOnClickListener(this);
     }
 
 
@@ -93,13 +93,12 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.arrow_next:
-                binding.progressBar.setVisibility(View.VISIBLE);
                 createAccount();
                 break;
             case R.id.date_of_birth:
                 pickUpDate();
                 break;
-            case R.id.back_arrow_sign_up:
+            case R.id.arrow_back_sign_up:
                 controller.navigate(R.id.action_signUp_to_registeration);
                 controller.navigateUp();
                 controller.popBackStack();
@@ -116,6 +115,7 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
     private void createAccount() {
         if (!checker.isEmpty(fields, errorMessage)){
             if (!checker.genderCheck(binding.radioGroup)) {
+                binding.progressBar.setVisibility(View.VISIBLE);
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.createUserWithEmailAndPassword(
                         fields[3].getText().toString(),

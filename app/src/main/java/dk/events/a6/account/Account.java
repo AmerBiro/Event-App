@@ -16,18 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.squareup.picasso.Picasso;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.AccountAccountBinding;
-import dk.events.a6.mvvm.UserModel;
-import user.UserAuth;
+import dk.events.a6.mvvm.model.UserModel;
+import dk.events.a6.user.UserAuth;
 
 import static dk.events.a6.activities.MainActivity.TAG;
 
@@ -88,10 +88,16 @@ public class Account extends Fragment implements View.OnClickListener {
                 image = userModel.getImage_url_account();
                 binding.name.setText(first_name + " " + last_name);
 
-                Glide
-                        .with(getActivity())
+//                Glide
+//                        .with(getActivity())
+//                        .load(image)
+//                        .centerCrop()
+//                        .into(binding.imageProfile);
+
+                Picasso
+                        .get()
                         .load(image)
-                        .centerCrop()
+                        .fit()
                         .into(binding.imageProfile);
 
 

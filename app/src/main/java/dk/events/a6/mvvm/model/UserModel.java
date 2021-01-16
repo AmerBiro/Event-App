@@ -1,4 +1,4 @@
-package dk.events.a6.mvvm;
+package dk.events.a6.mvvm.model;
 
 import android.widget.EditText;
 

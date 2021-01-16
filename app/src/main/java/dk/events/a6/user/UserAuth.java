@@ -1,4 +1,4 @@
-package user;
+package dk.events.a6.user;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import dk.events.a6.account.Account;
-import dk.events.a6.registration.Registration;
 import dk.events.a6.registration.RegistrationDirections;
 
 
@@ -178,22 +177,24 @@ public class UserAuth {
 
 
 
-    public void verifyUser(Activity activity) {
+    public void verifyUser() {
         if (user != null) {
             if (!user.isEmailVerified()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setTitle("You have not verified your email yet!");
                 builder.setMessage("Do you want to verify your email?")
-                        .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(activity, "A verification email has been sent to: \n" + user.getEmail(), 0).show();
-                                        mAuth.signOut();
-                                        activity.startActivity(new Intent(activity.getApplicationContext(), Registration.class));
-                                        activity.finish();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(activity, "Once you've verified your email, you have to log in again", 0).show();
+                                            }
+                                        },1500);
                                         return;
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -207,7 +208,6 @@ public class UserAuth {
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
-                                Toast.makeText(activity, "You cannot see or edit your profile before verifying your email!", 1).show();
                             }
                         });
                 AlertDialog alert = builder.create();
@@ -220,21 +220,110 @@ public class UserAuth {
     }
 
 
-    public void updateEmail(Activity activity, String newEmail) {
-        user.updateEmail(newEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
+    public void updateEmail(int i) {
+        final EditText updatePassword = new EditText(activity);
+        updatePassword.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        final AlertDialog.Builder updatePasswordDialog = new AlertDialog.Builder(activity);
+        updatePasswordDialog.setTitle("Updating email");
+        updatePasswordDialog.setMessage("Enter the new password");
+        updatePasswordDialog.setView(updatePassword);
+        updatePasswordDialog.setPositiveButton("Update Email", new DialogInterface.OnClickListener() {
             @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(activity, "Email updated successfully1", 0).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(activity, "Email not updated " + e.getMessage(), 1).show();
+            public void onClick(DialogInterface dialog, int which) {
+                String update = updatePassword.getText().toString();
+                if (update.trim().isEmpty()) {
+                    Toast.makeText(activity, "Invalid input!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    user.updateEmail(update).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(activity, "Email updated successfully", 0).show();
+                            dialog.cancel();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mAuth.signOut();
+                                    controller.navigate(i);
+                                    controller.navigateUp();
+                                    controller.popBackStack();
+                                    controller.navigateUp();
+                                    controller.popBackStack();
+                                }
+                            },1500);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(activity, "Error!\n" + e.getMessage(), 1).show();
+                            return;
+                        }
+                    });
+                }
+
             }
         });
+        updatePasswordDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        updatePasswordDialog.create().show();
     }
 
 
+    public void updatePassword(int i) {
+        final EditText updatePassword = new EditText(activity);
+        updatePassword.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);
+        final AlertDialog.Builder updatePasswordDialog = new AlertDialog.Builder(activity);
+       updatePasswordDialog.setTitle("Update Password");
+       updatePasswordDialog.setMessage("Enter your new password");
+       updatePasswordDialog.setView(updatePassword);
+       updatePasswordDialog.setPositiveButton("Update Password", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String update = updatePassword.getText().toString();
+                if (update.trim().isEmpty()) {
+                    Toast.makeText(activity, "Invalid input!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    user.updatePassword(update).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(activity, "Password updated successfully", 0).show();
+                            dialog.cancel();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mAuth.signOut();
+                                    controller.navigate(i);
+                                    controller.navigateUp();
+                                    controller.popBackStack();
+                                    controller.navigateUp();
+                                    controller.popBackStack();
+                                }
+                            },1500);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(activity, "Error!\n" + e.getMessage(), 1).show();
+                            return;
+                        }
+                    });
+                }
+
+            }
+        });
+        updatePasswordDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        updatePasswordDialog.create().show();
+    }
 
 
 

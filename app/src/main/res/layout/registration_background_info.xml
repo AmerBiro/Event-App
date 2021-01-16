@@ -22,23 +22,35 @@
             android:padding="7dp"
             >
 
-            <LinearLayout
-                style="@style/linear_layout_maiin_pages"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom">
 
-                <TextView
-                    style="@style/registration_title_style"
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    style="@style/tool_bar_transparent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/background_info_title" />
+                    tools:ignore="MissingConstraints" />
 
-                <ImageButton
+                <Button
                     android:id="@+id/arrow_next"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:background="@drawable/ic_next_arrow" />
-            </LinearLayout>
+                    tools:ignore="MissingConstraints"
+                    style="@style/appBar_arrow_next"
+                    />
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/appBar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Background"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <TextView

@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "You have no account!", Toast.LENGTH_SHORT).show();
             }
         }else if (v.getId() == R.id.id_button_account){
-            //user.verifyUser(MainActivity.this);
+            //dk.events.a6.user.verifyUser(MainActivity.this);
             if (fuser!=null){
                 startActivity(new Intent(getApplicationContext(), Account.class));
             }else{

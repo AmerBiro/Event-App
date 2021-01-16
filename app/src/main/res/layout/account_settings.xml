@@ -38,15 +38,6 @@
             android:text="Settings"
             tools:ignore="MissingConstraints" />
 
-        <Button
-            android:id="@+id/settings_check_mark"
-            style="@style/appBar_check_mark"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            tools:ignore="MissingConstraints" />
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -70,7 +61,7 @@
                 android:text="Account Settings"
                 style="@style/sub_title"
                 android:layout_gravity="left"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="100dp"
                 />
 
 
@@ -89,16 +80,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/settings_button"
-                android:text="Change email"
+                android:text="Update email"
                 android:drawableRight="@drawable/ic_baseline_update_24"
                 />
 
             <Button
-                android:id="@+id/change_password"
+                android:id="@+id/update_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/settings_button"
-                android:text="Change password"
+                android:text="Update password"
                 android:drawableRight="@drawable/ic_baseline_security_24"
                 />
 
@@ -134,7 +125,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Who wer are?"
+                android:text="Who we are?"
                 style="@style/sub_title"
                 android:layout_marginTop="50dp"
                 android:layout_gravity="left"

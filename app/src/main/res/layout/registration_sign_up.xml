@@ -13,33 +13,43 @@
     >
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/linear_layout_maiin_pages"
-        >
+        android:layout_gravity="center|bottom">
 
-        <ImageButton
-            android:id="@+id/back_arrow_sign_up"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:background="@drawable/ic_back_arrow"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/tool_bar_transparent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up_title"
-            style="@style/registration_title_style"
-            />
+            tools:ignore="MissingConstraints" />
 
-        <ImageButton
+        <Button
             android:id="@+id/arrow_next"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:background="@drawable/ic_next_arrow"
+            tools:ignore="MissingConstraints"
+            style="@style/appBar_arrow_next"
             />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/appBar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign up"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/arrow_back_sign_up"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            tools:ignore="MissingConstraints"
+            style="@style/appBar_arrow_back"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

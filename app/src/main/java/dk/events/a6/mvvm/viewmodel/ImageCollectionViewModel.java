@@ -1,10 +1,14 @@
-package dk.events.a6.mvvm;
+package dk.events.a6.mvvm.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
+
+import dk.events.a6.mvvm.FirebaseRepository;
+import dk.events.a6.mvvm.model.EventModel;
+import dk.events.a6.mvvm.model.ImageCollectionModel;
 
 public class ImageCollectionViewModel extends ViewModel implements FirebaseRepository.OnFirestoreTaskComplete {
 
@@ -26,6 +30,10 @@ public class ImageCollectionViewModel extends ViewModel implements FirebaseRepos
         imageCollectionModelData.setValue(imageCollectionModels);
     }
 
+    @Override
+    public void eventDataAdded(List<EventModel> eventModels) {
+
+    }
 
 
     @Override

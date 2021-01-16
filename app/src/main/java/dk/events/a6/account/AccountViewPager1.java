@@ -13,21 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.squareup.picasso.Picasso;
 
 
 import dk.events.a6.databinding.AccountViewPager1Binding;
-import dk.events.a6.mvvm.UserModel;
-import io.grpc.Context;
+import dk.events.a6.mvvm.model.UserModel;
 
 
 import static dk.events.a6.activities.MainActivity.TAG;
@@ -79,28 +74,26 @@ public class AccountViewPager1 extends Fragment {
     private void getUserData(){
         userRef = FirebaseFirestore.getInstance()
                 .collection("user").document(userId);
-        userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                userModel = value.toObject(UserModel.class);
-                Log.d(TAG, "onEvent: " + userModel.getFirst_name());
-                data[0] = userModel.getFirst_name();
-                data[1] = userModel.getLast_name();
-                data[2] = userModel.getDate_of_birth();
-                data[3] = userModel.getEmail();
-                data[4] = userModel.getImage_url_account();
+        userRef.addSnapshotListener((value, error) -> {
+            userModel = value.toObject(UserModel.class);
+            Log.d(TAG, "onEvent: " + userModel.getFirst_name());
+            data[0] = userModel.getFirst_name();
+            data[1] = userModel.getLast_name();
+            data[2] = userModel.getDate_of_birth();
+            data[3] = userModel.getEmail();
+            data[4] = userModel.getImage_url_account();
 
-                for (int i = 0; i<4; i++){
-                    fields[i].setText(data[i]);
-                }
-
-                Glide
-                        .with(getActivity())
-                        .load(data[4])
-                        .centerCrop()
-                        .into(binding.image);
-
+            for (int i = 0; i<4; i++){
+                fields[i].setText(data[i]);
             }
+
+            Picasso
+                    .get()
+                    .load(data[4])
+                    .fit()
+                    .into(binding.image);
+
+
         });
     }
 

@@ -16,7 +16,7 @@ public class License extends Entity {
     @Override
     public String toString() {
         return "License{" +
-                "user=" + user +
+                "dk.events.a6.user=" + user +
                 ", event=" + event +
                 ", licenseType=" + licenseType +
                 '}';
