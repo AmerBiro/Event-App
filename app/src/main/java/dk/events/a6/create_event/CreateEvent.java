@@ -77,7 +77,12 @@ public class CreateEvent {
 
         Map<String, Object> event = new HashMap<>();
         event.put("name", this.name);
-        event.put("cost", this.cost);
+        if (this.cost.trim().isEmpty()){
+            this.cost = "Free";
+        }else{
+            event.put("cost", this.cost + " DKK");
+        }
+
         event.put("address", this.address);
         event.put("date", this.date);
         event.put("time", this.time);

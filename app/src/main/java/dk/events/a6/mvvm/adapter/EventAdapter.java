@@ -25,6 +25,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     private List<EventModel> eventModels;
     private OnEventItemClicked onEventItemClicked;
     private Activity activity;
+    private int i;
+
 
     public EventAdapter(OnEventItemClicked onEventItemClicked) {
         this.onEventItemClicked = onEventItemClicked;
@@ -114,7 +116,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             this.activity.startActivity(intent);
         });
 
-
     }
 
     @Override
@@ -142,6 +143,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
             itemView.setOnClickListener(this);
 
+            i = getAdapterPosition();
+
         }
 
         @Override
@@ -157,4 +160,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
+
+
 }

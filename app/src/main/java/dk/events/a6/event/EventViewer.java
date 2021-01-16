@@ -62,7 +62,6 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         super.onStart();
         binding.homeHome.setOnClickListener(this);
         binding.homeAccount.setOnClickListener(this);
-
     }
 
     @Override
@@ -85,14 +84,20 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         adapter = new EventAdapter(this);
         viewpager2.setAdapter(adapter);
         adapter.setActivity(getActivity());
+
     }
 
 
     @Override
     public void onItemClicked(int position) {
-
-
+        Log.d(TAG, "onItemClicked: " + position);
+        EventViewerDirections.ActionEventViewerToEventDetails action =
+                EventViewerDirections.actionEventViewerToEventDetails();
+        action.setPosition(position);
+        controller.navigate(action);
     }
+
+
 
     @Override
     public void onClick(View v) {
