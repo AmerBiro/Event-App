@@ -27,7 +27,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.List;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 
 public class EventViewer extends Fragment implements EventAdapter.OnEventItemClicked, View.OnClickListener {
@@ -84,6 +84,7 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         viewpager2 = binding.viewpager;
         adapter = new EventAdapter(this);
         viewpager2.setAdapter(adapter);
+        adapter.setActivity(getActivity());
     }
 
 

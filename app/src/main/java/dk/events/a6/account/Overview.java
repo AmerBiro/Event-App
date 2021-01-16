@@ -34,7 +34,7 @@ import dk.events.a6.mvvm.adapter.EventAdapter;
 import dk.events.a6.mvvm.model.ImageCollectionModel;
 import dk.events.a6.mvvm.viewmodel.ImageCollectionViewModel;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 public class Overview extends Fragment implements View.OnClickListener, ImageCollectionAdapter.OnImageCollectionItemClicked {
 

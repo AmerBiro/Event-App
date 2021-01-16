@@ -29,7 +29,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 
 public class AccountViewPager2 extends Fragment implements View.OnClickListener {

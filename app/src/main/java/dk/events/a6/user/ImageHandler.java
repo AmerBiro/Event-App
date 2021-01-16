@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 public class ImageHandler {
     private StorageReference accountAvatarRef, accountImageCollections, eventImageRef;

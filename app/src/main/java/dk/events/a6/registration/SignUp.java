@@ -37,7 +37,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 public class SignUp extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 

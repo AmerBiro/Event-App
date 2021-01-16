@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import dk.events.a6.account.Account;
 import dk.events.a6.registration.RegistrationDirections;
@@ -42,7 +44,6 @@ public class UserAuth {
 
     public UserAuth() {
     }
-
 
 
     public void signIn(ProgressBar progressBar, EditText email, EditText password/*, int i*/) {
@@ -89,7 +90,7 @@ public class UserAuth {
                 public void run() {
                     activity.finish();
                 }
-            },1500);
+            }, 1500);
             return true;
         } else return false;
     }
@@ -137,7 +138,6 @@ public class UserAuth {
     }
 
 
-
     public void deleteUser(int i) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Delete account")
@@ -145,6 +145,9 @@ public class UserAuth {
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                         user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -155,7 +158,7 @@ public class UserAuth {
                                     public void run() {
                                         activity.finish();
                                     }
-                                },1500);
+                                }, 1500);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -163,6 +166,8 @@ public class UserAuth {
                                 Toast.makeText(activity, "Unable to delete profile " + e.getMessage(), 1).show();
                             }
                         });
+
+
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -172,9 +177,6 @@ public class UserAuth {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
-
-
 
 
     public void verifyUser() {
@@ -194,7 +196,7 @@ public class UserAuth {
                                             public void run() {
                                                 Toast.makeText(activity, "Once you've verified your email, you have to log in again", 0).show();
                                             }
-                                        },1500);
+                                        }, 1500);
                                         return;
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -250,7 +252,7 @@ public class UserAuth {
                                     controller.navigateUp();
                                     controller.popBackStack();
                                 }
-                            },1500);
+                            }, 1500);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -277,10 +279,10 @@ public class UserAuth {
         final EditText updatePassword = new EditText(activity);
         updatePassword.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);
         final AlertDialog.Builder updatePasswordDialog = new AlertDialog.Builder(activity);
-       updatePasswordDialog.setTitle("Update Password");
-       updatePasswordDialog.setMessage("Enter your new password");
-       updatePasswordDialog.setView(updatePassword);
-       updatePasswordDialog.setPositiveButton("Update Password", new DialogInterface.OnClickListener() {
+        updatePasswordDialog.setTitle("Update Password");
+        updatePasswordDialog.setMessage("Enter your new password");
+        updatePasswordDialog.setView(updatePassword);
+        updatePasswordDialog.setPositiveButton("Update Password", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String update = updatePassword.getText().toString();
@@ -303,7 +305,7 @@ public class UserAuth {
                                     controller.navigateUp();
                                     controller.popBackStack();
                                 }
-                            },1500);
+                            }, 1500);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -324,7 +326,6 @@ public class UserAuth {
         });
         updatePasswordDialog.create().show();
     }
-
 
 
 }

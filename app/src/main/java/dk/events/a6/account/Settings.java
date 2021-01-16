@@ -22,7 +22,7 @@ import dk.events.a6.R;
 import dk.events.a6.databinding.AccountSettingsBinding;
 import dk.events.a6.user.UserAuth;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 public class Settings extends Fragment implements View.OnClickListener {
 

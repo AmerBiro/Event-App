@@ -82,7 +82,6 @@ public class HomeViewpager extends Fragment implements View.OnClickListener {
         adapter.addFragment(favorite, "Favorite");
         viewPager.setAdapter(adapter);
 
-        viewPager.setCurrentItem(1);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_event_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.icon_chat);
         tabLayout.getTabAt(2).setIcon(R.drawable.icon_favorite);

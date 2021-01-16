@@ -29,7 +29,7 @@ import dk.events.a6.databinding.AccountAccountBinding;
 import dk.events.a6.mvvm.model.UserModel;
 import dk.events.a6.user.UserAuth;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 
 public class Account extends Fragment implements View.OnClickListener {
@@ -88,18 +88,11 @@ public class Account extends Fragment implements View.OnClickListener {
                 image = userModel.getImage_url_account();
                 binding.name.setText(first_name + " " + last_name);
 
-//                Glide
-//                        .with(getActivity())
-//                        .load(image)
-//                        .centerCrop()
-//                        .into(binding.imageProfile);
-
                 Picasso
                         .get()
                         .load(image)
                         .fit()
                         .into(binding.imageProfile);
-
 
             }
         });

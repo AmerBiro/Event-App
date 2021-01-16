@@ -24,7 +24,8 @@ import java.util.Map;
 import dk.events.a6.registration.BackgroundInfoDirections;
 import dk.events.a6.registration.SignUpDirections;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
+
 
 public class UserDatebase {
 

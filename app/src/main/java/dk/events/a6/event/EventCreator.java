@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dk.events.a6.R;
-import dk.events.a6.activities.MainActivity;
+import static android.content.ContentValues.TAG;
 import dk.events.a6.create_event.CreateEvent;
 import dk.events.a6.databinding.EventEventCreatorBinding;
 import dk.events.a6.logic.FieldChecker;
@@ -64,7 +64,6 @@ public class EventCreator extends Fragment implements View.OnClickListener {
     private FieldChecker checker;
     private String[] errorMessage;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = EventEventCreatorBinding.inflate(inflater, container, false);
@@ -85,7 +84,7 @@ public class EventCreator extends Fragment implements View.OnClickListener {
         errorMessage = new String[8];
         binding.ageRange.setEnabled(false);
 
-        Log.d(MainActivity.TAG, "onSuccess: " + "UserId in create event: " + userId);
+        Log.d(TAG, "onSuccess: " + "UserId in create event: " + userId);
 
         binding.eventAgeRange.setMinValue(18);
         binding.eventAgeRange.setMaxValue(99);
@@ -188,7 +187,6 @@ public class EventCreator extends Fragment implements View.OnClickListener {
                     binding.eventClick, binding.eventProgressBar, action);
 
         });
-
 
     }
 }

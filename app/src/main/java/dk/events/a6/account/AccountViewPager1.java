@@ -24,8 +24,7 @@ import com.squareup.picasso.Picasso;
 import dk.events.a6.databinding.AccountViewPager1Binding;
 import dk.events.a6.mvvm.model.UserModel;
 
-
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 
 public class AccountViewPager1 extends Fragment {

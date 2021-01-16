@@ -22,7 +22,7 @@ import dk.events.a6.logic.FieldChecker;
 import dk.events.a6.user.UserAuth;
 import dk.events.a6.user.UserDatebase;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 
 public class BackgroundInfo extends Fragment implements View.OnClickListener {

@@ -32,7 +32,7 @@ import java.util.Map;
 
 import dk.events.a6.event.EventCreatorDirections;
 
-import static dk.events.a6.activities.MainActivity.TAG;
+import static android.content.ContentValues.TAG;
 
 public class CreateEvent {
 
@@ -89,6 +89,7 @@ public class CreateEvent {
         event.put("creator_image", this.creator_image);
         event.put("creator_name", this.creator_name);
         event.put("creator_gender", this.creator_gender);
+        event.put("creator_age", this.creator_age);
 
         eventRef = FirebaseFirestore.getInstance()
                 .collection("event");
