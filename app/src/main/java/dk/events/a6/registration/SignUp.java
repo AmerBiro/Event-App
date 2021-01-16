@@ -65,7 +65,7 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
         controller = Navigation.findNavController(view);
         checker = new FieldChecker(getActivity());
         userAuth = new UserAuth(getActivity(), view, controller);
-        userDatebase = new UserDatebase(controller, view);
+        userDatebase = new UserDatebase(controller, view, getActivity());
         fields = new EditText[5];
         errorMessage = new String[5];
         fields[0] = binding.firstName;

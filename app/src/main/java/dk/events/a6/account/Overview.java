@@ -140,8 +140,6 @@ public class Overview extends Fragment implements View.OnClickListener, ImageCol
                         OverviewDirections.actionOverviewToAccount();
                 action.setUserId(userId);
                 controller.navigate(action);
-                controller.navigateUp();
-                controller.popBackStack();
                 break;
             default:
         }

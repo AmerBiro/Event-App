@@ -59,7 +59,7 @@ public class BackgroundInfo extends Fragment implements View.OnClickListener {
         controller = Navigation.findNavController(view);
         checker = new FieldChecker(getActivity());
         userAuth = new UserAuth(getActivity(), view, controller);
-        userDatebase = new UserDatebase(controller, view);
+        userDatebase = new UserDatebase(controller, view, getActivity());
         fields = new EditText[4];
         errorMessage = new String[4];
         fields[0] = binding.address;
@@ -95,7 +95,7 @@ public class BackgroundInfo extends Fragment implements View.OnClickListener {
         }BackgroundInfoDirections.ActionBackgroundInfoToAccountImages action =
                 BackgroundInfoDirections.actionBackgroundInfoToAccountImages();
         action.setUserId(userId);
-        userDatebase.uploadUserBackgroundInfoToFirebase(userId, action
+        userDatebase.createUserBackgroundInfoToFirebase(userId, action
         , fields[0], fields[1], fields[2], fields[3]);
     }
 

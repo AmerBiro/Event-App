@@ -57,8 +57,8 @@ public class UserAuth {
                         progressBar.setVisibility(View.GONE);
                         //                controller.navigate(i);
                         Toast.makeText(activity, "Sign in successfully", 0).show();
-                        RegistrationDirections.ActionRegisterationToAccount action =
-                                RegistrationDirections.actionRegisterationToAccount();
+                        RegistrationDirections.ActionRegisterationToEventViewer action =
+                                RegistrationDirections.actionRegisterationToEventViewer();
                         action.setUserId(authResult.getUser().getUid());
                         controller.navigate(action);
                     }

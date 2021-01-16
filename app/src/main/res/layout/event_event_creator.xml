@@ -92,6 +92,8 @@
                         android:id="@+id/event_image"
                         android:layout_gravity="center"
                         />
+
+
                 </androidx.cardview.widget.CardView>
 
 
@@ -162,7 +164,7 @@
                             android:layout_marginRight="15dp"
                             />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/age_range"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

@@ -1,9 +1,11 @@
 package dk.events.a6.user;
 
+import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -33,11 +35,13 @@ public class UserDatebase {
     private DocumentReference documentReference;
     private String first_name, last_name, date_of_birth, email, gender;
     private String address, education, job, description;
+    private Activity activity;
 
-    public UserDatebase(NavController controller, View view) {
+    public UserDatebase(NavController controller, View view, Activity activity) {
         this.controller = controller;
         this.view = view;
         this.controller = Navigation.findNavController(this.view);
+        this.activity = activity;
     }
 
     public UserDatebase() {
@@ -46,7 +50,7 @@ public class UserDatebase {
 
     public void uploadUserInfoToFirebase(String userId, SignUpDirections.ActionSignUpToBackgroundInfo action,
                                          ProgressBar progressBar, EditText first_name, EditText last_name, EditText date_of_birth, EditText email, String gender) {
-        this.documentReference = FirebaseFirestore.getInstance().collection("dk/events/a6/user").document(userId);
+        this.documentReference = FirebaseFirestore.getInstance().collection("user").document(userId);
         Map<String, Object> user = new HashMap<>();
 
         this.first_name = first_name.getText().toString();
@@ -68,6 +72,7 @@ public class UserDatebase {
                 progressBar.setVisibility(View.GONE);
                 Log.d(TAG, "onSuccess: " + "Uploading dk.events.a6.user data successfully after creating a new dk.events.a6.user");
                 controller.navigate(action);
+                return;
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -77,10 +82,10 @@ public class UserDatebase {
         });
     }
 
-    public void uploadUserBackgroundInfoToFirebase(String userId, BackgroundInfoDirections.ActionBackgroundInfoToAccountImages action, EditText address, EditText education, EditText job, EditText description) {
+    public void createUserBackgroundInfoToFirebase(String userId, BackgroundInfoDirections.ActionBackgroundInfoToAccountImages action, EditText address, EditText education, EditText job, EditText description) {
 
         this.documentReference = FirebaseFirestore.getInstance()
-                .collection("dk/events/a6/user").document(userId);
+                .collection("user").document(userId);
 
         Map<String, Object> backgroundInfo = new HashMap<>();
 
@@ -99,6 +104,7 @@ public class UserDatebase {
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "onSuccess: " + "Updating dk.events.a6.user background info successfully");
                 controller.navigate(action);
+                return;
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -113,7 +119,7 @@ public class UserDatebase {
                                                    EditText job, EditText description
                                                    ) {
         this.documentReference = FirebaseFirestore.getInstance()
-                .collection("dk/events/a6/user").document(userId);
+                .collection("user").document(userId);
 
         Map<String, Object> backgroundInfo = new HashMap<>();
 
@@ -131,6 +137,8 @@ public class UserDatebase {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "onSuccess: " + "Updated successfully");
+                Toast.makeText(activity, "Updated successfully", 0).show();
+                return;
 
             }
         }).addOnFailureListener(new OnFailureListener() {

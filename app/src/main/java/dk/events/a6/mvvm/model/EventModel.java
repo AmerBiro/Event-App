@@ -8,9 +8,9 @@ public class EventModel {
     private String event_id;
     private String image, name, cost, address, date, time, age_range, type, description;
     private String creator_id, creator_image, creator_name, creator_gender, creator_age;
-    private int distance;
+    private String distance;
 
-    public EventModel(String event_id, String image, String name, String cost, String address, String date, String time, String age_range, String type, String description, String creator_id, String creator_image, String creator_name, String creator_gender, String creator_age, int distance) {
+    public EventModel(String event_id, String image, String name, String cost, String address, String date, String time, String age_range, String type, String description, String creator_id, String creator_image, String creator_name, String creator_gender, String creator_age, String distance) {
         this.event_id = event_id;
         this.image = image;
         this.name = name;
@@ -153,11 +153,11 @@ public class EventModel {
         this.creator_age = creator_age;
     }
 
-    public int getDistance() {
+    public String getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(String distance) {
         this.distance = distance;
     }
 

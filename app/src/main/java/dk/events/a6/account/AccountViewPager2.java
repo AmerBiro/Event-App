@@ -60,13 +60,13 @@ public class AccountViewPager2 extends Fragment implements View.OnClickListener 
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         fields = new EditText[4];
         data = new String[4];
-        userDatebase = new UserDatebase(controller, view);
+        userDatebase = new UserDatebase(controller, view, getActivity());
         fields[0] = binding.address;
         fields[1] = binding.education;
         fields[2] = binding.job;
         fields[3] = binding.description;
 
-        Log.d(TAG, "onSuccess: " + "Receiving userId successfully in ViewPager1: " + userId);
+        Log.d(TAG, "onSuccess: " + "Receiving userId successfully in ViewPager2: " + userId);
         getUserData();
     }
 

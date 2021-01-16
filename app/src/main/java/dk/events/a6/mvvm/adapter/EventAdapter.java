@@ -51,17 +51,23 @@ public class EventAdapter extends RecyclerView.Adapter <EventAdapter.EventViewHo
 
         holder.name.setText(name);
 
-        Picasso
-                .get()
-                .load(event_image)
-                .fit()
-                .into(holder.event_image);
+        if (event_image != null && !event_image.equals("")){
+            Picasso
+                    .get()
+                    .load(event_image)
+                    .fit()
+                    .into(holder.event_image);
+        }
 
-        Picasso
-                .get()
-                .load(creator_iamge)
-                .fit()
-                .into(holder.creator_image);
+        if (creator_iamge != null && !creator_iamge.equals("")){
+            Picasso
+                    .get()
+                    .load(creator_iamge)
+                    .fit()
+                    .into(holder.creator_image);
+        }
+
+
 
     }
 

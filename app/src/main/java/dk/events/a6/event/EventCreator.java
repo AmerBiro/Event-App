@@ -1,16 +1,25 @@
 package dk.events.a6.event;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import dk.events.a6.R;
+import dk.events.a6.activities.MainActivity;
 import dk.events.a6.create_event.CreateEvent;
 import dk.events.a6.databinding.EventEventCreatorBinding;
+import dk.events.a6.logic.FieldChecker;
+import dk.events.a6.mvvm.model.UserModel;
+import dk.events.a6.user.ImageHandler;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,17 +31,39 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.squareup.picasso.Picasso;
+
+import static android.content.ContentValues.TAG;
 
 
-public class EventCreator extends Fragment {
+public class EventCreator extends Fragment implements View.OnClickListener {
 
     private @NonNull
     EventEventCreatorBinding
-     binding;
+            binding;
     private NavController controller;
     private CreateEvent event;
+    private DocumentReference userRef;
+    private UserModel userModel;
+    private EditText[] fields;
+    private String[] data;
+    private String userId;
+    private int imagePosition;
+    private ImageHandler imageHandler;
+    private Uri eventUri;
+    private FieldChecker checker;
+    private String[] errorMessage;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +77,16 @@ public class EventCreator extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         event = new CreateEvent(controller, view, getActivity());
+        fields = new EditText[8];
+        data = new String[15];
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        binding.eventProgressBar.setVisibility(View.INVISIBLE);
+        checker = new FieldChecker(getActivity());
+        errorMessage = new String[8];
+        binding.ageRange.setEnabled(false);
+
+        Log.d(MainActivity.TAG, "onSuccess: " + "UserId in create event: " + userId);
+
         binding.eventAgeRange.setMinValue(18);
         binding.eventAgeRange.setMaxValue(99);
 
@@ -60,11 +101,94 @@ public class EventCreator extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        binding.eventClick.setOnClickListener(this);
+        binding.eventImage.setOnClickListener(this);
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.event_click:
+                for (int i = 0; i < 8; i++) {
+                    errorMessage[i] = "Field cannot be empty";
+                }
+                fields[0] = binding.eventName;
+                fields[1] = binding.eventCost;
+                fields[2] = binding.eventAddress;
+                fields[3] = binding.eventDate;
+                fields[4] = binding.eventTime;
+                fields[5] = binding.ageRange;
+                fields[6] = binding.eventType;
+                fields[7] = binding.eventDescription;
+                if (eventUri != null){
+                    if (!checker.isEmpty(fields, errorMessage)) {
+                            createEvent();
+                    }
+                }else{
+                    Toast.makeText(getContext(), "An image must be selected", 0).show();
+                }
 
 
+                break;
+            case R.id.event_image:
+                imagePosition = 1500;
+                openGallery(imagePosition);
+                break;
+            default:
+        }
+    }
+
+    public void openGallery(int requestCode) {
+        Intent gallery = new Intent();
+        gallery.setType("image/*");
+        gallery.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(gallery, "select picture"), requestCode);
+    }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == imagePosition && resultCode == Activity.RESULT_OK) {
+            eventUri = data.getData();
+            String eventUriToString = eventUri.toString();
+            Picasso
+                    .get()
+                    .load(eventUriToString)
+                    .fit()
+                    .into(binding.eventImage);
+        }
+    }
+
+
+    private void createEvent() {
+        userRef = FirebaseFirestore.getInstance()
+                .collection("user").document(userId);
+        userRef.addSnapshotListener((value, error) -> {
+            userModel = value.toObject(UserModel.class);
+//            Log.d(MainActivity.TAG, "onSuccess: " + "get user data: " + userModel.getImage_url_account());
+            String image;
+
+
+            String creator_id, creator_image, creator_name, creator_gender, creator_age;
+            creator_id = userId;
+            creator_image = userModel.getImage_url_account();
+            creator_name = userModel.getFirst_name();
+            creator_gender = userModel.getGender();
+            creator_age = userModel.getDate_of_birth();
+
+            EventCreatorDirections.ActionEventCreatorToEventViewer action =
+                    EventCreatorDirections.actionEventCreatorToEventViewer();
+            action.setUserId(userId);
+
+            event.createEvent(eventUri, action, fields[0], fields[1], fields[2], fields[3], fields[4], fields[5],
+                    fields[6], fields[7], "", creator_id, creator_image,
+                    creator_name, creator_gender, creator_age,
+                    binding.eventClick, binding.eventProgressBar, action);
+
+        });
+
+
+    }
 }

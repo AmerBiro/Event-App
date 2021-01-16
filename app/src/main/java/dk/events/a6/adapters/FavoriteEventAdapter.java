@@ -29,7 +29,7 @@ public class FavoriteEventAdapter extends RecyclerView.Adapter<FavoriteEventAdap
     @NonNull
     @Override
     public FavoriteEventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_favorite_list,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.single_item_favorite_event,parent,false);
         return new ViewHolder(view);
     }
 

@@ -61,6 +61,7 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
     public void onStart() {
         super.onStart();
         binding.homeHome.setOnClickListener(this);
+        binding.homeAccount.setOnClickListener(this);
 
     }
 
@@ -72,7 +73,7 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
             @Override
             public void onChanged(List<EventModel> eventModels) {
 
-                Log.d(TAG, "onChanged: " + eventModels.get(0).getEvent_id());
+//                Log.d(TAG, "onChanged: " + eventModels.get(0).getEvent_id());
                 adapter.setEventModels(eventModels);
                 adapter.notifyDataSetChanged();
             }
@@ -98,6 +99,11 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
             case R.id.home_home:
                 controller.navigate(R.id.action_eventViewer_to_homeViewpager);
                 break;
+            case R.id.home_account:
+                EventViewerDirections.ActionEventViewerToAccount action =
+                        EventViewerDirections.actionEventViewerToAccount();
+                action.setUserId(userId);
+                controller.navigate(action);
             default:
         }
     }

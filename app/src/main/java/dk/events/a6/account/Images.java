@@ -146,8 +146,6 @@ public class Images extends Fragment implements View.OnClickListener {
                         ImagesDirections.actionImagesToAccount();
                 action.setUserId(userId);
                 controller.navigate(action);
-                controller.navigateUp();
-                controller.popBackStack();
                 break;
             case R.id.images_image0:
                 position = 0;

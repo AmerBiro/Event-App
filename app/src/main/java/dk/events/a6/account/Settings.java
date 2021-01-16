@@ -74,8 +74,6 @@ public class Settings extends Fragment implements View.OnClickListener {
                         SettingsDirections.actionSettingsToAccount();
                 action.setUserId(userId);
                 controller.navigate(action);
-                controller.navigateUp();
-                controller.popBackStack();
                 break;
             case R.id.verify:
                 userAuth.verifyUser();

@@ -26,7 +26,7 @@ import java.util.Map;
 import static dk.events.a6.activities.MainActivity.TAG;
 
 public class ImageHandler {
-    private StorageReference accountAvatarRef, accountImageCollections;
+    private StorageReference accountAvatarRef, accountImageCollections, eventImageRef;
     private DocumentReference documentReference;
     private String image_url;
 
@@ -65,7 +65,7 @@ public class ImageHandler {
             }
 
             Log.d(TAG, "onSuccess: " + "Image status: " + this.imageStatus);
-            accountAvatarRef = FirebaseStorage.getInstance().getReference().child("/dk/events/a6/user/" + userId + "/Account Image Avatar.jpg");
+            accountAvatarRef = FirebaseStorage.getInstance().getReference().child("user/" + userId + "/Account Image Avatar.jpg");
             accountAvatarRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -76,7 +76,7 @@ public class ImageHandler {
                             Log.d(TAG, "onSuccess: " + "Downloading account image url successfully");
 
                             image_url = uri.toString();
-                            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("dk/events/a6/user").document(userId);
+                            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("user").document(userId);
                             Map<String, Object> accountAvatar = new HashMap<>();
 
                             accountAvatar.put("image_url_account", image_url);
@@ -99,8 +99,8 @@ public class ImageHandler {
                                                 .load(uri)
                                                 .fit()
                                                 .into(imageView);
-
                                         progressBar.setVisibility(View.INVISIBLE);
+                                        return;
                                     }
                                 }
                             });
@@ -119,7 +119,7 @@ public class ImageHandler {
 
             imageName = "Account Image" + imageStatus + ".jpg";
             accountImageCollections = FirebaseStorage.getInstance().getReference()
-                    .child("/dk/events/a6/user/" + userId + "/Image" + imageStatus + ".jpg");
+                    .child("user/" + userId + "/Image" + imageStatus + ".jpg");
             accountImageCollections.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -132,8 +132,8 @@ public class ImageHandler {
 
                             image_url = uri.toString();
 
-                            documentReference = FirebaseFirestore.getInstance()
-                                    .collection("dk/events/a6/user").document(userId)
+                            DocumentReference documentReference = FirebaseFirestore.getInstance()
+                                    .collection("user").document(userId)
                                     .collection("image collection").document("image" + imageStatus);
 
                             Map<String, Object> images = new HashMap<>();
@@ -157,6 +157,7 @@ public class ImageHandler {
                                                 .fit()
                                                 .into(imageView);
                                         progressBar.setVisibility(View.INVISIBLE);
+                                        return;
                                     }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -173,4 +174,62 @@ public class ImageHandler {
     }
 
 
+//    public void UploadeEventImage() {
+//
+//        Uri imageUri = this.data.getData();
+//        String imageName;
+//        this.progressBar.setVisibility(View.VISIBLE);
+//
+//        eventImageRef = FirebaseStorage.getInstance().getReference().child("user/" + userId + "/event/Account Image Avatar.jpg");
+//        eventImageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                Log.d(TAG, "onSuccess: " + "Uploading account image avatar successfully to storage");
+//                accountAvatarRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        Log.d(TAG, "onSuccess: " + "Downloading account image url successfully");
+//
+//                        image_url = uri.toString();
+//                        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("user").document(userId);
+//                        Map<String, Object> accountAvatar = new HashMap<>();
+//
+//                        accountAvatar.put("image_url_account", image_url);
+//                        Log.d(TAG, "onSuccess: " + documentReference.getId());
+//
+//                        documentReference.update(accountAvatar).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Log.d(TAG, "onSuccess: " + "Uploading account image url successfully: ");
+//
+//                                if (imageView != null) {
+////                                            Glide
+////                                                    .with(activity)
+////                                                    .load(uri)
+////                                                    .centerCrop()
+////                                                    .into(imageView);
+//
+//                                    Picasso
+//                                            .get()
+//                                            .load(uri)
+//                                            .fit()
+//                                            .into(imageView);
+//                                    progressBar.setVisibility(View.INVISIBLE);
+//                                    return;
+//                                }
+//                            }
+//                        });
+//                    }
+//                });
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(activity, "Failed uploading image avatar", 0).show();
+//            }
+//        });
+//    }
 }
+
+
+
