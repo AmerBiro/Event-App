@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/ic_background_activity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".home.HomeViewpager">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:textAlignment="center"
+        tools:ignore="MissingConstraints">
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+
+
+    <androidx.viewpager.widget.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/home_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/home_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="@color/font_main_color"
+            android:textAllCaps="false"
+            />
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+    <Button
+        android:id="@+id/create"
+        android:layout_width="match_parent"
+        android:background="@color/barsColour"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textSize="18dp"
+        android:layout_alignParentBottom="true"
+        android:text="Create an Event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

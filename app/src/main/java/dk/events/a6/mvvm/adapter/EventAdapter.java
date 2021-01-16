@@ -44,10 +44,10 @@ public class EventAdapter extends RecyclerView.Adapter <EventAdapter.EventViewHo
         event_image = eventModels.get(position).getImage();
         creator_iamge = eventModels.get(position).getCreator_image();
 
-//        if (name.length()>15){
-//            name = name.substring(0, 15);
-//            name = name + "...";
-//        }
+        if (name.length()>15){
+            name = name.substring(0, 15);
+            name = name + "...";
+        }
 
         holder.name.setText(name);
 

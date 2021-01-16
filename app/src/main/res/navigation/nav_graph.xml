@@ -179,6 +179,27 @@
             android:name="userId"
             app:argType="string"
             android:defaultValue="null" />
+        <action
+            android:id="@+id/action_eventViewer_to_homeViewpager"
+            app:destination="@id/homeViewpager" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeViewpager"
+        android:name="dk.events.a6.home.HomeViewpager"
+        android:label="home_home_viewpager"
+        tools:layout="@layout/home_home_viewpager" >
+        <action
+            android:id="@+id/action_homeViewpager_to_eventCreator"
+            app:destination="@id/eventCreator" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventCreator"
+        android:name="dk.events.a6.event.EventCreator"
+        android:label="event_event_creator"
+        tools:layout="@layout/event_event_creator" >
+        <action
+            android:id="@+id/action_eventCreator_to_eventViewer"
+            app:destination="@id/eventViewer" />
     </fragment>
 
 

@@ -10,39 +10,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dk.events.a6.R;
-import dk.events.a6.account.OverviewArgs;
 import dk.events.a6.databinding.EventEventViewerBinding;
 import dk.events.a6.mvvm.adapter.EventAdapter;
-import dk.events.a6.mvvm.adapter.ImageCollectionAdapter;
 import dk.events.a6.mvvm.model.EventModel;
-import dk.events.a6.mvvm.model.ImageCollectionModel;
-import dk.events.a6.mvvm.model.UserModel;
 import dk.events.a6.mvvm.viewmodel.EventViewModel;
-import dk.events.a6.mvvm.viewmodel.ImageCollectionViewModel;
 
-import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.google.firebase.firestore.DocumentReference;
 
 import java.util.List;
 
 import static dk.events.a6.activities.MainActivity.TAG;
 
 
-public class EventViewer extends Fragment implements EventAdapter.OnEventItemClicked {
+public class EventViewer extends Fragment implements EventAdapter.OnEventItemClicked, View.OnClickListener {
 
     private @NonNull
     EventEventViewerBinding
@@ -72,6 +60,8 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
     @Override
     public void onStart() {
         super.onStart();
+        binding.homeHome.setOnClickListener(this);
+
     }
 
     @Override
@@ -81,11 +71,8 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
             @Override
             public void onChanged(List<EventModel> eventModels) {
-//                Log.d(TAG, "onChanged: " + imageCollectionModels.get(0).getNumber());
-//                Log.d(TAG, "onChanged: " + imageCollectionModels.get(0).getImage_url());
-//                int s = imageCollectionViewModel.getImageCollectionModelData().getValue().size();
 
-//                Log.d(TAG, "onChanged: " + s);
+                Log.d(TAG, "onChanged: " + eventModels.get(0).getEvent_id());
                 adapter.setEventModels(eventModels);
                 adapter.notifyDataSetChanged();
             }
@@ -103,5 +90,15 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
     public void onItemClicked(int position) {
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.home_home:
+                controller.navigate(R.id.action_eventViewer_to_homeViewpager);
+                break;
+            default:
+        }
     }
 }

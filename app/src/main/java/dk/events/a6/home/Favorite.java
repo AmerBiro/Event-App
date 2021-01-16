@@ -1,4 +1,4 @@
-package dk.events.a6.event;
+package dk.events.a6.home;
 
 import android.os.Bundle;
 
@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dk.events.a6.R;
-import dk.events.a6.databinding.EventMyEventsBinding;
-import dk.events.a6.models.MyEvent;
+import dk.events.a6.databinding.HomeFavoriteBinding;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,16 +24,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class MyEvents extends Fragment {
+public class Favorite extends Fragment {
 
     private @NonNull
-    EventMyEventsBinding
+    HomeFavoriteBinding
      binding;
     private NavController controller;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = EventMyEventsBinding.inflate(inflater, container, false);
+        binding = HomeFavoriteBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         return view;
     }

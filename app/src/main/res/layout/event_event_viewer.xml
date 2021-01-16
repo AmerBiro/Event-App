@@ -39,7 +39,7 @@
             />
 
         <ImageButton
-            android:id="@+id/home"
+            android:id="@+id/home_home"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="?android:attr/selectableItemBackground"
