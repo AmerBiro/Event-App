@@ -45,7 +45,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
     private UserModel userModel;
     private RepostEvent repostEvent;
     private String image_url, name, cost, address, date, time, age_range, type, description, distance;
-    private String creator_name, creator_gender, creator_age;
+    private String creator_Id, creator_name, creator_gender, creator_age;
     private String reposter_id, reposter_image, reposter_name, reposter_gender, reposter_age;
     private String imageId;
 
@@ -96,10 +96,13 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 type = eventModels.get(position).getType();
                 description = eventModels.get(position).getDescription();
                 distance = "";
+                creator_Id = eventModels.get(position).getCreator_id();
                 creator_name = eventModels.get(position).getCreator_name();
                 creator_gender = eventModels.get(position).getCreator_gender();
                 creator_age = eventModels.get(position).getCreator_age();
                 imageId = eventModels.get(position).getEvent_id();
+
+                Log.d(TAG, "onSuccess: " + "CreatorId: " +  creator_Id);
 
                 Picasso
                         .get()
