@@ -1,6 +1,7 @@
 package dk.events.a6.event;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
@@ -70,26 +72,24 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         event = new CreateEvent(controller, view, getActivity());
-        fields = new EditText[8];
+        fields = new EditText[7];
         data = new String[15];
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         binding.eventProgressBar.setVisibility(View.INVISIBLE);
         checker = new FieldChecker(getActivity());
         errorMessage = new String[8];
         binding.ageRange.setEnabled(false);
-        eventTypeView = new EventTypeView();
-
+        eventTypeView = new EventTypeView(getActivity(), binding.eventType);
+        binding.eventType.setEnabled(false);
         Log.d(TAG, "onSuccess: " + "UserId in create event: " + userId);
 
         binding.eventAgeRange.setMinValue(18);
         binding.eventAgeRange.setMaxValue(99);
 
-        binding.eventAgeRange.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
-            @Override
-            public void valueChanged(Number minValue, Number maxValue) {
-                binding.ageRange.setText(String.valueOf(minValue) + "-" + String.valueOf(maxValue));
-            }
-        });
+        binding.eventAgeRange.setOnRangeSeekbarChangeListener((minValue, maxValue) ->
+                binding.ageRange.setText(String.valueOf(minValue) + "-" + String.valueOf(maxValue)));
+
+
     }
 
     @Override
@@ -97,7 +97,10 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         super.onStart();
         binding.eventClick.setOnClickListener(this);
         binding.eventImage.setOnClickListener(this);
-        binding.eventType.setOnClickListener(this);
+        binding.selectEventType.setOnClickListener(this);
+
+//        Log.d(TAG, "onStart: " + eventTypeView.getEventType());
+
     }
 
 
@@ -114,8 +117,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                 fields[3] = binding.eventDate;
                 fields[4] = binding.eventTime;
                 fields[5] = binding.ageRange;
-                fields[6] = binding.eventType;
-                fields[7] = binding.eventDescription;
+                fields[6] = binding.eventDescription;
                 if (eventUri != null) {
                     if (!checker.isEmpty(fields, errorMessage)) {
                         createEvent();
@@ -130,8 +132,8 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                 imagePosition = 1500;
                 openGallery(imagePosition);
                 break;
-            case R.id.event_type:
-                eventTypeView.showEventTypeDialog(getActivity());
+            case R.id.select_event_type:
+                eventTypeView.showEventTypeDialog();
                 break;
             default:
         }
@@ -171,17 +173,17 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()){
+                if (documentSnapshot.exists()) {
                     String name = documentSnapshot.getString("first_name");
                     String image = documentSnapshot.getString("image_url_account");
 //                   String creator_gender = documentSnapshot.getString("gender");
 //                   String creator_age = documentSnapshot.getString("date_of_birth");
 
                     event.createEvent(eventUri, action, fields[0], fields[1], fields[2], fields[3], fields[4], fields[5],
-                            fields[6], fields[7], "", userId, image,
+                            binding.eventType.getText().toString(), fields[6], "", userId, image,
                             name, "creator_gender", "creator_age",
                             binding.eventClick, binding.eventProgressBar);
-                }else {
+                } else {
 
                 }
 
