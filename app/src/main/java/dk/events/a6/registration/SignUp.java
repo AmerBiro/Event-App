@@ -16,7 +16,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 
-import dk.events.a6.logic.DatePicker;
+import dk.events.a6.logic.DatePickerView;
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationSignUpBinding;
 import dk.events.a6.logic.FieldChecker;
@@ -108,7 +108,7 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
     }
 
     private void pickUpDate() {
-        DialogFragment dialogFragment = new DatePicker();
+        DialogFragment dialogFragment = new DatePickerView();
         dialogFragment.show(getActivity().getSupportFragmentManager(), "Date Picker");
     }
 

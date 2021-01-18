@@ -4,14 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 
 import java.util.Calendar;
 
-public class DatePicker extends DialogFragment {
+public class DatePickerView extends DialogFragment {
 
+    public DatePickerView() {
+    }
 
 
     @NonNull

@@ -1,11 +1,13 @@
 package dk.events.a6.event;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -18,6 +20,7 @@ import dk.events.a6.R;
 import static android.content.ContentValues.TAG;
 
 import dk.events.a6.databinding.EventCreateEventViewBinding;
+import dk.events.a6.logic.DatePickerView;
 import dk.events.a6.logic.FieldChecker;
 import dk.events.a6.mvvm.model.UserModel;
 import dk.events.a6.user.ImageHandler;
@@ -27,8 +30,10 @@ import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
@@ -37,8 +42,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
+
+import java.util.Calendar;
 
 
 public class CreateEventView extends Fragment implements View.OnClickListener {
@@ -59,6 +68,8 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
     private FieldChecker checker;
     private String[] errorMessage;
     private EventTypeView eventTypeView;
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private int years, months, days;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +83,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         event = new CreateEvent(controller, view, getActivity());
-        fields = new EditText[7];
+        fields = new EditText[8];
         data = new String[15];
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         binding.eventProgressBar.setVisibility(View.INVISIBLE);
@@ -81,6 +92,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         binding.ageRange.setEnabled(false);
         eventTypeView = new EventTypeView(getActivity(), binding.eventType);
         binding.eventType.setEnabled(false);
+        binding.eventDate.setEnabled(false);
         Log.d(TAG, "onSuccess: " + "UserId in create event: " + userId);
 
         binding.eventAgeRange.setMinValue(18);
@@ -90,6 +102,22 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                 binding.ageRange.setText(String.valueOf(minValue) + "-" + String.valueOf(maxValue)));
 
 
+        Calendar calendar = Calendar.getInstance();
+       years = calendar.get(Calendar.YEAR);
+       months = calendar.get(Calendar.MONTH);
+       days = calendar.get(Calendar.DATE);
+        binding.dateSelector.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    getActivity(), (view1, year, month, dayOfMonth) -> {
+                        months = month+1;
+                        days = dayOfMonth;
+                        years = year;
+                        String date = days + "/" + months + "/" + years;
+                        binding.eventDate.setText(date);
+                    }, years, months,days);
+            datePickerDialog.show();
+        });
+
     }
 
     @Override
@@ -98,11 +126,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         binding.eventClick.setOnClickListener(this);
         binding.eventImage.setOnClickListener(this);
         binding.selectEventType.setOnClickListener(this);
-
-//        Log.d(TAG, "onStart: " + eventTypeView.getEventType());
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -118,6 +142,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                 fields[4] = binding.eventTime;
                 fields[5] = binding.ageRange;
                 fields[6] = binding.eventDescription;
+                fields[7] = binding.eventType;
                 if (eventUri != null) {
                     if (!checker.isEmpty(fields, errorMessage)) {
                         createEvent();
@@ -170,30 +195,23 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         userRef = FirebaseFirestore.getInstance()
                 .collection("user").document(userId);
 
-        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    String name = documentSnapshot.getString("first_name");
-                    String image = documentSnapshot.getString("image_url_account");
-//                   String creator_gender = documentSnapshot.getString("gender");
-//                   String creator_age = documentSnapshot.getString("date_of_birth");
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                userModel = value.toObject(UserModel.class);
+                String creator_image, creator_name, creator_age, creator_id, creator_gender;
+                creator_image = userModel.getImage_url_account();
+                creator_name = userModel.getFirst_name();
+                creator_gender = userModel.getGender();
+                creator_age = userModel.getDate_of_birth();
 
-                    event.createEvent(eventUri, action, fields[0], fields[1], fields[2], fields[3], fields[4], fields[5],
-                            binding.eventType.getText().toString(), fields[6], "", userId, image,
-                            name, "creator_gender", "creator_age",
-                            binding.eventClick, binding.eventProgressBar);
-                } else {
-
-                }
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
+                event.createEvent(eventUri, fields[0], fields[1], fields[2], fields[3], fields[4], fields[5],
+                        binding.eventType.getText().toString(), fields[6], "", userId, creator_image,
+                        creator_name, creator_gender, creator_age,
+                        binding.eventClick, binding.eventProgressBar, action);
             }
         });
 
     }
+
 }

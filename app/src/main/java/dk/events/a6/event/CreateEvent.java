@@ -49,12 +49,13 @@ public class CreateEvent {
         this.controller = Navigation.findNavController(this.view);
     }
 
-    public void createEvent(Uri uri, CreateEventViewDirections.ActionEventCreatorToEventViewer action,
+    public void createEvent(Uri uri,
                             EditText name, EditText cost, EditText address, EditText date, EditText time,
                             EditText age_range, String type, EditText description, String distance,
                             String creator_id, String creator_image, String creator_name,
                             String creator_gender, String creator_age,
-                            Button button, ProgressBar event_progressBar) {
+                            Button button, ProgressBar event_progressBar,
+                            CreateEventViewDirections.ActionEventCreatorToEventViewer action) {
         button.setVisibility(View.INVISIBLE);
         event_progressBar.setVisibility(View.VISIBLE);
 
