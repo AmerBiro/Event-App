@@ -61,43 +61,36 @@ public class EventTypeView implements View.OnClickListener {
             case R.id.sport:
                 eventType = "Sport";
                 editText.setText(eventType);
-                Toast.makeText(activity, eventType, 0).show();
                 this.dialog.cancel();
                 break;
             case R.id.entertainment:
                 eventType = "Entertainment";
                 editText.setText(eventType);
-                Toast.makeText(activity, eventType, 0).show();
                 this.dialog.cancel();
                 break;
             case R.id.food_drink:
                 eventType = "Food & Drink";
                 editText.setText(eventType);
-                Toast.makeText(activity, eventType, 0).show();
                 this.dialog.cancel();
                 break;
             case R.id.music:
                 eventType = "Music & Night Life";
                 editText.setText(eventType);
-                Toast.makeText(activity, eventType, 0).show();
                 this.dialog.cancel();
                 break;
             case R.id.culture:
                 eventType = "Culture";
                 editText.setText(eventType);
-                Toast.makeText(activity, eventType, 0).show();
                 this.dialog.cancel();
                 break;
             case R.id.get_smarter:
                 eventType = "Get Smarter";
                 editText.setText(eventType);
-                Toast.makeText(activity, eventType, 0).show();
                 this.dialog.cancel();
                 break;
             case R.id.free:
                 eventType = "Free";
                 editText.setText(eventType);
-                Toast.makeText(activity, eventType, 0).show();
                 this.dialog.cancel();
                 break;
                 default:

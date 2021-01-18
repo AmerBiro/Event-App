@@ -3,6 +3,7 @@ package dk.events.a6.event;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
@@ -47,6 +49,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 
 
@@ -69,6 +72,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
     private String[] errorMessage;
     private EventTypeView eventTypeView;
     private int years, months, days;
+    private int hr, mt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,6 +96,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         eventTypeView = new EventTypeView(getActivity(), binding.eventType);
         binding.eventType.setEnabled(false);
         binding.eventDate.setEnabled(false);
+        binding.eventTime.setEnabled(false);
         Log.d(TAG, "onSuccess: " + "UserId in create event: " + userId);
 
         binding.eventAgeRange.setMinValue(18);
@@ -116,6 +121,25 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                     }, years, months,days);
             datePickerDialog.show();
         });
+
+        binding.timeSelector.setOnClickListener(v -> {
+            TimePickerDialog timePickerDialog = new TimePickerDialog(
+                    getActivity(),
+                    new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            hr = hourOfDay;
+                            mt = minute;
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(0, 0, 0, hr, mt);
+
+                            binding.eventTime.setText(hr + ":" + mt);
+                        }
+                    }, 12, 0, false
+            );
+            timePickerDialog.show();
+        });
+
 
     }
 
