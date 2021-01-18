@@ -30,8 +30,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -158,30 +161,36 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
 
 
     private void createEvent() {
+        CreateEventViewDirections.ActionEventCreatorToEventViewer action =
+                CreateEventViewDirections.actionEventCreatorToEventViewer();
+        action.setUserId(userId);
+
         userRef = FirebaseFirestore.getInstance()
                 .collection("user").document(userId);
-        userRef.addSnapshotListener((value, error) -> {
-            userModel = value.toObject(UserModel.class);
-//            Log.d(MainActivity.TAG, "onSuccess: " + "get user data: " + userModel.getImage_url_account());
-            String image;
 
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()){
+                    String name = documentSnapshot.getString("first_name");
+                    String image = documentSnapshot.getString("image_url_account");
+//                   String creator_gender = documentSnapshot.getString("gender");
+//                   String creator_age = documentSnapshot.getString("date_of_birth");
 
-            String creator_id, creator_image, creator_name, creator_gender, creator_age;
-            creator_id = userId;
-            creator_image = userModel.getImage_url_account();
-            creator_name = userModel.getFirst_name();
-            creator_gender = userModel.getGender();
-            creator_age = userModel.getDate_of_birth();
+                    event.createEvent(eventUri, action, fields[0], fields[1], fields[2], fields[3], fields[4], fields[5],
+                            fields[6], fields[7], "", userId, image,
+                            name, "creator_gender", "creator_age",
+                            binding.eventClick, binding.eventProgressBar);
+                }else {
 
-            CreateEventViewDirections.ActionEventCreatorToEventViewer action =
-                    CreateEventViewDirections.actionEventCreatorToEventViewer();
-            action.setUserId(userId);
+                }
 
-            event.createEvent(eventUri, action, fields[0], fields[1], fields[2], fields[3], fields[4], fields[5],
-                    fields[6], fields[7], "", creator_id, creator_image,
-                    creator_name, creator_gender, creator_age,
-                    binding.eventClick, binding.eventProgressBar);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
 
+            }
         });
 
     }
