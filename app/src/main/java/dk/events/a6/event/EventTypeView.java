@@ -24,6 +24,9 @@ public class EventTypeView {
         this.free = free;
     }
 
+    public EventTypeView() {
+    }
+
     public void showEventTypeDialog(Activity activity) {
         Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.event_event_type);
