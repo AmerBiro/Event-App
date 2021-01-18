@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +27,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
@@ -46,6 +50,7 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
     private EventViewModel eventViewModel;
     List<EventModel> onSwipeEventModels;
     private MyEventAdapter adapter;
+    private List<EventModel> eventModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +64,25 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         recyclerViewSetup();
+        getEventData();
+    }
+
+    private void getEventData() {
+        Query event = FirebaseFirestore.getInstance()
+                .collection("event")
+                .orderBy("creator_id")
+                .startAt(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .endAt(FirebaseAuth.getInstance().getCurrentUser().getUid() + "\uf8ff");
+        event.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                eventModel = value.toObjects(EventModel.class);
+                onSwipeEventModels = eventModel;
+                adapter.setEventModels(eventModel);
+                adapter.notifyDataSetChanged();
+                adapter.setActivity(getActivity());
+            }
+        });
     }
 
     @Override
@@ -66,20 +90,20 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
         super.onStart();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
-        eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
-            @Override
-            public void onChanged(List<EventModel> eventModels) {
-                onSwipeEventModels = eventModels;
-                adapter.setEventModels(eventModels);
-                adapter.notifyDataSetChanged();
-                adapter.setActivity(getActivity());
-            }
-        });
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
+//        eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
+//            @Override
+//            public void onChanged(List<EventModel> eventModels) {
+//                onSwipeEventModels = eventModels;
+//                adapter.setEventModels(eventModels);
+//                adapter.notifyDataSetChanged();
+//                adapter.setActivity(getActivity());
+//            }
+//        });
+//    }
 
 
     @Override
