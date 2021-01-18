@@ -37,6 +37,7 @@ public class HomeViewpager extends Fragment implements View.OnClickListener {
     private Chat chat;
     private MyEvents myEvents;
     private Favorite favorite;
+    private RequestEvent requestEvent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class HomeViewpager extends Fragment implements View.OnClickListener {
         chat = new Chat();
         myEvents = new MyEvents();
         favorite = new Favorite();
+        requestEvent = new RequestEvent();
         tabLayout = binding.homeTabLayout;
         viewPager = binding.homeViewPager;
         tabLayout.setupWithViewPager(viewPager);
@@ -73,11 +75,13 @@ public class HomeViewpager extends Fragment implements View.OnClickListener {
         adapter.addFragment(myEvents, "My Events");
         adapter.addFragment(chat, "Chat");
         adapter.addFragment(favorite, "Favorite");
+        adapter.addFragment(requestEvent, "Request");
         viewPager.setAdapter(adapter);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_event_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.icon_chat);
         tabLayout.getTabAt(2).setIcon(R.drawable.icon_favorite);
+        tabLayout.getTabAt(3).setIcon(R.drawable.added_icon);
 
     }
 
