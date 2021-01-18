@@ -7,7 +7,7 @@
     <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".android.MainApplication"
@@ -18,9 +18,11 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".message.MessageActivity"></activity>
+
         <uses-library
             android:name="com.google.android.maps"
-            android:required="false"/>
+            android:required="false" />
 
         <activity android:name=".MainActivity2">
             <intent-filter>
@@ -30,15 +32,12 @@
             </intent-filter>
         </activity>
 
-
         <uses-library
             android:name="com.google.android.maps"
-            android:required="false"/>
-
-        <!-- Sample Ad Manager app ID: ca-app-pub-3940256099942544~3347511713 -->
+            android:required="false" /> <!-- Sample Ad Manager app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-3940256099942544~3347511713" />
 
         <activity android:name=".account.AccountViewPager1" />
         <activity android:name=".account.EmailPassword" />
@@ -60,7 +59,7 @@
         <activity android:name=".account.Settings" />
         <activity android:name=".account.updateprofile.UpdateInfo" />
         <activity android:name=".account.Account" />
-        <activity android:name=".registration.Registration"/>
+        <activity android:name=".registration.Registration" />
     </application>
 
 </manifest>

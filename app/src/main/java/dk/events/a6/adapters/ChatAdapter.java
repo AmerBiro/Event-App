@@ -54,10 +54,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            profileImage=itemView.findViewById(R.id.image_profile);
-            name=itemView.findViewById(R.id.name_text);
-            description=itemView.findViewById(R.id.profileDescription);
-            date=itemView.findViewById(R.id.date_text);
+//            profileImage=itemView.findViewById(R.id.image_profile);
+//            name=itemView.findViewById(R.id.name_text);
+//            description=itemView.findViewById(R.id.profileDescription);
+//            date=itemView.findViewById(R.id.date_text);
         }
     }
 
