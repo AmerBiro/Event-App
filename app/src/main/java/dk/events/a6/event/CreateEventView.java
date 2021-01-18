@@ -53,6 +53,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
     private Uri eventUri;
     private FieldChecker checker;
     private String[] errorMessage;
+    private EventTypeView eventTypeView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         checker = new FieldChecker(getActivity());
         errorMessage = new String[8];
         binding.ageRange.setEnabled(false);
+        eventTypeView = new EventTypeView();
 
         Log.d(TAG, "onSuccess: " + "UserId in create event: " + userId);
 
@@ -92,6 +94,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         super.onStart();
         binding.eventClick.setOnClickListener(this);
         binding.eventImage.setOnClickListener(this);
+        binding.eventType.setOnClickListener(this);
     }
 
 
@@ -123,6 +126,9 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
             case R.id.event_image:
                 imagePosition = 1500;
                 openGallery(imagePosition);
+                break;
+            case R.id.event_type:
+                eventTypeView.showEventTypeDialog(getActivity());
                 break;
             default:
         }

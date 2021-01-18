@@ -322,4 +322,11 @@ Line height: 14sp
         <item name="android:inputType">textAutoComplete</item>
     </style>
 
+
+
+    <style name="event_type_anim" parent="Animation.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
 </resources>
