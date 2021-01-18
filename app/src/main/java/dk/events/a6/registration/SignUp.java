@@ -16,7 +16,6 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 
-import dk.events.a6.logic.DatePicker;
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationSignUpBinding;
 import dk.events.a6.logic.FieldChecker;
@@ -51,6 +50,7 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
             binding;
     private NavController controller;
     private String userId;
+    private int years, months, days;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +78,23 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
         errorMessage[2] = "Invalid date of birth";
         errorMessage[3] = "Invalid email";
         errorMessage[4] = "Invalid password";
+        binding.dateOfBirth.setEnabled(false);
+
+        Calendar calendar = Calendar.getInstance();
+        years = calendar.get(Calendar.YEAR);
+        months = calendar.get(Calendar.MONTH);
+        days = calendar.get(Calendar.DATE);
+        binding.dateSelector.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    getActivity(), (view1, year, month, dayOfMonth) -> {
+                months = month+1;
+                days = dayOfMonth;
+                years = year;
+                String date = days + "/" + months + "/" + years;
+                binding.dateOfBirth.setText(date);
+            }, years, months,days);
+            datePickerDialog.show();
+        });
     }
 
     @Override
@@ -95,9 +112,6 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
             case R.id.arrow_next:
                 createAccount();
                 break;
-            case R.id.date_of_birth:
-                pickUpDate();
-                break;
             case R.id.arrow_back_sign_up:
                 controller.navigate(R.id.action_signUp_to_registeration);
                 controller.navigateUp();
@@ -105,11 +119,6 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
             default:
         }
 
-    }
-
-    private void pickUpDate() {
-        DialogFragment dialogFragment = new DatePicker();
-        dialogFragment.show(getActivity().getSupportFragmentManager(), "Date Picker");
     }
 
     private void createAccount() {

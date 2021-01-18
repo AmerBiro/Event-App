@@ -35,12 +35,13 @@ import static android.content.ContentValues.TAG;
 
 public class CreateEvent {
 
-    private String  name, cost, address, date, time, age_range, type, description, distance,
+    private String name, address, date, time, age_range, type, description, distance,
             creator_id, creator_image, creator_name, creator_gender, creator_age;
     private CollectionReference eventRef;
     private NavController controller;
     private View view;
     private Activity activity;
+    private int cost;
 
     public CreateEvent(NavController controller, View view, Activity activity) {
         this.controller = controller;
@@ -49,17 +50,18 @@ public class CreateEvent {
         this.controller = Navigation.findNavController(this.view);
     }
 
-    public void createEvent(Uri uri, CreateEventViewDirections.ActionEventCreatorToEventViewer action,
-                            EditText name, EditText cost, EditText address, EditText date, EditText time,
+    public void createEvent(Uri uri,
+                            EditText name, int cost, EditText address, EditText date, EditText time,
                             EditText age_range, String type, EditText description, String distance,
                             String creator_id, String creator_image, String creator_name,
                             String creator_gender, String creator_age,
-                            Button button, ProgressBar event_progressBar) {
+                            Button button, ProgressBar event_progressBar,
+                            CreateEventViewDirections.ActionEventCreatorToEventViewer action) {
         button.setVisibility(View.INVISIBLE);
         event_progressBar.setVisibility(View.VISIBLE);
 
         this.name = name.getText().toString();
-        this.cost = cost.getText().toString();
+        this.cost = cost;
         this.address = address.getText().toString();
         this.date = date.getText().toString();
         this.time = time.getText().toString();
@@ -75,12 +77,7 @@ public class CreateEvent {
 
         Map<String, Object> event = new HashMap<>();
         event.put("name", this.name);
-        if (this.cost.trim().isEmpty()){
-            this.cost = "Free";
-        }else{
-            event.put("cost", this.cost + " DKK");
-        }
-
+        event.put("cost", this.cost);
         event.put("address", this.address);
         event.put("date", this.date);
         event.put("time", this.time);
@@ -100,7 +97,7 @@ public class CreateEvent {
         this.eventRef.add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "onSuccess: " + "A new eventId: "+ documentReference.getId());
+                Log.d(TAG, "onSuccess: " + "A new eventId: " + documentReference.getId());
 
                 String eventId = documentReference.getId();
                 StorageReference reference = FirebaseStorage.getInstance().getReference().child("event/" + eventId);
