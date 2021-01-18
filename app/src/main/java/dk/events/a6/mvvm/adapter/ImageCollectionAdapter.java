@@ -31,7 +31,7 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter <ImageCollectio
     @NonNull
     @Override
     public ImageCollectionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item_account_overview_image_collections, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item_image_collections, parent, false);
         return new ImageCollectionViewHolder(view);
     }
 

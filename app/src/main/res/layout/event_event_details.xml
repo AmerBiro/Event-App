@@ -207,6 +207,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageButton
+                android:id="@+id/repost"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/repost_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <ProgressBar
+                android:id="@+id/repost_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:indeterminateTint="@color/font_main_color"
+                android:visibility="invisible"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageButton
             android:id="@+id/wish_to_join_button"
@@ -217,14 +249,6 @@
             android:src="@drawable/wish_to_join_icon" />
 
 
-        <ImageButton
-            android:id="@+id/repost_button"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignBottom="@id/ScrollView"
-            android:layout_marginLeft="8dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:src="@drawable/repost_icon" />
 
     </LinearLayout>
 

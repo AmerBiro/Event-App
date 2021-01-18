@@ -5,29 +5,20 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import dk.events.a6.R;
-import dk.events.a6.account.AccountViewPager1;
-import dk.events.a6.account.AccountViewPager2;
 import dk.events.a6.account.AccountViewPagerAdapter;
-import dk.events.a6.databinding.AccountViewPager0Binding;
 import dk.events.a6.databinding.HomeHomeViewpagerBinding;
-import dk.events.a6.models.MyEvent;
-
-import android.os.Bundle;
+import dk.events.a6.event.MyEvents;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -71,10 +62,12 @@ public class HomeViewpager extends Fragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
         binding.create.setOnClickListener(this);
+
+
     }
 
 
-    private void viewpagerSetup(View view){
+    private void viewpagerSetup(View view) {
         adapter = new AccountViewPagerAdapter(getChildFragmentManager(), 0);
 
         adapter.addFragment(myEvents, "My Events");
@@ -91,7 +84,7 @@ public class HomeViewpager extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.create:
                 controller.navigate(R.id.action_homeViewpager_to_eventCreator);
                 break;

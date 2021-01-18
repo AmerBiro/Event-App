@@ -13,43 +13,33 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dk.events.a6.R;
+
 import static android.content.ContentValues.TAG;
-import dk.events.a6.create_event.CreateEvent;
-import dk.events.a6.databinding.EventEventCreatorBinding;
+
+import dk.events.a6.databinding.EventCreateEventViewBinding;
 import dk.events.a6.logic.FieldChecker;
 import dk.events.a6.mvvm.model.UserModel;
 import dk.events.a6.user.ImageHandler;
 
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
-import static android.content.ContentValues.TAG;
 
-
-public class EventCreator extends Fragment implements View.OnClickListener {
+public class CreateEventView extends Fragment implements View.OnClickListener {
 
     private @NonNull
-    EventEventCreatorBinding
+    EventCreateEventViewBinding
             binding;
     private NavController controller;
     private CreateEvent event;
@@ -66,7 +56,7 @@ public class EventCreator extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = EventEventCreatorBinding.inflate(inflater, container, false);
+        binding = EventCreateEventViewBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         return view;
     }
@@ -120,11 +110,11 @@ public class EventCreator extends Fragment implements View.OnClickListener {
                 fields[5] = binding.ageRange;
                 fields[6] = binding.eventType;
                 fields[7] = binding.eventDescription;
-                if (eventUri != null){
+                if (eventUri != null) {
                     if (!checker.isEmpty(fields, errorMessage)) {
-                            createEvent();
+                        createEvent();
                     }
-                }else{
+                } else {
                     Toast.makeText(getContext(), "An image must be selected", 0).show();
                 }
 
@@ -177,14 +167,14 @@ public class EventCreator extends Fragment implements View.OnClickListener {
             creator_gender = userModel.getGender();
             creator_age = userModel.getDate_of_birth();
 
-            EventCreatorDirections.ActionEventCreatorToEventViewer action =
-                    EventCreatorDirections.actionEventCreatorToEventViewer();
+            CreateEventViewDirections.ActionEventCreatorToEventViewer action =
+                    CreateEventViewDirections.actionEventCreatorToEventViewer();
             action.setUserId(userId);
 
             event.createEvent(eventUri, action, fields[0], fields[1], fields[2], fields[3], fields[4], fields[5],
                     fields[6], fields[7], "", creator_id, creator_image,
                     creator_name, creator_gender, creator_age,
-                    binding.eventClick, binding.eventProgressBar, action);
+                    binding.eventClick, binding.eventProgressBar);
 
         });
 

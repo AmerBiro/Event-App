@@ -98,6 +98,11 @@ Line height: 14sp
         <item name="android:layout_marginTop">15dp</item>
     </style>
 
+
+    <style name="my_event_sub_title">
+        <item name="android:textColor">@color/font_main_color</item>
+    </style>
+
     /////////////////////////////////////////////////////////////////////////
 
     <style name="field">

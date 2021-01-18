@@ -54,7 +54,7 @@ dependencies {
     implementation project(path: ':usecases')
     implementation project(path: ':gateways')
     implementation 'com.google.firebase:firebase-firestore:22.0.0'
-    implementation 'com.google.firebase:firebase-storage:19.2.0'
+    implementation 'com.google.firebase:firebase-storage:19.2.1'
     implementation project(path: ':gatewayimpl')
     implementation 'androidx.wear:wear:1.1.0'
     testImplementation 'junit:junit:4.13.1'

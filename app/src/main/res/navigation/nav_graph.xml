@@ -18,7 +18,12 @@
             />
         <action
             android:id="@+id/action_splashScreen_to_eventViewer"
-            app:destination="@id/eventViewer" />
+            app:destination="@id/eventViewer"
+            app:enterAnim="@anim/questions_list_to_questions_details_slide_in_right"
+            app:exitAnim="@anim/questions_list_to_questions_details_slide_out_left"
+            app:popEnterAnim="@anim/questions_details_to_questions_list_slide_in_from_left"
+            app:popExitAnim="@anim/questions_details_to_questions_list_slide_out_from_right"
+            />
     </fragment>
 
     <fragment
@@ -91,16 +96,35 @@
         <action
             android:id="@+id/action_account_to_overview"
             app:destination="@id/overview"
+            app:enterAnim="@anim/questions_list_to_questions_details_slide_in_right"
+            app:exitAnim="@anim/questions_list_to_questions_details_slide_out_left"
+            app:popEnterAnim="@anim/questions_details_to_questions_list_slide_in_from_left"
+            app:popExitAnim="@anim/questions_details_to_questions_list_slide_out_from_right"
             />
         <action
             android:id="@+id/action_account_to_images"
-            app:destination="@id/images" />
+            app:destination="@id/images"
+            app:enterAnim="@anim/questions_list_to_questions_details_slide_in_right"
+            app:exitAnim="@anim/questions_list_to_questions_details_slide_out_left"
+            app:popEnterAnim="@anim/questions_details_to_questions_list_slide_in_from_left"
+            app:popExitAnim="@anim/questions_details_to_questions_list_slide_out_from_right"
+            />
         <action
             android:id="@+id/action_account_to_accountViewPager0"
-            app:destination="@id/accountViewPager0" />
+            app:destination="@id/accountViewPager0"
+            app:enterAnim="@anim/questions_list_to_questions_details_slide_in_right"
+            app:exitAnim="@anim/questions_list_to_questions_details_slide_out_left"
+            app:popEnterAnim="@anim/questions_details_to_questions_list_slide_in_from_left"
+            app:popExitAnim="@anim/questions_details_to_questions_list_slide_out_from_right"
+            />
         <action
             android:id="@+id/action_account_to_settings"
-            app:destination="@id/settings" />
+            app:destination="@id/settings"
+            app:enterAnim="@anim/questions_list_to_questions_details_slide_in_right"
+            app:exitAnim="@anim/questions_list_to_questions_details_slide_out_left"
+            app:popEnterAnim="@anim/questions_details_to_questions_list_slide_in_from_left"
+            app:popExitAnim="@anim/questions_details_to_questions_list_slide_out_from_right"
+            />
         <action
             android:id="@+id/action_account_to_eventViewer"
             app:destination="@id/eventViewer" />
@@ -181,7 +205,12 @@
             app:destination="@id/account" />
         <action
             android:id="@+id/action_eventViewer_to_eventDetails"
-            app:destination="@id/eventDetails" />
+            app:destination="@id/eventDetails"
+            app:popEnterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:enterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down"
+            />
     </fragment>
     <fragment
         android:id="@+id/homeViewpager"
@@ -194,9 +223,9 @@
     </fragment>
     <fragment
         android:id="@+id/eventCreator"
-        android:name="dk.events.a6.event.EventCreator"
+        android:name="dk.events.a6.event.CreateEventView"
         android:label="event_event_creator"
-        tools:layout="@layout/event_event_creator" >
+        tools:layout="@layout/event_create_event_view" >
         <action
             android:id="@+id/action_eventCreator_to_eventViewer"
             app:destination="@id/eventViewer" />

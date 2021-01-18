@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import dk.events.a6.R;
 import dk.events.a6.databinding.EventEventDetailsBinding;
 import dk.events.a6.mvvm.model.EventModel;
+import dk.events.a6.mvvm.model.UserModel;
 import dk.events.a6.mvvm.viewmodel.EventViewModel;
 
 
@@ -23,6 +24,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -32,13 +36,18 @@ import static android.content.ContentValues.TAG;
 
 public class EventDetails extends Fragment implements View.OnClickListener {
 
-    private @NonNull
-    EventEventDetailsBinding
-     binding;
+    private @NonNull EventEventDetailsBinding binding;
     private NavController controller;
     private int position;
+    private DocumentReference documentReference;
     private EventViewModel eventViewModel;
-    private List<EventModel> eventModels2;
+    private List<EventModel> currentEventModels;
+    private UserModel userModel;
+    private RepostEvent repostEvent;
+    private String image_url, name, cost, address, date, time, age_range, type, description, distance;
+    private String creator_name, creator_gender, creator_age;
+    private String reposter_id, reposter_image, reposter_name, reposter_gender, reposter_age;
+    private String imageId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,13 +61,19 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         position = EventDetailsArgs.fromBundle(getArguments()).getPosition();
-        Log.d(TAG, "onSuccess: " + position);
+        reposter_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        repostEvent = new RepostEvent(controller, view, getActivity());
+        getReposterData();
+        Log.d(TAG, "onSuccess: " + "Position: " + position);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         binding.eventDetailsShare.setOnClickListener(this);
+        binding.eventDetailsImage.setOnClickListener(this);
+        binding.repost.setOnClickListener(this);
+
     }
 
     @Override
@@ -68,27 +83,42 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
             @Override
             public void onChanged(List<EventModel> eventModels) {
-                Log.d(TAG, "onSuccess: " + eventModels.get(position).getName());
+                Log.d(TAG, "onSuccess: " + "Event name: " +  eventModels.get(position).getName());
+                currentEventModels = eventModels;
 
-                eventModels2 = eventModels;
+                image_url = eventModels.get(position).getImage();
+                name = eventModels.get(position).getName();
+                cost = eventModels.get(position).getCost();
+                address = eventModels.get(position).getAddress();
+                date = eventModels.get(position).getDate();
+                time = eventModels.get(position).getTime();
+                age_range = eventModels.get(position).getAge_range();
+                type = eventModels.get(position).getType();
+                description = eventModels.get(position).getDescription();
+                distance = "";
+                creator_name = eventModels.get(position).getCreator_name();
+                creator_gender = eventModels.get(position).getCreator_gender();
+                creator_age = eventModels.get(position).getCreator_age();
+                imageId = eventModels.get(position).getEvent_id();
 
                 Picasso
                         .get()
-                        .load(eventModels.get(position).getImage())
+                        .load(image_url)
                         .fit()
                         .into(binding.eventDetailsImage);
 
-                binding.eventDetailsName.setText(eventModels.get(position).getName());
-                binding.eventDetailsCost.setText(eventModels.get(position).getCost());
-                binding.eventDetailsLocation.setText(eventModels.get(position).getAddress());
-                binding.eventDetailsDateTime.setText(eventModels.get(position).getDate() + ", " + eventModels.get(position).getTime());
-                binding.eventDetailsAgeRange.setText(eventModels.get(position).getAge_range());
-                binding.eventDetailsType.setText(eventModels.get(position).getType());
-                binding.eventDetailsDescription.setText(eventModels.get(position).getDescription());
-                binding.eventDetailsCreatorName.setText(eventModels.get(position).getCreator_name());
-                binding.eventDetailsCreatorSex.setText(eventModels.get(position).getCreator_gender());
-                binding.eventDetailsCreatorAge.setText(eventModels.get(position).getCreator_age());
+                binding.eventDetailsName.setText(name);
+                binding.eventDetailsCost.setText(cost);
+                binding.eventDetailsLocation.setText(address);
+                binding.eventDetailsDateTime.setText(date + ", " + time);
+                binding.eventDetailsAgeRange.setText(age_range);
+                binding.eventDetailsType.setText(type);
+                binding.eventDetailsDescription.setText(description);
+                binding.eventDetailsCreatorName.setText(creator_name);
+                binding.eventDetailsCreatorSex.setText(creator_gender);
+                binding.eventDetailsCreatorAge.setText(creator_age);
 
+//                Log.d(TAG, "onSuccess: " + image_url);
             }
         });
     }
@@ -98,38 +128,15 @@ public class EventDetails extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.event_details_share:
-                    String image, names, costs, address, date, time, age_range, type, description;
-                    String creator_image, creator_name, creator_gender, creator_age;
-                    String distance;
-
-                    image = eventModels2.get(position).getImage();
-                    names = eventModels2.get(position).getName();
-                    costs = eventModels2.get(position).getCost();
-                    address = eventModels2.get(position).getAddress();
-                    date = eventModels2.get(position).getDate();
-                    time = eventModels2.get(position).getTime();
-                    age_range = eventModels2.get(position).getAge_range();
-                    type = eventModels2.get(position).getType();
-                    description = eventModels2.get(position).getDescription();
-
-                    creator_image = eventModels2.get(position).getCreator_image();
-                    creator_name = eventModels2.get(position).getCreator_name();
-                    creator_gender = eventModels2.get(position).getCreator_gender();
-                    creator_age = eventModels2.get(position).getCreator_age();
-
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_SEND);
-                    intent.putExtra(Intent.EXTRA_TEXT, image + "\n\nBy:\n" +
-
-//                    "Creator Image: " + creator_image + "\n" +
+                    intent.putExtra(Intent.EXTRA_TEXT, image_url + "\n\nBy:\n" +
                             "Creator Name: " + creator_name + "\n" +
                             "Creator Sex: " + creator_gender + "\n" +
                             "Creator Age: " + creator_age + "\n" + "\n" +
-
                             "Details\n" +
-
-                            "Event's Name: " + names + "\n" +
-                            "Event's Cost: " + costs + "\n" +
+                            "Event's Name: " + name + "\n" +
+                            "Event's Cost: " + cost + "\n" +
                             "Event's Location: " + address + "\n" +
                             "Event's Date: " + date + "\n" +
                             "Event's Time: " + time + "\n" +
@@ -138,9 +145,48 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                             "Event's Description: " + description);
                     intent.setType("text/plain");
                     getActivity().startActivity(intent);
-
+                break;
+            case R.id.event_details_image:
+                EventDetailsDirections.ActionEventDetailsToEventViewer action =
+                        EventDetailsDirections.actionEventDetailsToEventViewer();
+                action.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                controller.navigate(action);
+                controller.navigateUp();
+                controller.popBackStack();
+                break;
+            case R.id.repost:
+//                EventDetailsDirections.ActionEventDetailsToEventViewer action1 =
+//                        EventDetailsDirections.actionEventDetailsToEventViewer();
+//                action1.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//                controller.navigate(action1);
+//                controller.navigateUp();
+//                controller.popBackStack();
+                repostEvent.Repost(imageId,
+                        name, cost, address, date, time,
+                        age_range, type, description, distance,
+                        reposter_id, reposter_image, reposter_name,
+                        reposter_gender, reposter_age,
+                        binding.repost, binding.repostProgressBar);
                 break;
             default:
         }
     }
+
+
+    private void getReposterData(){
+        documentReference = FirebaseFirestore.getInstance()
+                .collection("user").document(reposter_id);
+        Log.d(TAG, "onSuccess: " + "ReposterId: " +  reposter_id);
+        documentReference.addSnapshotListener((value, error) -> {
+            userModel = value.toObject(UserModel.class);
+            reposter_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            reposter_image = userModel.getImage_url_account();
+            reposter_name = userModel.getFirst_name();
+            reposter_gender = userModel.getGender();
+            reposter_age = userModel.getDate_of_birth();
+        });
+    }
+
+
+
 }

@@ -1,4 +1,4 @@
-package dk.events.a6.create_event;
+package dk.events.a6.event;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,13 +30,12 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Map;
 
-import dk.events.a6.event.EventCreatorDirections;
 
 import static android.content.ContentValues.TAG;
 
 public class CreateEvent {
 
-    private String event_image, name, cost, address, date, time, age_range, type, description, distance,
+    private String  name, cost, address, date, time, age_range, type, description, distance,
             creator_id, creator_image, creator_name, creator_gender, creator_age;
     private CollectionReference eventRef;
     private NavController controller;
@@ -50,13 +49,12 @@ public class CreateEvent {
         this.controller = Navigation.findNavController(this.view);
     }
 
-    public void createEvent(Uri uri, EventCreatorDirections.ActionEventCreatorToEventViewer action,
+    public void createEvent(Uri uri, CreateEventViewDirections.ActionEventCreatorToEventViewer action,
                             EditText name, EditText cost, EditText address, EditText date, EditText time,
                             EditText age_range, EditText type, EditText description, String distance,
                             String creator_id, String creator_image, String creator_name,
                             String creator_gender, String creator_age,
-                            Button button, ProgressBar event_progressBar,
-                            EventCreatorDirections.ActionEventCreatorToEventViewer i) {
+                            Button button, ProgressBar event_progressBar) {
         button.setVisibility(View.INVISIBLE);
         event_progressBar.setVisibility(View.VISIBLE);
 
@@ -132,7 +130,7 @@ public class CreateEvent {
 
                                         event_progressBar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(activity, "Event created successfully", 0).show();
-                                        controller.navigate(i);
+                                        controller.navigate(action);
                                         controller.navigateUp();
                                         controller.popBackStack();
                                     }

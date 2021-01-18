@@ -2,6 +2,7 @@ package dk.events.a6.event;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -96,6 +97,7 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         action.setPosition(position);
         controller.navigate(action);
     }
+
 
 
 

@@ -9,7 +9,7 @@
     android:background="@drawable/ic_background_activity"
     android:orientation="vertical"
     android:scaleType="centerCrop"
-    tools:context=".event.EventCreator">
+    tools:context=".event.CreateEventView">
 
 
     <ScrollView

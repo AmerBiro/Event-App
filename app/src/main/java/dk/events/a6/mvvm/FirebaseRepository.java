@@ -26,15 +26,12 @@ public class FirebaseRepository {
             .collection("user").document(userId)
             .collection("image collection").orderBy("number");
 
-    private CollectionReference eventRef = FirebaseFirestore.getInstance()
+    private Query eventRef = FirebaseFirestore.getInstance()
             .collection("event");
-
 
     public FirebaseRepository(OnFirestoreTaskComplete onFirestoreTaskComplete) {
         this.onFirestoreTaskComplete = onFirestoreTaskComplete;
     }
-
-
 
     public void getImageCollectionData() {
         imageCollectionRef.addSnapshotListener((value, error) -> {
@@ -50,8 +47,6 @@ public class FirebaseRepository {
            onFirestoreTaskComplete.eventDataAdded(eventModels);
         });
     }
-
-
 
 
     public interface OnFirestoreTaskComplete {
