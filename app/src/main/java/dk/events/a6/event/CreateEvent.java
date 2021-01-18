@@ -51,7 +51,7 @@ public class CreateEvent {
 
     public void createEvent(Uri uri, CreateEventViewDirections.ActionEventCreatorToEventViewer action,
                             EditText name, EditText cost, EditText address, EditText date, EditText time,
-                            EditText age_range, EditText type, EditText description, String distance,
+                            EditText age_range, String type, EditText description, String distance,
                             String creator_id, String creator_image, String creator_name,
                             String creator_gender, String creator_age,
                             Button button, ProgressBar event_progressBar) {
@@ -64,7 +64,7 @@ public class CreateEvent {
         this.date = date.getText().toString();
         this.time = time.getText().toString();
         this.age_range = age_range.getText().toString();
-        this.type = type.getText().toString();
+        this.type = type;
         this.description = description.getText().toString();
         this.distance = distance;
         this.creator_id = creator_id;
