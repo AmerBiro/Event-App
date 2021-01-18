@@ -21,7 +21,6 @@ import dk.events.a6.R;
 import static android.content.ContentValues.TAG;
 
 import dk.events.a6.databinding.EventCreateEventViewBinding;
-import dk.events.a6.logic.DatePickerView;
 import dk.events.a6.logic.FieldChecker;
 import dk.events.a6.mvvm.model.UserModel;
 import dk.events.a6.user.ImageHandler;
@@ -135,7 +134,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
 
                             binding.eventTime.setText(hr + ":" + mt);
                         }
-                    }, 12, 0, false
+                    }, 12, 0, true
             );
             timePickerDialog.show();
         });
@@ -155,7 +154,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.event_click:
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 2; i++) {
                     errorMessage[i] = "Field cannot be empty";
                 }
                 fields[0] = binding.eventName;
@@ -233,7 +232,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                 creator_gender = userModel.getGender();
                 creator_age = userModel.getDate_of_birth();
 
-                event.createEvent(eventUri, fields[0], fields[1], fields[2], fields[3], fields[4], fields[5],
+                event.createEvent(eventUri, fields[0], Integer.parseInt(fields[1].getText().toString()), fields[2], fields[3], fields[4], fields[5],
                         binding.eventType.getText().toString(), fields[6], "", userId, creator_image,
                         creator_name, creator_gender, creator_age,
                         binding.eventClick, binding.eventProgressBar, action);

@@ -16,7 +16,6 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 
-import dk.events.a6.logic.DatePickerView;
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationSignUpBinding;
 import dk.events.a6.logic.FieldChecker;
@@ -113,9 +112,6 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
             case R.id.arrow_next:
                 createAccount();
                 break;
-            case R.id.date_of_birth:
-                pickUpDate();
-                break;
             case R.id.arrow_back_sign_up:
                 controller.navigate(R.id.action_signUp_to_registeration);
                 controller.navigateUp();
@@ -123,11 +119,6 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
             default:
         }
 
-    }
-
-    private void pickUpDate() {
-        DialogFragment dialogFragment = new DatePickerView();
-        dialogFragment.show(getActivity().getSupportFragmentManager(), "Date Picker");
     }
 
     private void createAccount() {

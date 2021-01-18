@@ -33,12 +33,13 @@ import static android.content.ContentValues.TAG;
 
 public class RepostEvent {
 
-    private String imageId, name, cost, address, date, time, age_range, type, description, distance,
+    private String imageId, name, address, date, time, age_range, type, description, distance,
             reposter_id, reposter_image, reposter_name, reposter_gender, reposter_age;
     private CollectionReference eventRef;
     private NavController controller;
     private View view;
     private Activity activity;
+    private int cost;
 
     public RepostEvent(NavController controller, View view, Activity activity) {
         this.controller = controller;
@@ -48,7 +49,7 @@ public class RepostEvent {
     }
 
     public void Repost(String imageId,
-                       String name, String cost, String address, String date, String time,
+                       String name, int cost, String address, String date, String time,
                        String age_range, String type, String description, String distance,
                        String reposter_id, String reposter_image, String reposter_name,
                        String reposter_gender, String reposter_age,

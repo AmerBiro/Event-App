@@ -50,7 +50,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         event_image = eventModels.get(position).getImage();
         creator_iamge = eventModels.get(position).getCreator_image();
 
-        if (name.length() > 15) {
+        if (name.length() > 15 && !name.trim().isEmpty()) {
             name = name.substring(0, 15);
             name = name + "...";
         }
@@ -74,9 +74,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         }
 
         holder.share.setOnClickListener(v -> {
-            String image, names, costs, address, date, time, age_range, type, description;
+            String image, names, address, date, time, age_range, type, description;
             String creator_image, creator_name, creator_gender, creator_age;
             String distance;
+            int costs;
 
             image = eventModels.get(position).getImage();
             names = eventModels.get(position).getName();

@@ -128,9 +128,10 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int onSwipePosition = viewHolder.getAdapterPosition();
 
-                String image, names, costs, address, date, time, age_range, type, description;
+                String image, names, address, date, time, age_range, type, description;
                 String creator_name, creator_gender, creator_age;
                 String distance;
+                int costs;
 
                 image = onSwipeEventModels.get(onSwipePosition).getImage();
                 names = onSwipeEventModels.get(onSwipePosition).getName();

@@ -52,10 +52,11 @@ public class EventDetails extends Fragment implements View.OnClickListener {
     private List<EventModel> currentEventModels;
     private UserModel userModel;
     private RepostEvent repostEvent;
-    private String image_url, name, cost, address, date, time, age_range, type, description, distance;
+    private String image_url, name, address, date, time, age_range, type, description, distance;
     private String creator_Id, creator_name, creator_gender, creator_age;
     private String reposter_id, reposter_image, reposter_name, reposter_gender, reposter_age;
     private String imageId;
+    private int cost;
 
 
     //send request
@@ -355,7 +356,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                         .into(binding.eventDetailsImage);
 
                 binding.eventDetailsName.setText(name);
-                binding.eventDetailsCost.setText(cost);
+                binding.eventDetailsCost.setText(cost + "");
                 binding.eventDetailsLocation.setText(address);
                 binding.eventDetailsDateTime.setText(date + ", " + time);
                 binding.eventDetailsAgeRange.setText(age_range);
@@ -412,12 +413,12 @@ public class EventDetails extends Fragment implements View.OnClickListener {
 //                controller.navigate(action1);
 //                controller.navigateUp();
 //                controller.popBackStack();
-                repostEvent.Repost(imageId,
-                        name, cost, address, date, time,
-                        age_range, type, description, distance,
-                        reposter_id, reposter_image, reposter_name,
-                        reposter_gender, reposter_age,
-                        binding.repost, binding.repostProgressBar);
+//                repostEvent.Repost(imageId,
+//                        name, cost, address, date, time,
+//                        age_range, type, description, distance,
+//                        reposter_id, reposter_image, reposter_name,
+//                        reposter_gender, reposter_age,
+//                        binding.repost, binding.repostProgressBar);
                 break;
             default:
         }

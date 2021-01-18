@@ -6,11 +6,12 @@ public class EventModel {
 
     @DocumentId
     private String event_id;
-    private String image, name, cost, address, date, time, age_range, type, description;
+    private String image, name, address, date, time, age_range, type, description;
     private String creator_id, creator_image, creator_name, creator_gender, creator_age;
     private String distance;
+    private int cost;
 
-    public EventModel(String event_id, String image, String name, String cost, String address, String date, String time, String age_range, String type, String description, String creator_id, String creator_image, String creator_name, String creator_gender, String creator_age, String distance) {
+    public EventModel(String event_id, String image, String name, int cost, String address, String date, String time, String age_range, String type, String description, String creator_id, String creator_image, String creator_name, String creator_gender, String creator_age, String distance) {
         this.event_id = event_id;
         this.image = image;
         this.name = name;
@@ -57,11 +58,11 @@ public class EventModel {
         this.name = name;
     }
 
-    public String getCost() {
+    public int getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(int cost) {
         this.cost = cost;
     }
 
