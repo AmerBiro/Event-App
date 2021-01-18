@@ -51,6 +51,7 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
             binding;
     private NavController controller;
     private String userId;
+    private int years, months, days;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +79,23 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
         errorMessage[2] = "Invalid date of birth";
         errorMessage[3] = "Invalid email";
         errorMessage[4] = "Invalid password";
+        binding.dateOfBirth.setEnabled(false);
+
+        Calendar calendar = Calendar.getInstance();
+        years = calendar.get(Calendar.YEAR);
+        months = calendar.get(Calendar.MONTH);
+        days = calendar.get(Calendar.DATE);
+        binding.dateSelector.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    getActivity(), (view1, year, month, dayOfMonth) -> {
+                months = month+1;
+                days = dayOfMonth;
+                years = year;
+                String date = days + "/" + months + "/" + years;
+                binding.dateOfBirth.setText(date);
+            }, years, months,days);
+            datePickerDialog.show();
+        });
     }
 
     @Override

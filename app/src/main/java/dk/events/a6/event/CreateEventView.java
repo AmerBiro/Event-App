@@ -68,7 +68,6 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
     private FieldChecker checker;
     private String[] errorMessage;
     private EventTypeView eventTypeView;
-    private DatePickerDialog.OnDateSetListener onDateSetListener;
     private int years, months, days;
 
     @Override
