@@ -166,8 +166,13 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                 fields[5] = binding.ageRange;
                 fields[6] = binding.eventDescription;
                 fields[7] = binding.eventType;
+
+                EditText [] editTexts = new EditText[2];
+                editTexts[0] = fields[0];
+                editTexts[1] = fields[7];
+
                 if (eventUri != null) {
-                    if (!checker.isEmpty(fields, errorMessage)) {
+                    if (!checker.isEmpty(editTexts, errorMessage)) {
                         createEvent();
                     }
                 } else {
