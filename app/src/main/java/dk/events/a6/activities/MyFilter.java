@@ -41,6 +41,7 @@ public class MyFilter extends AppCompatActivity {
 
         rangeSeekBar.setMinValue(18);
         rangeSeekBar.setMaxValue(90);
+
         // set listener
         rangeSeekBar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
             @Override

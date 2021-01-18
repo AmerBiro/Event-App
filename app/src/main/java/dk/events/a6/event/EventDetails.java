@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.EventEventDetailsBinding;
@@ -24,7 +25,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -49,12 +57,233 @@ public class EventDetails extends Fragment implements View.OnClickListener {
     private String reposter_id, reposter_image, reposter_name, reposter_gender, reposter_age;
     private String imageId;
 
+
+    //send request
+    private DocumentReference mUsersDatabase;
+    private String current_state;
+    private String sender_user_id;
+    private String receiver_user_id;
+    private FirebaseAuth mAuth;
+    private DatabaseReference chatRequestRef;
+    private DatabaseReference contactsRef;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = EventEventDetailsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+
+
+
+
         return view;
     }
+
+
+
+    private void MangeChatRequests() {
+        chatRequestRef.child(sender_user_id)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(imageId)){
+                            String request_type = snapshot.child(imageId).child("request_type").getValue().toString();
+                            if (request_type.equals("sent")){
+                                current_state = "request_sent";
+//                                //todo: done
+                               binding.wishToJoinButton.setImageResource(R.drawable.ic_baseline_close_24);
+                            }
+                            else if (request_type.equals("received")){
+                                current_state = "request_received";
+                                binding.wishToJoinButton.setImageResource(R.drawable.wish_to_join_icon);
+
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        if (!sender_user_id.equals(receiver_user_id)){
+
+            binding.wishToJoinButton.setOnClickListener(v -> {
+
+                //sent request
+                if (current_state.equals("new")){
+                    sendJoinRequest();
+                }
+                //cancel request
+                if (current_state.equals("request_sent")){
+                    cancelJoinRequest();
+                }
+//                    //accept request
+//                    if (current_state.equals("request_received")){
+//                        acceptJoinRequest();
+//                    }
+//                    //remove friends
+//                    if (current_state.equals("friends")){
+//                        removeSpecificContact();
+//                    }
+            });
+
+        }else{
+            binding.wishToJoinButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void removeSpecificContact() {
+        contactsRef
+                .child(sender_user_id)
+                .child(receiver_user_id)
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            contactsRef
+                                    .child(receiver_user_id)
+                                    .child(sender_user_id)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                binding.wishToJoinButton.setEnabled(true);
+                                                current_state = "new";
+                                                binding.wishToJoinButton.setImageResource(R.drawable.wish_to_join_icon);
+
+
+                                            }
+
+                                        }
+                                    });
+                        }
+                    }
+                });
+    }
+
+    private void acceptJoinRequest() {
+        contactsRef
+                .child(sender_user_id)
+                .child(receiver_user_id)
+                .child("contacts")
+                .setValue("saved")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            contactsRef
+                                    .child(receiver_user_id)
+                                    .child(sender_user_id)
+                                    .child("contacts")
+                                    .setValue("saved")
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                chatRequestRef
+                                                        .child(sender_user_id)
+                                                        .child(receiver_user_id)
+                                                        .removeValue()
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()){
+                                                                    chatRequestRef
+                                                                            .child(receiver_user_id)
+                                                                            .child(sender_user_id)
+                                                                            .removeValue()
+                                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                                    binding.wishToJoinButton.setEnabled(true);
+                                                                                    current_state = "friends";
+                                                                                    binding.wishToJoinButton.setImageResource(R.drawable.ic_baseline_close_24);
+                                                                                }
+                                                                            });
+                                                                }
+                                                            }
+                                                        });
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+
+    }
+
+    private void sendJoinRequest() {
+
+        chatRequestRef
+                .child(sender_user_id)
+                .child(imageId)
+                .child("request_type")
+                .setValue("sent")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            chatRequestRef
+                                    .child(imageId)
+                                    .child(sender_user_id)
+                                    .child("request_type")
+                                    .setValue("received")
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                //todo:
+                                                binding.wishToJoinButton.setImageResource(R.drawable.ic_baseline_close_24);
+                                                current_state = "request_sent";
+                                                //todo
+                                                //sendReqBtn.setText("Cancel chat request");
+                                            }
+
+                                        }
+                                    });
+                        }
+                    }
+                });
+
+    }
+
+    private void cancelJoinRequest(){
+
+        chatRequestRef
+
+                .child(sender_user_id)
+                .child(imageId)
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            chatRequestRef
+
+                                    .child(imageId)
+                                    .child(sender_user_id)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                //todo
+                                                binding.wishToJoinButton.setImageResource(R.drawable.wish_to_join_icon);
+                                                current_state = "new";
+                                               // sendReqBtn.setText("send request");
+                                                }
+
+                                        }
+                                    });
+                        }
+                    }
+                });
+
+    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -65,6 +294,20 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         repostEvent = new RepostEvent(controller, view, getActivity());
         getReposterData();
         Log.d(TAG, "onSuccess: " + "Position: " + position);
+
+
+        mAuth = FirebaseAuth.getInstance();
+        sender_user_id = mAuth.getUid();
+
+
+        current_state = "new";
+
+        //define chat request
+        chatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Request");
+        contactsRef = FirebaseDatabase.getInstance().getReference().child("contacts");
+
+        MangeChatRequests();
+
     }
 
     @Override
@@ -86,6 +329,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 Log.d(TAG, "onSuccess: " + "Event name: " +  eventModels.get(position).getName());
                 currentEventModels = eventModels;
 
+
                 image_url = eventModels.get(position).getImage();
                 name = eventModels.get(position).getName();
                 cost = eventModels.get(position).getCost();
@@ -96,7 +340,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 type = eventModels.get(position).getType();
                 description = eventModels.get(position).getDescription();
                 distance = "";
-                creator_Id = eventModels.get(position).getCreator_id();
+                receiver_user_id = eventModels.get(position).getCreator_id();
                 creator_name = eventModels.get(position).getCreator_name();
                 creator_gender = eventModels.get(position).getCreator_gender();
                 creator_age = eventModels.get(position).getCreator_age();
@@ -122,8 +366,12 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 binding.eventDetailsCreatorAge.setText(creator_age);
 
 //                Log.d(TAG, "onSuccess: " + image_url);
+
+
             }
         });
+
+
     }
 
 

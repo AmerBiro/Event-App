@@ -174,12 +174,12 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                 if (documentSnapshot.exists()){
                     String name = documentSnapshot.getString("first_name");
                     String image = documentSnapshot.getString("image_url_account");
-//                   String creator_gender = documentSnapshot.getString("gender");
-//                   String creator_age = documentSnapshot.getString("date_of_birth");
+                    String creator_gender = documentSnapshot.getString("gender");
+                    String creator_age = documentSnapshot.getString("date_of_birth");
 
                     event.createEvent(eventUri, action, fields[0], fields[1], fields[2], fields[3], fields[4], fields[5],
                             fields[6], fields[7], "", userId, image,
-                            name, "creator_gender", "creator_age",
+                            name, creator_gender, creator_age,
                             binding.eventClick, binding.eventProgressBar);
                 }else {
 
