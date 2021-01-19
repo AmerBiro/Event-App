@@ -144,8 +144,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
             itemView.setOnClickListener(this);
 
-            i = getAdapterPosition();
-
         }
 
         @Override

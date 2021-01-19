@@ -46,7 +46,7 @@ public class UserAuth {
     }
 
 
-    public void signIn(ProgressBar progressBar, EditText email, EditText password/*, int i*/) {
+    public void signIn(ProgressBar progressBar, EditText email, EditText password, int action) {
         progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
@@ -56,11 +56,7 @@ public class UserAuth {
                     @Override
                     public void run() {
                         progressBar.setVisibility(View.GONE);
-                        //                controller.navigate(i);
                         Toast.makeText(activity, "Sign in successfully", 0).show();
-                        RegistrationDirections.ActionRegisterationToEventViewer action =
-                                RegistrationDirections.actionRegisterationToEventViewer();
-                        action.setUserId(authResult.getUser().getUid());
                         controller.navigate(action);
                     }
                 }, 1000);
@@ -80,17 +76,11 @@ public class UserAuth {
         });
     }
 
-    public Boolean signOut(int i) {
+    public Boolean signOut(int action) {
         if (user != null) {
             mAuth.signOut();
             Toast.makeText(activity, "Logged out successfully", 0).show();
-            controller.navigate(i);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    activity.finish();
-                }
-            }, 1500);
+            controller.navigate(action);
             return true;
         } else return false;
     }
@@ -153,12 +143,6 @@ public class UserAuth {
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(activity, "The following account: " + user.getEmail() + " has been deleted successfully", 0).show();
                                 controller.navigate(i);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        activity.finish();
-                                    }
-                                }, 1500);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -194,7 +178,7 @@ public class UserAuth {
                                         new Handler().postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Toast.makeText(activity, "Once you've verified your email, you have to log in again", 0).show();
+                                                Toast.makeText(activity, "Once you've verified your email, you have to log in again", 1).show();
                                             }
                                         }, 1500);
                                         return;

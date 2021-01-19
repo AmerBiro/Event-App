@@ -80,7 +80,7 @@ public class Registration extends Fragment implements View.OnClickListener {
                 signIn();
                 break;
             case R.id.guest:
-
+                controller.navigate(R.id.action_registeration_to_eventViewer);
                 break;
             case R.id.forgot_password:
                 forgotPassword();
@@ -98,7 +98,7 @@ public class Registration extends Fragment implements View.OnClickListener {
 
     private void signIn() {
         if (!checker.isEmpty(fields, errorMessage))
-        userAuth.signIn(binding.progressBar, fields[0], fields[1]);
+        userAuth.signIn(binding.progressBar, fields[0], fields[1], R.id.action_registeration_to_eventViewer);
     }
 
 }

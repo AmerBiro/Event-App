@@ -53,10 +53,13 @@ public class Account extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
-        userId = AccountArgs.fromBundle(getArguments()).getUserId();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else return;
+
         userAuth = new UserAuth(getActivity(), view, controller);
         getUserData();
-        Log.d(TAG, "onSuccess: " +  "Receiving userId successfully in Account: " + userId);
+        Log.d(TAG, "onSuccess: " +  "UserId in Account: " + userId);
         if (FirebaseAuth.getInstance().getCurrentUser() != null &&
                 !FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
             binding.notVerified.setVisibility(View.VISIBLE);
@@ -72,6 +75,7 @@ public class Account extends Fragment implements View.OnClickListener {
         binding.settings.setOnClickListener(this);
         binding.accountLogOut.setOnClickListener(this);
         binding.accountDeleteAccount.setOnClickListener(this);
+        binding.accountBackArrow.setOnClickListener(this);
     }
 
     public void getUserData(){
@@ -103,37 +107,27 @@ public class Account extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.overview:
-                AccountDirections.ActionAccountToOverview action0 =
-                        AccountDirections.actionAccountToOverview();
-                action0.setUserId(userId);
-                controller.navigate(action0);
+                controller.navigate(R.id.action_account_to_overview);
                 break;
             case R.id.account_images:
-                AccountDirections.ActionAccountToImages action1 =
-                        AccountDirections.actionAccountToImages();
-                action1.setUserId(userId);
-                controller.navigate(action1);
+                controller.navigate(R.id.action_account_to_images);
                 break;
             case R.id.account_info:
                 controller.navigate(R.id.action_account_to_accountViewPager0);
                 break;
             case R.id.settings:
-                AccountDirections.ActionAccountToSettings action2 =
-                        AccountDirections.actionAccountToSettings();
-                action2.setUserId(userId);
-                controller.navigate(action2);
+                controller.navigate(R.id.action_account_to_settings);
                 break;
             case R.id.account_log_out:
                 userAuth.signOut(R.id.action_account_to_registeration);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getActivity().finish();
-                    }
-                },1500);
                 break;
             case R.id.account_delete_account:
                 userAuth.deleteUser(R.id.action_account_to_registeration);
+                break;
+            case R.id.account_back_arrow:
+                controller.navigate(R.id.action_account_to_eventViewer);
+                controller.navigateUp();
+                controller.popBackStack();
                 break;
             default:
         }

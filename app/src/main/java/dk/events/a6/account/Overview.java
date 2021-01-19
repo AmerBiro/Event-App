@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -61,8 +62,10 @@ public class Overview extends Fragment implements View.OnClickListener, ImageCol
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
-        userId = OverviewArgs.fromBundle(getArguments()).getUserId();
-        Log.d(TAG, "onSuccess: " +  "Receiving userId successfully in Overview: " + userId);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else return;
+        Log.d(TAG, "onSuccess: " +  "userId in Overview: " + userId);
         viewpager2Setup();
         getUserData();
     }

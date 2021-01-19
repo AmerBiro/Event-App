@@ -26,7 +26,6 @@ public class AccountViewPager0 extends Fragment {
     AccountViewPager0Binding
      binding;
     private NavController controller;
-    private String userId;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;

@@ -20,6 +20,9 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import static android.content.ContentValues.TAG;
 
@@ -31,6 +34,7 @@ public class AccountImages extends Fragment implements View.OnClickListener {
     private ImageHandler imageHandler;
     private ImageView [] imageViews;
     private int imagePosition;
+    private int imageChecker = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +58,11 @@ public class AccountImages extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        userId = AccountImagesArgs.fromBundle(getArguments()).getUserId();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+        Log.d(TAG, "onSuccess: " +  "UserId in AccountImage: " + userId);
+
         imageViews = new ImageView[7];
         imageViews[0] = binding.image0;
         imageViews[1] = binding.image1;
@@ -63,7 +71,6 @@ public class AccountImages extends Fragment implements View.OnClickListener {
         imageViews[4] = binding.image4;
         imageViews[5] = binding.image5;
         imageViews[6] = binding.image6;
-        Log.d(TAG, "onSuccess: " +  "Receiving userId successfully in AccountImage: " +userId);
     }
 
     @Override
@@ -86,10 +93,10 @@ public class AccountImages extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.arrow_next:
-                AccountImagesDirections.ActionAccountImagesToEventViewer action =
-                        AccountImagesDirections.actionAccountImagesToEventViewer();
-                action.setUserId(userId);
-                controller.navigate(action);
+                if (imageChecker == 0){
+                    Toast.makeText(getActivity(), "At least profile image must be selected", 1).show();
+                }else
+                controller.navigate(R.id.action_accountImages_to_eventViewer);
                 break;
             case R.id.account_images_add_image:
                 imagePosition = 0;
@@ -138,6 +145,7 @@ public class AccountImages extends Fragment implements View.OnClickListener {
                     userId, imagePosition,
                     imageViews[imagePosition], binding.progressBar);
             imageHandler.uploadImageToFirebase();
+            imageChecker = 1;
         }
     }
 

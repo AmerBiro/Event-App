@@ -49,7 +49,7 @@ public class UserDatebase {
 
     }
 
-    public void uploadUserInfoToFirebase(String userId, SignUpDirections.ActionSignUpToBackgroundInfo action,
+    public void uploadUserInfoToFirebase(String userId, int action,
                                          ProgressBar progressBar, EditText first_name, EditText last_name, EditText date_of_birth, EditText email, String gender) {
         this.documentReference = FirebaseFirestore.getInstance().collection("user").document(userId);
         Map<String, Object> user = new HashMap<>();
@@ -71,19 +71,20 @@ public class UserDatebase {
             @Override
             public void onSuccess(Void aVoid) {
                 progressBar.setVisibility(View.GONE);
-                Log.d(TAG, "onSuccess: " + "Uploading dk.events.a6.user data successfully after creating a new dk.events.a6.user");
+                Log.d(TAG, "onSuccess: " + "Uploading user database successfully after creating a new user");
                 controller.navigate(action);
                 return;
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: " + e.getMessage());
                 progressBar.setVisibility(View.GONE);
             }
         });
     }
 
-    public void createUserBackgroundInfoToFirebase(String userId, BackgroundInfoDirections.ActionBackgroundInfoToAccountImages action, EditText address, EditText education, EditText job, EditText description) {
+    public void uploadingUserBackgroundInfoToFirebase(String userId, int action, EditText address, EditText education, EditText job, EditText description) {
 
         this.documentReference = FirebaseFirestore.getInstance()
                 .collection("user").document(userId);
@@ -103,19 +104,20 @@ public class UserDatebase {
         documentReference.update(backgroundInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d(TAG, "onSuccess: " + "Updating dk.events.a6.user background info successfully");
+                Log.d(TAG, "onSuccess: " + "Updating user background info successfully");
                 controller.navigate(action);
                 return;
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: " + e.getMessage());
             }
         });
     }
 
 
-    public void uploadUserBackgroundInfoToFirebase(String userId,
+    public void updateUserBackgroundInfoToFirebase(String userId,
                                                    EditText address, EditText education,
                                                    EditText job, EditText description
                                                    ) {

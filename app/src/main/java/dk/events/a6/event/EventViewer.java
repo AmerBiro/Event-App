@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.EventEventViewerBinding;
+import dk.events.a6.logic.AlertDialogViewer;
 import dk.events.a6.mvvm.adapter.EventAdapter;
 import dk.events.a6.mvvm.model.EventModel;
 import dk.events.a6.mvvm.viewmodel.EventViewModel;
@@ -26,6 +27,8 @@ import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -35,12 +38,13 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
 
     private @NonNull
     EventEventViewerBinding
-     binding;
+            binding;
     private NavController controller;
     private EventViewModel eventViewModel;
     private ViewPager2 viewpager2;
     private EventAdapter adapter;
     private String userId;
+    private AlertDialogViewer alertDialogViewer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,8 +57,11 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
-        userId = EventViewerArgs.fromBundle(getArguments()).getUserId();
-        Log.d(TAG, "onSuccess: " +  "Receiving userId successfully in EventViewer: " + userId);
+        alertDialogViewer = new AlertDialogViewer(getActivity(), view);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+        Log.d(TAG, "onSuccess: " + "UserId in EventViewer: " + userId);
         viewpager2Setup();
     }
 
@@ -99,19 +106,14 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
     }
 
 
-
-
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.home_home:
-                controller.navigate(R.id.action_eventViewer_to_homeViewpager);
+                alertDialogViewer.logInOrCreateAccount(R.id.action_eventViewer_to_signUp, R.id.action_eventViewer_to_registeration, R.id.action_eventViewer_to_homeViewpager);
                 break;
             case R.id.home_account:
-                EventViewerDirections.ActionEventViewerToAccount action =
-                        EventViewerDirections.actionEventViewerToAccount();
-                action.setUserId(userId);
-                controller.navigate(action);
+                alertDialogViewer.logInOrCreateAccount(R.id.action_eventViewer_to_signUp, R.id.action_eventViewer_to_registeration, R.id.action_eventViewer_to_account);
             default:
         }
     }

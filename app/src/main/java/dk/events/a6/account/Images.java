@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -67,7 +68,9 @@ public class Images extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
-        userId = ImagesArgs.fromBundle(getArguments()).getUserId();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else return;
         image_url = new String[7];
         imageViews = new ImageView[7];
 
@@ -79,7 +82,7 @@ public class Images extends Fragment implements View.OnClickListener {
         imageViews[5] = binding.imagesImage5;
         imageViews[6] = binding.imagesImage6;
 
-        Log.d(TAG, "onSuccess: " + "Receiving userId successfully in Images: " + userId);
+        Log.d(TAG, "onSuccess: " + "userId in Images: " + userId);
     }
 
 
@@ -142,10 +145,9 @@ public class Images extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_arrow_images:
-                ImagesDirections.ActionImagesToAccount action =
-                        ImagesDirections.actionImagesToAccount();
-                action.setUserId(userId);
-                controller.navigate(action);
+                controller.navigate(R.id.action_images_to_account);
+                controller.navigateUp();
+                controller.popBackStack();
                 break;
             case R.id.images_image0:
                 position = 0;

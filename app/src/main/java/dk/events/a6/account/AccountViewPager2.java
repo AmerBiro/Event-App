@@ -57,7 +57,9 @@ public class AccountViewPager2 extends Fragment implements View.OnClickListener 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
-        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else return;
         fields = new EditText[4];
         data = new String[4];
         userDatebase = new UserDatebase(controller, view, getActivity());
@@ -66,7 +68,7 @@ public class AccountViewPager2 extends Fragment implements View.OnClickListener 
         fields[2] = binding.job;
         fields[3] = binding.description;
 
-        Log.d(TAG, "onSuccess: " + "Receiving userId successfully in ViewPager2: " + userId);
+        Log.d(TAG, "onSuccess: " + "userId in ViewPager2: " + userId);
         getUserData();
     }
 
@@ -107,7 +109,7 @@ public class AccountViewPager2 extends Fragment implements View.OnClickListener 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    userDatebase.uploadUserBackgroundInfoToFirebase(
+                    userDatebase.updateUserBackgroundInfoToFirebase(
                             userId,
                             binding.address,
                             binding.education,

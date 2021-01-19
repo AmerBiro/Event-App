@@ -44,8 +44,10 @@ public class Settings extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
-        userId = AccountArgs.fromBundle(getArguments()).getUserId();
-        Log.d(TAG, "onSuccess: " +  "Receiving userId successfully in Settings: " + userId);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else return;
+        Log.d(TAG, "onSuccess: " +  "userId in Settings: " + userId);
         userAuth = new UserAuth(getActivity(), view, controller);
         if (FirebaseAuth.getInstance().getCurrentUser() != null &&
                 !FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){

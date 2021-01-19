@@ -291,7 +291,9 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         position = EventDetailsArgs.fromBundle(getArguments()).getPosition();
-        reposter_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            reposter_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else return;
         repostEvent = new RepostEvent(controller, view, getActivity());
         getReposterData();
         Log.d(TAG, "onSuccess: " + "Position: " + position);
@@ -317,6 +319,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         binding.eventDetailsShare.setOnClickListener(this);
         binding.eventDetailsImage.setOnClickListener(this);
         binding.repost.setOnClickListener(this);
+        binding.eventDetailsBackArrow.setOnClickListener(this);
 
     }
 
@@ -356,7 +359,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                         .into(binding.eventDetailsImage);
 
                 binding.eventDetailsName.setText(name);
-                binding.eventDetailsCost.setText(cost + "");
+                binding.eventDetailsCost.setText(cost + " DKK");
                 binding.eventDetailsLocation.setText(address);
                 binding.eventDetailsDateTime.setText(date + ", " + time);
                 binding.eventDetailsAgeRange.setText(age_range);
@@ -399,10 +402,12 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                     getActivity().startActivity(intent);
                 break;
             case R.id.event_details_image:
-                EventDetailsDirections.ActionEventDetailsToEventViewer action =
-                        EventDetailsDirections.actionEventDetailsToEventViewer();
-                action.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                controller.navigate(action);
+                controller.navigate(R.id.action_eventDetails_to_eventViewer);
+                controller.navigateUp();
+                controller.popBackStack();
+                break;
+            case R.id.event_details_back_arrow:
+                controller.navigate(R.id.action_eventDetails_to_eventViewer);
                 controller.navigateUp();
                 controller.popBackStack();
                 break;

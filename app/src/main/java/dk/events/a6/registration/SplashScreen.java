@@ -26,9 +26,8 @@ import static android.content.ContentValues.TAG;
 
 public class SplashScreen extends Fragment {
 
-    private FirebaseAuth firebaseAuth;
     private static final String userStatus = "";
-    private NavController navController;
+    private NavController controller;
     private @NonNull
     RegistrationSplashScreenBinding binding;
 
@@ -42,24 +41,23 @@ public class SplashScreen extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        firebaseAuth = FirebaseAuth.getInstance();
-        navController = Navigation.findNavController(view);
+        controller = Navigation.findNavController(view);
         binding.status.setText("Checking User Account...");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (user == null){
+                if (FirebaseAuth.getInstance().getCurrentUser() == null){
                     binding.status.setText("No account founded ...");
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            navController.navigate(R.id.action_splashScreen_to_registeration);
+                            Log.d(TAG, "onSuccess: "+ " SplashScreen no userId found ");
+                            controller.navigate(R.id.action_splashScreen_to_registeration);
                         }
                     },1000);
                 }else{
@@ -67,12 +65,9 @@ public class SplashScreen extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            SplashScreenDirections.ActionSplashScreenToEventViewer action =
-                                    SplashScreenDirections.actionSplashScreenToEventViewer();
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             Log.d(TAG, "onSuccess: "+ " SplashScreen userId: " + userId);
-                            action.setUserId(userId);
-                            navController.navigate(action);
+                            controller.navigate(R.id.action_splashScreen_to_eventViewer);
                         }
                     },1500);
                 }
