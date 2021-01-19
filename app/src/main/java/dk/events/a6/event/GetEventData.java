@@ -17,6 +17,7 @@ public class GetEventData {
     private List<EventModel> eventModels;
     private int position;
 
+
     public GetEventData(List<EventModel> eventModels, int position) {
         this.eventModels = eventModels;
         this.position = position;
@@ -37,6 +38,7 @@ public class GetEventData {
         this.creator_age = this.eventModels.get(this.position).getCreator_age();
         this.cost = this.eventModels.get(this.position).getCost();
     }
+
 
     public String getEvent_id() {
         return event_id;

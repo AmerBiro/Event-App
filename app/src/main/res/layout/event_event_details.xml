@@ -99,6 +99,7 @@
 
                 <TextView
                     style="@style/event_title"
+                    android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
@@ -161,32 +162,7 @@
                     android:layout_height="wrap_content"
                     android:text="Description" />
 
-                <TextView
-                    style="@style/event_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="By" />
 
-                <TextView
-                    android:id="@+id/event_details_creator_name"
-                    style="@style/event_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name" />
-
-                <TextView
-                    android:id="@+id/event_details_creator_sex"
-                    style="@style/event_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sex" />
-
-                <TextView
-                    android:id="@+id/event_details_creator_age"
-                    style="@style/event_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Age" />
 
 
             </LinearLayout>

@@ -44,8 +44,11 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
     private ViewPager2 viewpager2;
     private EventAdapter adapter;
     private String userId;
+    private int position;
     private AlertDialogViewer alertDialogViewer;
     private ShareEvent shareEvent;
+    private GetEventData getEventData;
+    private List<EventModel> getEventModels;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,6 +85,9 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
             public void onChanged(List<EventModel> eventModels) {
                 Log.d(TAG, "onChanged: " + eventModels.get(0).getEvent_id());
                 shareEvent = new ShareEvent(eventModels, getActivity());
+                getEventModels = eventModels;
+
+                Log.d(TAG, "onChanged: " + position);
 
                 adapter.setEventModels(eventModels);
                 adapter.notifyDataSetChanged();
@@ -110,6 +116,12 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
     @Override
     public void onAvatarClicked(int position) {
         Log.d(TAG, "onItemClicked: " + "Avatar " +  position);
+        getEventData = new GetEventData(getEventModels, position);
+        position = position;
+        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(getEventData.getCreator_id())){
+            Log.d(TAG, "onAvatarClicked: " + "Event was created by the current user");
+        }else
+            Log.d(TAG, "onAvatarClicked: " + "Event was created by another user");
     }
 
     @Override

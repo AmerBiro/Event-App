@@ -46,14 +46,12 @@ public class EventDetails extends Fragment implements View.OnClickListener {
 
     private @NonNull EventEventDetailsBinding binding;
     private NavController controller;
-    private int position;
     private DocumentReference documentReference;
     private EventViewModel eventViewModel;
-    private UserModel userModel;
+    private int position;
     private String eventId;
     private ShareEvent shareEvent;
     private GetEventData getEventData;
-
 
     //send request
     private DocumentReference mUsersDatabase;
@@ -68,14 +66,91 @@ public class EventDetails extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = EventEventDetailsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
-
-
-
-
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        controller = Navigation.findNavController(view);
+        position = EventDetailsArgs.fromBundle(getArguments()).getPosition();
+        Log.d(TAG, "onSuccess: " + "Position: " + position);
+
+        mAuth = FirebaseAuth.getInstance();
+        sender_user_id = mAuth.getUid();
+        current_state = "new";
+
+        //define chat request
+        chatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Request");
+        contactsRef = FirebaseDatabase.getInstance().getReference().child("contacts");
+
+        MangeChatRequests();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        binding.eventDetailsShare.setOnClickListener(this);
+        binding.eventDetailsImage.setOnClickListener(this);
+        binding.eventDetailsBackArrow.setOnClickListener(this);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
+        eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
+            @Override
+            public void onChanged(List<EventModel> eventModels) {
+                Log.d(TAG, "onSuccess: " + "Event name: " +  eventModels.get(position).getName());
+                shareEvent = new ShareEvent(eventModels, getActivity());
+                getEventData = new GetEventData(eventModels, position);
+                eventId = getEventData.getEvent_id();
+
+                Log.d(TAG, "onSuccess: " + "CreatorId: " +  getEventData.getCreator_id());
+
+                Picasso
+                        .get()
+                        .load(getEventData.getImage())
+                        .fit()
+                        .into(binding.eventDetailsImage);
+
+                binding.eventDetailsName.setText(getEventData.getName());
+                binding.eventDetailsCost.setText(getEventData.getCost() + " DKK");
+                binding.eventDetailsLocation.setText(getEventData.getAddress());
+                binding.eventDetailsDateTime.setText(getEventData.getDate() + ", " + getEventData.getTime());
+                binding.eventDetailsAgeRange.setText(getEventData.getAge_range());
+                binding.eventDetailsType.setText(getEventData.getType());
+                binding.eventDetailsDescription.setText(getEventData.getDescription());
+
+            }
+        });
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.event_details_share:
+                shareEvent.shareEvent(position);
+                break;
+            case R.id.event_details_image:
+                controller.navigate(R.id.action_eventDetails_to_eventViewer);
+                controller.navigateUp();
+                controller.popBackStack();
+                break;
+            case R.id.event_details_back_arrow:
+                controller.navigate(R.id.action_eventDetails_to_eventViewer);
+                controller.navigateUp();
+                controller.popBackStack();
+                break;
+            case R.id.repost:
+
+                break;
+            default:
+        }
+    }
 
 
     private void MangeChatRequests() {
@@ -88,7 +163,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                             if (request_type.equals("sent")){
                                 current_state = "request_sent";
 //                                //todo: done
-                               binding.wishToJoinButton.setImageResource(R.drawable.ic_baseline_close_24);
+                                binding.wishToJoinButton.setImageResource(R.drawable.ic_baseline_close_24);
                             }
                             else if (request_type.equals("received")){
                                 current_state = "request_received";
@@ -270,8 +345,8 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                                                 //todo
                                                 binding.wishToJoinButton.setImageResource(R.drawable.wish_to_join_icon);
                                                 current_state = "new";
-                                               // sendReqBtn.setText("send request");
-                                                }
+                                                // sendReqBtn.setText("send request");
+                                            }
 
                                         }
                                     });
@@ -279,97 +354,6 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                     }
                 });
 
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        controller = Navigation.findNavController(view);
-        position = EventDetailsArgs.fromBundle(getArguments()).getPosition();
-
-        Log.d(TAG, "onSuccess: " + "Position: " + position);
-
-        mAuth = FirebaseAuth.getInstance();
-        sender_user_id = mAuth.getUid();
-
-        current_state = "new";
-
-        //define chat request
-        chatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Request");
-        contactsRef = FirebaseDatabase.getInstance().getReference().child("contacts");
-
-        MangeChatRequests();
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        binding.eventDetailsShare.setOnClickListener(this);
-        binding.eventDetailsImage.setOnClickListener(this);
-        binding.eventDetailsBackArrow.setOnClickListener(this);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
-        eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
-            @Override
-            public void onChanged(List<EventModel> eventModels) {
-                Log.d(TAG, "onSuccess: " + "Event name: " +  eventModels.get(position).getName());
-                shareEvent = new ShareEvent(eventModels, getActivity());
-                getEventData = new GetEventData(eventModels, position);
-                eventId = getEventData.getEvent_id();
-
-//                Log.d(TAG, "onSuccess: " + "CreatorId: " +  creator_Id);
-
-                Picasso
-                        .get()
-                        .load(getEventData.getImage())
-                        .fit()
-                        .into(binding.eventDetailsImage);
-
-                binding.eventDetailsName.setText(getEventData.getName());
-                binding.eventDetailsCost.setText(getEventData.getCost() + " DKK");
-                binding.eventDetailsLocation.setText(getEventData.getAddress());
-                binding.eventDetailsDateTime.setText(getEventData.getDate() + ", " + getEventData.getTime());
-                binding.eventDetailsAgeRange.setText(getEventData.getAge_range());
-                binding.eventDetailsType.setText(getEventData.getType());
-                binding.eventDetailsDescription.setText(getEventData.getDescription());
-                binding.eventDetailsCreatorName.setText(getEventData.getCreator_name());
-                binding.eventDetailsCreatorSex.setText(getEventData.getCreator_gender());
-                binding.eventDetailsCreatorAge.setText(getEventData.getCreator_age());
-
-            }
-        });
-
-
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.event_details_share:
-                shareEvent.shareEvent(position);
-                break;
-            case R.id.event_details_image:
-                controller.navigate(R.id.action_eventDetails_to_eventViewer);
-                controller.navigateUp();
-                controller.popBackStack();
-                break;
-            case R.id.event_details_back_arrow:
-                controller.navigate(R.id.action_eventDetails_to_eventViewer);
-                controller.navigateUp();
-                controller.popBackStack();
-                break;
-            case R.id.repost:
-
-                break;
-            default:
-        }
     }
 
 }
