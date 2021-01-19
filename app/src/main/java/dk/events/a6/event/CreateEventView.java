@@ -217,6 +217,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
 
 
     private void createEvent() {
+
         CreateEventViewDirections.ActionEventCreatorToEventViewer action =
                 CreateEventViewDirections.actionEventCreatorToEventViewer();
         action.setUserId(userId);
@@ -224,20 +225,29 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         userRef = FirebaseFirestore.getInstance()
                 .collection("user").document(userId);
 
-        userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                userModel = value.toObject(UserModel.class);
-                String creator_image, creator_name, creator_age, creator_id, creator_gender;
-                creator_image = userModel.getImage_url_account();
-                creator_name = userModel.getFirst_name();
-                creator_gender = userModel.getGender();
-                creator_age = userModel.getDate_of_birth();
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()){
+                    String creator_name = documentSnapshot.getString("first_name");
+                    String creator_image = documentSnapshot.getString("image_url_account");
+                    String creator_gender = documentSnapshot.getString("gender");
+                    String creator_age = documentSnapshot.getString("date_of_birth");
 
-                event.createEvent(eventUri, fields[0], Integer.parseInt(fields[1].getText().toString()), fields[2], fields[3], fields[4], fields[5],
-                        binding.eventType.getText().toString(), fields[6], "", userId, creator_image,
-                        creator_name, creator_gender, creator_age,
-                        binding.eventClick, binding.eventProgressBar, action);
+
+                    event.createEvent(eventUri, fields[0], Integer.parseInt(fields[1].getText().toString()), fields[2], fields[3], fields[4], fields[5],
+                            binding.eventType.getText().toString(), fields[6], "", userId, creator_image,
+                            creator_name, creator_gender, creator_age,
+                            binding.eventClick, binding.eventProgressBar, action);
+                }else {
+
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
             }
         });
 
