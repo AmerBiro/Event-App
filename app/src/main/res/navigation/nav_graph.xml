@@ -326,9 +326,9 @@
         android:label="event_edit_event"
         tools:layout="@layout/event_edit_event" >
         <argument
-            android:name="position"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="eventId"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
 
 

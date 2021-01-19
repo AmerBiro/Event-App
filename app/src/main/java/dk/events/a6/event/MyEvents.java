@@ -104,7 +104,7 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
     public void onItemClicked(int position) {
         HomeViewpagerDirections.ActionHomeViewpagerToEditEvent action =
                 HomeViewpagerDirections.actionHomeViewpagerToEditEvent();
-        action.setPosition(position);
+        action.setEventId(onSwipeEventModels.get(position).getEvent_id());
         controller.navigate(action);
     }
 
