@@ -9,9 +9,9 @@ import dk.events.a6.mvvm.model.EventModel;
 
 public class ShareEvent {
 
-    private String image_url, name, address, date, time, age_range, type, description, distance;
+    private String image_url, name, address, date, time, type, description, distance;
     private String creator_name, creator_gender, creator_age;
-    private int cost;
+    private int cost, min, max;
     private List<EventModel> eventModels;
     private int position;
     private Activity activity;
@@ -29,7 +29,8 @@ public class ShareEvent {
         this.address = this.eventModels.get(this.position).getAddress();
         this.date = this.eventModels.get(this.position).getDate();
         this.time = this.eventModels.get(this.position).getTime();
-        this.age_range = this.eventModels.get(this.position).getAge_range();
+        this.min = this.eventModels.get(this.position).getMin();
+        this.max = this.eventModels.get(this.position).getMax();
         this.type = this.eventModels.get(this.position).getType();
         this.description = this.eventModels.get(this.position).getDescription();
         this.distance = this.eventModels.get(this.position).getDistance();
@@ -50,7 +51,7 @@ public class ShareEvent {
                 "Event's Location: " + this.address + "\n" +
                 "Event's Date: " + this.date + "\n" +
                 "Event's Time: " + this.time + "\n" +
-                "Event's Age Range: " + this.age_range + "\n" +
+                "Event's Age Range: " + this.min + "-" + max + "\n" +
                 "Event's Type: " + this.type + "\n" +
                 "Event's Description: " + this.description);
         share.setType("text/plain");

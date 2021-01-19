@@ -10,10 +10,10 @@ import dk.events.a6.mvvm.model.EventModel;
 public class GetEventData {
 
     private String event_id;
-    private String image, name, address, date, time, age_range, type, description;
+    private String image, name, address, date, time, type, description;
     private String creator_id, creator_image, creator_name, creator_gender, creator_age;
     private String distance;
-    private int cost;
+    private int cost, min, max;
     private List<EventModel> eventModels;
     private int position;
 
@@ -27,7 +27,8 @@ public class GetEventData {
         this.address = this.eventModels.get(this.position).getAddress();
         this.date = this.eventModels.get(this.position).getDate();
         this.time = this.eventModels.get(this.position).getTime();
-        this.age_range = this.eventModels.get(this.position).getAge_range();
+        this.min = this.eventModels.get(this.position).getMin();
+        this.max = this.eventModels.get(this.position).getMax();
         this.type = this.eventModels.get(this.position).getType();
         this.description = this.eventModels.get(this.position).getDescription();
         this.distance = this.eventModels.get(this.position).getDistance();
@@ -64,10 +65,6 @@ public class GetEventData {
         return time;
     }
 
-    public String getAge_range() {
-        return age_range;
-    }
-
     public String getType() {
         return type;
     }
@@ -102,5 +99,13 @@ public class GetEventData {
 
     public int getCost() {
         return cost;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public int getMax() {
+        return max;
     }
 }

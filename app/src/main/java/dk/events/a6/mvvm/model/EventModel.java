@@ -16,21 +16,19 @@ public class EventModel {
 
     @DocumentId
     private String event_id;
-    private String image, name, address, date, time, age_range, type, description;
+    private String image, name, address, date, time, type, description;
     private String creator_id, creator_image, creator_name, creator_gender, creator_age;
     private String distance;
-    private int cost;
+    private int cost, min, max;
 
 
-    public EventModel(String event_id, String image, String name, int cost, String address, String date, String time, String age_range, String type, String description, String creator_id, String creator_image, String creator_name, String creator_gender, String creator_age, String distance) {
+    public EventModel(String event_id, String image, String name, String address, String date, String time, String type, String description, String creator_id, String creator_image, String creator_name, String creator_gender, String creator_age, String distance, int cost, int min, int max) {
         this.event_id = event_id;
         this.image = image;
         this.name = name;
-        this.cost = cost;
         this.address = address;
         this.date = date;
         this.time = time;
-        this.age_range = age_range;
         this.type = type;
         this.description = description;
         this.creator_id = creator_id;
@@ -39,6 +37,9 @@ public class EventModel {
         this.creator_gender = creator_gender;
         this.creator_age = creator_age;
         this.distance = distance;
+        this.cost = cost;
+        this.min = min;
+        this.max = max;
     }
 
     public EventModel() {
@@ -69,14 +70,6 @@ public class EventModel {
         this.name = name;
     }
 
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -99,14 +92,6 @@ public class EventModel {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getAge_range() {
-        return age_range;
-    }
-
-    public void setAge_range(String age_range) {
-        this.age_range = age_range;
     }
 
     public String getType() {
@@ -173,5 +158,27 @@ public class EventModel {
         this.distance = distance;
     }
 
+    public int getCost() {
+        return cost;
+    }
 
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
 }

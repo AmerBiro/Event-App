@@ -136,7 +136,7 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
                 address = onSwipeEventModels.get(onSwipePosition).getAddress();
                 date = onSwipeEventModels.get(onSwipePosition).getDate();
                 time = onSwipeEventModels.get(onSwipePosition).getTime();
-                age_range = onSwipeEventModels.get(onSwipePosition).getAge_range();
+                age_range = onSwipeEventModels.get(onSwipePosition).getMin() + "-" + onSwipeEventModels.get(onSwipePosition).getMax();
                 type = onSwipeEventModels.get(onSwipePosition).getType();
                 description = onSwipeEventModels.get(onSwipePosition).getDescription();
 

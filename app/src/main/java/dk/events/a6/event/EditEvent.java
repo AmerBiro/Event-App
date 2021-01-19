@@ -57,6 +57,13 @@ public class EditEvent extends Fragment {
         controller = Navigation.findNavController(view);
         eventId = EditEventArgs.fromBundle(getArguments()).getEventId();
         Log.d(TAG, "onSuccess: " + "EventId in EditEvent: " + eventId);
+
+        binding.editEventAgeRange.setMinValue(18);
+        binding.editEventAgeRange.setMaxValue(99);
+
+
+        binding.editEventAgeRange.setOnRangeSeekbarChangeListener((minValue, maxValue) ->
+                binding.ageRange.setText(String.valueOf(minValue) + "-" + String.valueOf(maxValue)));
         getEventData();
     }
 
@@ -83,9 +90,12 @@ public class EditEvent extends Fragment {
             binding.editEventCost.setText(eventModel.getCost() + "");
             binding.editEventAddress.setText(eventModel.getAddress());
             binding.editEventDate.setText(eventModel.getDate());
-            binding.ageRange.setText(eventModel.getAge_range());
+            binding.editEventTime.setText(eventModel.getTime());
+            binding.ageRange.setText(eventModel.getMin() + "-" + eventModel.getMax());
             binding.editEventTypeInput.setText(eventModel.getType());
             binding.editEventDescription.setText(eventModel.getDescription());
+
+            binding.editEventAgeRange.setMinStartValue(18).setMaxStartValue(35).apply();
 
 
         });

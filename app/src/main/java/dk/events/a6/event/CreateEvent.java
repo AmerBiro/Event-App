@@ -37,13 +37,13 @@ import static android.content.ContentValues.TAG;
 
 public class CreateEvent {
 
-    private String name, address, date, time, age_range, type, description, distance,
+    private String name, address, date, time, type, description, distance,
             creator_id, creator_image, creator_name, creator_gender, creator_age;
     private CollectionReference eventRef;
     private NavController controller;
     private View view;
     private Activity activity;
-    private int cost;
+    private int cost, min, max;
 
     public CreateEvent(NavController controller, View view, Activity activity) {
         this.controller = controller;
@@ -54,7 +54,7 @@ public class CreateEvent {
 
     public void createEvent(Uri uri,
                             EditText name, int cost, EditText address, EditText date, EditText time,
-                            EditText age_range, String type, EditText description, String distance,
+                            int min, int max,  String type, EditText description, String distance,
                             String creator_id, String creator_image, String creator_name,
                             String creator_gender, String creator_age,
                             Button button, ProgressBar event_progressBar,
@@ -67,7 +67,8 @@ public class CreateEvent {
         this.address = address.getText().toString();
         this.date = date.getText().toString();
         this.time = time.getText().toString();
-        this.age_range = age_range.getText().toString();
+        this.min = min;
+        this.max = max;
         this.type = type;
         this.description = description.getText().toString();
         this.distance = distance;
@@ -88,7 +89,8 @@ public class CreateEvent {
         event.put("address", this.address);
         event.put("date", this.date);
         event.put("time", this.time);
-        event.put("age_range", this.age_range);
+        event.put("min", this.min);
+        event.put("max", this.max);
         event.put("type", this.type);
         event.put("description", this.description);
         event.put("distance", this.distance);

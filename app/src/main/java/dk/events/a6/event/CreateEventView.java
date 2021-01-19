@@ -72,6 +72,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
     private EventTypeView eventTypeView;
     private int years, months, days;
     private int hr, mt;
+    private int min, max;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -103,8 +104,15 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         binding.eventAgeRange.setMinValue(18);
         binding.eventAgeRange.setMaxValue(99);
 
-        binding.eventAgeRange.setOnRangeSeekbarChangeListener((minValue, maxValue) ->
-                binding.ageRange.setText(String.valueOf(minValue) + "-" + String.valueOf(maxValue)));
+        binding.eventAgeRange.setMinStartValue(18).setMaxStartValue(35).apply();
+
+        binding.eventAgeRange.setOnRangeSeekbarChangeListener((minValue, maxValue) -> {
+
+            min = minValue.intValue();
+            max = maxValue.intValue();
+
+            binding.ageRange.setText(String.valueOf(minValue) + "-" + String.valueOf(maxValue));
+        });
 
 
         Calendar calendar = Calendar.getInstance();
@@ -235,9 +243,9 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                     String creator_age = documentSnapshot.getString("date_of_birth");
 
                     int cost;
-                    if (fields[1].getText().toString().trim().isEmpty()){
+                    if (fields[1].getText().toString().trim().isEmpty()) {
                         cost = 0;
-                    }else{
+                    } else {
                         cost = Integer.parseInt(fields[1].getText().toString());
                     }
 
@@ -247,7 +255,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                             fields[2],
                             fields[3],
                             fields[4],
-                            fields[5],
+                            min, max,
                             binding.eventType.getText().toString(), fields[6], "", userId, creator_image,
                             creator_name, creator_gender, creator_age,
                             binding.eventClick, binding.eventProgressBar, action);

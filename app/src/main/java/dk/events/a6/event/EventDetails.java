@@ -120,7 +120,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 binding.eventDetailsCost.setText(getEventData.getCost() + " DKK");
                 binding.eventDetailsLocation.setText(getEventData.getAddress());
                 binding.eventDetailsDateTime.setText(getEventData.getDate() + ", " + getEventData.getTime());
-                binding.eventDetailsAgeRange.setText(getEventData.getAge_range());
+                binding.eventDetailsAgeRange.setText(getEventData.getMin() + "-" + getEventData.getMax());
                 binding.eventDetailsType.setText(getEventData.getType());
                 binding.eventDetailsDescription.setText(getEventData.getDescription());
 
