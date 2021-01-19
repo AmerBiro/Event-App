@@ -45,6 +45,7 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
     private EventAdapter adapter;
     private String userId;
     private AlertDialogViewer alertDialogViewer;
+    private ShareEvent shareEvent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,8 +80,9 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
             @Override
             public void onChanged(List<EventModel> eventModels) {
+                Log.d(TAG, "onChanged: " + eventModels.get(0).getEvent_id());
+                shareEvent = new ShareEvent(eventModels, getActivity());
 
-//                Log.d(TAG, "onChanged: " + eventModels.get(0).getEvent_id());
                 adapter.setEventModels(eventModels);
                 adapter.notifyDataSetChanged();
             }
@@ -98,11 +100,27 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
 
     @Override
     public void onItemClicked(int position) {
-        Log.d(TAG, "onItemClicked: " + position);
+        Log.d(TAG, "onItemClicked: " + "itemview" +  position);
         EventViewerDirections.ActionEventViewerToEventDetails action =
                 EventViewerDirections.actionEventViewerToEventDetails();
         action.setPosition(position);
         controller.navigate(action);
+    }
+
+    @Override
+    public void onAvatarClicked(int position) {
+        Log.d(TAG, "onItemClicked: " + "Avatar " +  position);
+    }
+
+    @Override
+    public void onShareButtonClicked(int position) {
+        Log.d(TAG, "onItemClicked: " + "Share " + position);
+        shareEvent.shareEvent(position);
+    }
+
+    @Override
+    public void onFavoriteButtonClicked(int position) {
+        Log.d(TAG, "onItemClicked: " + "Favorite " + position);
     }
 
 

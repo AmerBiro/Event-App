@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    >
 
 
     <ImageView
@@ -76,7 +78,7 @@
 
 
         <ToggleButton
-            android:id="@+id/id_button_favorite"
+            android:id="@+id/single_item_event_favorite"
             android:textOff=""
             android:textOn=""
             android:layout_width="25dp"

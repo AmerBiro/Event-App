@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,50 +74,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     .into(holder.creator_image);
         }
 
-        holder.share.setOnClickListener(v -> {
-            String image, names, address, date, time, age_range, type, description;
-            String creator_image, creator_name, creator_gender, creator_age;
-            String distance;
-            int costs;
-
-            image = eventModels.get(position).getImage();
-            names = eventModels.get(position).getName();
-            costs = eventModels.get(position).getCost();
-            address = eventModels.get(position).getAddress();
-            date = eventModels.get(position).getDate();
-            time = eventModels.get(position).getTime();
-            age_range = eventModels.get(position).getAge_range();
-            type = eventModels.get(position).getType();
-            description = eventModels.get(position).getDescription();
-
-            creator_image = eventModels.get(position).getCreator_image();
-            creator_name = eventModels.get(position).getCreator_name();
-            creator_gender = eventModels.get(position).getCreator_gender();
-            creator_age = eventModels.get(position).getCreator_age();
-
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, image + "\n\nBy:\n" +
-
-//                    "Creator Image: " + creator_image + "\n" +
-                    "Creator Name: " + creator_name + "\n" +
-                    "Creator Sex: " + creator_gender + "\n" +
-                    "Creator Age: " + creator_age + "\n" + "\n" +
-
-                    "Details\n" +
-
-                    "Event's Name: " + names + "\n" +
-                    "Event's Cost: " + costs + "\n" +
-                    "Event's Location: " + address + "\n" +
-                    "Event's Date: " + date + "\n" +
-                    "Event's Time: " + time + "\n" +
-                    "Event's Age Range: " + age_range + "\n" +
-                    "Event's Type: " + type + "\n" +
-                    "Event's Description: " + description);
-            intent.setType("text/plain");
-            this.activity.startActivity(intent);
-        });
-
     }
 
     @Override
@@ -129,11 +86,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
 
-    public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class EventViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView event_image, creator_image;
         private TextView name;
         private ImageButton share;
+        private ToggleButton favorite;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -141,19 +99,32 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             creator_image = itemView.findViewById(R.id.single_item_event_creator_image);
             name = itemView.findViewById(R.id.single_item_event_name);
             share = itemView.findViewById(R.id.single_item_event_share);
+            favorite = itemView.findViewById(R.id.single_item_event_favorite);
 
-            itemView.setOnClickListener(this);
+
+            itemView.setOnClickListener(v -> {
+                onEventItemClicked.onItemClicked(getAdapterPosition());
+            });
+            creator_image.setOnClickListener(v ->
+                    onEventItemClicked.onAvatarClicked(getAdapterPosition()));
+            share.setOnClickListener(v -> {
+                onEventItemClicked.onShareButtonClicked(getAdapterPosition());
+            });
+            favorite.setOnClickListener(v -> {
+                onEventItemClicked.onFavoriteButtonClicked(getAdapterPosition());
+            });
+
 
         }
 
-        @Override
-        public void onClick(View v) {
-            onEventItemClicked.onItemClicked(getAdapterPosition());
-        }
+
     }
 
     public interface OnEventItemClicked {
         public void onItemClicked(int position);
+        public void onAvatarClicked(int position);
+        public void onShareButtonClicked(int position);
+        public void onFavoriteButtonClicked(int position);
     }
 
     public void setActivity(Activity activity) {

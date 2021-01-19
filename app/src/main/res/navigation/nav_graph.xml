@@ -253,6 +253,9 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/eventViewer"
             />
+        <action
+            android:id="@+id/action_eventViewer_to_eventsCreator"
+            app:destination="@id/eventsCreator" />
     </fragment>
     <fragment
         android:id="@+id/homeViewpager"
@@ -285,6 +288,11 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/eventsCreator"
+        android:name="dk.events.a6.event.EventsCreator"
+        android:label="event_events_creator"
+        tools:layout="@layout/event_events_creator" />
 
 
 </navigation>

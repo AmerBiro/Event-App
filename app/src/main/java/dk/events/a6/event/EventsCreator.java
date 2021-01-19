@@ -8,32 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import dk.events.a6.R;
-import dk.events.a6.databinding.EventEventsOwnerBinding;
-import android.os.Bundle;
+import dk.events.a6.databinding.EventEventsCreatorBinding;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-
-
-public class EventsOwner extends Fragment {
+public class EventsCreator extends Fragment {
 
     private @NonNull
-    EventEventsOwnerBinding
+    EventEventsCreatorBinding
      binding;
     private NavController controller;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = EventEventsOwnerBinding.inflate(inflater, container, false);
+        binding = EventEventsCreatorBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         return view;
     }
