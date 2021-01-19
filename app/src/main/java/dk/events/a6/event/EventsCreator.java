@@ -1,5 +1,6 @@
 package dk.events.a6.event;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,17 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import dk.events.a6.databinding.EventEventsCreatorBinding;
 import dk.events.a6.mvvm.adapter.ImageCollectionAdapter;
 import dk.events.a6.mvvm.model.ImageCollectionModel;
 import dk.events.a6.mvvm.model.UserModel;
-import dk.events.a6.mvvm.viewmodel.ImageCollectionViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
@@ -49,7 +48,7 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
     private List<ImageCollectionModel> imageCollectionModels;
     private UserModel userModel;
     private String creator_Id;
-    private String first_name, last_name, date_of_birth, gender, address, education, job, description;
+    private TextView [] textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +63,7 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
         controller = Navigation.findNavController(view);
         creator_Id = EventsCreatorArgs.fromBundle(getArguments()).getCreatorId();
         Log.d(TAG, "onViewCreated: " + "creator_Id: " +  creator_Id);
+        textView = new TextView[4];
         viewpager2Setup();
         getImageCollection();
         getEventCreatorData();
@@ -95,6 +95,7 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 userModel = value.toObject(UserModel.class);
+
                 binding.eventCreatorName.setText(userModel.getFirst_name() + " " + userModel.getLast_name());
                 binding.eventCreatorGender.setText(userModel.getGender());
                 binding.eventCreatorDateOfBirth.setText(userModel.getDate_of_birth());
@@ -102,6 +103,17 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
                 binding.eventCreatorEducation.setText(userModel.getEducation());
                 binding.eventCreatorJob.setText(userModel.getJob());
                 binding.eventCreatorDescription.setText(userModel.getDescription());
+
+                textView[0] = binding.eventCreatorAddress;
+                textView[1] = binding.eventCreatorEducation;
+                textView[2] = binding.eventCreatorJob;
+                textView[3] = binding.eventCreatorDescription;
+
+                for (int i = 0; i<textView.length; i++){
+                    if (textView[i].getText().toString().trim().isEmpty()){
+                        textView[i].setVisibility(View.GONE);
+                    }
+                }
             }
         });
 
