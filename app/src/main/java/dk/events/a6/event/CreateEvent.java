@@ -75,6 +75,11 @@ public class CreateEvent {
         this.creator_gender = creator_gender;
         this.creator_age = creator_age;
 
+        if (this.cost == -1){
+            this.cost = 0;
+        }
+
+
         Map<String, Object> event = new HashMap<>();
         event.put("name", this.name);
         event.put("cost", this.cost);

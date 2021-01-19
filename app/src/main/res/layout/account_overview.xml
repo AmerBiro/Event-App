@@ -56,7 +56,7 @@
             >
 
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewpager2"
+                android:id="@+id/overview_viewpager2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

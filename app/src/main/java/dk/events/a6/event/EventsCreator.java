@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import dk.events.a6.R;
 import dk.events.a6.databinding.EventEventsCreatorBinding;
 import dk.events.a6.mvvm.adapter.ImageCollectionAdapter;
 import dk.events.a6.mvvm.model.ImageCollectionModel;
@@ -36,7 +37,7 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 
-public class EventsCreator extends Fragment implements ImageCollectionAdapter.OnImageCollectionItemClicked {
+public class EventsCreator extends Fragment implements ImageCollectionAdapter.OnImageCollectionItemClicked, View.OnClickListener {
 
     private @NonNull
     EventEventsCreatorBinding
@@ -125,13 +126,27 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
     @Override
     public void onStart() {
         super.onStart();
+        binding.backArrowEventCreator.setOnClickListener(this);
     }
 
 
     @Override
     public void onItemClicked(int position) {
-
+        controller.navigate(R.id.action_eventsCreator_to_eventViewer);
+        controller.navigateUp();
+        controller.popBackStack();
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back_arrow_event_creator:
+            controller.navigate(R.id.action_eventsCreator_to_eventViewer);
+            controller.navigateUp();
+            controller.popBackStack();
+            break;
+            default:
+        }
+    }
 }

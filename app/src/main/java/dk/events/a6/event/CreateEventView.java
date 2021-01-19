@@ -87,9 +87,9 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         event = new CreateEvent(controller, view, getActivity());
         fields = new EditText[8];
         data = new String[15];
-        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        }else return;
+        } else return;
         binding.eventProgressBar.setVisibility(View.INVISIBLE);
         checker = new FieldChecker(getActivity());
         errorMessage = new String[8];
@@ -108,18 +108,18 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
 
 
         Calendar calendar = Calendar.getInstance();
-       years = calendar.get(Calendar.YEAR);
-       months = calendar.get(Calendar.MONTH);
-       days = calendar.get(Calendar.DATE);
+        years = calendar.get(Calendar.YEAR);
+        months = calendar.get(Calendar.MONTH);
+        days = calendar.get(Calendar.DATE);
         binding.dateSelector.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     getActivity(), (view1, year, month, dayOfMonth) -> {
-                        months = month+1;
-                        days = dayOfMonth;
-                        years = year;
-                        String date = days + "/" + months + "/" + years;
-                        binding.eventDate.setText(date);
-                    }, years, months,days);
+                months = month + 1;
+                days = dayOfMonth;
+                years = year;
+                String date = days + "/" + months + "/" + years;
+                binding.eventDate.setText(date);
+            }, years, months, days);
             datePickerDialog.show();
         });
 
@@ -168,7 +168,7 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
                 fields[6] = binding.eventDescription;
                 fields[7] = binding.eventType;
 
-                EditText [] editTexts = new EditText[2];
+                EditText[] editTexts = new EditText[2];
                 editTexts[0] = fields[0];
                 editTexts[1] = fields[7];
 
@@ -228,18 +228,30 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()){
+                if (documentSnapshot.exists()) {
                     String creator_name = documentSnapshot.getString("first_name");
                     String creator_image = documentSnapshot.getString("image_url_account");
                     String creator_gender = documentSnapshot.getString("gender");
                     String creator_age = documentSnapshot.getString("date_of_birth");
 
+                    int cost;
+                    if (fields[1].getText().toString().trim().isEmpty()){
+                        cost = 0;
+                    }else{
+                        cost = Integer.parseInt(fields[1].getText().toString());
+                    }
 
-                    event.createEvent(eventUri, fields[0], Integer.parseInt(fields[1].getText().toString()), fields[2], fields[3], fields[4], fields[5],
+                    event.createEvent(eventUri,
+                            fields[0],
+                            cost,
+                            fields[2],
+                            fields[3],
+                            fields[4],
+                            fields[5],
                             binding.eventType.getText().toString(), fields[6], "", userId, creator_image,
                             creator_name, creator_gender, creator_age,
                             binding.eventClick, binding.eventProgressBar, action);
-                }else {
+                } else {
 
                 }
 

@@ -77,6 +77,7 @@ public class Overview extends Fragment implements View.OnClickListener, ImageCol
     public void onStart() {
         super.onStart();
         binding.backArrowOverview.setOnClickListener(this);
+        binding.overviewViewpager2.setOnClickListener(this);
     }
 
     @Override
@@ -100,10 +101,13 @@ public class Overview extends Fragment implements View.OnClickListener, ImageCol
 
     @Override
     public void onItemClicked(int position) {
+        controller.navigate(R.id.action_overview_to_account);
+        controller.navigateUp();
+        controller.popBackStack();
     }
 
     private void viewpager2Setup() {
-        viewpager2 = binding.viewpager2;
+        viewpager2 = binding.overviewViewpager2;
         adapter = new ImageCollectionAdapter(this);
         viewpager2.setAdapter(adapter);
     }
