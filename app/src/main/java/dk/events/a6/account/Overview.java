@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,6 +51,7 @@ public class Overview extends Fragment implements View.OnClickListener, ImageCol
     private ImageCollectionAdapter adapter;
     private String userId;
     private String first_name, last_name, date_of_birth, gender, address, education, job, description;
+    private TextView[] textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class Overview extends Fragment implements View.OnClickListener, ImageCol
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
+        textView = new TextView[4];
         if (FirebaseAuth.getInstance().getCurrentUser() != null){
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }else return;
@@ -130,6 +133,17 @@ public class Overview extends Fragment implements View.OnClickListener, ImageCol
                 binding.education.setText(education);
                 binding.job.setText(job);
                 binding.description.setText(description);
+
+                textView[0] = binding.address;
+                textView[1] = binding.education;
+                textView[2] = binding.job;
+                textView[3] = binding.description;
+
+                for (int i = 0; i<textView.length; i++){
+                    if (textView[i].getText().toString().trim().isEmpty()){
+                        textView[i].setVisibility(View.GONE);
+                    }
+                }
 
             }
         });

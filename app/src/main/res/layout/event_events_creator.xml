@@ -22,11 +22,42 @@
             android:paddingBottom="25dp"
             >
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    style="@style/tool_bar_transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="MissingConstraints" />
+
+
+                <Button
+                    android:id="@+id/back_arrow_event_creator"
+                    style="@style/appBar_arrow_back"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    tools:ignore="MissingConstraints" />
+
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/appBar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event Creator"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager2"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="wrap_content"
                 />
 
 
@@ -35,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
 

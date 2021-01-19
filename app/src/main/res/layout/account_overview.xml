@@ -50,109 +50,98 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:gravity="left"
             android:orientation="vertical"
-            android:paddingBottom="150dp"
+            android:paddingBottom="15dp"
             >
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager2"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                />
-
-
-
-            <TextView
-                android:id="@+id/imageCounter"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/account_overview_title"
-                android:layout_gravity="center"
-                android:layout_marginRight="8dp"
                 />
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/account_overview_title"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/account_overview_title_info"
-                />
-
-            <TextView
-                android:id="@+id/name"
-                style="@style/account_overview_Sub_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name: "
-                />
-
-            <TextView
-                android:id="@+id/gender"
-                style="@style/account_overview_Sub_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sex: "
-                />
-
-            <TextView
-                android:id="@+id/date_of_birth"
-                style="@style/account_overview_Sub_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date of Birth: "
-                />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
 
-            <TextView
-                style="@style/account_overview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/account_overview_title_background"
-                android:layout_marginTop="16dp"
-                />
+                <TextView
+                    android:id="@+id/name"
+                    style="@style/event_title"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Event Creator" />
 
-            <TextView
-                android:id="@+id/address"
-                style="@style/account_overview_Sub_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="City: "
-                />
 
-            <TextView
-                android:id="@+id/education"
-                style="@style/account_overview_Sub_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Education: "
-                />
+                <TextView
+                    android:id="@+id/gender"
+                    style="@style/event_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender" />
 
-            <TextView
-                android:id="@+id/job"
-                style="@style/account_overview_Sub_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Job: "
-                />
+                <TextView
+                    android:id="@+id/date_of_birth"
+                    style="@style/event_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date of Birth" />
 
-            <TextView
-                style="@style/account_overview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/account_overview_title_description"
-                android:layout_marginTop="16dp"
-                />
+                <TextView
+                    android:id="@+id/background"
+                    style="@style/event_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Background" />
 
-            <TextView
-                android:id="@+id/description"
-                style="@style/account_overview_Sub_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description: "
-                />
+
+                <TextView
+                    android:id="@+id/address"
+                    style="@style/event_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="City" />
+
+                <TextView
+                    android:id="@+id/education"
+                    style="@style/event_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Education" />
+
+                <TextView
+                    android:id="@+id/job"
+                    style="@style/event_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Job" />
+
+
+                <TextView
+                    android:id="@+id/de"
+                    style="@style/event_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description" />
+
+                <TextView
+                    android:id="@+id/description"
+                    style="@style/event_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description" />
+
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
