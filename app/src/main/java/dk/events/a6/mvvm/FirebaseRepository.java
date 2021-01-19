@@ -20,11 +20,7 @@ public class FirebaseRepository {
 
     private OnFirestoreTaskComplete onFirestoreTaskComplete;
 
-    private String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-    private Query imageCollectionRef = FirebaseFirestore.getInstance()
-            .collection("user").document(userId)
-            .collection("image collection").orderBy("number");
+    private Query imageCollectionRef;
 
     private Query eventRef = FirebaseFirestore.getInstance()
             .collection("event");
@@ -34,11 +30,18 @@ public class FirebaseRepository {
     }
 
     public void getImageCollectionData() {
-        imageCollectionRef.addSnapshotListener((value, error) -> {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            imageCollectionRef = FirebaseFirestore.getInstance()
+                    .collection("user").document(userId)
+                    .collection("image collection").orderBy("number");
+            imageCollectionRef.addSnapshotListener((value, error) -> {
 //                Log.d(TAG, "onEvent: " + value.getDocumentChanges().toString());
-            List<ImageCollectionModel> imageCollectionModels = value.toObjects(ImageCollectionModel.class);
-            onFirestoreTaskComplete.imageCollectionDataAdded(imageCollectionModels);
-        });
+                List<ImageCollectionModel> imageCollectionModels = value.toObjects(ImageCollectionModel.class);
+                onFirestoreTaskComplete.imageCollectionDataAdded(imageCollectionModels);
+            });
+        }
+
     }
 
     public void getEventData(){

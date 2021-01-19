@@ -87,7 +87,9 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
         event = new CreateEvent(controller, view, getActivity());
         fields = new EditText[8];
         data = new String[15];
-        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else return;
         binding.eventProgressBar.setVisibility(View.INVISIBLE);
         checker = new FieldChecker(getActivity());
         errorMessage = new String[8];

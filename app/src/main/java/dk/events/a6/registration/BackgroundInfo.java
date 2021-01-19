@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import dk.events.a6.R;
 import dk.events.a6.databinding.RegistrationBackgroundInfoBinding;
 import dk.events.a6.logic.FieldChecker;
@@ -66,8 +68,10 @@ public class BackgroundInfo extends Fragment implements View.OnClickListener {
         fields[1] = binding.education;
         fields[2] = binding.job;
         fields[3] = binding.description;
-        userId = BackgroundInfoArgs.fromBundle(getArguments()).getUserId();
-        Log.d(TAG, "onSuccess: " + "Receiving userId successfully in BackgroundInfo : " + userId);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+        Log.d(TAG, "onSuccess: " + "UserId in BackgroundInfo : " + userId);
     }
 
     @Override
@@ -92,10 +96,8 @@ public class BackgroundInfo extends Fragment implements View.OnClickListener {
             if (fields[i].getText().toString().trim().isEmpty()){
                 fields[i].setText("");
             }
-        }BackgroundInfoDirections.ActionBackgroundInfoToAccountImages action =
-                BackgroundInfoDirections.actionBackgroundInfoToAccountImages();
-        action.setUserId(userId);
-        userDatebase.createUserBackgroundInfoToFirebase(userId, action
+        }
+        userDatebase.uploadingUserBackgroundInfoToFirebase(userId, R.id.action_backgroundInfo_to_accountImages
         , fields[0], fields[1], fields[2], fields[3]);
     }
 

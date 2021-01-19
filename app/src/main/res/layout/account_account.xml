@@ -27,7 +27,7 @@
             />
 
         <Button
-            android:id="@+id/back_arrow"
+            android:id="@+id/account_back_arrow"
             android:layout_height="25dp"
             android:layout_width="25dp"
             style="@style/appBar_arrow_back"

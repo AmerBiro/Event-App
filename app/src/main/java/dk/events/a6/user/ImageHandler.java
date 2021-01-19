@@ -36,6 +36,7 @@ public class ImageHandler {
     private int imageStatus;
     ImageView imageView;
     private ProgressBar progressBar;
+    private int imageChecker = 0;
 
 
     public ImageHandler(Intent data, Activity activity, String userId, int imageStatus, ImageView imageView, ProgressBar progressBar) {
@@ -47,12 +48,6 @@ public class ImageHandler {
         this.progressBar = progressBar;
     }
 
-    public ImageHandler(Intent data, Activity activity, String userId, int imageStatus) {
-        this.data = data;
-        this.activity = activity;
-        this.userId = userId;
-        this.imageStatus = imageStatus;
-    }
 
 
     public void uploadImageToFirebase() {
@@ -88,11 +83,6 @@ public class ImageHandler {
                                     Log.d(TAG, "onSuccess: " + "Uploading account image url successfully: ");
 
                                     if (imageView != null) {
-//                                            Glide
-//                                                    .with(activity)
-//                                                    .load(uri)
-//                                                    .centerCrop()
-//                                                    .into(imageView);
 
                                         Picasso
                                                 .get()
@@ -145,11 +135,6 @@ public class ImageHandler {
                                     Log.d(TAG, "onSuccess: " + "Uploading account image collection url successfully: ");
 
                                     if (imageView != null) {
-//                                            Glide
-//                                                    .with(activity)
-//                                                    .load(uri)
-//                                                    .centerCrop()
-//                                                    .into(imageView);
 
                                         Picasso
                                                 .get()

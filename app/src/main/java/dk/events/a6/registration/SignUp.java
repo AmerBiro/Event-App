@@ -1,7 +1,6 @@
 package dk.events.a6.registration;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.app.DatePickerDialog;
@@ -132,11 +131,9 @@ public class SignUp extends Fragment implements View.OnClickListener, DatePicker
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         userId = authResult.getUser().getUid();
-                        Log.d(TAG, "onSuccess: " + "A new userId: " + userId);
-                        SignUpDirections.ActionSignUpToBackgroundInfo action =
-                                SignUpDirections.actionSignUpToBackgroundInfo();
-                        action.setUserId(userId);
-                        userDatebase.uploadUserInfoToFirebase(userId, action, binding.progressBar,
+                        Log.d(TAG, "onSuccess: " + "A new user has been created with userId: " + userId);
+
+                        userDatebase.uploadUserInfoToFirebase(userId, R.id.action_signUp_to_backgroundInfo, binding.progressBar,
                                 fields[0], fields[1], fields[2], fields[3], checker.getGender());
                         binding.progressBar.setVisibility(View.GONE);
                     }

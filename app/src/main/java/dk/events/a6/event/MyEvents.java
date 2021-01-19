@@ -51,6 +51,7 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
     List<EventModel> onSwipeEventModels;
     private MyEventAdapter adapter;
     private List<EventModel> eventModel;
+    private String userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +64,9 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else return;
         recyclerViewSetup();
         getEventData();
     }
@@ -71,8 +75,8 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
         Query event = FirebaseFirestore.getInstance()
                 .collection("event")
                 .orderBy("creator_id")
-                .startAt(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .endAt(FirebaseAuth.getInstance().getCurrentUser().getUid() + "\uf8ff");
+                .startAt(userId)
+                .endAt(userId + "\uf8ff");
         event.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
