@@ -255,8 +255,23 @@
             />
         <action
             android:id="@+id/action_eventViewer_to_eventsCreator"
-            app:destination="@id/eventsCreator" />
+            app:destination="@id/eventsCreator"
+            app:popEnterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:enterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down"
+            />
+        <action
+            android:id="@+id/action_eventViewer_to_overview"
+            app:destination="@id/overview"
+            app:popEnterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:enterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down"
+            />
     </fragment>
+
+
     <fragment
         android:id="@+id/homeViewpager"
         android:name="dk.events.a6.home.HomeViewpager"
@@ -292,7 +307,12 @@
         android:id="@+id/eventsCreator"
         android:name="dk.events.a6.event.EventsCreator"
         android:label="event_events_creator"
-        tools:layout="@layout/event_events_creator" />
+        tools:layout="@layout/event_events_creator" >
+        <argument
+            android:name="creator_Id"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
 
 
 </navigation>

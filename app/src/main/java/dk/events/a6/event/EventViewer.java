@@ -106,7 +106,7 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
 
     @Override
     public void onItemClicked(int position) {
-        Log.d(TAG, "onItemClicked: " + "itemview" +  position);
+        Log.d(TAG, "onItemClicked: " + "itemview" + position);
         EventViewerDirections.ActionEventViewerToEventDetails action =
                 EventViewerDirections.actionEventViewerToEventDetails();
         action.setPosition(position);
@@ -115,13 +115,19 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
 
     @Override
     public void onAvatarClicked(int position) {
-        Log.d(TAG, "onItemClicked: " + "Avatar " +  position);
+        Log.d(TAG, "onItemClicked: " + "Avatar " + position);
         getEventData = new GetEventData(getEventModels, position);
         position = position;
-        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(getEventData.getCreator_id())){
+        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(getEventData.getCreator_id())) {
             Log.d(TAG, "onAvatarClicked: " + "Event was created by the current user");
-        }else
+            controller.navigate(R.id.action_eventViewer_to_overview);
+        } else{
             Log.d(TAG, "onAvatarClicked: " + "Event was created by another user");
+            EventViewerDirections.ActionEventViewerToEventsCreator action =
+                    EventViewerDirections.actionEventViewerToEventsCreator();
+            action.setCreatorId(getEventData.getCreator_id());
+            controller.navigate(action);
+        }
     }
 
     @Override
