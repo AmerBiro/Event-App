@@ -23,12 +23,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
 
 import java.util.List;
 
@@ -43,9 +44,8 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
     private NavController controller;
     private DocumentReference reference;
     private ViewPager2 viewpager2;
-    private ImageCollectionViewModel imageCollectionViewModel;
-    private UserModel userModel;
     private ImageCollectionAdapter adapter;
+    private List<ImageCollectionModel> imageCollectionModels;
     private String creator_Id;
     private String first_name, last_name, date_of_birth, gender, address, education, job, description;
 
@@ -63,25 +63,7 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
         creator_Id = EventsCreatorArgs.fromBundle(getArguments()).getCreatorId();
         Log.d(TAG, "onViewCreated: " + "creator_Id: " +  creator_Id);
         viewpager2Setup();
-//        getUserData();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        imageCollectionViewModel = new ViewModelProvider(getActivity()).get(ImageCollectionViewModel.class);
-        imageCollectionViewModel.getImageCollectionModelData().observe(getViewLifecycleOwner(), new Observer<List<ImageCollectionModel>>() {
-            @Override
-            public void onChanged(List<ImageCollectionModel> imageCollectionModels) {
-//                Log.d(TAG, "onChanged: " + imageCollectionModels.get(0).getNumber());
-//                Log.d(TAG, "onChanged: " + imageCollectionModels.get(0).getImage_url());
-//                int s = imageCollectionViewModel.getImageCollectionModelData().getValue().size();
-
-//                Log.d(TAG, "onChanged: " + s);
-                adapter.setImageCollectionModels(imageCollectionModels);
-                adapter.notifyDataSetChanged();
-            }
-        });
+        getImageCollection();
     }
 
 
@@ -90,6 +72,22 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
         adapter = new ImageCollectionAdapter(this);
         viewpager2.setAdapter(adapter);
     }
+
+    private void getImageCollection(){
+        Query imageCollection = FirebaseFirestore.getInstance()
+                .collection("user").document(creator_Id)
+                .collection("image collection").orderBy("number");
+        imageCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                imageCollectionModels = value.toObjects(ImageCollectionModel.class);
+                Log.d(TAG, "onEvent: " + imageCollectionModels.get(0).getImage_url());
+                adapter.setImageCollectionModels(imageCollectionModels);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
 
 
 
