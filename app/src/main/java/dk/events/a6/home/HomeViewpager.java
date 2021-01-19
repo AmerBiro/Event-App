@@ -22,6 +22,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.zip.Inflater;
+
 
 public class HomeViewpager extends Fragment implements View.OnClickListener {
 
@@ -77,6 +79,7 @@ public class HomeViewpager extends Fragment implements View.OnClickListener {
         adapter.addFragment(favorite, "Favorite");
         adapter.addFragment(requestEvent, "Request");
         viewPager.setAdapter(adapter);
+
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_event_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.icon_chat);

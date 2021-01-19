@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.EventEventViewerBinding;

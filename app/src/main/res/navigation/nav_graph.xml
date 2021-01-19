@@ -280,6 +280,9 @@
         <action
             android:id="@+id/action_homeViewpager_to_eventCreator"
             app:destination="@id/eventCreator" />
+        <action
+            android:id="@+id/action_homeViewpager_to_editEvent"
+            app:destination="@id/editEvent" />
     </fragment>
     <fragment
         android:id="@+id/eventCreator"
@@ -315,6 +318,17 @@
         <action
             android:id="@+id/action_eventsCreator_to_eventViewer"
             app:destination="@id/eventViewer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editEvent"
+        android:name="dk.events.a6.event.EditEvent"
+        android:label="event_edit_event"
+        tools:layout="@layout/event_edit_event" >
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
 

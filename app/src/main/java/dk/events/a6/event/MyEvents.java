@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import dk.events.a6.R;
 import dk.events.a6.databinding.HomeMyEventsBinding;
+import dk.events.a6.home.HomeViewpagerDirections;
 import dk.events.a6.mvvm.adapter.MyEventAdapter;
 import dk.events.a6.mvvm.model.EventModel;
 import dk.events.a6.mvvm.viewmodel.EventViewModel;
@@ -71,6 +73,8 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
         getEventData();
     }
 
+
+    //TO OD using viewmodel
     private void getEventData() {
         Query event = FirebaseFirestore.getInstance()
                 .collection("event")
@@ -94,25 +98,14 @@ public class MyEvents extends Fragment implements MyEventAdapter.OnEventItemClic
         super.onStart();
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
-//        eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
-//            @Override
-//            public void onChanged(List<EventModel> eventModels) {
-//                onSwipeEventModels = eventModels;
-//                adapter.setEventModels(eventModels);
-//                adapter.notifyDataSetChanged();
-//                adapter.setActivity(getActivity());
-//            }
-//        });
-//    }
 
 
     @Override
     public void onItemClicked(int position) {
-
+        HomeViewpagerDirections.ActionHomeViewpagerToEditEvent action =
+                HomeViewpagerDirections.actionHomeViewpagerToEditEvent();
+        action.setPosition(position);
+        controller.navigate(action);
     }
 
     private void recyclerViewSetup() {

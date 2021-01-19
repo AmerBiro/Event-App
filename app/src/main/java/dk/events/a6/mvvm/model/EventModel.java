@@ -1,6 +1,16 @@
 package dk.events.a6.mvvm.model;
 
+import android.icu.util.Calendar;
+
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentId;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.w3c.dom.Document;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class EventModel {
 
@@ -10,6 +20,7 @@ public class EventModel {
     private String creator_id, creator_image, creator_name, creator_gender, creator_age;
     private String distance;
     private int cost;
+
 
     public EventModel(String event_id, String image, String name, int cost, String address, String date, String time, String age_range, String type, String description, String creator_id, String creator_image, String creator_name, String creator_gender, String creator_age, String distance) {
         this.event_id = event_id;

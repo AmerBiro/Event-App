@@ -132,8 +132,8 @@
         >
 
         <RadioButton
-            android:layout_width="67dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:buttonTint="@color/white"
             android:drawableRight="@drawable/ic_female_"
             android:text="Female"
@@ -141,8 +141,8 @@
             />
 
         <RadioButton
-            android:layout_width="83dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:buttonTint="@color/white"
             android:drawableRight="@drawable/ic_male_"
             android:text="Male"
