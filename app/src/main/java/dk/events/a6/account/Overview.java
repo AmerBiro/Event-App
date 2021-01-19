@@ -139,10 +139,9 @@ public class Overview extends Fragment implements View.OnClickListener, ImageCol
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.back_arrow_overview:
-                OverviewDirections.ActionOverviewToAccount action =
-                        OverviewDirections.actionOverviewToAccount();
-                action.setUserId(userId);
-                controller.navigate(action);
+                controller.navigate(R.id.action_overview_to_account);
+                controller.navigateUp();
+                controller.popBackStack();
                 break;
             default:
         }

@@ -72,10 +72,9 @@ public class Settings extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.settings_back_arrow:
-                SettingsDirections.ActionSettingsToAccount action =
-                        SettingsDirections.actionSettingsToAccount();
-                action.setUserId(userId);
-                controller.navigate(action);
+                controller.navigate(R.id.action_settings_to_account);
+                controller.navigateUp();
+                controller.popBackStack();
                 break;
             case R.id.verify:
                 userAuth.verifyUser();
