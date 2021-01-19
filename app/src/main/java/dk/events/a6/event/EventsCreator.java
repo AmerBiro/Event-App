@@ -24,6 +24,7 @@ import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -46,6 +47,7 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
     private ViewPager2 viewpager2;
     private ImageCollectionAdapter adapter;
     private List<ImageCollectionModel> imageCollectionModels;
+    private UserModel userModel;
     private String creator_Id;
     private String first_name, last_name, date_of_birth, gender, address, education, job, description;
 
@@ -64,6 +66,7 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
         Log.d(TAG, "onViewCreated: " + "creator_Id: " +  creator_Id);
         viewpager2Setup();
         getImageCollection();
+        getEventCreatorData();
     }
 
 
@@ -77,15 +80,31 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
         Query imageCollection = FirebaseFirestore.getInstance()
                 .collection("user").document(creator_Id)
                 .collection("image collection").orderBy("number");
-        imageCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        imageCollection.addSnapshotListener((value, error) -> {
+            imageCollectionModels = value.toObjects(ImageCollectionModel.class);
+            Log.d(TAG, "onEvent: " + imageCollectionModels.get(0).getImage_url());
+            adapter.setImageCollectionModels(imageCollectionModels);
+            adapter.notifyDataSetChanged();
+        });
+    }
+
+    private void getEventCreatorData(){
+        DocumentReference eventCreatorData = FirebaseFirestore.getInstance()
+                .collection("user").document(creator_Id);
+        eventCreatorData.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                imageCollectionModels = value.toObjects(ImageCollectionModel.class);
-                Log.d(TAG, "onEvent: " + imageCollectionModels.get(0).getImage_url());
-                adapter.setImageCollectionModels(imageCollectionModels);
-                adapter.notifyDataSetChanged();
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                userModel = value.toObject(UserModel.class);
+                binding.eventCreatorName.setText(userModel.getFirst_name() + " " + userModel.getLast_name());
+                binding.eventCreatorGender.setText(userModel.getGender());
+                binding.eventCreatorDateOfBirth.setText(userModel.getDate_of_birth());
+                binding.eventCreatorAddress.setText(userModel.getAddress());
+                binding.eventCreatorEducation.setText(userModel.getEducation());
+                binding.eventCreatorJob.setText(userModel.getJob());
+                binding.eventCreatorDescription.setText(userModel.getDescription());
             }
         });
+
     }
 
 
@@ -101,36 +120,6 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
     public void onItemClicked(int position) {
 
     }
-
-//    public void getUserData(){
-//        reference = FirebaseFirestore.getInstance()
-//                .collection("user").document(userId);
-//        reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                UserModel userModel = value.toObject(UserModel.class);
-////                Log.d(TAG, "onEvent: " + userModel.getFirst_name());
-//
-//                first_name = userModel.getFirst_name();
-//                last_name = userModel.getLast_name();
-//                date_of_birth = userModel.getDate_of_birth();
-//                gender = userModel.getGender();
-//                address = userModel.getAddress();
-//                education = userModel.getEducation();
-//                job = userModel.getJob();
-//                description = userModel.getDescription();
-//
-//                binding.name.setText(first_name + " " + last_name);
-//                binding.gender.setText(gender);
-//                binding.dateOfBirth.setText(date_of_birth);
-//                binding.address.setText(address);
-//                binding.education.setText(education);
-//                binding.job.setText(job);
-//                binding.description.setText(description);
-//
-//            }
-//        });
-//    }
 
 
 }
