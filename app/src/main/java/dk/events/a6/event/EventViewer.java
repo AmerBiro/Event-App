@@ -1,5 +1,6 @@
 package dk.events.a6.event;
 
+import android.app.DownloadManager;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedDispatcher;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.EventEventViewerBinding;
@@ -29,6 +31,11 @@ import androidx.viewpager2.widget.ViewPager2;
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
@@ -63,11 +70,14 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         alertDialogViewer = new AlertDialogViewer(getActivity(), view);
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }
         Log.d(TAG, "onSuccess: " + "UserId in EventViewer: " + userId);
         viewpager2Setup();
+
+
     }
 
     @Override
@@ -77,14 +87,18 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         binding.homeAccount.setOnClickListener(this);
     }
 
+
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
+
         eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
             @Override
             public void onChanged(List<EventModel> eventModels) {
-                Log.d(TAG, "onChanged: " + eventModels.get(0).getEvent_id());
+//                Log.d(TAG, "onChanged: " + eventModels.get(0).getEvent_id());
                 shareEvent = new ShareEvent(eventModels, getActivity());
                 getEventModels = eventModels;
 
@@ -101,7 +115,6 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         adapter = new EventAdapter(this);
         viewpager2.setAdapter(adapter);
         adapter.setActivity(getActivity());
-
     }
 
 
@@ -159,6 +172,10 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
                 break;
             case R.id.home_account:
                 alertDialogViewer.logInOrCreateAccount(R.id.action_eventViewer_to_signUp, R.id.action_eventViewer_to_registeration, R.id.action_eventViewer_to_account);
+                break;
+            case R.id.filter:
+
+                break;
             default:
         }
     }

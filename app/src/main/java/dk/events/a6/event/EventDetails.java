@@ -34,7 +34,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -44,7 +47,8 @@ import static android.content.ContentValues.TAG;
 
 public class EventDetails extends Fragment implements View.OnClickListener {
 
-    private @NonNull EventEventDetailsBinding binding;
+    private @NonNull
+    EventEventDetailsBinding binding;
     private NavController controller;
     private DocumentReference documentReference;
     private EventViewModel eventViewModel;
@@ -52,6 +56,9 @@ public class EventDetails extends Fragment implements View.OnClickListener {
     private String eventId;
     private ShareEvent shareEvent;
     private GetEventData getEventData;
+    private String reposter_id, reposter_image, reposter_name, reposter_gender, reposter_age;
+    private UserModel userModel;
+
 
     //send request
     private DocumentReference mUsersDatabase;
@@ -61,6 +68,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private DatabaseReference chatRequestRef;
     private DatabaseReference contactsRef;
+    private RepostEvent repostEvent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +92,12 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         chatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Request");
         contactsRef = FirebaseDatabase.getInstance().getReference().child("contacts");
 
+        repostEvent = new RepostEvent(controller, view, getActivity());
+
+        reposter_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.d(TAG, "onViewCreated: " + reposter_id);
+        getUserData();
+
 //        MangeChatRequests();
 
     }
@@ -94,6 +108,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         binding.eventDetailsShare.setOnClickListener(this);
         binding.eventDetailsImage.setOnClickListener(this);
         binding.eventDetailsBackArrow.setOnClickListener(this);
+        binding.repost.setOnClickListener(this);
     }
 
     @Override
@@ -103,12 +118,12 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         eventViewModel.getEventModelData().observe(getViewLifecycleOwner(), new Observer<List<EventModel>>() {
             @Override
             public void onChanged(List<EventModel> eventModels) {
-                Log.d(TAG, "onSuccess: " + "Event name: " +  eventModels.get(position).getName());
+                Log.d(TAG, "onSuccess: " + "Event name: " + eventModels.get(position).getName());
                 shareEvent = new ShareEvent(eventModels, getActivity());
                 getEventData = new GetEventData(eventModels, position);
                 eventId = getEventData.getEvent_id();
 
-                Log.d(TAG, "onSuccess: " + "CreatorId: " +  getEventData.getCreator_id());
+                Log.d(TAG, "onSuccess: " + "CreatorId: " + getEventData.getCreator_id());
 
                 Picasso
                         .get()
@@ -128,10 +143,25 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         });
     }
 
+    private void getUserData() {
+        DocumentReference userData = FirebaseFirestore.getInstance()
+                .collection("user").document(reposter_id);
+        userData.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                userModel = value.toObject(UserModel.class);
+                reposter_image = userModel.getImage_url_account();
+                reposter_name = userModel.getFirst_name();
+                reposter_gender = userModel.getGender();
+                reposter_age = userModel.getDate_of_birth();
+            }
+        });
+    }
+
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.event_details_share:
                 shareEvent.shareEvent(position);
                 break;
@@ -146,7 +176,27 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 controller.popBackStack();
                 break;
             case R.id.repost:
-
+                repostEvent.Repost(
+                        getEventData.getImage(),
+                        getEventData.getName(),
+                        getEventData.getCost(),
+                        getEventData.getAddress(),
+                        getEventData.getDate(),
+                        getEventData.getTime(),
+                        getEventData.getMin(),
+                        getEventData.getMax(),
+                        getEventData.getType(),
+                        getEventData.getDescription(),
+                        getEventData.getDistance(),
+                        reposter_id,
+                        reposter_image,
+                        reposter_name,
+                        reposter_gender,
+                        reposter_age,
+                        binding.repost,
+                        binding.repostProgressBar,
+                        R.id.action_eventDetails_to_homeViewpager
+                        );
                 break;
             default:
         }
@@ -158,36 +208,36 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild(eventId)){
+                        if (snapshot.hasChild(eventId)) {
                             String request_type = snapshot.child(eventId).child("request_type").getValue().toString();
-                            if (request_type.equals("sent")){
+                            if (request_type.equals("sent")) {
                                 current_state = "request_sent";
 //                                //todo: done
                                 binding.wishToJoinButton.setImageResource(R.drawable.ic_baseline_close_24);
-                            }
-                            else if (request_type.equals("received")){
+                            } else if (request_type.equals("received")) {
                                 current_state = "request_received";
                                 binding.wishToJoinButton.setImageResource(R.drawable.wish_to_join_icon);
 
                             }
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });
 
-        if (!sender_user_id.equals(receiver_user_id)){
+        if (!sender_user_id.equals(receiver_user_id)) {
 
             binding.wishToJoinButton.setOnClickListener(v -> {
 
                 //sent request
-                if (current_state.equals("new")){
+                if (current_state.equals("new")) {
                     sendJoinRequest();
                 }
                 //cancel request
-                if (current_state.equals("request_sent")){
+                if (current_state.equals("request_sent")) {
                     cancelJoinRequest();
                 }
 //                    //accept request
@@ -200,7 +250,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
 //                    }
             });
 
-        }else{
+        } else {
             binding.wishToJoinButton.setVisibility(View.INVISIBLE);
         }
     }
@@ -213,7 +263,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             contactsRef
                                     .child(receiver_user_id)
                                     .child(sender_user_id)
@@ -221,7 +271,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
+                                            if (task.isSuccessful()) {
                                                 binding.wishToJoinButton.setEnabled(true);
                                                 current_state = "new";
                                                 binding.wishToJoinButton.setImageResource(R.drawable.wish_to_join_icon);
@@ -245,7 +295,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             contactsRef
                                     .child(receiver_user_id)
                                     .child(sender_user_id)
@@ -254,7 +304,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
+                                            if (task.isSuccessful()) {
                                                 chatRequestRef
                                                         .child(sender_user_id)
                                                         .child(receiver_user_id)
@@ -262,7 +312,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
-                                                                if (task.isSuccessful()){
+                                                                if (task.isSuccessful()) {
                                                                     chatRequestRef
                                                                             .child(receiver_user_id)
                                                                             .child(sender_user_id)
@@ -297,7 +347,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             chatRequestRef
                                     .child(eventId)
                                     .child(sender_user_id)
@@ -306,7 +356,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
+                                            if (task.isSuccessful()) {
                                                 //todo:
                                                 binding.wishToJoinButton.setImageResource(R.drawable.ic_baseline_close_24);
                                                 current_state = "request_sent";
@@ -322,7 +372,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
 
     }
 
-    private void cancelJoinRequest(){
+    private void cancelJoinRequest() {
 
         chatRequestRef
 
@@ -332,7 +382,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             chatRequestRef
 
                                     .child(eventId)
@@ -341,7 +391,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
+                                            if (task.isSuccessful()) {
                                                 //todo
                                                 binding.wishToJoinButton.setImageResource(R.drawable.wish_to_join_icon);
                                                 current_state = "new";

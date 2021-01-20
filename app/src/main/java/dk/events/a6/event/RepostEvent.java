@@ -3,6 +3,7 @@ package dk.events.a6.event;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -33,13 +34,13 @@ import static android.content.ContentValues.TAG;
 
 public class RepostEvent {
 
-    private String imageId, name, address, date, time, age_range, type, description, distance,
-            reposter_id, reposter_image, reposter_name, reposter_gender, reposter_age;
-    private CollectionReference eventRef;
+    private String image, name, address, date, time, type, description, distance;
+    private String reposter_id, reposter_image, reposter_name, reposter_gender, reposter_age;
+    private CollectionReference repostEventRef;
     private NavController controller;
     private View view;
     private Activity activity;
-    private int cost;
+    private int cost, min, max;
 
     public RepostEvent(NavController controller, View view, Activity activity) {
         this.controller = controller;
@@ -48,25 +49,23 @@ public class RepostEvent {
         this.controller = Navigation.findNavController(this.view);
     }
 
-    public void Repost(String imageId,
-                       String name, int cost, String address, String date, String time,
-                       String age_range, String type, String description, String distance,
+    public void Repost(String image, String name, int cost, String address, String date, String time,
+                       int min, int max, String type, String description, String distance,
                        String reposter_id, String reposter_image, String reposter_name,
                        String reposter_gender, String reposter_age,
-                       ImageButton repostButton, ProgressBar repost_progressBar
+                       ImageButton repostButton, ProgressBar repost_progressBar, int action
     ) {
         repostButton.setVisibility(View.INVISIBLE);
         repost_progressBar.setVisibility(View.VISIBLE);
 
-        this.imageId = imageId;
-        Log.d(TAG, "onSuccess: " + "Old imageId: " + imageId);
-
+        this.image = image;
         this.name = name;
         this.cost = cost;
+        this.min = min;
+        this.max = max;
         this.address = address;
         this.date = date;
         this.time = time;
-        this.age_range = age_range;
         this.type = type;
         this.description = description;
         this.distance = distance;
@@ -78,12 +77,15 @@ public class RepostEvent {
 
         Map<String, Object> repost = new HashMap<>();
 
+
+        repost.put("image", this.image);
         repost.put("name", this.name);
         repost.put("cost", this.cost);
         repost.put("address", this.address);
         repost.put("date", this.date);
         repost.put("time", this.time);
-        repost.put("age_range", this.age_range);
+        repost.put("min", this.min);
+        repost.put("max", this.max);
         repost.put("type", this.type);
         repost.put("description", this.description);
         repost.put("distance", this.distance);
@@ -93,98 +95,14 @@ public class RepostEvent {
         repost.put("creator_gender", this.reposter_gender);
         repost.put("creator_age", this.reposter_age);
 
-        this.eventRef = FirebaseFirestore.getInstance()
+        this.repostEventRef = FirebaseFirestore.getInstance()
                 .collection("event");
-        this.eventRef.add(repost).addOnCompleteListener(task -> {
+        this.repostEventRef.add(repost).addOnCompleteListener(task -> {
             // Successfully Reposting event
             if (task.isSuccessful()) {
-                String repostedEventId = task.getResult().getId();
-                Log.d(TAG, "onSuccess: " + "Reposting evemt successfully with eventId: " + repostedEventId);
-
-                // Downloading the old image
-                StorageReference downloadOldImageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference downloadOldImageRef1 = downloadOldImageRef.child("event").child(imageId);
-
-                downloadOldImageRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()) {
-                            // Successfully downloading the old image
-                            Uri downUri = task.getResult();
-                            String downloadedImageUrl = downUri.toString();
-
-                            
-                            Log.d(TAG, "onSuccess: " + "Downloading old image successfully: " + downloadedImageUrl);
-
-                            StorageReference reference = FirebaseStorage.getInstance().getReference();
-                            StorageReference reference1 = reference.child("event/" + repostedEventId);
-
-                            reference1.putFile(downUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                    if (task.isSuccessful()){
-                                        // Successfully uploading reposted image
-                                        Log.d(TAG, "onSuccess: " + "Successfully uploading reposted image");
-
-                                        reference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Uri> task) {
-                                                if (task.isSuccessful()){
-                                                    // Downloading the new image successfully
-                                                    String newImage = task.getResult().toString();
-                                                    Log.d(TAG, "onSuccess: " + "Successfully downloading image_url");
-
-                                                    DocumentReference reference1 = FirebaseFirestore.getInstance()
-                                                            .collection("event").document(repostedEventId);
-
-                                                    Map<String, Object> repostedImage = new HashMap<>();
-                                                    repostedImage.put("image", newImage);
-
-                                                    reference1.update(repostedImage).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()){
-                                                                // Successfully updating reposted event data
-                                                                Log.d(TAG, "onSuccess: " + "Successfully updating reposted event data");
-                                                                repost_progressBar.setVisibility(View.INVISIBLE);
-                                                                Toast.makeText(activity, "Repost successfully", 0).show();
-//                                                                controller.navigate(action);
-                                                            }else{
-                                                                // Error updating reposted event data
-                                                                Log.d(TAG, "onFailure: " + "Error updating reposted event data: " + task.getException());
-                                                                repostButton.setVisibility(View.VISIBLE);
-                                                                repost_progressBar.setVisibility(View.INVISIBLE);
-                                                                return;
-                                                            }
-                                                        }
-                                                    });
-                                                }else{
-                                                    // Error the new image successfully
-                                                    Log.d(TAG, "onFailure: " + "Error uploading reposted image: " + task.getException());
-                                                    repostButton.setVisibility(View.VISIBLE);
-                                                    repost_progressBar.setVisibility(View.INVISIBLE);
-                                                    return;
-                                                }
-                                            }
-                                        });
-                                    }else{
-                                        // Error uploading reposted image
-                                        Log.d(TAG, "onFailure: " + "Error uploading reposted image: " + task.getException());
-                                        repostButton.setVisibility(View.VISIBLE);
-                                        repost_progressBar.setVisibility(View.INVISIBLE);
-                                        return;
-                                    }
-                                }
-                            });
-                        } else {
-                            // Error downloading the old image
-                            Log.d(TAG, "onFailure: " + "Error downloading the old image: " + task.getException());
-                            repostButton.setVisibility(View.VISIBLE);
-                            repost_progressBar.setVisibility(View.INVISIBLE);
-                            return;
-                        }
-                    }
-                });
+                controller.navigate(action);
+                Log.d(TAG, "Repost: " + "Reposted eventId: " + task.getResult().getId());
+                repost_progressBar.setVisibility(View.INVISIBLE);
             } else {
                 // Error Reposting event
                 Log.d(TAG, "onFailure: " + "Error reposting an event: " + task.getException());

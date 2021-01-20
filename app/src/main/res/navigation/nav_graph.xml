@@ -357,6 +357,12 @@
             android:name="position"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_eventDetails_to_homeViewpager"
+            app:destination="@id/homeViewpager"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/eventDetails"
+            />
     </fragment>
 
     <fragment
