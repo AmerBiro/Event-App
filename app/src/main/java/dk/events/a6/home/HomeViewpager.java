@@ -75,16 +75,16 @@ public class HomeViewpager extends Fragment implements View.OnClickListener {
         adapter = new AccountViewPagerAdapter(getChildFragmentManager(), 0);
 
         adapter.addFragment(myEvents, "My Events");
-        adapter.addFragment(chat, "Chat");
-        adapter.addFragment(favorite, "Favorite");
-        adapter.addFragment(requestEvent, "Request");
+   //    adapter.addFragment(chat, "Chat");
+//        adapter.addFragment(favorite, "Favorite");
+//        adapter.addFragment(requestEvent, "Request");
         viewPager.setAdapter(adapter);
 
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_event_24);
-        tabLayout.getTabAt(1).setIcon(R.drawable.icon_chat);
-        tabLayout.getTabAt(2).setIcon(R.drawable.icon_favorite);
-        tabLayout.getTabAt(3).setIcon(R.drawable.added_icon);
+   //     tabLayout.getTabAt(1).setIcon(R.drawable.icon_chat);
+//        tabLayout.getTabAt(2).setIcon(R.drawable.icon_favorite);
+//        tabLayout.getTabAt(3).setIcon(R.drawable.added_icon);
 
     }
 

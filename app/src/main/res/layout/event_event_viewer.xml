@@ -50,6 +50,7 @@
             android:layout_height="45dp"
             android:background="?android:attr/selectableItemBackground"
             app:srcCompat="@drawable/filter"
+            android:visibility="gone"
             android:layout_marginRight="100dp"
             />
 
