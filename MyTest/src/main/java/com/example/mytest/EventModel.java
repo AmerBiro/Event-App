@@ -11,6 +11,9 @@ public class EventModel {
     private String distance;
     private int cost, min, max;
 
+    public EventModel(String name) {
+        this.name = name;
+    }
 
     public EventModel(String event_id, String image, String name, String address, String date, String time, String type, String description, String creator_id, String creator_image, String creator_name, String creator_gender, String creator_age, String distance, int cost, int min, int max) {
         this.event_id = event_id;
