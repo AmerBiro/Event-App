@@ -93,8 +93,9 @@ public class AccountImages extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.arrow_next:
-                if (imageChecker == 0){
-                    Toast.makeText(getActivity(), "At least profile image must be selected", 1).show();
+                if (imageChecker < 2){
+                    Toast.makeText(getActivity(), "At least profile image and a background image must be selected", 1).show();
+                    return;
                 }else
                 controller.navigate(R.id.action_accountImages_to_eventViewer);
                 break;
@@ -145,7 +146,7 @@ public class AccountImages extends Fragment implements View.OnClickListener {
                     userId, imagePosition,
                     imageViews[imagePosition], binding.progressBar);
             imageHandler.uploadImageToFirebase();
-            imageChecker = 1;
+            imageChecker++;
         }
     }
 

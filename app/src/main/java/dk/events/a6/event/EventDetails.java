@@ -84,7 +84,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         chatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Request");
         contactsRef = FirebaseDatabase.getInstance().getReference().child("contacts");
 
-        MangeChatRequests();
+//        MangeChatRequests();
 
     }
 

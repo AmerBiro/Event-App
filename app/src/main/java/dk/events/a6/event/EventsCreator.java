@@ -83,7 +83,7 @@ public class EventsCreator extends Fragment implements ImageCollectionAdapter.On
                 .collection("image collection").orderBy("number");
         imageCollection.addSnapshotListener((value, error) -> {
             imageCollectionModels = value.toObjects(ImageCollectionModel.class);
-            Log.d(TAG, "onEvent: " + imageCollectionModels.get(0).getImage_url());
+//            Log.d(TAG, "onEvent: " + imageCollectionModels.get(0).getImage_url());
             adapter.setImageCollectionModels(imageCollectionModels);
             adapter.notifyDataSetChanged();
         });
