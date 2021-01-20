@@ -127,7 +127,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/edit_event_selector"
+                        android:id="@+id/edit_event_date_selector"
                         style="@style/field_sub_field"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -231,7 +231,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/edit_event_type"
+                        android:id="@+id/edit_event_type_selector"
                         style="@style/field_sub_field"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
