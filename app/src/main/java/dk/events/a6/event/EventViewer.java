@@ -119,10 +119,18 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
         Log.d(TAG, "onItemClicked: " + "Avatar " + position);
         getEventData = new GetEventData(getEventModels, position);
         position = position;
-        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(getEventData.getCreator_id())) {
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Log.d(TAG, "onAvatarClicked: " + "Event was created by another user");
+            EventViewerDirections.ActionEventViewerToEventsCreator action =
+                    EventViewerDirections.actionEventViewerToEventsCreator();
+            action.setCreatorId(getEventData.getCreator_id());
+            controller.navigate(action);
+            return;
+        } else if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(getEventData.getCreator_id())) {
             Log.d(TAG, "onAvatarClicked: " + "Event was created by the current user");
             controller.navigate(R.id.action_eventViewer_to_overview);
-        } else{
+        } else {
             Log.d(TAG, "onAvatarClicked: " + "Event was created by another user");
             EventViewerDirections.ActionEventViewerToEventsCreator action =
                     EventViewerDirections.actionEventViewerToEventsCreator();
@@ -147,7 +155,7 @@ public class EventViewer extends Fragment implements EventAdapter.OnEventItemCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.home_home:
-                alertDialogViewer.logInOrCreateAccount(R.id.action_eventViewer_to_signUp, R.id.action_eventViewer_to_registeration, R.id.action_eventViewer_to_homeViewpager);
+                alertDialogViewer.verifyAccount(R.id.action_eventViewer_to_signUp, R.id.action_eventViewer_to_registeration, R.id.action_eventViewer_to_homeViewpager);
                 break;
             case R.id.home_account:
                 alertDialogViewer.logInOrCreateAccount(R.id.action_eventViewer_to_signUp, R.id.action_eventViewer_to_registeration, R.id.action_eventViewer_to_account);

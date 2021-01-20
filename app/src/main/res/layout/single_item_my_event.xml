@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="bottom"
-            android:layout_margin="8dp"
+            android:layout_margin="16dp"
             >
 
 
@@ -36,7 +36,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Event name: "
+                android:textSize="24sp"
                 style="@style/my_event_sub_title"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -45,6 +47,8 @@
                 android:layout_height="wrap_content"
                 android:text="17/01/2021, 14:30"
                 style="@style/my_event_sub_title"
+                android:textStyle="italic"
+                android:textSize="24sp"
                 />
         </LinearLayout>
 
