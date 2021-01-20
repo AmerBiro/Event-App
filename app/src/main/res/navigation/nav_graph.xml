@@ -329,6 +329,9 @@
             android:name="eventId"
             app:argType="string"
             android:defaultValue="null" />
+        <action
+            android:id="@+id/action_editEvent_to_homeViewpager"
+            app:destination="@id/homeViewpager" />
     </fragment>
 
 

@@ -65,7 +65,6 @@ public class CreateEventView extends Fragment implements View.OnClickListener {
     private String[] data;
     private String userId;
     private int imagePosition;
-    private ImageHandler imageHandler;
     private Uri eventUri;
     private FieldChecker checker;
     private String[] errorMessage;
