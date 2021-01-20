@@ -12,8 +12,8 @@ class EventTest {
 
     @Test
     void getName() {
-        EventModel eventModel = new EventModel("eventname");
-        assertEquals("eventname", eventModel.getName());
+        EventModel eventModel = new EventModel("eventName");
+        assertEquals("eventName", eventModel.getName());
     }
 
 
