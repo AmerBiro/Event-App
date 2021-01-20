@@ -18,7 +18,6 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".event.EditEventActivity"></activity>
         <activity android:name=".message.MessageActivity" />
 
         <uses-library
