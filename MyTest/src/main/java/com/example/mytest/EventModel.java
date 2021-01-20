@@ -6,10 +6,12 @@ public class EventModel {
 
     @DocumentId
     private String event_id;
-    private String image, name, address, date, time, type, description;
+    private String image, address, date, time, type, description;
     private String creator_id, creator_image, creator_name, creator_gender, creator_age;
     private String distance;
     private int cost, min, max;
+
+    private String name = "hollo world";
 
     public EventModel(String name) {
         this.name = name;
