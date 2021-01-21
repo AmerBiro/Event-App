@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import dk.events.a6.R;
 import dk.events.a6.databinding.EventEventDetailsBinding;
+import dk.events.a6.logic.AlertDialogViewer;
 import dk.events.a6.mvvm.model.EventModel;
 import dk.events.a6.mvvm.model.UserModel;
 import dk.events.a6.mvvm.viewmodel.EventViewModel;
@@ -59,6 +60,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
     private String reposter_id, reposter_image, reposter_name, reposter_gender, reposter_age;
     private UserModel userModel;
     private RepostEvent repostEvent;
+    private AlertDialogViewer alertDialogViewer;
 
     //send request
 //    private DocumentReference mUsersDatabase;
@@ -83,6 +85,7 @@ public class EventDetails extends Fragment implements View.OnClickListener {
         controller = Navigation.findNavController(view);
         position = EventDetailsArgs.fromBundle(getArguments()).getPosition();
         Log.d(TAG, "onSuccess: " + "Position: " + position);
+        alertDialogViewer = new AlertDialogViewer(getActivity(), view);
 
 //        mAuth = FirebaseAuth.getInstance();
 //        sender_user_id = mAuth.getUid();
@@ -94,7 +97,9 @@ public class EventDetails extends Fragment implements View.OnClickListener {
 
         repostEvent = new RepostEvent(controller, view, getActivity());
 
-        reposter_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            reposter_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
         Log.d(TAG, "onViewCreated: " + reposter_id);
         getUserData();
 
@@ -144,18 +149,20 @@ public class EventDetails extends Fragment implements View.OnClickListener {
     }
 
     private void getUserData() {
-        DocumentReference userData = FirebaseFirestore.getInstance()
-                .collection("user").document(reposter_id);
-        userData.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                userModel = value.toObject(UserModel.class);
-                reposter_image = userModel.getImage_url_account();
-                reposter_name = userModel.getFirst_name();
-                reposter_gender = userModel.getGender();
-                reposter_age = userModel.getDate_of_birth();
-            }
-        });
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            DocumentReference userData = FirebaseFirestore.getInstance()
+                    .collection("user").document(reposter_id);
+            userData.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    userModel = value.toObject(UserModel.class);
+                    reposter_image = userModel.getImage_url_account();
+                    reposter_name = userModel.getFirst_name();
+                    reposter_gender = userModel.getGender();
+                    reposter_age = userModel.getDate_of_birth();
+                }
+            });
+        }
     }
 
 
@@ -176,27 +183,29 @@ public class EventDetails extends Fragment implements View.OnClickListener {
                 controller.popBackStack();
                 break;
             case R.id.repost:
-                repostEvent.Repost(
-                        getEventData.getImage(),
-                        getEventData.getName(),
-                        getEventData.getCost(),
-                        getEventData.getAddress(),
-                        getEventData.getDate(),
-                        getEventData.getTime(),
-                        getEventData.getMin(),
-                        getEventData.getMax(),
-                        getEventData.getType(),
-                        getEventData.getDescription(),
-                        getEventData.getDistance(),
-                        reposter_id,
-                        reposter_image,
-                        reposter_name,
-                        reposter_gender,
-                        reposter_age,
-                        binding.repost,
-                        binding.repostProgressBar,
-                        R.id.action_eventDetails_to_homeViewpager
-                        );
+                if (alertDialogViewer.repost(R.id.action_eventDetails_to_signUp, R.id.action_eventDetails_to_registeration)){
+                    repostEvent.Repost(
+                            getEventData.getImage(),
+                            getEventData.getName(),
+                            getEventData.getCost(),
+                            getEventData.getAddress(),
+                            getEventData.getDate(),
+                            getEventData.getTime(),
+                            getEventData.getMin(),
+                            getEventData.getMax(),
+                            getEventData.getType(),
+                            getEventData.getDescription(),
+                            getEventData.getDistance(),
+                            reposter_id,
+                            reposter_image,
+                            reposter_name,
+                            reposter_gender,
+                            reposter_age,
+                            binding.repost,
+                            binding.repostProgressBar,
+                            R.id.action_eventDetails_to_homeViewpager
+                    );
+                }
                 break;
             default:
         }

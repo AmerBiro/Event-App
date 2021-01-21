@@ -363,6 +363,12 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/eventDetails"
             />
+        <action
+            android:id="@+id/action_eventDetails_to_registeration"
+            app:destination="@id/registeration" />
+        <action
+            android:id="@+id/action_eventDetails_to_signUp"
+            app:destination="@id/signUp" />
     </fragment>
 
     <fragment

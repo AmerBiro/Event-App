@@ -120,5 +120,28 @@ public class AlertDialogViewer {
 
     }
 
+    public Boolean repost(int createAccount, int logIn){
+        if (FirebaseAuth.getInstance().getCurrentUser() == null){
+            AlertDialog.Builder account = new AlertDialog.Builder(activity);
+            account.setTitle("Account needed");
+            account.setMessage("You can log in / create a new account")
+                    .setPositiveButton("Create account", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            controller.navigate(createAccount);
+                            dialog.cancel();
+                        }
+                    })
+                    .setNegativeButton("Log in", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            controller.navigate(logIn);
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = account.create();
+            alert.show();
+            return false;
+        }else return true;
+    }
+
 
 }
